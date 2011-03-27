@@ -1,0 +1,11 @@
+C:\home\kevinj\projects\MBlog\MBlogRepository\obj\Debug\ResolveAssemblyReference.cache
+C:\home\kevinj\projects\MBlog\MBlogRepository\bin\Debug\EntityFramework.dll
+C:\home\kevinj\projects\MBlog\MBlogRepository\bin\Debug\MBlogModel.dll
+C:\home\kevinj\projects\MBlog\MBlogRepository\bin\Debug\Repository.dll
+C:\home\kevinj\projects\MBlog\MBlogRepository\bin\Debug\MBlogModel.pdb
+C:\home\kevinj\projects\MBlog\MBlogRepository\bin\Debug\Repository.pdb
+C:\home\kevinj\projects\MBlog\MBlogRepository\bin\Debug\EntityFramework.xml
+C:\home\kevinj\projects\MBlog\MBlogRepository\bin\Debug\MBlogRepository.dll
+C:\home\kevinj\projects\MBlog\MBlogRepository\bin\Debug\MBlogRepository.pdb
+C:\home\kevinj\projects\MBlog\MBlogRepository\obj\Debug\MBlogRepository.dll
+C:\home\kevinj\projects\MBlog\MBlogRepository\obj\Debug\MBlogRepository.pdb

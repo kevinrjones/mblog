@@ -1,0 +1,4 @@
+development:
+  adapter: sqlserver
+  mode: odbc
+  dsn: Provider=SQLOLEDB;Data Source=.;integrated security=true;initial catalog=mblog_test

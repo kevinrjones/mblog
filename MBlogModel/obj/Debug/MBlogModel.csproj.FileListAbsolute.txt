@@ -1,0 +1,7 @@
+c:\home\kevinj\projects\MBlog\MBlogModel\bin\Debug\MBlogModel.dll
+c:\home\kevinj\projects\MBlog\MBlogModel\bin\Debug\MBlogModel.pdb
+c:\home\kevinj\projects\MBlog\MBlogModel\bin\Debug\EntityFramework.dll
+c:\home\kevinj\projects\MBlog\MBlogModel\bin\Debug\EntityFramework.xml
+c:\home\kevinj\projects\MBlog\MBlogModel\obj\Debug\ResolveAssemblyReference.cache
+c:\home\kevinj\projects\MBlog\MBlogModel\obj\Debug\MBlogModel.dll
+c:\home\kevinj\projects\MBlog\MBlogModel\obj\Debug\MBlogModel.pdb

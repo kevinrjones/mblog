@@ -1,0 +1,7 @@
+c:\home\kevinj\projects\MBlog\Repository\bin\Debug\Repository.dll
+c:\home\kevinj\projects\MBlog\Repository\bin\Debug\Repository.pdb
+c:\home\kevinj\projects\MBlog\Repository\bin\Debug\EntityFramework.dll
+c:\home\kevinj\projects\MBlog\Repository\bin\Debug\EntityFramework.xml
+c:\home\kevinj\projects\MBlog\Repository\obj\Debug\ResolveAssemblyReference.cache
+c:\home\kevinj\projects\MBlog\Repository\obj\Debug\Repository.dll
+c:\home\kevinj\projects\MBlog\Repository\obj\Debug\Repository.pdb
