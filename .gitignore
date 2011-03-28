@@ -18,13 +18,12 @@ Thumbs.db
 *.bak
 *.cache
 *.ilk
-**/*.log
 [Bb]in
 [Dd]ebug*/
 *.lib
 *.sbr
+*.log
 obj/
 [Rr]elease*/
 _ReSharper*/
 [Tt]est[Rr]esult*
-**/*.log
