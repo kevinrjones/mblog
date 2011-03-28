@@ -1,4 +1,27 @@
 development:
   adapter: sqlserver
   mode: odbc
-  dsn: Provider=SQLOLEDB;Data Source=.;integrated security=true;initial catalog=mblog_test
+  dsn: mblog
+  database: mblog_development
+  host: .
+
+test:
+  adapter: sqlserver
+  mode: odbc
+  dsn: mblog
+  database: mblog_test
+  host: .
+
+staging:
+  adapter: sqlserver
+  mode: odbc
+  dsn: mblog
+  database: mblog_staging
+  host: .
+
+production:
+  adapter: sqlserver
+  mode: odbc
+  dsn: mblog
+  database: mblog
+  host: .

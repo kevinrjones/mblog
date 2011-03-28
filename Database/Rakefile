@@ -13,6 +13,8 @@ task :environment do
   @config = YAML::load(File.open('database.yml'))
   @logger = File.join(File.dirname(__FILE__), 'database.log')
 
-  ActiveRecord::Base.establish_connection(@config["development"])
+  ActiveSupport::LogSubscriber.colorize_logging=false
+  @environment = ENV["RAILS_ENV"] || "development"
+  ActiveRecord::Base.establish_connection(@config[@environment])
   ActiveRecord::Base.logger = Logger.new(File.open(@logger, 'a'))
 end
