@@ -1,0 +1,20 @@
+require 'active_record'
+require 'yaml'
+require 'logger'
+
+task :default => :migrate
+
+desc "Migrate the database through scripts in db/migrate. Target specific version with VERSION=x"
+task :migrate => :environment do
+  ActiveRecord::Migrator.migrate('db/migrate', ENV["VERSION"] ? ENV["VERSION"].to_i : nil )
+end
+
+task :environment do
+  @config = YAML::load(File.open('database.yml'))
+  @logger = File.join(File.dirname(__FILE__), 'database.log')
+
+  ActiveSupport::LogSubscriber.colorize_logging=false
+  @environment = ENV["RAILS_ENV"] || "development"
+  ActiveRecord::Base.establish_connection(@config[@environment])
+  ActiveRecord::Base.logger = Logger.new(File.open(@logger, 'a'))
+end
