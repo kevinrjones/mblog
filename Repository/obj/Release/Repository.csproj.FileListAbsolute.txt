@@ -1,7 +1,0 @@
-c:\home\kevinj\projects\MBlog\Repository\bin\Release\Repository.dll
-c:\home\kevinj\projects\MBlog\Repository\bin\Release\Repository.pdb
-c:\home\kevinj\projects\MBlog\Repository\bin\Release\EntityFramework.dll
-c:\home\kevinj\projects\MBlog\Repository\bin\Release\EntityFramework.xml
-c:\home\kevinj\projects\MBlog\Repository\obj\Release\ResolveAssemblyReference.cache
-c:\home\kevinj\projects\MBlog\Repository\obj\Release\Repository.dll
-c:\home\kevinj\projects\MBlog\Repository\obj\Release\Repository.pdb

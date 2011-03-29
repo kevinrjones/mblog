@@ -1,5 +1,0 @@
-c:\home\kevinj\projects\MBlog\ABlogRepository\bin\Debug\ABlogRepository.dll
-c:\home\kevinj\projects\MBlog\ABlogRepository\bin\Debug\ABlogRepository.pdb
-c:\home\kevinj\projects\MBlog\ABlogRepository\obj\Debug\ResolveAssemblyReference.cache
-c:\home\kevinj\projects\MBlog\ABlogRepository\obj\Debug\ABlogRepository.dll
-c:\home\kevinj\projects\MBlog\ABlogRepository\obj\Debug\ABlogRepository.pdb
