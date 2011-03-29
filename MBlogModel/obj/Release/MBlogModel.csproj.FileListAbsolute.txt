@@ -1,7 +1,0 @@
-c:\home\kevinj\projects\MBlog\MBlogModel\bin\Release\MBlogModel.dll
-c:\home\kevinj\projects\MBlog\MBlogModel\bin\Release\MBlogModel.pdb
-c:\home\kevinj\projects\MBlog\MBlogModel\bin\Release\EntityFramework.dll
-c:\home\kevinj\projects\MBlog\MBlogModel\bin\Release\EntityFramework.xml
-c:\home\kevinj\projects\MBlog\MBlogModel\obj\Release\ResolveAssemblyReference.cache
-c:\home\kevinj\projects\MBlog\MBlogModel\obj\Release\MBlogModel.dll
-c:\home\kevinj\projects\MBlog\MBlogModel\obj\Release\MBlogModel.pdb

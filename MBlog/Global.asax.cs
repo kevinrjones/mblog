@@ -47,32 +47,12 @@ namespace MBlog
 
         protected void Application_Start()
         {
-            RegisterDbContexts();
-
             IUnityContainer container = GetUnityContainer();
             DependencyResolver.SetResolver(new UnityDependencyResolver(container));
             AreaRegistration.RegisterAllAreas();
 
             RegisterGlobalFilters(GlobalFilters.Filters);
             RegisterRoutes(RouteTable.Routes);
-        }
-
-        private void RegisterDbContexts()
-        {
-            using (DbContext myDb = new CreationDbContext(ConfigurationManager.ConnectionStrings["mblog"].ConnectionString))
-            {
-                if (ConfigurationManager.AppSettings["recreateDatabase"] == "true")
-                {
-                    Database.SetInitializer(new CreationDbContext.AlwaysInitialize());
-                    myDb.Database.Initialize(false);
-                }
-                else
-                {
-                    Database.SetInitializer(new CreationDbContext.SometimesInitialize());
-                }
-                //todo: do I need this?
-                myDb.Configuration.AutoDetectChangesEnabled = true;
-            }
         }
 
         private IUnityContainer GetUnityContainer()
