@@ -47,6 +47,7 @@ legend { font-size: 1.2em; font-weight: bold; padding: 0 10px 0 10px; }
 .blog-inner-body {width: 75%; float: left; padding: 10px 0 10px 10px; }
 .blog-main-body {background-color: White; overflow:auto; width:100%;}
 .blog-side-bar {float:right; width: 20%;}
+.inline-code {font-family:Consolas, Courier New, Courier; font-weight: bold; font-size: larger; }
 
 /* Styles for validation helpers
 -----------------------------------------------------------*/

@@ -35,5 +35,15 @@ INSERT INTO [$(DATABASE)].[dbo].[posts]
    ,'<p>So, the first real post about the site (with screenshot!) I''m using code-first initially, although I know I''ll be moving away from that. This means I need models to create the database tables and to map to those tables, I''ll have more to say about models and view models soon. My first model is a <code>Post</code> that looks like this</p><pre  class="brush: csharp">    public class Post    {        public int Id { get; set; }        [Required]        public string Title { get; set; }        [Required]        [MaxLength(int.MaxValue)]        public string BlogPost { get; set; }        [Required]        public DateTime Posted { get; set; }        public DateTime? Edited { get; set; }    }</pre><p>What happens when entity framework tries to create a database from this is (roughly) this. It takes the Id property as the primary key (convention over configuration) All the other fields it also uses convention for, which I override with the attributes. So the reference types get created as nullable (the <pre>[Required]</pre> makes them non nullable. The strings get given a max length of 128, the <pre>[MaxLength]</pre> attribute overrides that. Making the Edited property a <pre>Nullable<DateTime></pre> makes that nullable. And off we go!</p>'
   ,'2011-03-27 15:00:00')
 
+INSERT INTO [$(DATABASE)].[dbo].[posts]
+		([title]
+		,[blogPost]
+		,[posted])
+     VALUES
+  ('Walking Skeleton'
+   ,'<p>So the ''walking skeleton'' is in place. What is a ''Walking Skeleton'', it''s the bare bones of an application that you need in place to help you move forward. If I was writing this using a pure TDD then I would have started with a test project, written a test for a <code>Post</code> class, then written the class (even though this class is anaemic). Then added a test project for my controller, written some tests and then started the controller. But come on, this is boring. Not just that, it''s counter productive. As developers we want to see forward progress, hence the walking skeleton. There''s a great description <a href="http://alistair.cockburn.us/Walking+skeleton">here</a>.</p><p>Next step is testing and thinking about multi-user before I add an editor.</p>'
+  ,'2011-03-30 21:32:00')
+
+
 GO
 
