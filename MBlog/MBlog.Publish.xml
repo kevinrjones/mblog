@@ -1,15 +1,14 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <publishData>
-  <publishProfile publishUrl="ftp://requiredattribute.com" deleteExistingFiles="False" ftpAnonymousLogin="False" ftpPassiveMode="True" msdeploySite="" msdeploySiteID="" msdeployRemoteSitePhysicalPath="" msdeployAllowUntrustedCertificate="False" msdeploySkipExtraFilesOnServer="True" msdeployMarkAsApp="False" profileName="Profile1" publishMethod="FTP" replaceMatchingFiles="True" userName="admin" savePWD="True" userPWD="AQAAANCMnd8BFdERjHoAwE/Cl+sBAAAAx7nDXGg0NEaBM35BxdPG1QAAAAACAAAAAAAQZgAAAAEAACAAAAAa2oZPgdnvx+fnWO9AB06k5TLign3gThHT0Fh8hDTfYgAAAAAOgAAAAAIAACAAAAB60LDsmIR83RwptIcFkFAMnFkYrnKw7ejfN9uL8oaHOiAAAAAdHmAwGGtZ+SAidCHYVU7bUiTqLDI5+msrh2kSyNDm/EAAAABM0jfSfl4HSaufGS+UtkcaURU7V23w53Np8ghTPq0iWJE6w0bjkec/1+zVb9fyAL7vzaG8Xk/fbX0AVJblM6Rr" SelectedForPublish="True">
+  <publishProfile publishUrl="ftp://requiredattribute.com" deleteExistingFiles="False" ftpAnonymousLogin="False" ftpPassiveMode="True" msdeploySite="" msdeploySiteID="" msdeployRemoteSitePhysicalPath="" msdeployAllowUntrustedCertificate="False" msdeploySkipExtraFilesOnServer="True" msdeployMarkAsApp="False" profileName="Profile1" publishMethod="FTP" replaceMatchingFiles="True" userName="admin" savePWD="True" userPWD="AQAAANCMnd8BFdERjHoAwE/Cl+sBAAAAx7nDXGg0NEaBM35BxdPG1QAAAAACAAAAAAAQZgAAAAEAACAAAAAa2oZPgdnvx+fnWO9AB06k5TLign3gThHT0Fh8hDTfYgAAAAAOgAAAAAIAACAAAAB60LDsmIR83RwptIcFkFAMnFkYrnKw7ejfN9uL8oaHOiAAAAAdHmAwGGtZ+SAidCHYVU7bUiTqLDI5+msrh2kSyNDm/EAAAABM0jfSfl4HSaufGS+UtkcaURU7V23w53Np8ghTPq0iWJE6w0bjkec/1+zVb9fyAL7vzaG8Xk/fbX0AVJblM6Rr" SelectedForPublish="False">
     <file relUrl="Scripts/jquery.validate.unobtrusive.js" publishTime="03/23/2011 07:15:00" />
     <file relUrl="Content/themes/base/images/ui-bg_flat_75_ffffff_40x100.png" publishTime="03/23/2011 07:14:59" />
-    <file relUrl="Content/themes/base/images/ui-bg_glass_55_fbf9ee_1x400.png" publishTime="03/23/2011 07:14:59" />
-    <file relUrl="Scripts/MicrosoftMvcAjax.js" publishTime="03/23/2011 07:15:00" />
+    <file relUrl="Content/not-ie.css" publishTime="03/23/2011 07:16:04" />
     <file relUrl="Scripts/MicrosoftAjax.js" publishTime="03/23/2011 07:15:00" />
     <file relUrl="Scripts/jquery-1.4.4.js" publishTime="03/23/2011 07:15:00" />
     <file relUrl="Content/themes/base/jquery-ui.css" publishTime="03/23/2011 07:15:00" />
     <file relUrl="bin/EntityFramework.xml" publishTime="03/23/2011 20:09:12" />
-    <file relUrl="Scripts/MicrosoftMvcValidation.debug.js" publishTime="03/23/2011 07:15:00" />
+    <file relUrl="Scripts/MicrosoftMvcAjax.js" publishTime="03/23/2011 07:15:00" />
     <file relUrl="Scripts/jquery-1.4.4-vsdoc.js" publishTime="03/23/2011 07:15:00" />
     <file relUrl="bin/Microsoft.Practices.ServiceLocation.dll" publishTime="03/23/2011 07:18:09" />
     <file relUrl="Web.config" publishTime="03/27/2011 10:32:54" />
@@ -30,13 +29,13 @@
     <file relUrl="Views/Users/Register.cshtml" publishTime="03/23/2011 21:16:25" />
     <file relUrl="bin/Microsoft.Practices.Unity.Interception.Configuration.dll" publishTime="03/23/2011 07:18:09" />
     <file relUrl="Content/themes/base/images/ui-bg_glass_75_dadada_1x400.png" publishTime="03/23/2011 07:15:00" />
+    <file relUrl="Scripts/jquery.validate.unobtrusive.min.js" publishTime="03/23/2011 07:15:00" />
     <file relUrl="bin/Microsoft.Practices.Unity.Configuration.dll" publishTime="03/23/2011 07:18:09" />
     <file relUrl="bin/Microsoft.Practices.Unity.Interception.xml" publishTime="03/23/2011 07:18:09" />
-    <file relUrl="Views/Home/Index.cshtml" publishTime="03/25/2011 18:21:02" />
-    <file relUrl="Content/not-ie.css" publishTime="03/23/2011 07:16:04" />
     <file relUrl="bin/Microsoft.Practices.Unity.Interception.Configuration.xml" publishTime="03/23/2011 07:18:09" />
     <file relUrl="Content/themes/base/images/ui-icons_222222_256x240.png" publishTime="03/23/2011 07:15:00" />
     <file relUrl="packages.config" publishTime="03/23/2011 20:31:01" />
+    <file relUrl="Scripts/MicrosoftMvcValidation.debug.js" publishTime="03/23/2011 07:15:00" />
     <file relUrl="Content/themes/base/images/ui-icons_888888_256x240.png" publishTime="03/23/2011 07:15:00" />
     <file relUrl="Scripts/jquery-ui.min.js" publishTime="03/23/2011 07:15:00" />
     <file relUrl="Views/Shared/Error.cshtml" publishTime="03/23/2011 07:15:00" />
@@ -48,6 +47,7 @@
     <file relUrl="bin/MBlog.pdb" publishTime="03/27/2011 10:32:52" />
     <file relUrl="bin/Microsoft.Practices.Unity.xml" publishTime="03/23/2011 07:18:09" />
     <file relUrl="Views/Shared/_Layout.cshtml" publishTime="03/23/2011 07:15:00" />
+    <file relUrl="Content/themes/base/images/ui-bg_glass_55_fbf9ee_1x400.png" publishTime="03/23/2011 07:14:59" />
     <file relUrl="Views/Web.config" publishTime="03/24/2011 07:18:39" />
     <file relUrl="Content/Site.css" publishTime="03/23/2011 07:15:00" />
     <file relUrl="Scripts/MicrosoftMvcValidation.js" publishTime="03/23/2011 07:15:00" />
@@ -65,7 +65,122 @@
     <file relUrl="Scripts/jquery.validate-vsdoc.js" publishTime="03/23/2011 07:15:00" />
     <file relUrl="Scripts/jquery.validate.js" publishTime="03/23/2011 07:15:00" />
     <file relUrl="Content/themes/base/images/ui-bg_flat_0_aaaaaa_40x100.png" publishTime="03/23/2011 07:14:59" />
-    <file relUrl="Scripts/jquery.validate.unobtrusive.min.js" publishTime="03/23/2011 07:15:00" />
+    <file relUrl="Views/Home/Index.cshtml" publishTime="03/25/2011 18:21:02" />
     <file relUrl="Content/themes/base/images/ui-bg_highlight-soft_75_cccccc_1x100.png" publishTime="03/23/2011 07:15:00" />
+  </publishProfile>
+  <publishProfile publishUrl="ftp://requiredattribute.com/staging" deleteExistingFiles="False" ftpAnonymousLogin="False" ftpPassiveMode="True" msdeploySite="" msdeploySiteID="" msdeployRemoteSitePhysicalPath="" msdeployAllowUntrustedCertificate="False" msdeploySkipExtraFilesOnServer="True" msdeployMarkAsApp="False" profileName="Staging" publishMethod="FTP" replaceMatchingFiles="True" userName="admin" savePWD="True" userPWD="AQAAANCMnd8BFdERjHoAwE/Cl+sBAAAAx7nDXGg0NEaBM35BxdPG1QAAAAACAAAAAAAQZgAAAAEAACAAAACe/ls1rUJDHi9HvwrETtGFnOzca/x+DKXMvJazHc5BbAAAAAAOgAAAAAIAACAAAAAF/ly12BEjhl1rCPPMC0MqjHQxFpR4bD7JrXODTy4YCSAAAABXwzcuYxN5f79tHD9gllEdvLVoTMpUMn9bjQSJnXudWEAAAACroRVAAsJ+2NkZ8vXcVnCl8qzSJPIeuTReTJPhIuGtMYb7AButfMQV5XB/jfWt8Zpl+kLhKO5qDPTlCltl06PF" SelectedForPublish="True">
+    <file relUrl="Scripts/jquery.validate.unobtrusive.js" publishTime="03/23/2011 07:15:00" />
+    <file relUrl="Scripts/shBrushSass.js" publishTime="03/29/2011 22:23:12" />
+    <file relUrl="Content/shCoreEclipse.css" publishTime="03/29/2011 22:26:44" />
+    <file relUrl="Content/themes/base/images/ui-bg_flat_75_ffffff_40x100.png" publishTime="03/23/2011 07:14:59" />
+    <file relUrl="Content/themes/base/images/ui-bg_glass_55_fbf9ee_1x400.png" publishTime="03/23/2011 07:14:59" />
+    <file relUrl="Content/shThemeMDUltra.css" publishTime="03/29/2011 22:26:44" />
+    <file relUrl="Scripts/MicrosoftAjax.js" publishTime="03/23/2011 07:15:00" />
+    <file relUrl="Scripts/jquery-1.4.4.js" publishTime="03/23/2011 07:15:00" />
+    <file relUrl="Content/shThemeMidnight.css" publishTime="03/29/2011 22:26:44" />
+    <file relUrl="Content/themes/base/images/ui-icons_2e83ff_256x240.png" publishTime="03/23/2011 07:15:00" />
+    <file relUrl="Content/themes/base/jquery-ui.css" publishTime="03/23/2011 07:15:00" />
+    <file relUrl="bin/EntityFramework.xml" publishTime="03/23/2011 20:09:12" />
+    <file relUrl="Scripts/shBrushJScript.js" publishTime="03/29/2011 22:23:12" />
+    <file relUrl="Scripts/MicrosoftMvcAjax.js" publishTime="03/23/2011 07:15:00" />
+    <file relUrl="Scripts/jquery-1.4.4-vsdoc.js" publishTime="03/23/2011 07:15:00" />
+    <file relUrl="Content/shThemeDefault.css" publishTime="03/29/2011 22:26:44" />
+    <file relUrl="Web.config" publishTime="03/30/2011 07:35:27" />
+    <file relUrl="bin/Microsoft.Practices.Unity.dll" publishTime="03/23/2011 07:18:09" />
+    <file relUrl="Content/themes/base/images/ui-icons_cd0a0a_256x240.png" publishTime="03/23/2011 07:15:00" />
+    <file relUrl="bin/Repository.dll" publishTime="03/30/2011 07:28:58" />
+    <file relUrl="Content/shCoreMDUltra.css" publishTime="03/29/2011 22:26:44" />
+    <file relUrl="Content/shCore.css" publishTime="03/29/2011 22:26:44" />
+    <file relUrl="Scripts/shBrushJava.js" publishTime="03/29/2011 22:23:12" />
+    <file relUrl="bin/Microsoft.Practices.Unity.Configuration.xml" publishTime="03/23/2011 07:18:09" />
+    <file relUrl="Global.asax" publishTime="03/23/2011 20:33:47" />
+    <file relUrl="Scripts/shBrushPython.js" publishTime="03/29/2011 22:23:12" />
+    <file relUrl="Content/shCoreDjango.css" publishTime="03/29/2011 22:26:44" />
+    <file relUrl="Scripts/jquery-1.4.4.min.js" publishTime="03/23/2011 07:15:00" />
+    <file relUrl="Content/themes/base/images/ui-bg_glass_75_e6e6e6_1x400.png" publishTime="03/23/2011 07:15:00" />
+    <file relUrl="Scripts/jquery-ui.js" publishTime="03/23/2011 07:15:00" />
+    <file relUrl="Scripts/shBrushGroovy.js" publishTime="03/29/2011 22:23:12" />
+    <file relUrl="Scripts/shBrushDelphi.js" publishTime="03/29/2011 22:23:12" />
+    <file relUrl="Scripts/jquery.unobtrusive-ajax.min.js" publishTime="03/23/2011 07:15:00" />
+    <file relUrl="Scripts/shBrushScala.js" publishTime="03/29/2011 22:23:12" />
+    <file relUrl="Scripts/shBrushSql.js" publishTime="03/29/2011 22:23:12" />
+    <file relUrl="Scripts/shAutoloader.js" publishTime="03/29/2011 22:23:12" />
+    <file relUrl="Scripts/mblog.js" publishTime="03/23/2011 07:16:37" />
+    <file relUrl="Content/ie.css" publishTime="03/23/2011 07:16:04" />
+    <file relUrl="bin/MBlogRepository.dll" publishTime="03/30/2011 07:28:59" />
+    <file relUrl="Scripts/shBrushCSharp.js" publishTime="03/29/2011 22:23:12" />
+    <file relUrl="Scripts/shBrushCss.js" publishTime="03/29/2011 22:23:12" />
+    <file relUrl="bin/MBlogRepository.pdb" publishTime="03/30/2011 07:28:59" />
+    <file relUrl="Content/shCoreEmacs.css" publishTime="03/29/2011 22:26:44" />
+    <file relUrl="Views/Web.config" publishTime="03/23/2011 07:15:00" />
+    <file relUrl="bin/Microsoft.Practices.Unity.Interception.Configuration.dll" publishTime="03/23/2011 07:18:09" />
+    <file relUrl="Content/shThemeFadeToGrey.css" publishTime="03/29/2011 22:26:44" />
+    <file relUrl="Scripts/shBrushCpp.js" publishTime="03/29/2011 22:23:12" />
+    <file relUrl="Content/shCoreDefault.css" publishTime="03/29/2011 22:26:44" />
+    <file relUrl="bin/Microsoft.Practices.Unity.Configuration.dll" publishTime="03/23/2011 07:18:09" />
+    <file relUrl="Views/Shared/Error.cshtml" publishTime="03/23/2011 07:15:00" />
+    <file relUrl="bin/Microsoft.Practices.ServiceLocation.dll" publishTime="03/23/2011 07:18:09" />
+    <file relUrl="Scripts/shBrushAppleScript.js" publishTime="03/29/2011 22:23:12" />
+    <file relUrl="Scripts/shBrushColdFusion.js" publishTime="03/29/2011 22:23:12" />
+    <file relUrl="bin/Microsoft.Practices.Unity.Interception.xml" publishTime="03/23/2011 07:18:09" />
+    <file relUrl="Content/shThemeEclipse.css" publishTime="03/29/2011 22:26:44" />
+    <file relUrl="Scripts/shBrushVb.js" publishTime="03/29/2011 22:23:12" />
+    <file relUrl="Content/not-ie.css" publishTime="03/23/2011 07:16:04" />
+    <file relUrl="bin/Microsoft.Practices.Unity.Interception.Configuration.xml" publishTime="03/23/2011 07:18:09" />
+    <file relUrl="Scripts/shBrushBash.js" publishTime="03/29/2011 22:23:12" />
+    <file relUrl="Scripts/jquery.validate.js" publishTime="03/23/2011 07:15:00" />
+    <file relUrl="Content/themes/base/images/ui-icons_222222_256x240.png" publishTime="03/23/2011 07:15:00" />
+    <file relUrl="Scripts/shBrushErlang.js" publishTime="03/29/2011 22:23:12" />
+    <file relUrl="Scripts/shBrushRuby.js" publishTime="03/29/2011 22:23:12" />
+    <file relUrl="packages.config" publishTime="03/23/2011 20:31:01" />
+    <file relUrl="Content/shCoreFadeToGrey.css" publishTime="03/29/2011 22:26:44" />
+    <file relUrl="Scripts/MicrosoftMvcValidation.debug.js" publishTime="03/23/2011 07:15:00" />
+    <file relUrl="Content/themes/base/images/ui-icons_888888_256x240.png" publishTime="03/23/2011 07:15:00" />
+    <file relUrl="Content/themes/base/images/ui-bg_glass_75_dadada_1x400.png" publishTime="03/23/2011 07:15:00" />
+    <file relUrl="Content/shCoreRDark.css" publishTime="03/29/2011 22:26:44" />
+    <file relUrl="images/InitialBlogThumbNail.png" publishTime="03/29/2011 21:57:25" />
+    <file relUrl="Scripts/shBrushDiff.js" publishTime="03/29/2011 22:23:12" />
+    <file relUrl="Content/themes/base/images/ui-icons_454545_256x240.png" publishTime="03/23/2011 07:15:00" />
+    <file relUrl="bin/MBlog.dll" publishTime="03/30/2011 07:29:00" />
+    <file relUrl="Scripts/jquery.validate.min.js" publishTime="03/23/2011 07:15:00" />
+    <file relUrl="Content/themes/base/images/ui-bg_glass_65_ffffff_1x400.png" publishTime="03/23/2011 07:15:00" />
+    <file relUrl="Scripts/shBrushPhp.js" publishTime="03/29/2011 22:23:12" />
+    <file relUrl="Content/shThemeRDark.css" publishTime="03/29/2011 22:26:44" />
+    <file relUrl="Scripts/shLegacy.js" publishTime="03/29/2011 22:23:12" />
+    <file relUrl="Content/main.css" publishTime="03/23/2011 07:16:04" />
+    <file relUrl="bin/MBlog.pdb" publishTime="03/30/2011 07:28:59" />
+    <file relUrl="Scripts/shBrushAS3.js" publishTime="03/29/2011 22:23:12" />
+    <file relUrl="bin/Microsoft.Practices.Unity.xml" publishTime="03/23/2011 07:18:09" />
+    <file relUrl="Views/Shared/_Layout.cshtml" publishTime="03/30/2011 07:27:07" />
+    <file relUrl="Scripts/shBrushPowerShell.js" publishTime="03/29/2011 22:23:12" />
+    <file relUrl="Scripts/jquery-ui.min.js" publishTime="03/23/2011 07:15:00" />
+    <file relUrl="Content/Site.css" publishTime="03/23/2011 07:15:00" />
+    <file relUrl="Scripts/MicrosoftMvcValidation.js" publishTime="03/23/2011 07:15:00" />
+    <file relUrl="Scripts/shCore.js" publishTime="03/29/2011 22:23:12" />
+    <file relUrl="bin/EntityFramework.dll" publishTime="03/23/2011 20:09:12" />
+    <file relUrl="Scripts/shBrushJavaFX.js" publishTime="03/29/2011 22:23:12" />
+    <file relUrl="Scripts/shBrushPerl.js" publishTime="03/29/2011 22:23:12" />
+    <file relUrl="bin/MBlogModel.dll" publishTime="03/30/2011 07:28:58" />
+    <file relUrl="bin/Repository.pdb" publishTime="03/30/2011 07:28:58" />
+    <file relUrl="Content/shCoreMidnight.css" publishTime="03/29/2011 22:26:44" />
+    <file relUrl="Views/_ViewStart.cshtml" publishTime="03/23/2011 07:15:00" />
+    <file relUrl="Scripts/shBrushPlain.js" publishTime="03/29/2011 22:23:12" />
+    <file relUrl="images/InitialBlog.png" publishTime="03/29/2011 21:56:44" />
+    <file relUrl="Scripts/jquery.unobtrusive-ajax.js" publishTime="03/23/2011 07:15:00" />
+    <file relUrl="bin/MBlogModel.pdb" publishTime="03/30/2011 07:28:58" />
+    <file relUrl="Scripts/MicrosoftAjax.debug.js" publishTime="03/23/2011 07:15:00" />
+    <file relUrl="bin/Microsoft.Practices.Unity.Interception.dll" publishTime="03/23/2011 07:18:09" />
+    <file relUrl="Content/shThemeEmacs.css" publishTime="03/29/2011 22:26:44" />
+    <file relUrl="Views/Users/Login.cshtml" publishTime="03/23/2011 21:16:25" />
+    <file relUrl="Scripts/MicrosoftMvcAjax.debug.js" publishTime="03/23/2011 07:15:00" />
+    <file relUrl="Content/themes/base/images/ui-bg_glass_95_fef1ec_1x400.png" publishTime="03/23/2011 07:15:00" />
+    <file relUrl="Scripts/jquery.validate-vsdoc.js" publishTime="03/23/2011 07:15:00" />
+    <file relUrl="Content/shThemeDjango.css" publishTime="03/29/2011 22:26:44" />
+    <file relUrl="Content/themes/base/images/ui-bg_flat_0_aaaaaa_40x100.png" publishTime="03/23/2011 07:14:59" />
+    <file relUrl="Scripts/jquery.validate.unobtrusive.min.js" publishTime="03/23/2011 07:15:00" />
+    <file relUrl="Scripts/shBrushXml.js" publishTime="03/29/2011 22:23:12" />
+    <file relUrl="Content/themes/base/images/ui-bg_highlight-soft_75_cccccc_1x100.png" publishTime="03/23/2011 07:15:00" />
+    <file relUrl="Views/Users/Register.cshtml" publishTime="03/23/2011 21:16:25" />
+    <file relUrl="Views/Home/Index.cshtml" publishTime="03/29/2011 22:21:13" />
   </publishProfile>
 </publishData>

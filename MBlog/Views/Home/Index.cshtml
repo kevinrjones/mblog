@@ -1,19 +1,18 @@
 ﻿@model IEnumerable<MBlog.Models.BlogViewModel>
-
 @{
-    ViewBag.Title = "Index";
+    ViewBag.Title = "Blog";
 }
-
-<h2>Index</h2>
 <ul>
-@foreach (var blogViewModel in Model)
-{
-    <li>
-    <h1>@blogViewModel.Title</h1>
-    <div>
-        <span>Posted on: @blogViewModel.DatePosted.ToShortDateString()</span>
-    </div>
-    <div>@blogViewModel.Post</div>
-    </li>
-}
+    @foreach (var blogViewModel in Model)
+    {
+        <li class="blog-post">
+            <div class="blog-header-section">
+                <h1 class="blog-title">@blogViewModel.Title</h1>
+                <div class="blog-date-posted">
+                    <span>@blogViewModel.DatePosted.ToLongDateString()</span>
+                </div>
+            </div>
+            <div class="blog-entry">@MvcHtmlString.Create(blogViewModel.Post)</div>
+        </li>
+    }
 </ul>
