@@ -59,7 +59,7 @@ namespace MBlog
         {
             InjectionConstructor ctor = new InjectionConstructor(ConfigurationManager.ConnectionStrings["mblog"].ConnectionString);
             IUnityContainer container = new UnityContainer()
-                .RegisterType<IBlogRepository, BlogRepository>(ctor)
+                .RegisterType<IBlogPostRepository, BlogPostPostRepository>(ctor)
                 ;
 
             return container;

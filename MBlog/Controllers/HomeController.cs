@@ -11,18 +11,18 @@ namespace MBlog.Controllers
 {
     public class HomeController : Controller
     {
-        private readonly IBlogRepository _blogRepository;
+        private readonly IBlogPostRepository _blogPostRepository;
         //
         // GET: /Home/
 
-        public HomeController(IBlogRepository blogRepository)
+        public HomeController(IBlogPostRepository blogPostRepository)
         {
-            _blogRepository = blogRepository;
+            _blogPostRepository = blogPostRepository;
         }
 
         public ActionResult Index()
         {
-            IList<Post> blogs = _blogRepository.GetBlogs();
+            IList<Post> blogs = _blogPostRepository.GetBlogPosts();
             List<BlogViewModel> viewModels = new List<BlogViewModel>();
 
             if (blogs != null)

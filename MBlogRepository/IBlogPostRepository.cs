@@ -5,9 +5,9 @@ using Repository;
 
 namespace MBlogRepository
 {
-    public interface IBlogRepository : IRepository<Post>
+    public interface IBlogPostRepository : IRepository<Post>
     {
-        Post GetBlog(int id);
-        IList<Post> GetBlogs();
+        Post GetBlogPost(int id);
+        IList<Post> GetBlogPosts();
     }
 }

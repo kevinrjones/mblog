@@ -58,8 +58,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="BlogRepository.cs" />
-    <Compile Include="IBlogRepository.cs" />
+    <Compile Include="BlogPostPostRepository.cs" />
+    <Compile Include="IBlogPostRepository.cs" />
     <Compile Include="IUserRepository.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="UserRepository.cs" />

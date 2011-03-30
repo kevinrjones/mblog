@@ -6,13 +6,13 @@ using Repository;
 
 namespace MBlogRepository
 {
-    public class BlogRepository : BaseEfRepository<Post>, IBlogRepository
+    public class BlogPostPostRepository : BaseEfRepository<Post>, IBlogPostRepository
     {
-        public BlogRepository(string connectionString) : base(new BlogDbContext(connectionString))
+        public BlogPostPostRepository(string connectionString) : base(new BlogDbContext(connectionString))
         {
         }
 
-        public Post GetBlog(int id)
+        public Post GetBlogPost(int id)
         {
             var b = (from e in Entities
                     where e.Id == id
@@ -20,10 +20,11 @@ namespace MBlogRepository
             return b;
         }
 
-        public IList<Post> GetBlogs()
+        public IList<Post> GetBlogPosts()
         {
             return 
             (from f in Entities
+             orderby f.Posted descending 
                 select f)
                 .ToList();                
         }
