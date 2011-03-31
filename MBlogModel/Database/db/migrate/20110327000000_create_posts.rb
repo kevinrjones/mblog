@@ -6,15 +6,15 @@ class CreatePosts < ActiveRecord::Migration
       t.column :title, :string, :null => false
       t.column :blogPost, :text, :null => false
       t.column :posted, :datetime, :null => false
-      t.column :edited, :datetime, :null => true      
+      t.column :edited, :datetime, :null => true
     end    
   end
 
+  
   def self.down
+    
     drop_table :posts
+  
   end
-end
-
-class Post < ActiveRecord::Base
 end
 

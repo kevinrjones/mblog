@@ -23,7 +23,7 @@
 <body>
     <div class="wrapper">
         <div class="mainbody">
-            <header>
+            <div class="header">
                 <nav>
                     <ul class="headerList main-list">
                         @if (!HttpContext.Current.User.Identity.IsAuthenticated)
@@ -39,10 +39,12 @@
                         <li><a href="#">faq</a></li>
                     </ul>
                 </nav>
-            </header>
+            </div>
             <div class="blog-main-body">
                 <div class="blog-inner-body">
                     @RenderBody()
+                </div>
+                <div class="blog-side-bar">
                 </div>
             </div>
         </div>

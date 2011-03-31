@@ -1,12 +1,12 @@
 ﻿* { padding: 0; margin: 0; }
 a { text-decoration: none; }
 body { font-family: arial, helvetica, sans-serif; background-color: #cccccc; }
-ol, ul { list-style-image: none; list-style-position: outside; list-style-type: none; }
-
+/*ol, ul { list-style-image: none; list-style-position: outside; list-style-type: none; }*/
 .wrapper { height: 100%; }
 .main-list { padding: 10px 20px 10px 0; float: right; }
 h2.page-header { padding: 20px 0 0 10px; }
 .header { background-color: #eeeeee; overflow:auto; width:100%}
+header { background-color: #eeeeee; overflow:auto; width:100%}
 .mainbody { margin: 0em auto; width: 65%; background-color: #ffffff; }
 .footer { }
 
@@ -44,11 +44,12 @@ legend { font-size: 1.2em; font-weight: bold; padding: 0 10px 0 10px; }
 .blog-title{ font-size: 16pt; display: inline-block;}
 .blog-date-posted{ float:right; color: gray;}
 .blog-entry{line-height: 20px; }
+.blog-entry ul{padding-left: 20px; }
 .blog-inner-body {width: 75%; float: left; padding: 10px 0 10px 10px; }
 .blog-main-body {background-color: White; overflow:auto; width:100%;}
 .blog-side-bar {float:right; width: 20%;}
 .inline-code {font-family:Consolas, Courier New, Courier; font-weight: bold; font-size: larger; }
-
+.blog-list {list-style-image: none; list-style-position: outside; list-style-type: none;}
 /* Styles for validation helpers
 -----------------------------------------------------------*/
 .field-validation-error { color: #ff0000; }
