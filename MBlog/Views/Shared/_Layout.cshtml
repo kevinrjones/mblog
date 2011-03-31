@@ -1,20 +1,24 @@
 ﻿<!DOCTYPE html>
-<html>
+<html class="no-js">
 <head>
     <title>@ViewBag.Title</title>
     <link href="@Url.Content("~/Content/Site.css")" rel="stylesheet" type="text/css" />
     <link href="@Url.Content("~/Content/main.css")" rel="stylesheet" type="text/css" />
     <link href="@Url.Content("~/Content/shCore.css")" rel="stylesheet" type="text/css" />
     <link href="@Url.Content("~/Content/shThemeDefault.css")" rel="stylesheet" type="text/css" />
-    <script src="@Url.Content("~/Scripts/jquery-1.4.4.min.js")" type="text/javascript"></script>
-    <script src="@Url.Content("~/Scripts/jquery.unobtrusive-ajax.js")" type="text/javascript"></script>
+    
+    <script src="@Url.Content("~/Scripts/jquery-1.4.4.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/Scripts/jquery.validate.js")" type="text/javascript"></script>
     <script src="@Url.Content("~/Scripts/jquery.validate.unobtrusive.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/Scripts/jquery.unobtrusive-ajax.js")" type="text/javascript"></script>
     <script src="@Url.Content("~/Scripts/shCore.js")" type="text/javascript"></script>
     <script src="@Url.Content("~/Scripts/shBrushCss.js")" type="text/javascript"></script>
     <script src="@Url.Content("~/Scripts/shBrushCSharp.js")" type="text/javascript"></script>
     <script src="@Url.Content("~/Scripts/shBrushJScript.js")" type="text/javascript"></script>
     <script src="@Url.Content("~/Scripts/shBrushPowerShell.js")" type="text/javascript"></script>
     <script src="@Url.Content("~/Scripts/shBrushRuby.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/Scripts/modernizr-1.7.min.js")" type="text/javascript"></script>
+    
     <script type="text/javascript">
         SyntaxHighlighter.defaults['toolbar'] = true;
         SyntaxHighlighter.all()
@@ -23,7 +27,7 @@
 <body>
     <div class="wrapper">
         <div class="mainbody">
-            <div class="header">
+            <header>
                 <nav>
                     <ul class="headerList main-list">
                         @if (!HttpContext.Current.User.Identity.IsAuthenticated)
@@ -39,13 +43,13 @@
                         <li><a href="#">faq</a></li>
                     </ul>
                 </nav>
-            </div>
+            </header>
             <div class="blog-main-body">
-                <div class="blog-inner-body">
+                <section class="blog-inner-body">
                     @RenderBody()
-                </div>
-                <div class="blog-side-bar">
-                </div>
+                </section>
+                <section class="blog-side-bar">
+                </section>
             </div>
         </div>
     </div>

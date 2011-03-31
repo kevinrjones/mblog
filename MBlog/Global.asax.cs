@@ -26,21 +26,21 @@ namespace MBlog
             routes.MapRoute(
                 "Show",
                 "{controller}/show/{id}",
-                new { controller = "Home", action = "show" },
+                new { controller = "Post", action = "show" },
                 new { httpMethod = new HttpMethodConstraint("GET") }
             );
 
             routes.MapRoute(
                 "Create",
                 "{controller}/create",
-                new { controller = "Home", action = "create" },
+                new { controller = "Post", action = "create" },
                 new { httpMethod = new HttpMethodConstraint("POST") }
             );
 
             routes.MapRoute(
                 "Default",
                 "{controller}/{action}/{id}",
-                new { controller = "Home", action = "Index", id = UrlParameter.Optional }
+                new { controller = "Post", action = "Index", id = UrlParameter.Optional }
             );
 
         }

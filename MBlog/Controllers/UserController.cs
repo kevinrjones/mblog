@@ -9,12 +9,12 @@ using MBlogRepository;
 
 namespace MBlog.Controllers
 {
-    public class UsersController : BaseController
+    public class UserController : BaseController
     {
         private readonly IUserRepository _userRepository;
 
 
-        public UsersController(IUserRepository userRepository)
+        public UserController(IUserRepository userRepository)
             : base(userRepository)
         {
             _userRepository = userRepository;

@@ -16,61 +16,61 @@
       <File id="DAFFCFE0-9AE5-4FA3-AFBF-BA43FC16BCAC/d:Infrastructure/f:CookieEncryption.cs" caret="1" fromTop="0" />
       <File id="DAFFCFE0-9AE5-4FA3-AFBF-BA43FC16BCAC/d:Controllers/f:BaseController.cs" caret="130" fromTop="6" />
       <File id="555BF169-88EA-4EF1-B532-D152AF974680/d:Properties/f:AssemblyInfo.cs" caret="775" fromTop="17" />
-      <File id="DAFFCFE0-9AE5-4FA3-AFBF-BA43FC16BCAC/d:Controllers/f:UsersController.cs" caret="1305" fromTop="43" />
+      <File id="DAFFCFE0-9AE5-4FA3-AFBF-BA43FC16BCAC/d:Controllers/f:UserController.cs" caret="1303" fromTop="43" />
       <File id="555BF169-88EA-4EF1-B532-D152AF974680/f:UserRepository.cs" caret="254" fromTop="9" />
       <File id="DAFFCFE0-9AE5-4FA3-AFBF-BA43FC16BCAC/d:Infrastructure/f:UnityDependencyResolver.cs" caret="653" fromTop="26" />
       <File id="9D26D30F-3E4E-43B9-A93B-6E51AB34AC44/f:UserDbContext.cs" caret="266" fromTop="11" />
       <File id="DAFFCFE0-9AE5-4FA3-AFBF-BA43FC16BCAC/f:Web.Debug.config" caret="684" fromTop="15" />
       <File id="DAFFCFE0-9AE5-4FA3-AFBF-BA43FC16BCAC/d:Models/f:UserViewModel.cs" caret="670" fromTop="26" />
       <File id="DAFFCFE0-9AE5-4FA3-AFBF-BA43FC16BCAC/f:Web.config" caret="0" fromTop="0" />
-      <File id="d:Miscellaneous Files/f:System.ComponentModel.DataAnnotations.KeyAttribute.cs/l:C!?Users?Kevin Jones?AppData?Local?Temp?_ReSharper.MBlog.316191305?DecompilerCache?metadata?System.ComponentModel.DataAnnotations-6dfb?System.ComponentModel.DataAnnotations.KeyAttribute.cs" caret="374" fromTop="7" />
       <File id="DAFFCFE0-9AE5-4FA3-AFBF-BA43FC16BCAC/d:Models/f:BlogViewModel.cs" caret="362" fromTop="13" />
-      <File id="DAFFCFE0-9AE5-4FA3-AFBF-BA43FC16BCAC/d:Views/d:Home/f:Index.cshtml" caret="279" fromTop="13" />
-      <File id="555BF169-88EA-4EF1-B532-D152AF974680/f:IBlogRepository.cs" caret="249" fromTop="10" />
       <File id="6B41D66F-0003-45EC-9692-023F9FCA62E8/f:BaseEfRepository.cs" caret="515" fromTop="18" />
       <File id="9D26D30F-3E4E-43B9-A93B-6E51AB34AC44/f:BlogDbContext.cs" caret="238" fromTop="9" />
-      <File id="9D26D30F-3E4E-43B9-A93B-6E51AB34AC44/f:CreationDbContext.cs" caret="4543" fromTop="22" />
-      <File id="DAFFCFE0-9AE5-4FA3-AFBF-BA43FC16BCAC/d:Controllers/f:HomeController.cs" caret="722" fromTop="28" />
-      <File id="555BF169-88EA-4EF1-B532-D152AF974680/f:BlogRepository.cs" caret="292" fromTop="10" />
-      <File id="d:Miscellaneous Files/f:Microsoft.Practices.Unity.LifetimeManager.cs/l:C!?Users?Kevin Jones?AppData?Local?Temp?_ReSharper.MBlog.316191305?DecompilerCache?metadata?Microsoft.Practices.Unity-e1f8?Microsoft.Practices.Unity.LifetimeManager.cs" caret="327" fromTop="6" />
+      <File id="DAFFCFE0-9AE5-4FA3-AFBF-BA43FC16BCAC/d:Controllers/f:PostController.cs" caret="754" fromTop="28" />
       <File id="DAFFCFE0-9AE5-4FA3-AFBF-BA43FC16BCAC/f:Web.Staging.config" caret="571" fromTop="12" />
       <File id="DAFFCFE0-9AE5-4FA3-AFBF-BA43FC16BCAC/f:Web.Release.config" caret="1467" fromTop="35" />
-      <File id="DAFFCFE0-9AE5-4FA3-AFBF-BA43FC16BCAC/f:Global.asax.cs" caret="2183" fromTop="28" />
       <File id="9D26D30F-3E4E-43B9-A93B-6E51AB34AC44/f:Post.cs" caret="118" fromTop="7" />
-      <File id="d:Miscellaneous Files/f:001_create_posts.rb/l:C!?home?kevinj?projects?MBlog?Database?db?migrate?001_create_posts.rb" caret="16" fromTop="0" />
-      <File id="d:Miscellaneous Files/f:Rakefile/l:C!?home?kevinj?projects?MBlog?Database?Rakefile" caret="474" fromTop="14" />
+      <File id="555BF169-88EA-4EF1-B532-D152AF974680/f:BlogPostPostRepository.cs" caret="731" fromTop="26" />
+      <File id="555BF169-88EA-4EF1-B532-D152AF974680/f:IBlogPostRepository.cs" caret="0" fromTop="0" />
+      <File id="DAFFCFE0-9AE5-4FA3-AFBF-BA43FC16BCAC/d:Content/f:ie.css" caret="0" fromTop="0" />
+      <File id="9D26D30F-3E4E-43B9-A93B-6E51AB34AC44/d:Database/d:db/d:scripts/f:insert.sql" caret="7504" fromTop="30" />
+      <File id="DAFFCFE0-9AE5-4FA3-AFBF-BA43FC16BCAC/d:Views/d:Home/f:Index.cshtml" caret="95" fromTop="4" />
+      <File id="DAFFCFE0-9AE5-4FA3-AFBF-BA43FC16BCAC/d:Content/f:main.css" caret="503" fromTop="8" />
+      <File id="DAFFCFE0-9AE5-4FA3-AFBF-BA43FC16BCAC/d:Views/d:Shared/f:_Layout.cshtml" caret="606" fromTop="10" />
+      <File id="DAFFCFE0-9AE5-4FA3-AFBF-BA43FC16BCAC/f:Global.asax.cs" caret="27" fromTop="0" />
+      <File id="E7007D52-7D85-4C45-A632-EDD22B3323F4/f:PostComtrollerTest.cs" caret="489" fromTop="21" />
     </RecentFiles>
     <RecentEdits>
-      <File id="9D26D30F-3E4E-43B9-A93B-6E51AB34AC44/f:CreationDbContext.cs" caret="1502" fromTop="19" />
-      <File id="9D26D30F-3E4E-43B9-A93B-6E51AB34AC44/f:Post.cs" caret="409" fromTop="11" />
-      <File id="9D26D30F-3E4E-43B9-A93B-6E51AB34AC44/f:CreationDbContext.cs" caret="286" fromTop="10" />
-      <File id="9D26D30F-3E4E-43B9-A93B-6E51AB34AC44/f:CreationDbContext.cs" caret="6808" fromTop="53" />
-      <File id="9D26D30F-3E4E-43B9-A93B-6E51AB34AC44/f:CreationDbContext.cs" caret="2909" fromTop="35" />
-      <File id="9D26D30F-3E4E-43B9-A93B-6E51AB34AC44/f:Post.cs" caret="269" fromTop="11" />
-      <File id="9D26D30F-3E4E-43B9-A93B-6E51AB34AC44/f:CreationDbContext.cs" caret="6808" fromTop="58" />
-      <File id="9D26D30F-3E4E-43B9-A93B-6E51AB34AC44/f:CreationDbContext.cs" caret="4505" fromTop="58" />
-      <File id="9D26D30F-3E4E-43B9-A93B-6E51AB34AC44/f:CreationDbContext.cs" caret="4382" fromTop="54" />
-      <File id="9D26D30F-3E4E-43B9-A93B-6E51AB34AC44/f:Post.cs" caret="385" fromTop="15" />
-      <File id="9D26D30F-3E4E-43B9-A93B-6E51AB34AC44/f:CreationDbContext.cs" caret="6808" fromTop="58" />
-      <File id="9D26D30F-3E4E-43B9-A93B-6E51AB34AC44/f:CreationDbContext.cs" caret="6494" fromTop="56" />
-      <File id="DAFFCFE0-9AE5-4FA3-AFBF-BA43FC16BCAC/d:Views/d:Home/f:Index.cshtml" caret="109" fromTop="7" />
-      <File id="DAFFCFE0-9AE5-4FA3-AFBF-BA43FC16BCAC/d:Models/f:BlogViewModel.cs" caret="362" fromTop="13" />
-      <File id="DAFFCFE0-9AE5-4FA3-AFBF-BA43FC16BCAC/d:Controllers/f:HomeController.cs" caret="964" fromTop="31" />
-      <File id="DAFFCFE0-9AE5-4FA3-AFBF-BA43FC16BCAC/d:Views/d:Home/f:Index.cshtml" caret="279" fromTop="13" />
-      <File id="9D26D30F-3E4E-43B9-A93B-6E51AB34AC44/f:CreationDbContext.cs" caret="6811" fromTop="47" />
-      <File id="9D26D30F-3E4E-43B9-A93B-6E51AB34AC44/f:BlogDbContext.cs" caret="238" fromTop="9" />
-      <File id="555BF169-88EA-4EF1-B532-D152AF974680/f:BlogRepository.cs" caret="715" fromTop="27" />
-      <File id="555BF169-88EA-4EF1-B532-D152AF974680/f:BlogRepository.cs" caret="292" fromTop="10" />
-      <File id="DAFFCFE0-9AE5-4FA3-AFBF-BA43FC16BCAC/f:Global.asax.cs" caret="2539" fromTop="28" />
-      <File id="DAFFCFE0-9AE5-4FA3-AFBF-BA43FC16BCAC/f:Global.asax.cs" caret="2942" fromTop="42" />
-      <File id="DAFFCFE0-9AE5-4FA3-AFBF-BA43FC16BCAC/f:Global.asax.cs" caret="2604" fromTop="36" />
-      <File id="DAFFCFE0-9AE5-4FA3-AFBF-BA43FC16BCAC/f:Global.asax.cs" caret="2605" fromTop="37" />
+      <File id="DAFFCFE0-9AE5-4FA3-AFBF-BA43FC16BCAC/f:Global.asax.cs" caret="2617" fromTop="37" />
       <File id="DAFFCFE0-9AE5-4FA3-AFBF-BA43FC16BCAC/f:Web.Staging.config" caret="1460" fromTop="35" />
       <File id="DAFFCFE0-9AE5-4FA3-AFBF-BA43FC16BCAC/f:Web.Staging.config" caret="571" fromTop="12" />
       <File id="9D26D30F-3E4E-43B9-A93B-6E51AB34AC44/f:Post.cs" caret="118" fromTop="7" />
-      <File id="d:Miscellaneous Files/f:001_create_posts.rb/l:C!?home?kevinj?projects?MBlog?Database?db?migrate?001_create_posts.rb" caret="198" fromTop="11" />
-      <File id="d:Miscellaneous Files/f:001_create_posts.rb/l:C!?home?kevinj?projects?MBlog?Database?db?migrate?001_create_posts.rb" caret="16" fromTop="0" />
-      <File id="d:Miscellaneous Files/f:Rakefile/l:C!?home?kevinj?projects?MBlog?Database?Rakefile" caret="474" fromTop="14" />
+      <File id="555BF169-88EA-4EF1-B532-D152AF974680/f:BlogPostPostRepository.cs" caret="218" fromTop="8" />
+      <File id="555BF169-88EA-4EF1-B532-D152AF974680/f:BlogPostPostRepository.cs" caret="399" fromTop="14" />
+      <File id="555BF169-88EA-4EF1-B532-D152AF974680/f:BlogPostPostRepository.cs" caret="731" fromTop="26" />
+      <File id="9D26D30F-3E4E-43B9-A93B-6E51AB34AC44/d:Database/d:db/d:scripts/f:insert.sql" caret="7718" fromTop="37" />
+      <File id="9D26D30F-3E4E-43B9-A93B-6E51AB34AC44/d:Database/d:db/d:scripts/f:insert.sql" caret="7718" fromTop="43" />
+      <File id="9D26D30F-3E4E-43B9-A93B-6E51AB34AC44/d:Database/d:db/d:scripts/f:insert.sql" caret="7718" fromTop="22" />
+      <File id="DAFFCFE0-9AE5-4FA3-AFBF-BA43FC16BCAC/d:Content/f:main.css" caret="3194" fromTop="26" />
+      <File id="DAFFCFE0-9AE5-4FA3-AFBF-BA43FC16BCAC/d:Content/f:main.css" caret="1095" fromTop="20" />
+      <File id="9D26D30F-3E4E-43B9-A93B-6E51AB34AC44/d:Database/d:db/d:scripts/f:insert.sql" caret="7504" fromTop="30" />
+      <File id="DAFFCFE0-9AE5-4FA3-AFBF-BA43FC16BCAC/d:Views/d:Home/f:Index.cshtml" caret="95" fromTop="4" />
+      <File id="DAFFCFE0-9AE5-4FA3-AFBF-BA43FC16BCAC/d:Content/f:main.css" caret="2472" fromTop="6" />
+      <File id="DAFFCFE0-9AE5-4FA3-AFBF-BA43FC16BCAC/d:Content/f:main.css" caret="233" fromTop="4" />
+      <File id="DAFFCFE0-9AE5-4FA3-AFBF-BA43FC16BCAC/d:Content/f:main.css" caret="2090" fromTop="3" />
+      <File id="DAFFCFE0-9AE5-4FA3-AFBF-BA43FC16BCAC/d:Views/d:Shared/f:_Layout.cshtml" caret="35" fromTop="1" />
+      <File id="DAFFCFE0-9AE5-4FA3-AFBF-BA43FC16BCAC/d:Views/d:Shared/f:_Layout.cshtml" caret="2811" fromTop="42" />
+      <File id="DAFFCFE0-9AE5-4FA3-AFBF-BA43FC16BCAC/d:Views/d:Shared/f:_Layout.cshtml" caret="2790" fromTop="41" />
+      <File id="DAFFCFE0-9AE5-4FA3-AFBF-BA43FC16BCAC/d:Views/d:Shared/f:_Layout.cshtml" caret="1764" fromTop="19" />
+      <File id="DAFFCFE0-9AE5-4FA3-AFBF-BA43FC16BCAC/d:Content/f:main.css" caret="503" fromTop="8" />
+      <File id="DAFFCFE0-9AE5-4FA3-AFBF-BA43FC16BCAC/d:Views/d:Shared/f:_Layout.cshtml" caret="1533" fromTop="20" />
+      <File id="DAFFCFE0-9AE5-4FA3-AFBF-BA43FC16BCAC/d:Views/d:Shared/f:_Layout.cshtml" caret="604" fromTop="10" />
+      <File id="DAFFCFE0-9AE5-4FA3-AFBF-BA43FC16BCAC/f:Global.asax.cs" caret="871" fromTop="28" />
+      <File id="DAFFCFE0-9AE5-4FA3-AFBF-BA43FC16BCAC/f:Global.asax.cs" caret="1119" fromTop="35" />
+      <File id="DAFFCFE0-9AE5-4FA3-AFBF-BA43FC16BCAC/f:Global.asax.cs" caret="1378" fromTop="42" />
+      <File id="E7007D52-7D85-4C45-A632-EDD22B3323F4/f:PostComtrollerTest.cs" caret="359" fromTop="14" />
+      <File id="E7007D52-7D85-4C45-A632-EDD22B3323F4/f:PostComtrollerTest.cs" caret="800" fromTop="29" />
+      <File id="E7007D52-7D85-4C45-A632-EDD22B3323F4/f:PostComtrollerTest.cs" caret="489" fromTop="21" />
     </RecentEdits>
   </RecentFiles>
   <NAntValidationSettings>
@@ -92,7 +92,7 @@
       <Item value="AuthorRepository" priority="0" />
       <Item value="IAuthorRepository`0" priority="0" />
       <Item value="UserRepository" priority="0" />
-      <Item value="new" priority="10" />
+      <Item value="new" priority="12" />
       <Item value="User" priority="1" />
       <Item value="Email" priority="0" />
       <Item value="UserViewModel`0" priority="0" />
@@ -104,7 +104,7 @@
       <Item value="string" priority="0" />
       <Item value="DbContext" priority="0" />
       <Item value="connectionString" priority="0" />
-      <Item value="public" priority="1" />
+      <Item value="public" priority="3" />
       <Item value="DbContext`0" priority="1" />
       <Item value="return" priority="2" />
       <Item value="Entities" priority="2" />
@@ -158,6 +158,21 @@
       <Item value="ComponentModel" priority="0" />
       <Item value="DataAnnotations" priority="0" />
       <Item value="ForeignKey" priority="0" />
+      <Item value="orderby" priority="0" />
+      <Item value="descending" priority="0" />
+      <Item value="void" priority="1" />
+      <Item value="PostController" priority="0" />
+      <Item value="controller" priority="0" />
+      <Item value="Assert`0" priority="0" />
+      <Item value="result" priority="0" />
+      <Item value="Is`0" priority="0" />
+      <Item value="_repository" priority="5" />
+      <Item value="Mock`0" priority="0" />
+      <Item value="IBlogPostRepository`0" priority="0" />
+      <Item value="var" priority="0" />
+      <Item value="mock" priority="1" />
+      <Item value="r" priority="0" />
+      <Item value="List&lt;Post&gt;" priority="0" />
     </ItemStatistics>
     <ItemStatistics item="Qualified:MBlogRepository.IUserRepository">
       <Item value="Create`0" priority="0" />
@@ -222,7 +237,26 @@
     </ItemStatistics>
     <ItemStatistics item="Qualified:MBlogModel.Post">
       <Item value="Edited" priority="0" />
-      <Item value="Posted" priority="0" />
+      <Item value="Posted" priority="1" />
+    </ItemStatistics>
+    <ItemStatistics item="Qualified:MBlog.Controllers.PostController">
+      <Item value="Index`0" priority="0" />
+    </ItemStatistics>
+    <ItemStatistics item="Qualified:@NUnit.Framework.Assert">
+      <Item value="That`0" priority="0" />
+    </ItemStatistics>
+    <ItemStatistics item="Qualified:@NUnit.Framework.Is">
+      <Item value="TypeOf`1" priority="0" />
+    </ItemStatistics>
+    <ItemStatistics item="Qualified:Moq.Mock`1">
+      <Item value="Setup`1" priority="0" />
+      <Item value="Object" priority="0" />
+    </ItemStatistics>
+    <ItemStatistics item="Qualified:MBlogRepository.IBlogPostRepository">
+      <Item value="GetBlogPosts`0" priority="0" />
+    </ItemStatistics>
+    <ItemStatistics item="Qualified:Moq.Language.Flow.ISetup`2">
+      <Item value="Returns`16" priority="0" />
     </ItemStatistics>
   </CompletionStatisticsManager>
 </Configuration>

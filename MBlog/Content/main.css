@@ -6,7 +6,7 @@ body { font-family: arial, helvetica, sans-serif; background-color: #cccccc; }
 .main-list { padding: 10px 20px 10px 0; float: right; }
 h2.page-header { padding: 20px 0 0 10px; }
 .header { background-color: #eeeeee; overflow:auto; width:100%}
-header { background-color: #eeeeee; overflow:auto; width:100%}
+header { background-color: #eeeeee; overflow:auto; width:100%; display:block}
 .mainbody { margin: 0em auto; width: 65%; background-color: #ffffff; }
 .footer { }
 
