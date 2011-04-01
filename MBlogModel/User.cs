@@ -23,5 +23,14 @@ namespace MBlogModel
         public virtual string HashedPassword { get; private set; }
         public virtual string Salt { get; private set; }
         public virtual bool IsAdmin { get; private set; }
+
+        public void AddUser(string name, string email, string password, bool isAdmin)
+        {
+            Name = name;
+            Email = email;
+            HashedPassword = password;
+            IsAdmin = isAdmin;
+            Salt = "this is salt";
+        }
     }
 }

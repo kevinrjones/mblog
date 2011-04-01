@@ -47,7 +47,7 @@ namespace MBlog.Controllers
             {
                 return View("Register");
             }
-            UserRepository.Create(new User{Email = userViewModel.Email});
+            //UserRepository.Create(new User{Email = userViewModel.Email});
             return RedirectToAction("index", "Question");
         }
 
