@@ -124,7 +124,7 @@
     <Compile Include="Infrastructure\CookieEncryption.cs" />
     <Compile Include="Infrastructure\CustomControllerActivator.cs" />
     <Compile Include="Infrastructure\UnityDependencyResolver.cs" />
-    <Compile Include="Models\BlogViewModel.cs" />
+    <Compile Include="Models\PostViewModel.cs" />
     <Compile Include="Models\UserViewModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

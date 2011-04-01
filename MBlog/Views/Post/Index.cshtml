@@ -1,0 +1,18 @@
+﻿@model IEnumerable<MBlog.Models.BlogViewModel>
+@{
+    ViewBag.Title = "Blog";
+}
+<ul class="blog-list">
+    @foreach (var blogViewModel in Model)
+    {
+        <li class="blog-post">
+            <div class="blog-header-section">
+                <h1 class="blog-title">@blogViewModel.Title</h1>
+                <div class="blog-date-posted">
+                    <span>@blogViewModel.DatePosted.ToLongDateString()</span>
+                </div>
+            </div>
+            <div class="blog-entry">@MvcHtmlString.Create(blogViewModel.Post)</div>
+        </li>
+    }
+</ul>

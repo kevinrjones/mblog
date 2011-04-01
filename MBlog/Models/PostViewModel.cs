@@ -5,7 +5,7 @@ using System.Web;
 
 namespace MBlog.Models
 {
-    public class BlogViewModel
+    public class PostViewModel
     {
         public int Id { get; set; }
         public string Title { get; set; }

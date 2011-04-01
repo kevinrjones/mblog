@@ -23,13 +23,13 @@ namespace MBlog.Controllers
         public ActionResult Index()
         {
             IList<Post> blogs = _blogPostRepository.GetBlogPosts();
-            List<BlogViewModel> viewModels = new List<BlogViewModel>();
+            List<PostViewModel> viewModels = new List<PostViewModel>();
 
             if (blogs != null)
             {
                 foreach (var blog in blogs)
                 {
-                    BlogViewModel viewModel = new BlogViewModel {Id = blog.Id, Post = blog.BlogPost, Title = blog.Title, DateLastEdited = blog.Edited, DatePosted = blog.Posted};
+                    PostViewModel viewModel = new PostViewModel {Id = blog.Id, Post = blog.BlogPost, Title = blog.Title, DateLastEdited = blog.Edited, DatePosted = blog.Posted};
                     viewModels.Add(viewModel);
                 }
             }
