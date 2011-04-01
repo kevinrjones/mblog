@@ -9,16 +9,19 @@
 
 using System.Collections.Generic;
 using System.Collections.Specialized;
+using System.ComponentModel.DataAnnotations;
 
 namespace MBlogModel
 {
     public class User
     {
-        public virtual int Id { get; set; }
-        public virtual string Email { get; set; }
+        public virtual int Id { get; private set; }
+        [Required]
+        public virtual string Email { get; private set; }
+        [Required]
         public virtual string Name { get; set; }
-        public virtual string HashedPassword { get; set; }
-        public virtual string Salt { get; set; }
-        public virtual bool IsAdmin { get; set; }
+        public virtual string HashedPassword { get; private set; }
+        public virtual string Salt { get; private set; }
+        public virtual bool IsAdmin { get; private set; }
     }
 }
