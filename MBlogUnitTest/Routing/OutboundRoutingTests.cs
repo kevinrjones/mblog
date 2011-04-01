@@ -11,12 +11,23 @@ namespace Tests
     public class OutboundRoutingTests
     {
         [Test]
-        public void All_Products_Page_1_Is_At_Slash()
+        public void GivenACorrectRoutesCollection_WhenIAskToCreateAUrlForTheHomePageIndexView_ThenIGetTheCorrectUrl()
         {
             Assert.AreEqual("/", GetOutboundUrl(new
             {
-                controller = "Post",
+                controller = "Home",
                 action = "Index"
+            }));
+        }
+
+        [Test]
+        public void GivenACorrectRoutesCollection_WhenIAskToCreateAUrlForABlogPostsPageIndexView_ThenIGetTheCorrectUrl()
+        {
+            Assert.AreEqual("/nickname", GetOutboundUrl(new
+            {
+                controller = "Post",
+                action = "Index",
+                nickname = "nickname"
             }));
         }
 

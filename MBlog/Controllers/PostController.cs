@@ -9,13 +9,13 @@ using MBlogRepository;
 
 namespace MBlog.Controllers
 {
-    public class PostController : Controller
+    public class PostController : BaseController
     {
         private readonly IBlogPostRepository _blogPostRepository;
         //
         // GET: /Home/
 
-        public PostController(IBlogPostRepository blogPostRepository)
+        public PostController(IBlogPostRepository blogPostRepository, IUserRepository userRepository) : base(userRepository)
         {
             _blogPostRepository = blogPostRepository;
         }

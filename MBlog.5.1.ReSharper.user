@@ -33,20 +33,16 @@
       <File id="555BF169-88EA-4EF1-B532-D152AF974680/f:BlogPostPostRepository.cs" caret="731" fromTop="26" />
       <File id="E7007D52-7D85-4C45-A632-EDD22B3323F4/d:Controllers/f:PostControllerTest.cs" caret="1457" fromTop="47" />
       <File id="DAFFCFE0-9AE5-4FA3-AFBF-BA43FC16BCAC/f:Global.asax.cs" caret="575" fromTop="18" />
-      <File id="E7007D52-7D85-4C45-A632-EDD22B3323F4/d:Routing/f:InboundRoutingTests.cs" caret="755" fromTop="0" />
-      <File id="d:Miscellaneous Files/f:TestRepository.cs/l:C!?home?kevinj?projects?doto?ToDoRepositoryTest?TestRepository.cs" caret="859" fromTop="33" />
-      <File id="d:Miscellaneous Files/f:TestToDoList.cs/l:C!?home?kevinj?projects?doto?ToDoRepositoryTest?TestToDoList.cs" caret="1045" fromTop="32" />
       <File id="E7007D52-7D85-4C45-A632-EDD22B3323F4/d:Routing/f:OutboundRoutingTests.cs" caret="83" fromTop="4" />
       <File id="9D26D30F-3E4E-43B9-A93B-6E51AB34AC44/f:Post.cs" caret="871" fromTop="29" />
       <File id="E7007D52-7D85-4C45-A632-EDD22B3323F4/d:Model/f:PostTest.cs" caret="3937" fromTop="112" />
+      <File id="E7007D52-7D85-4C45-A632-EDD22B3323F4/d:Model/f:UserTest.cs" caret="1401" fromTop="40" />
+      <File id="E7007D52-7D85-4C45-A632-EDD22B3323F4/d:Routing/f:InboundRoutingTests.cs" caret="1057" fromTop="23" />
     </RecentFiles>
     <RecentEdits>
-      <File id="E7007D52-7D85-4C45-A632-EDD22B3323F4/d:Controllers/f:PostControllerTest.cs" caret="1457" fromTop="29" />
-      <File id="E7007D52-7D85-4C45-A632-EDD22B3323F4/d:Controllers/f:PostControllerTest.cs" caret="1457" fromTop="47" />
-      <File id="E7007D52-7D85-4C45-A632-EDD22B3323F4/d:Routing/f:InboundRoutingTests.cs" caret="2792" fromTop="51" />
       <File id="E7007D52-7D85-4C45-A632-EDD22B3323F4/d:Routing/f:InboundRoutingTests.cs" caret="82" fromTop="2" />
       <File id="DAFFCFE0-9AE5-4FA3-AFBF-BA43FC16BCAC/f:Global.asax.cs" caret="575" fromTop="18" />
-      <File id="E7007D52-7D85-4C45-A632-EDD22B3323F4/d:Routing/f:InboundRoutingTests.cs" caret="1674" fromTop="14" />
+      <File id="E7007D52-7D85-4C45-A632-EDD22B3323F4/d:Routing/f:InboundRoutingTests.cs" caret="1954" fromTop="14" />
       <File id="E7007D52-7D85-4C45-A632-EDD22B3323F4/d:Routing/f:OutboundRoutingTests.cs" caret="83" fromTop="4" />
       <File id="E7007D52-7D85-4C45-A632-EDD22B3323F4/d:Model/f:PostTest.cs" caret="513" fromTop="16" />
       <File id="E7007D52-7D85-4C45-A632-EDD22B3323F4/d:Model/f:PostTest.cs" caret="2343" fromTop="32" />
@@ -71,6 +67,9 @@
       <File id="E7007D52-7D85-4C45-A632-EDD22B3323F4/d:Model/f:PostTest.cs" caret="3720" fromTop="9" />
       <File id="E7007D52-7D85-4C45-A632-EDD22B3323F4/d:Model/f:PostTest.cs" caret="4382" fromTop="29" />
       <File id="E7007D52-7D85-4C45-A632-EDD22B3323F4/d:Model/f:PostTest.cs" caret="3936" fromTop="15" />
+      <File id="E7007D52-7D85-4C45-A632-EDD22B3323F4/d:Routing/f:InboundRoutingTests.cs" caret="560" fromTop="19" />
+      <File id="E7007D52-7D85-4C45-A632-EDD22B3323F4/d:Routing/f:InboundRoutingTests.cs" caret="1123" fromTop="39" />
+      <File id="E7007D52-7D85-4C45-A632-EDD22B3323F4/d:Routing/f:InboundRoutingTests.cs" caret="1057" fromTop="23" />
     </RecentEdits>
   </RecentFiles>
   <NAntValidationSettings>

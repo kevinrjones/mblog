@@ -24,24 +24,28 @@ namespace MBlog
             routes.IgnoreRoute("{resource}.axd/{*pathInfo}");
 
             routes.MapRoute(
-                "Show",
-                "{controller}/show/{id}",
-                new { controller = "Post", action = "show" },
-                new { httpMethod = new HttpMethodConstraint("GET") }
+                "Error",
+                "Error",
+                new { controller = "Error", action = "Index" }
             );
 
             routes.MapRoute(
-                "Create",
-                "{controller}/create",
-                new { controller = "Post", action = "create" },
-                new { httpMethod = new HttpMethodConstraint("POST") }
+                "Posts-Default",
+                "{nickname}/{action}",
+                new { controller = "Post", action = "Index" }
             );
 
             routes.MapRoute(
                 "Default",
-                "{controller}/{action}/{id}",
-                new { controller = "Post", action = "Index", id = UrlParameter.Optional }
+                "",
+                new { controller = "Home", action = "Index"}
             );
+
+            //routes.MapRoute(
+            //    "Default",
+            //    "{controller}/{action}/{id}",
+            //    new { controller = "Home", action = "Index", id = UrlParameter.Optional }
+            //);
 
         }
 

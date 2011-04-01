@@ -11,6 +11,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MBlogModel", "MBlogModel\MB
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MBlogUnitTest", "MBlogUnitTest\MBlogUnitTest.csproj", "{E7007D52-7D85-4C45-A632-EDD22B3323F4}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MBogIntegrationTest", "MBogIntegrationTest\MBogIntegrationTest.csproj", "{E40CBEB2-C300-45DD-AC20-0E70E8CF68DD}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -48,6 +50,12 @@ Global
 		{E7007D52-7D85-4C45-A632-EDD22B3323F4}.Release|Any CPU.Build.0 = Release|Any CPU
 		{E7007D52-7D85-4C45-A632-EDD22B3323F4}.Staging|Any CPU.ActiveCfg = Release|Any CPU
 		{E7007D52-7D85-4C45-A632-EDD22B3323F4}.Staging|Any CPU.Build.0 = Release|Any CPU
+		{E40CBEB2-C300-45DD-AC20-0E70E8CF68DD}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E40CBEB2-C300-45DD-AC20-0E70E8CF68DD}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E40CBEB2-C300-45DD-AC20-0E70E8CF68DD}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E40CBEB2-C300-45DD-AC20-0E70E8CF68DD}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E40CBEB2-C300-45DD-AC20-0E70E8CF68DD}.Staging|Any CPU.ActiveCfg = Release|Any CPU
+		{E40CBEB2-C300-45DD-AC20-0E70E8CF68DD}.Staging|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

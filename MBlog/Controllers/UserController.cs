@@ -27,7 +27,7 @@ namespace MBlog.Controllers
             {
                 return View();
             }
-            return RedirectToAction("index", "Question");
+            return RedirectToAction("index", "Home");
         }
 
         [HttpGet]
@@ -37,7 +37,7 @@ namespace MBlog.Controllers
             {
                 return View();
             }
-            return RedirectToAction("index", "Question");
+            return RedirectToAction("index", "Home");
         }
 
         [HttpPost]
@@ -48,7 +48,7 @@ namespace MBlog.Controllers
                 return View("Register");
             }
             //UserRepository.Create(new User{Email = userViewModel.Email});
-            return RedirectToAction("index", "Question");
+            return RedirectToAction("index", "Home");
         }
 
         [HttpPost]

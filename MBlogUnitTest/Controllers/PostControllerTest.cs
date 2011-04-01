@@ -27,7 +27,7 @@ namespace MBlogUnitTest.Controllers
         [Test]
         public void GivenAPostController_WhenICallItsIndexMethod_ThenItReturnsTheCorrectView()
         {
-            PostController controller = new PostController(_repository);
+            PostController controller = new PostController(_repository, null);
             ActionResult result = controller.Index();
 
             Assert.That(result, Is.TypeOf(typeof(ViewResult)));
@@ -36,7 +36,7 @@ namespace MBlogUnitTest.Controllers
         [Test]
         public void GivenAPostController_WhenICallItsIndexMethod_ThenItReturnsTheCorrectNumberOfPosts()
         {
-            PostController controller = new PostController(_repository);
+            PostController controller = new PostController(_repository, null);
             ViewResult result = (ViewResult) controller.Index();
 
             IEnumerable<PostViewModel> model = (IEnumerable<PostViewModel>) result.Model;

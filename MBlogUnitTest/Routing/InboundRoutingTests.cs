@@ -9,15 +9,14 @@ namespace MBlogUnitTest.Routing
     public class InboundRoutingTests
     {
         [Test]
-        public void GivenACorrectRoutesCollection_WhenIAskForSlashPost_ThenIGetTheIndexView()
+        public void GivenACorrectRoutesCollection_WhenIAskForANickname_ThenIGetTheIndexView()
         {
-            TestRoute("~/Post", new
+            TestRoute("~/nickname", new
                                      {
                                          controller = "Post",
                                          action = "Index"
                                      });
         }
-
 
         [Test]
         public void GivenACorrectRoutesCollection_WhenIAskForTheErrorPage_ThenIGetTheErrorInde()
@@ -25,6 +24,16 @@ namespace MBlogUnitTest.Routing
             TestRoute("~/Error", new
             {
                 controller = "Error",
+                action = "Index"
+            });
+        }
+
+        [Test]
+        public void GivenACorrectRoutesCollection_WhenIAskForSlash_ThenIGetTheHomeControllerIndexView()
+        {
+            TestRoute("~/", new
+            {
+                controller = "Home",
                 action = "Index"
             });
         }
