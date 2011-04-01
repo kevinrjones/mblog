@@ -23,7 +23,7 @@ INSERT INTO [$(DATABASE)].[dbo].[posts]
 		,[posted])
      VALUES
   ('Up and running (well almost)'
-   ,'<p>I''m adding a ''code'' widget to the site to format code appropriately. Now, I don''t even have a layout/CSS started yet (I need to take screenshots, but to do that I have to store images, well for now they can go onto disk!) but as this is going to be mostly about coding then layout of code is important. I''m going to use ''Syntax Highlighter'' !!! which is on http://alexgorbatchev.com/SyntaxHighlighter/</p>'
+   ,'<p>I''m adding a ''code'' widget to the site to format code appropriately. Now, I don''t even have a layout/CSS started yet <img src="images/InitialBlog.png" style="width: 100%"></src> but as this is going to be mostly about coding then layout of code is important. I''m going to use ''Syntax Highlighter'' !!! which is on http://alexgorbatchev.com/SyntaxHighlighter/</p>'
   ,'2011-03-27 14:00:00')
 
 INSERT INTO [$(DATABASE)].[dbo].[posts]

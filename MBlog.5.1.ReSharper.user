@@ -23,7 +23,6 @@
       <File id="DAFFCFE0-9AE5-4FA3-AFBF-BA43FC16BCAC/f:Web.Debug.config" caret="684" fromTop="15" />
       <File id="DAFFCFE0-9AE5-4FA3-AFBF-BA43FC16BCAC/d:Models/f:UserViewModel.cs" caret="670" fromTop="26" />
       <File id="DAFFCFE0-9AE5-4FA3-AFBF-BA43FC16BCAC/f:Web.config" caret="0" fromTop="0" />
-      <File id="DAFFCFE0-9AE5-4FA3-AFBF-BA43FC16BCAC/d:Models/f:BlogViewModel.cs" caret="362" fromTop="13" />
       <File id="6B41D66F-0003-45EC-9692-023F9FCA62E8/f:BaseEfRepository.cs" caret="515" fromTop="18" />
       <File id="9D26D30F-3E4E-43B9-A93B-6E51AB34AC44/f:BlogDbContext.cs" caret="238" fromTop="9" />
       <File id="DAFFCFE0-9AE5-4FA3-AFBF-BA43FC16BCAC/d:Controllers/f:PostController.cs" caret="754" fromTop="28" />
@@ -34,11 +33,10 @@
       <File id="555BF169-88EA-4EF1-B532-D152AF974680/f:IBlogPostRepository.cs" caret="0" fromTop="0" />
       <File id="DAFFCFE0-9AE5-4FA3-AFBF-BA43FC16BCAC/d:Content/f:ie.css" caret="0" fromTop="0" />
       <File id="9D26D30F-3E4E-43B9-A93B-6E51AB34AC44/d:Database/d:db/d:scripts/f:insert.sql" caret="7504" fromTop="30" />
-      <File id="DAFFCFE0-9AE5-4FA3-AFBF-BA43FC16BCAC/d:Views/d:Home/f:Index.cshtml" caret="95" fromTop="4" />
       <File id="DAFFCFE0-9AE5-4FA3-AFBF-BA43FC16BCAC/d:Content/f:main.css" caret="503" fromTop="8" />
       <File id="DAFFCFE0-9AE5-4FA3-AFBF-BA43FC16BCAC/d:Views/d:Shared/f:_Layout.cshtml" caret="606" fromTop="10" />
       <File id="DAFFCFE0-9AE5-4FA3-AFBF-BA43FC16BCAC/f:Global.asax.cs" caret="27" fromTop="0" />
-      <File id="E7007D52-7D85-4C45-A632-EDD22B3323F4/f:PostComtrollerTest.cs" caret="489" fromTop="21" />
+      <File id="E7007D52-7D85-4C45-A632-EDD22B3323F4/f:PostComtrollerTest.cs" caret="520" fromTop="21" />
     </RecentFiles>
     <RecentEdits>
       <File id="DAFFCFE0-9AE5-4FA3-AFBF-BA43FC16BCAC/f:Global.asax.cs" caret="2617" fromTop="37" />
@@ -54,7 +52,6 @@
       <File id="DAFFCFE0-9AE5-4FA3-AFBF-BA43FC16BCAC/d:Content/f:main.css" caret="3194" fromTop="26" />
       <File id="DAFFCFE0-9AE5-4FA3-AFBF-BA43FC16BCAC/d:Content/f:main.css" caret="1095" fromTop="20" />
       <File id="9D26D30F-3E4E-43B9-A93B-6E51AB34AC44/d:Database/d:db/d:scripts/f:insert.sql" caret="7504" fromTop="30" />
-      <File id="DAFFCFE0-9AE5-4FA3-AFBF-BA43FC16BCAC/d:Views/d:Home/f:Index.cshtml" caret="95" fromTop="4" />
       <File id="DAFFCFE0-9AE5-4FA3-AFBF-BA43FC16BCAC/d:Content/f:main.css" caret="2472" fromTop="6" />
       <File id="DAFFCFE0-9AE5-4FA3-AFBF-BA43FC16BCAC/d:Content/f:main.css" caret="233" fromTop="4" />
       <File id="DAFFCFE0-9AE5-4FA3-AFBF-BA43FC16BCAC/d:Content/f:main.css" caret="2090" fromTop="3" />
