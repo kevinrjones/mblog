@@ -15,10 +15,8 @@ namespace Tests
         {
             Assert.AreEqual("/", GetOutboundUrl(new
             {
-                controller = "Products",
-                action = "List",
-                category = (string)null,
-                page = 1
+                controller = "Post",
+                action = "Index"
             }));
         }
 

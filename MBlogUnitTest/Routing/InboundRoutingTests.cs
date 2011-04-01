@@ -9,40 +9,18 @@ namespace MBlogUnitTest.Routing
     public class InboundRoutingTests
     {
         [Test]
-        public void Slash_List_Goes_To_All_Lists_Page_1()
+        public void GivenACorrectRoutesCollection_WhenIAskForSlashPost_ThenIGetTheIndexView()
         {
-            TestRoute("~/List", new
+            TestRoute("~/Post", new
                                      {
-                                         controller = "List",
-                                         action = "Index",
-                                         page = 1
+                                         controller = "Post",
+                                         action = "Index"
                                      });
         }
 
-        [Test]
-        public void Page2_Goes_To_All_Lists_Page_2()
-        {
-            TestRoute("~/List/index/2", new
-            {
-                controller = "List",
-                action = "Index",
-                page = 2
-            });
-        }
 
         [Test]
-        public void Show_List_Shows_Correct_List()
-        {
-            TestRoute("~/List/Show/2", new
-            {
-                controller = "List",
-                action = "Show",
-                id = 2
-            });
-        }
-
-        [Test]
-        public void Show_Error_Shows_Error_Page()
+        public void GivenACorrectRoutesCollection_WhenIAskForTheErrorPage_ThenIGetTheErrorInde()
         {
             TestRoute("~/Error", new
             {

@@ -9,9 +9,6 @@
   </SettingsComponent>
   <RecentFiles>
     <RecentFiles>
-      <File id="9D26D30F-3E4E-43B9-A93B-6E51AB34AC44/f:User.cs" caret="809" fromTop="8" />
-      <File id="DAFFCFE0-9AE5-4FA3-AFBF-BA43FC16BCAC/d:Views/d:Users/f:Register.cshtml" caret="660" fromTop="17" />
-      <File id="DAFFCFE0-9AE5-4FA3-AFBF-BA43FC16BCAC/d:Views/d:Users/f:Login.cshtml" caret="12" fromTop="0" />
       <File id="DAFFCFE0-9AE5-4FA3-AFBF-BA43FC16BCAC/d:Filters/f:GetCookieUserFilterAttribute.cs" caret="563" fromTop="19" />
       <File id="DAFFCFE0-9AE5-4FA3-AFBF-BA43FC16BCAC/d:Infrastructure/f:CookieEncryption.cs" caret="1" fromTop="0" />
       <File id="DAFFCFE0-9AE5-4FA3-AFBF-BA43FC16BCAC/d:Controllers/f:BaseController.cs" caret="130" fromTop="6" />
@@ -28,46 +25,52 @@
       <File id="DAFFCFE0-9AE5-4FA3-AFBF-BA43FC16BCAC/d:Controllers/f:PostController.cs" caret="754" fromTop="28" />
       <File id="DAFFCFE0-9AE5-4FA3-AFBF-BA43FC16BCAC/f:Web.Staging.config" caret="571" fromTop="12" />
       <File id="DAFFCFE0-9AE5-4FA3-AFBF-BA43FC16BCAC/f:Web.Release.config" caret="1467" fromTop="35" />
-      <File id="9D26D30F-3E4E-43B9-A93B-6E51AB34AC44/f:Post.cs" caret="118" fromTop="7" />
-      <File id="555BF169-88EA-4EF1-B532-D152AF974680/f:BlogPostPostRepository.cs" caret="731" fromTop="26" />
       <File id="555BF169-88EA-4EF1-B532-D152AF974680/f:IBlogPostRepository.cs" caret="0" fromTop="0" />
       <File id="DAFFCFE0-9AE5-4FA3-AFBF-BA43FC16BCAC/d:Content/f:ie.css" caret="0" fromTop="0" />
       <File id="9D26D30F-3E4E-43B9-A93B-6E51AB34AC44/d:Database/d:db/d:scripts/f:insert.sql" caret="7504" fromTop="30" />
       <File id="DAFFCFE0-9AE5-4FA3-AFBF-BA43FC16BCAC/d:Content/f:main.css" caret="503" fromTop="8" />
       <File id="DAFFCFE0-9AE5-4FA3-AFBF-BA43FC16BCAC/d:Views/d:Shared/f:_Layout.cshtml" caret="606" fromTop="10" />
-      <File id="DAFFCFE0-9AE5-4FA3-AFBF-BA43FC16BCAC/f:Global.asax.cs" caret="27" fromTop="0" />
-      <File id="E7007D52-7D85-4C45-A632-EDD22B3323F4/f:PostComtrollerTest.cs" caret="520" fromTop="21" />
+      <File id="555BF169-88EA-4EF1-B532-D152AF974680/f:BlogPostPostRepository.cs" caret="731" fromTop="26" />
+      <File id="E7007D52-7D85-4C45-A632-EDD22B3323F4/d:Controllers/f:PostControllerTest.cs" caret="1457" fromTop="47" />
+      <File id="DAFFCFE0-9AE5-4FA3-AFBF-BA43FC16BCAC/f:Global.asax.cs" caret="575" fromTop="18" />
+      <File id="E7007D52-7D85-4C45-A632-EDD22B3323F4/d:Routing/f:InboundRoutingTests.cs" caret="755" fromTop="0" />
+      <File id="d:Miscellaneous Files/f:TestRepository.cs/l:C!?home?kevinj?projects?doto?ToDoRepositoryTest?TestRepository.cs" caret="859" fromTop="33" />
+      <File id="d:Miscellaneous Files/f:TestToDoList.cs/l:C!?home?kevinj?projects?doto?ToDoRepositoryTest?TestToDoList.cs" caret="1045" fromTop="32" />
+      <File id="E7007D52-7D85-4C45-A632-EDD22B3323F4/d:Routing/f:OutboundRoutingTests.cs" caret="83" fromTop="4" />
+      <File id="9D26D30F-3E4E-43B9-A93B-6E51AB34AC44/f:Post.cs" caret="871" fromTop="29" />
+      <File id="E7007D52-7D85-4C45-A632-EDD22B3323F4/d:Model/f:PostTest.cs" caret="3937" fromTop="112" />
     </RecentFiles>
     <RecentEdits>
-      <File id="DAFFCFE0-9AE5-4FA3-AFBF-BA43FC16BCAC/f:Global.asax.cs" caret="2617" fromTop="37" />
-      <File id="DAFFCFE0-9AE5-4FA3-AFBF-BA43FC16BCAC/f:Web.Staging.config" caret="1460" fromTop="35" />
-      <File id="DAFFCFE0-9AE5-4FA3-AFBF-BA43FC16BCAC/f:Web.Staging.config" caret="571" fromTop="12" />
-      <File id="9D26D30F-3E4E-43B9-A93B-6E51AB34AC44/f:Post.cs" caret="118" fromTop="7" />
-      <File id="555BF169-88EA-4EF1-B532-D152AF974680/f:BlogPostPostRepository.cs" caret="218" fromTop="8" />
-      <File id="555BF169-88EA-4EF1-B532-D152AF974680/f:BlogPostPostRepository.cs" caret="399" fromTop="14" />
-      <File id="555BF169-88EA-4EF1-B532-D152AF974680/f:BlogPostPostRepository.cs" caret="731" fromTop="26" />
-      <File id="9D26D30F-3E4E-43B9-A93B-6E51AB34AC44/d:Database/d:db/d:scripts/f:insert.sql" caret="7718" fromTop="37" />
-      <File id="9D26D30F-3E4E-43B9-A93B-6E51AB34AC44/d:Database/d:db/d:scripts/f:insert.sql" caret="7718" fromTop="43" />
-      <File id="9D26D30F-3E4E-43B9-A93B-6E51AB34AC44/d:Database/d:db/d:scripts/f:insert.sql" caret="7718" fromTop="22" />
-      <File id="DAFFCFE0-9AE5-4FA3-AFBF-BA43FC16BCAC/d:Content/f:main.css" caret="3194" fromTop="26" />
-      <File id="DAFFCFE0-9AE5-4FA3-AFBF-BA43FC16BCAC/d:Content/f:main.css" caret="1095" fromTop="20" />
-      <File id="9D26D30F-3E4E-43B9-A93B-6E51AB34AC44/d:Database/d:db/d:scripts/f:insert.sql" caret="7504" fromTop="30" />
-      <File id="DAFFCFE0-9AE5-4FA3-AFBF-BA43FC16BCAC/d:Content/f:main.css" caret="2472" fromTop="6" />
-      <File id="DAFFCFE0-9AE5-4FA3-AFBF-BA43FC16BCAC/d:Content/f:main.css" caret="233" fromTop="4" />
-      <File id="DAFFCFE0-9AE5-4FA3-AFBF-BA43FC16BCAC/d:Content/f:main.css" caret="2090" fromTop="3" />
-      <File id="DAFFCFE0-9AE5-4FA3-AFBF-BA43FC16BCAC/d:Views/d:Shared/f:_Layout.cshtml" caret="35" fromTop="1" />
-      <File id="DAFFCFE0-9AE5-4FA3-AFBF-BA43FC16BCAC/d:Views/d:Shared/f:_Layout.cshtml" caret="2811" fromTop="42" />
-      <File id="DAFFCFE0-9AE5-4FA3-AFBF-BA43FC16BCAC/d:Views/d:Shared/f:_Layout.cshtml" caret="2790" fromTop="41" />
-      <File id="DAFFCFE0-9AE5-4FA3-AFBF-BA43FC16BCAC/d:Views/d:Shared/f:_Layout.cshtml" caret="1764" fromTop="19" />
-      <File id="DAFFCFE0-9AE5-4FA3-AFBF-BA43FC16BCAC/d:Content/f:main.css" caret="503" fromTop="8" />
-      <File id="DAFFCFE0-9AE5-4FA3-AFBF-BA43FC16BCAC/d:Views/d:Shared/f:_Layout.cshtml" caret="1533" fromTop="20" />
-      <File id="DAFFCFE0-9AE5-4FA3-AFBF-BA43FC16BCAC/d:Views/d:Shared/f:_Layout.cshtml" caret="604" fromTop="10" />
-      <File id="DAFFCFE0-9AE5-4FA3-AFBF-BA43FC16BCAC/f:Global.asax.cs" caret="871" fromTop="28" />
-      <File id="DAFFCFE0-9AE5-4FA3-AFBF-BA43FC16BCAC/f:Global.asax.cs" caret="1119" fromTop="35" />
-      <File id="DAFFCFE0-9AE5-4FA3-AFBF-BA43FC16BCAC/f:Global.asax.cs" caret="1378" fromTop="42" />
-      <File id="E7007D52-7D85-4C45-A632-EDD22B3323F4/f:PostComtrollerTest.cs" caret="359" fromTop="14" />
-      <File id="E7007D52-7D85-4C45-A632-EDD22B3323F4/f:PostComtrollerTest.cs" caret="800" fromTop="29" />
-      <File id="E7007D52-7D85-4C45-A632-EDD22B3323F4/f:PostComtrollerTest.cs" caret="489" fromTop="21" />
+      <File id="E7007D52-7D85-4C45-A632-EDD22B3323F4/d:Controllers/f:PostControllerTest.cs" caret="1457" fromTop="29" />
+      <File id="E7007D52-7D85-4C45-A632-EDD22B3323F4/d:Controllers/f:PostControllerTest.cs" caret="1457" fromTop="47" />
+      <File id="E7007D52-7D85-4C45-A632-EDD22B3323F4/d:Routing/f:InboundRoutingTests.cs" caret="2792" fromTop="51" />
+      <File id="E7007D52-7D85-4C45-A632-EDD22B3323F4/d:Routing/f:InboundRoutingTests.cs" caret="82" fromTop="2" />
+      <File id="DAFFCFE0-9AE5-4FA3-AFBF-BA43FC16BCAC/f:Global.asax.cs" caret="575" fromTop="18" />
+      <File id="E7007D52-7D85-4C45-A632-EDD22B3323F4/d:Routing/f:InboundRoutingTests.cs" caret="1674" fromTop="14" />
+      <File id="E7007D52-7D85-4C45-A632-EDD22B3323F4/d:Routing/f:OutboundRoutingTests.cs" caret="83" fromTop="4" />
+      <File id="E7007D52-7D85-4C45-A632-EDD22B3323F4/d:Model/f:PostTest.cs" caret="513" fromTop="16" />
+      <File id="E7007D52-7D85-4C45-A632-EDD22B3323F4/d:Model/f:PostTest.cs" caret="2343" fromTop="32" />
+      <File id="E7007D52-7D85-4C45-A632-EDD22B3323F4/d:Model/f:PostTest.cs" caret="1367" fromTop="11" />
+      <File id="E7007D52-7D85-4C45-A632-EDD22B3323F4/d:Model/f:PostTest.cs" caret="1367" fromTop="18" />
+      <File id="9D26D30F-3E4E-43B9-A93B-6E51AB34AC44/f:Post.cs" caret="401" fromTop="14" />
+      <File id="9D26D30F-3E4E-43B9-A93B-6E51AB34AC44/f:Post.cs" caret="394" fromTop="14" />
+      <File id="E7007D52-7D85-4C45-A632-EDD22B3323F4/d:Model/f:PostTest.cs" caret="1367" fromTop="30" />
+      <File id="E7007D52-7D85-4C45-A632-EDD22B3323F4/d:Model/f:PostTest.cs" caret="2032" fromTop="31" />
+      <File id="E7007D52-7D85-4C45-A632-EDD22B3323F4/d:Model/f:PostTest.cs" caret="1367" fromTop="8" />
+      <File id="9D26D30F-3E4E-43B9-A93B-6E51AB34AC44/f:Post.cs" caret="456" fromTop="15" />
+      <File id="9D26D30F-3E4E-43B9-A93B-6E51AB34AC44/f:Post.cs" caret="891" fromTop="28" />
+      <File id="9D26D30F-3E4E-43B9-A93B-6E51AB34AC44/f:Post.cs" caret="834" fromTop="28" />
+      <File id="E7007D52-7D85-4C45-A632-EDD22B3323F4/d:Model/f:PostTest.cs" caret="1367" fromTop="25" />
+      <File id="E7007D52-7D85-4C45-A632-EDD22B3323F4/d:Model/f:PostTest.cs" caret="1853" fromTop="32" />
+      <File id="E7007D52-7D85-4C45-A632-EDD22B3323F4/d:Model/f:PostTest.cs" caret="1043" fromTop="12" />
+      <File id="E7007D52-7D85-4C45-A632-EDD22B3323F4/d:Model/f:PostTest.cs" caret="3235" fromTop="32" />
+      <File id="E7007D52-7D85-4C45-A632-EDD22B3323F4/d:Model/f:PostTest.cs" caret="2984" fromTop="25" />
+      <File id="E7007D52-7D85-4C45-A632-EDD22B3323F4/d:Model/f:PostTest.cs" caret="3305" fromTop="22" />
+      <File id="E7007D52-7D85-4C45-A632-EDD22B3323F4/d:Model/f:PostTest.cs" caret="3526" fromTop="28" />
+      <File id="E7007D52-7D85-4C45-A632-EDD22B3323F4/d:Model/f:PostTest.cs" caret="4425" fromTop="32" />
+      <File id="E7007D52-7D85-4C45-A632-EDD22B3323F4/d:Model/f:PostTest.cs" caret="3720" fromTop="9" />
+      <File id="E7007D52-7D85-4C45-A632-EDD22B3323F4/d:Model/f:PostTest.cs" caret="4382" fromTop="29" />
+      <File id="E7007D52-7D85-4C45-A632-EDD22B3323F4/d:Model/f:PostTest.cs" caret="3936" fromTop="15" />
     </RecentEdits>
   </RecentFiles>
   <NAntValidationSettings>
@@ -83,7 +86,7 @@
   </UnitTestRunnerNUnit>
   <CompletionStatisticsManager>
     <ItemStatistics item="Default">
-      <Item value="using" priority="1" />
+      <Item value="using" priority="2" />
       <Item value="Microsoft" priority="0" />
       <Item value="IAuthorizationFilter`0" priority="0" />
       <Item value="AuthorRepository" priority="0" />
@@ -98,14 +101,14 @@
       <Item value="class" priority="2" />
       <Item value="BaseEfRepository" priority="0" />
       <Item value="IBlogRepository`0" priority="1" />
-      <Item value="string" priority="0" />
+      <Item value="string" priority="4" />
       <Item value="DbContext" priority="0" />
       <Item value="connectionString" priority="0" />
-      <Item value="public" priority="3" />
+      <Item value="public" priority="4" />
       <Item value="DbContext`0" priority="1" />
       <Item value="return" priority="2" />
       <Item value="Entities" priority="2" />
-      <Item value="System" priority="1" />
+      <Item value="System" priority="2" />
       <Item value="Linq" priority="0" />
       <Item value="in" priority="0" />
       <Item value="select" priority="0" />
@@ -125,7 +128,7 @@
       <Item value="Id" priority="0" />
       <Item value="blog" priority="4" />
       <Item value="Post" priority="3" />
-      <Item value="if" priority="1" />
+      <Item value="if" priority="2" />
       <Item value="blogs" priority="0" />
       <Item value="Configuration`0" priority="1" />
       <Item value="else" priority="0" />
@@ -135,18 +138,18 @@
       <Item value="CreationDbContext`0" priority="2" />
       <Item value="Database`0" priority="0" />
       <Item value="Blog" priority="0" />
-      <Item value="Title" priority="0" />
+      <Item value="Title" priority="2" />
       <Item value="context" priority="5" />
       <Item value="override" priority="0" />
       <Item value="DropCreateDatabaseAlways" priority="0" />
-      <Item value="Post`0" priority="0" />
+      <Item value="Post`0" priority="1" />
       <Item value="DateTime" priority="0" />
       <Item value="catch" priority="0" />
       <Item value="Exception`0" priority="0" />
       <Item value="Nullable`0" priority="0" />
       <Item value="Required" priority="0" />
       <Item value="MaxLength" priority="0" />
-      <Item value="DateTime`0" priority="1" />
+      <Item value="DateTime`0" priority="2" />
       <Item value="DateLastEdited" priority="0" />
       <Item value="DatePosted" priority="0" />
       <Item value="base" priority="0" />
@@ -157,12 +160,12 @@
       <Item value="ForeignKey" priority="0" />
       <Item value="orderby" priority="0" />
       <Item value="descending" priority="0" />
-      <Item value="void" priority="1" />
+      <Item value="void" priority="2" />
       <Item value="PostController" priority="0" />
       <Item value="controller" priority="0" />
-      <Item value="Assert`0" priority="0" />
+      <Item value="Assert`0" priority="1" />
       <Item value="result" priority="0" />
-      <Item value="Is`0" priority="0" />
+      <Item value="Is`0" priority="1" />
       <Item value="_repository" priority="5" />
       <Item value="Mock`0" priority="0" />
       <Item value="IBlogPostRepository`0" priority="0" />
@@ -170,6 +173,15 @@
       <Item value="mock" priority="1" />
       <Item value="r" priority="0" />
       <Item value="List&lt;Post&gt;" priority="0" />
+      <Item value="Web" priority="0" />
+      <Item value="Routing" priority="0" />
+      <Item value="isValid" priority="0" />
+      <Item value="BlogPost" priority="1" />
+      <Item value="Posted" priority="0" />
+      <Item value="title" priority="1" />
+      <Item value="entry" priority="0" />
+      <Item value="post" priority="1" />
+      <Item value="OriginalPost" priority="0" />
     </ItemStatistics>
     <ItemStatistics item="Qualified:MBlogRepository.IUserRepository">
       <Item value="Create`0" priority="0" />
@@ -235,15 +247,21 @@
     <ItemStatistics item="Qualified:MBlogModel.Post">
       <Item value="Edited" priority="0" />
       <Item value="Posted" priority="1" />
+      <Item value="AddPost`0" priority="0" />
+      <Item value="UpdatePost`0" priority="0" />
+      <Item value="GetType`0" priority="0" />
+      <Item value="BlogPost" priority="0" />
     </ItemStatistics>
     <ItemStatistics item="Qualified:MBlog.Controllers.PostController">
       <Item value="Index`0" priority="0" />
     </ItemStatistics>
     <ItemStatistics item="Qualified:@NUnit.Framework.Assert">
-      <Item value="That`0" priority="0" />
+      <Item value="That`0" priority="1" />
     </ItemStatistics>
     <ItemStatistics item="Qualified:@NUnit.Framework.Is">
       <Item value="TypeOf`1" priority="0" />
+      <Item value="True" priority="1" />
+      <Item value="EqualTo`0" priority="0" />
     </ItemStatistics>
     <ItemStatistics item="Qualified:Moq.Mock`1">
       <Item value="Setup`1" priority="0" />
@@ -254,6 +272,13 @@
     </ItemStatistics>
     <ItemStatistics item="Qualified:Moq.Language.Flow.ISetup`2">
       <Item value="Returns`16" priority="0" />
+    </ItemStatistics>
+    <ItemStatistics item="Qualified:@System.DateTime">
+      <Item value="Today" priority="0" />
+      <Item value="Now" priority="0" />
+    </ItemStatistics>
+    <ItemStatistics item="Qualified:@System.String">
+      <Item value="IsNullOrEmpty`0" priority="0" />
     </ItemStatistics>
   </CompletionStatisticsManager>
 </Configuration>
