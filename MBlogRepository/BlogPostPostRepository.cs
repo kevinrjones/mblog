@@ -8,7 +8,7 @@ namespace MBlogRepository
 {
     public class BlogPostPostRepository : BaseEfRepository<Post>, IBlogPostRepository
     {
-        public BlogPostPostRepository(string connectionString) : base(new BlogDbContext(connectionString))
+        public BlogPostPostRepository(string connectionString) : base(new BlogPostDbContext(connectionString))
         {
         }
 
