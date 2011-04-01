@@ -167,6 +167,8 @@
     <Content Include="Content\themes\base\images\ui-icons_cd0a0a_256x240.png" />
     <Content Include="images\InitialBlog.png" />
     <Content Include="images\InitialBlogThumbNail.png" />
+    <Content Include="images\teamcity-thumb.png" />
+    <Content Include="images\teamcity.png" />
     <Content Include="Scripts\mblog.js" />
     <Content Include="Scripts\modernizr-1.7.min.js" />
     <Content Include="Scripts\shAutoloader.js" />
@@ -249,7 +251,7 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Views\Home\Index.cshtml" />
+    <Content Include="Views\Post\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Web.Staging.config">
