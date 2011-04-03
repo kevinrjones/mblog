@@ -18,9 +18,9 @@ namespace MBlog.Filters
             if (controller != null)
             {
                 UserViewModel userViewModel = new UserViewModel { IsLoggedIn = false };
-                if (HttpContext.Current.Request.Cookies[UserCookie] != null)
+                if (filterContext.HttpContext.Request.Cookies[UserCookie] != null)
                 {
-                    string cookie = HttpContext.Current.Request.Cookies[UserCookie].Value;
+                    string cookie = filterContext.HttpContext.Request.Cookies[UserCookie].Value;
                     var cipherText = Convert.FromBase64String(cookie);
                     string plainText = cipherText.Decrypt();
                     int id;
@@ -36,7 +36,7 @@ namespace MBlog.Filters
                         }
                     }
                 }
-                HttpContext.Current.User = userViewModel;
+                filterContext.HttpContext.User = userViewModel;
             }
         }
     }
