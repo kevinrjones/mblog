@@ -167,4 +167,168 @@ INSERT INTO [$(DATABASE)].[dbo].[posts]
    ,'<p>I''ve just installed dotCover, TeamCity and YouTrack and it was trivially easy. Have CI builds running off GitHub and the output looks like this <img src=''images/teamcity.png'' style="width:100%"/></p>'
   ,'2011-03-31 18:47:00', 1)
 
+INSERT INTO [$(DATABASE)].[dbo].[posts]
+		([title]
+		,[blogPost]
+		,[posted]
+		,[blog_id])
+     VALUES
+  ('First steps to a multi user blog?'
+   ,'<p>
+I''ve just started the process of adding multi-user support to this blog. I want to have urls like http://www.requiredattribute.com/kevin where kevin is the blog nickname. To get to this I''ve added several tables (at the time of posting this is only on my dev box, not on the staging or live servers). To do this I''ve added a couple of tables and new model classes.
+</p>
+<p>
+The new migration looks like this - I''ve munged everything into one migration as this stuff is too intimately related to be separated:
+<pre class="brush: ruby">
+class CreateInitialDatabase < ActiveRecord::Migration
+
+  def self.up
+    create_table :users do |t|
+      t.string :name,            :null => false
+      t.string :email,           :null => false
+      t.string :hashed_password, :null => false
+      t.string :salt,            :null => false
+      t.boolean :is_site_admin,  :null => false
+    end    
+    
+    create_table :blogs do |t|
+        t.string :title,        :null => false
+        t.string :description,  :null => false
+        t.string :nickname,     :null => false
+    end
+
+    create_table :users_blogs do |t|
+        t.integer :blog_id, :null => false
+        t.integer :user_id, :null => false
+    end    
+
+    create_table :posts do |t|
+      t.string :title, :null => false
+      t.text :blogPost, :null => false
+      t.datetime :posted, :null => false
+      t.datetime :edited, :null => true
+      t.integer :blog_id, :null => false
+    end    
+
+    create_table :comments do |t|
+      t.string :text, :null => false
+      t.integer :user_id, :null => false
+      t.integer :post_id, :null => false
+      t.string :email, :null => false
+      t.datetime :commented, :null => true
+    end    
+  end
+
+  
+  def self.down    
+    drop_table :users  
+    drop_table :blogs  
+    drop_table :users_blogs  
+    drop_table :posts  
+    drop_table :comments  
+  end
+end
+</pre>
+This may yet change but it''s an initial stab. Notice that I''m using ''_'' in the column names. I chose to do this for a couple of reasons, 1) it''s the Rails way and I may yet a Rails version of this, and 2) as this is a learning exercise I wanted to see how code-first entity framework would handle this.
+</p>
+<p>
+[Some of] the corresponding classes for the above tables look like this
+<pre class="brush :csharp">
+public class Blog
+{
+    public virtual int Id { get; private set; }
+    [Required]
+    public virtual string Title { get; private set; }
+    [Required]
+    public virtual string Description { get; private set; }
+    [Required]
+    public virtual string Nickname { get; private set; }
+
+    public virtual ICollection<Post> Posts { get; set; }
+
+    [ForeignKey("user_id")]
+    public virtual ICollection<User> Users { get; set; }
+}
+</pre>
+<pre class="brush :csharp">
+public class Post
+{
+    public int Id { get; set; }
+    [Required]
+    public string Title { get; private set; }
+    [Required]
+    [MaxLength(int.MaxValue)]
+    public string BlogPost { get; private set; }
+    [Required]
+    public DateTime Posted { get; private set; }
+    public DateTime? Edited { get; private set; }
+
+    public virtual Blog Blog{ get; set; }
+}
+</pre>
+So Blog has a 1:n relationship to Post (notice there''s no foreign key relation ship defined in the SQL, again this is the Rails way!) and to use this I want code that said, get all the blog posts for a blog whose nickname is ''foo''
+ That required a couple of more steps.
+</p>
+<p>
+The first thing that needed doing was the routes needed changing.
+<pre class="brush :csharp">
+public static void RegisterRoutes(RouteCollection routes)
+{
+    // ...
+    routes.MapRoute(
+        "Posts-Default",
+        "{nickname}/{action}",
+        new { controller = "Post", action = "Index" }
+    );
+
+    // ...
+}
+</pre>
+This says that the first paramter after the root is the nickname, there''s a discussion to be had here for the default value for the ''nickname''. The way it will work currently is that if an arbitrary nickname is entered then there is no error, just an empty list of posts to be returned.
+</p>
+<p>
+This nickname is passed on to the controller, so:
+<pre class="brush :csharp">
+public ActionResult Index(string nickname)
+{
+    IList<Post> blogs = _blogPostRepository.GetBlogPosts(nickname);
+</pre>
+The nickname is passed as the first parameter to the Index method and is used to get the posts for this blog 
+</p>
+<p>
+The final step then is to update the repository to only get the posts for this blog.
+<pre class="brush :csharp">
+public IList<Post> GetBlogPosts(string nickname)
+{
+    return (from f in Entities
+        orderby f.Posted descending 
+        where f.Blog.Nickname == nickname
+        select f)
+        .ToList();                
+}
+</pre>
+This is a trivial change, I''m using the Post''s, Blog relationship to get only Posts for this Blog. This works, but the first thing I wondered was what the SQL looked like. Running the SQL Server Profiler you can see the session and the generated SQL
+<pre class="brush sql">
+exec sp_executesql N''SELECT 
+[Project1].[Id] AS [Id], 
+[Project1].[Title] AS [Title], 
+[Project1].[BlogPost] AS [BlogPost], 
+[Project1].[Posted] AS [Posted], 
+[Project1].[Edited] AS [Edited], 
+[Project1].[Blog_Id] AS [Blog_Id]
+FROM ( SELECT 
+	[Extent1].[Id] AS [Id], 
+	[Extent1].[Title] AS [Title], 
+	[Extent1].[BlogPost] AS [BlogPost], 
+	[Extent1].[Posted] AS [Posted], 
+	[Extent1].[Edited] AS [Edited], 
+	[Extent1].[Blog_Id] AS [Blog_Id]
+	FROM  [dbo].[Posts] AS [Extent1]
+	INNER JOIN [dbo].[Blogs] AS [Extent2] ON [Extent1].[Blog_Id] = [Extent2].[Id]
+	WHERE [Extent2].[Nickname] = @p__linq__0
+)  AS [Project1]
+ORDER BY [Project1].[Posted] DESC'',N''@p__linq__0 nvarchar(4000)'',@p__linq__0=N''kevin''
+</pre>
+Which is more or less what you would expect!
+  ,'2011-04-03 20:10:00', 1)
 

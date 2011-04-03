@@ -8,6 +8,6 @@ namespace MBlogRepository
     public interface IBlogPostRepository : IRepository<Post>
     {
         Post GetBlogPost(int id);
-        IList<Post> GetBlogPosts();
+        IList<Post> GetBlogPosts(string nickname);
     }
 }
