@@ -174,8 +174,7 @@ INSERT INTO [$(DATABASE)].[dbo].[posts]
 		,[blog_id])
      VALUES
   ('First steps to a multi user blog?'
-   ,'<p>
-I''ve just started the process of adding multi-user support to this blog. I want to have urls like http://www.requiredattribute.com/kevin where kevin is the blog nickname. To get to this I''ve added several tables (at the time of posting this is only on my dev box, not on the staging or live servers). To do this I''ve added a couple of tables and new model classes.
+   ,'<p>I''ve just started the process of adding multi-user support to this blog. I want to have urls like http://www.requiredattribute.com/kevin where kevin is the blog nickname. To get to this I''ve added several tables (at the time of posting this is only on my dev box, not on the staging or live servers). To do this I''ve added a couple of tables and new model classes.
 </p>
 <p>
 The new migration looks like this - I''ve munged everything into one migration as this stuff is too intimately related to be separated:
@@ -308,7 +307,7 @@ public IList<Post> GetBlogPosts(string nickname)
 }
 </pre>
 This is a trivial change, I''m using the Post''s, Blog relationship to get only Posts for this Blog. This works, but the first thing I wondered was what the SQL looked like. Running the SQL Server Profiler you can see the session and the generated SQL
-<pre class="brush sql">
+<pre class="brush :sql">
 exec sp_executesql N''SELECT 
 [Project1].[Id] AS [Id], 
 [Project1].[Title] AS [Title], 
@@ -329,6 +328,6 @@ FROM ( SELECT
 )  AS [Project1]
 ORDER BY [Project1].[Posted] DESC'',N''@p__linq__0 nvarchar(4000)'',@p__linq__0=N''kevin''
 </pre>
-Which is more or less what you would expect!
+Which is more or less what you would expect!'
   ,'2011-04-03 20:10:00', 1)
 

@@ -20,9 +20,9 @@ namespace MBlog.Controllers
             _blogPostRepository = blogPostRepository;
         }
 
-        public ActionResult Index(string nickname)
+        public ActionResult Index()
         {
-            IList<Post> blogs = _blogPostRepository.GetBlogPosts(nickname);
+            IList<Post> blogs = _blogPostRepository.GetBlogPosts();
             List<PostViewModel> viewModels = new List<PostViewModel>();
 
             if (blogs != null)

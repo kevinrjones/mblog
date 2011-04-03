@@ -20,13 +20,13 @@ namespace MBlogRepository
             return b;
         }
 
-        public IList<Post> GetBlogPosts(string nickname)
-        {
-            return (from f in Entities
-             orderby f.Posted descending 
-             where f.Blog.Nickname == nickname
-                select f)
-                .ToList();                
-        }
+public IList<Post> GetBlogPosts(string nickname)
+{
+    return (from f in Entities
+        orderby f.Posted descending 
+        where f.Blog.Nickname == nickname
+        select f)
+        .ToList();                
+}
     }
 }
