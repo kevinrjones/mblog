@@ -69,7 +69,6 @@
     <None Include="Database\database.log" />
     <None Include="Database\database.yml" />
     <None Include="Database\db\migrate\20110327000000_create_initial_database.rb" />
-    <None Include="Database\db\migrate\20110403000000_create_users.rb" />
     <None Include="Database\deploy.cmd" />
     <None Include="Database\Rakefile" />
     <None Include="packages.config" />

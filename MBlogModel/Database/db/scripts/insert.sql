@@ -1,14 +1,14 @@
 ﻿INSERT INTO [$(DATABASE)].[dbo].[users]
 		([name],[email],[hashed_password],[salt], [is_site_admin])
 		VALUES
-		('Kevin Jones', 'kevin@requiredattribute.com', 'foo' ,'bar', true)
+		('Kevin Jones', 'kevin@requiredattribute.com', 'foo' ,'bar', 'true')
 
 INSERT INTO [$(DATABASE)].[dbo].[blogs]
 		([title],[description],[nickname])
 		VALUES
 		('Wish I Knew Now', 'The blog of this site', 'kevin' )
 
-INSERT INTO [$(DATABASE)].[dbo].[blogs_users]
+INSERT INTO [$(DATABASE)].[dbo].[users_blogs]
 		([user_id],[blog_id])
 		VALUES
 		(1, 1)
@@ -28,7 +28,8 @@ INSERT INTO [$(DATABASE)].[dbo].[posts]
 INSERT INTO [$(DATABASE)].[dbo].[posts]
 		([title]
 		,[blogPost]
-		,[posted])
+		,[posted]
+		,[blog_id])
      VALUES
   ('Up and running'
    ,'<p>So the first aim is to get this up and running on a local instance of SQL Server If you can see this then that must have worked!</p><p>This (I hope) will have been deployed with a deploy script and when I know how to do that I''ll write about it here!</p>'
@@ -37,7 +38,8 @@ INSERT INTO [$(DATABASE)].[dbo].[posts]
 INSERT INTO [$(DATABASE)].[dbo].[posts]
 		([title]
 		,[blogPost]
-		,[posted])
+		,[posted]
+		,[blog_id])
      VALUES
   ('Up and running (well almost)'
    ,'<p>I''m adding a ''code'' widget to the site to format code appropriately. Now, I don''t even have a layout/CSS started yet <img src="images/InitialBlog.png" style="width: 100%"></src> but as this is going to be mostly about coding then layout of code is important. I''m going to use ''Syntax Highlighter'' !!! which is on http://alexgorbatchev.com/SyntaxHighlighter/</p>'
@@ -46,7 +48,8 @@ INSERT INTO [$(DATABASE)].[dbo].[posts]
 INSERT INTO [$(DATABASE)].[dbo].[posts]
 		([title]
 		,[blogPost]
-		,[posted])
+		,[posted]
+		,[blog_id])
      VALUES
   ('Isn''t this exciting'
    ,'<p>So, the first real post about the site (with screenshot!) I''m using code-first initially, although I know I''ll be moving away from that. This means I need models to create the database tables and to map to those tables, I''ll have more to say about models and view models soon. My first model is a <code>Post</code> that looks like this</p><pre  class="brush: csharp">
@@ -68,7 +71,8 @@ INSERT INTO [$(DATABASE)].[dbo].[posts]
 INSERT INTO [$(DATABASE)].[dbo].[posts]
 		([title]
 		,[blogPost]
-		,[posted])
+		,[posted]
+		,[blog_id])
      VALUES
   ('Walking Skeleton'
    ,'<p>So the ''walking skeleton'' is in place. What is a ''Walking Skeleton'', it''s the bare bones of an application that you need in place to help you move forward. If I was writing this using a pure TDD then I would have started with a test project, written a test for a <span class="inline-code">Post</span> class, then written the class (even though this class is anaemic). Then added a test project for my controller, written some tests and then started the controller. But come on, this is boring. Not just that, it''s counter productive. As developers we want to see forward progress, hence the walking skeleton. There''s a great description <a href="http://alistair.cockburn.us/Walking+skeleton">here</a>.</p><p>Next step is testing and thinking about multi-user before I add an editor.</p>'
@@ -78,7 +82,8 @@ INSERT INTO [$(DATABASE)].[dbo].[posts]
 INSERT INTO [$(DATABASE)].[dbo].[posts]
 		([title]
 		,[blogPost]
-		,[posted])
+		,[posted]
+		,[blog_id])
      VALUES
   ('Migrations'
    ,'<p>
@@ -137,7 +142,8 @@ I still have issues with data, I need to be able to backup and restore the datab
 INSERT INTO [$(DATABASE)].[dbo].[posts]
 		([title]
 		,[blogPost]
-		,[posted])
+		,[posted]
+		,[blog_id])
      VALUES
   ('To Do list?'
    ,'<ul>
@@ -154,7 +160,8 @@ INSERT INTO [$(DATABASE)].[dbo].[posts]
 INSERT INTO [$(DATABASE)].[dbo].[posts]
 		([title]
 		,[blogPost]
-		,[posted])
+		,[posted]
+		,[blog_id])
      VALUES
   ('Gotta Love JetBrains'
    ,'<p>I''ve just installed dotCover, TeamCity and YouTrack and it was trivially easy. Have CI builds running off GitHub and the output looks like this <img src=''images/teamcity.png'' style="width:100%"/></p>'

@@ -16,7 +16,7 @@ class CreateInitialDatabase < ActiveRecord::Migration
         t.string :nickname,     :null => false
     end
 
-    create_table :blogs_users do |t|
+    create_table :users_blogs do |t|
         t.integer :blog_id, :null => false
         t.integer :user_id, :null => false
     end    
@@ -40,11 +40,11 @@ class CreateInitialDatabase < ActiveRecord::Migration
 
   
   def self.down    
-    #drop_table :users  
-    #drop_table :blogs  
-    #drop_table :blogs_users  
+    drop_table :users  
+    drop_table :blogs  
+    drop_table :users_blogs  
     drop_table :posts  
-    #drop_table :comments  
+    drop_table :comments  
   end
 end
 
