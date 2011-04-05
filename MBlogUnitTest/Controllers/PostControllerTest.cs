@@ -19,7 +19,7 @@ namespace MBlogUnitTest.Controllers
         public void SetUp()
         {
             var mock = new Mock<IBlogPostRepository>();
-            mock.Setup(r => r.GetBlogPosts()).Returns(posts);
+            mock.Setup(r => r.GetBlogPosts(It.IsAny<string>())).Returns(posts);
 
             _repository = mock.Object;
         }
@@ -28,7 +28,7 @@ namespace MBlogUnitTest.Controllers
         public void GivenAPostController_WhenICallItsIndexMethod_ThenItReturnsTheCorrectView()
         {
             PostController controller = new PostController(_repository, null);
-            ActionResult result = controller.Index();
+            ActionResult result = controller.Index(It.IsAny<string>());
 
             Assert.That(result, Is.TypeOf(typeof(ViewResult)));
         }
@@ -37,7 +37,7 @@ namespace MBlogUnitTest.Controllers
         public void GivenAPostController_WhenICallItsIndexMethod_ThenItReturnsTheCorrectNumberOfPosts()
         {
             PostController controller = new PostController(_repository, null);
-            ViewResult result = (ViewResult) controller.Index();
+            ViewResult result = (ViewResult) controller.Index("");
 
             IEnumerable<PostViewModel> model = (IEnumerable<PostViewModel>) result.Model;
 

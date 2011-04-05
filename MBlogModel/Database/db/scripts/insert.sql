@@ -243,10 +243,10 @@ public class Blog
     [Required]
     public virtual string Nickname { get; private set; }
 
-    public virtual ICollection<Post> Posts { get; set; }
+    public virtual ICollection&lt;Post> Posts { get; set; }
 
     [ForeignKey("user_id")]
-    public virtual ICollection<User> Users { get; set; }
+    public virtual ICollection&lt;User> Users { get; set; }
 }
 </pre>
 <pre class="brush :csharp">
@@ -290,14 +290,14 @@ This nickname is passed on to the controller, so:
 <pre class="brush :csharp">
 public ActionResult Index(string nickname)
 {
-    IList<Post> blogs = _blogPostRepository.GetBlogPosts(nickname);
+    IList&lt;Post> blogs = _blogPostRepository.GetBlogPosts(nickname);
 </pre>
 The nickname is passed as the first parameter to the Index method and is used to get the posts for this blog 
 </p>
 <p>
 The final step then is to update the repository to only get the posts for this blog.
 <pre class="brush :csharp">
-public IList<Post> GetBlogPosts(string nickname)
+public IList&lt;Post> GetBlogPosts(string nickname)
 {
     return (from f in Entities
         orderby f.Posted descending 

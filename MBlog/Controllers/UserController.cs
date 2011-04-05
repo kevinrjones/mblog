@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Web;
 using System.Web.Mvc;
+using System.Web.Routing;
 using MBlog.Filters;
 using MBlog.Infrastructure;
 using MBlog.Models;
@@ -27,7 +28,8 @@ namespace MBlog.Controllers
             {
                 return View();
             }
-            return RedirectToAction("index", "Home");
+            UserViewModel user = HttpContext.User as UserViewModel;
+            return RedirectToAction("index", "Post", new { nickname = user.Nickname});
         }
 
         [HttpGet]
@@ -73,16 +75,6 @@ namespace MBlog.Controllers
                 Response.Cookies.Add(myCookie);
             }
             return RedirectToRoute(new { Controller = "questions", action = "Index" });
-        }
-
-        public ActionResult New()
-        {
-            return View();
-        }
-
-        public ActionResult Create()
-        {
-            return View();
         }
     }
 }
