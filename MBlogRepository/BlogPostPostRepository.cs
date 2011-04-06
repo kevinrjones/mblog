@@ -23,17 +23,18 @@ namespace MBlogRepository
 
         public IList<Post> GetBlogPosts(string nickname)
         {
+
             if (string.IsNullOrEmpty(nickname))
                 return (from f in Entities
                         orderby f.Posted descending
                         select f)
                     .ToList();
-            else
-                return (from f in Entities
-                        orderby f.Posted descending
-                        where f.Blog.Nickname == nickname
-                        select f)
-                    .ToList();
+
+            return (from f in Entities
+                    orderby f.Posted descending
+                    where f.Blog.Nickname == nickname
+                    select f)
+                .ToList();
         }
     }
 }

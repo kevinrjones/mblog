@@ -179,7 +179,7 @@ INSERT INTO [$(DATABASE)].[dbo].[posts]
 <p>
 The new migration looks like this - I''ve munged everything into one migration as this stuff is too intimately related to be separated:
 <pre class="brush: ruby">
-class CreateInitialDatabase < ActiveRecord::Migration
+class CreateInitialDatabase &lt; ActiveRecord::Migration
 
   def self.up
     create_table :users do |t|
@@ -331,3 +331,140 @@ ORDER BY [Project1].[Posted] DESC'',N''@p__linq__0 nvarchar(4000)'',@p__linq__0=
 Which is more or less what you would expect!'
   ,'2011-04-03 20:10:00', 1)
 
+INSERT INTO [$(DATABASE)].[dbo].[posts]
+		([title]
+		,[blogPost]
+		,[posted]
+		,[blog_id])
+     VALUES
+  ('Use of the repository pattern?'
+   ,'<p>
+Writing data access code involves choices, which database, do I use an ORM?, do I use data access patterns?, if so, which one(s)? For this blog I''m currently using SQL Server, although as I''ve said I''d like to try out a NoSQL database. I''m also using Entity Framework (currently CTP 5 of EF code first). As for data access patterns ''repository'' seems to be the flavour of the month and that''s what I''m using. Using repository allows me to separate the use of the data access layer from the implementation of the access. In this case I have EF as the implementation but the users of the implmentation, the controllers simply code against interfaces.
+</p>
+<p>
+The patterns is based around a single interface and implementation and then specific interfaces for the repositories that I am using (see <a href=''http://rocksolidknowledge.com/ScreenCasts.mvc''>Andy''s screencast for a great overview</a>. The basic interface looks like this:
+<pre class="brush: csharp">
+public interface IRepository&lt;T> : IDisposable
+{
+    IQueryable&lt;T> Entities { get; }
+    T New();
+    void Add(T entity);
+    void Create(T entity);
+    void Delete(T entity);
+    void Save();
+}
+</pre>
+This generic interface gives all repositories those methods, in a given implementation you can use those methods directly, or more likely provide your own API over the top of this abstraction. For example I have an IBlogPostRepository that looks like this:
+<pre class="brush: csharp">
+public interface IBlogPostRepository : IRepository&lt;Post>
+{
+    Post GetBlogPost(int id);
+    IList&lt;Post> GetBlogPosts(string nickname);
+}
+</pre>
+This lets users of the interface use specific methods
+</p>
+<p>
+As to implementation, again there is a base class
+<pre class="brush: csharp">
+public abstract class BaseEfRepository&lt;T> : IRepository&lt;T> where T : class
+{
+    private readonly IDbSet&lt;T> _dbSet;
+    private readonly DbContext _dataDbContext;
+
+    protected BaseEfRepository(DbContext dataDbContext)
+    {
+        _dataDbContext = dataDbContext;
+        _dbSet = dataDbContext.Set&lt;T>();
+    }
+
+    public IQueryable&lt;T> Entities
+    {
+        get { return _dbSet; }
+    }
+
+    public T New()
+    {
+        return _dbSet.Create();
+    }
+
+    public void Add(T entity)
+    {
+        _dbSet.Attach(entity);
+    }
+
+    public void Create(T entity)
+    {
+        _dbSet.Add(entity);
+    }
+
+    public void Delete(T entity)
+    {
+        _dbSet.Remove(entity);
+    }
+
+    public void Save()
+    {
+        _dataDbContext.SaveChanges();
+    }
+
+    public void Dispose()
+    {
+        _dataDbContext.Dispose();
+    }
+}
+</pre>
+This is Entity Framework specific, notice it is using DbContext and DbSet which are part of EF code first rather than the moer common ObjectContext and ObjectSet. Each repository has it''s own DbCOntext implementation that provides the layer between the model and the database. The BlogPost DbContext looks like this:
+<pre class="brush: csharp">
+public class BlogPostDbContext : DbContext
+{
+    public BlogPostDbContext(string connectionString)
+        : base(connectionString){}
+
+    public DbSet&lt;Post> Posts { get; set; } 
+}
+</pre>
+This simply takes a connection string and gets the base class to make a connection to the database. It also contains a DbSet which by convention maps to that table in the database. This class is used in the base repository implementation. For example that the Entities method uses the DbSet to get its data.
+</p>
+<p>
+Finally there''s the repository implementation for each entity, the BlogPost implementation looks like this:
+<pre class="brush: csharp">
+public class BlogPostPostRepository : BaseEfRepository&lt;Post>, IBlogPostRepository
+{
+    public BlogPostPostRepository(string connectionString)
+        : base(new BlogPostDbContext(connectionString))
+    {
+    }
+
+    public Post GetBlogPost(int id)
+    {
+        var b = (from e in Entities
+                    where e.Id == id
+                    select e).FirstOrDefault();
+        return b;
+    }
+
+    public IList&lt;Post> GetBlogPosts(string nickname)
+    {
+
+        if (string.IsNullOrEmpty(nickname))
+            return (from f in Entities
+                    orderby f.Posted descending
+                    select f)
+                .ToList();
+
+        return (from f in Entities
+                orderby f.Posted descending
+                where f.Blog.Nickname == nickname
+                select f)
+            .ToList();
+    }
+}
+</pre>
+This relies on the underlying abstraction being able to return something that I can run LINQ queries against but does not rely on EF at all.
+</p>
+<p>
+I use these interfaces in the controllers. These are injected using an IoC container, more on that later.
+</p>
+'
+  ,'2011-04-26 20:02:00', 1)

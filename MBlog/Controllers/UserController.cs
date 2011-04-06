@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Web;
 using System.Web.Mvc;
-using System.Web.Routing;
 using MBlog.Filters;
 using MBlog.Infrastructure;
 using MBlog.Models;
@@ -12,14 +11,8 @@ namespace MBlog.Controllers
 {
     public class UserController : BaseController
     {
-        private readonly IUserRepository _userRepository;
-
-
         public UserController(IUserRepository userRepository)
-            : base(userRepository)
-        {
-            _userRepository = userRepository;
-        }
+            : base(userRepository) { }
 
         [HttpGet]
         public ActionResult Login()
@@ -29,7 +22,25 @@ namespace MBlog.Controllers
                 return View();
             }
             UserViewModel user = HttpContext.User as UserViewModel;
-            return RedirectToAction("index", "Post", new { nickname = user.Nickname});
+            return RedirectToAction("index", "Post", new { nickname = user.Nickname });
+        }
+
+        [HttpPost]
+        public ActionResult DoLogin(UserViewModel userViewModel)
+        {
+            if (!ModelState.IsValid)
+            {
+                return View("Login");
+            }
+            User user = UserRepository.GetUser(userViewModel.Email);
+            if (user != null)
+            {
+                byte[] cipherText = user.Id.ToString().Encrypt();
+                string base64CipherText = Convert.ToBase64String(cipherText);
+                Response.Cookies.Add(new HttpCookie(GetCookieUserFilterAttribute.UserCookie, base64CipherText));
+                return RedirectToRoute(new { Controller = "Post", action = "Index", nickname = userViewModel.Nickname });
+            }
+            return View("Login");
         }
 
         [HttpGet]
@@ -39,7 +50,8 @@ namespace MBlog.Controllers
             {
                 return View();
             }
-            return RedirectToAction("index", "Home");
+            UserViewModel user = (UserViewModel)HttpContext.User;
+            return RedirectToAction("index", "Post", new { nickname = user.Nickname });
         }
 
         [HttpPost]
@@ -49,32 +61,26 @@ namespace MBlog.Controllers
             {
                 return View("Register");
             }
-            //UserRepository.Create(new User{Email = userViewModel.Email});
-            return RedirectToAction("index", "Home");
-        }
-
-        [HttpPost]
-        public ActionResult DoLogin(UserViewModel userViewModel)
-        {
-            User user = _userRepository.GetUser(userViewModel.Email);
+            User user = UserRepository.GetUser(userViewModel.Email);
             if (user != null)
             {
-                byte[] cipherText = user.Id.ToString().Encrypt();
-                string base64CipherText = Convert.ToBase64String(cipherText);
-                Response.Cookies.Add(new HttpCookie(GetCookieUserFilterAttribute.UserCookie, base64CipherText));
+                ModelState.AddModelError("EMail", "EMail already exists in database");
+                return View("Register");
             }
-            return RedirectToRoute(new { Controller = "questions", action = "Index" });
+            user = new User();
+            user.AddUser(userViewModel.Name, userViewModel.Email, userViewModel.Password, false);
+            UserRepository.Create(user);
+            return RedirectToAction("index", "Home");
         }
 
         public ActionResult Logout()
         {
-            if (Request.Cookies[GetCookieUserFilterAttribute.UserCookie] != null)
+            HttpCookie cookie;
+            if ((cookie = Request.Cookies[GetCookieUserFilterAttribute.UserCookie]) != null)
             {
-                HttpCookie myCookie = new HttpCookie(GetCookieUserFilterAttribute.UserCookie);
-                myCookie.Expires = DateTime.Now.AddDays(-1d);
-                Response.Cookies.Add(myCookie);
+                Response.Cookies.Remove(cookie.Name);
             }
-            return RedirectToRoute(new { Controller = "questions", action = "Index" });
+            return RedirectToRoute(new { Controller = "Home", action = "Index" });
         }
     }
 }

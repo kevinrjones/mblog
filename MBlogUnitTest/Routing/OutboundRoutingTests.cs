@@ -2,6 +2,7 @@ using System.Web;
 using System.Web.Mvc;
 using System.Web.Routing;
 using MBlog;
+using MBlogUnitTest.Helpers;
 using Moq;
 using NUnit.Framework;
 
@@ -48,13 +49,5 @@ namespace Tests
             return routes.GetVirtualPath(ctx, new RouteValueDictionary(routeValues))
                 .VirtualPath;
         }
-
-        private class FakeResponse : HttpResponseBase
-        {
-            // Routing calls this to account for cookieless sessions
-            // It's irrelevant for the test, so just return the path unmodified
-            public override string ApplyAppPathModifier(string x) { return x; }
-        }
-
     }
 }

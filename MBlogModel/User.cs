@@ -22,14 +22,20 @@ namespace MBlogModel
         public virtual string Name { get; set; }
         public virtual string HashedPassword { get; private set; }
         public virtual string Salt { get; private set; }
-        public virtual bool IsAdmin { get; private set; }
+        [Column("is_site_admin")]
+        public virtual bool IsSiteAdmin { get; private set; }
+        [ForeignKey("blog_id")]
+        public virtual ICollection<Blog> Blogs { get; set; }
+
+        [NotMapped]
+        public virtual bool IsBlogOwner { get; set; }
 
         public void AddUser(string name, string email, string password, bool isAdmin)
         {
             Name = name;
             Email = email;
             HashedPassword = password;
-            IsAdmin = isAdmin;
+            IsSiteAdmin = isAdmin;
             Salt = "this is salt";
         }
     }

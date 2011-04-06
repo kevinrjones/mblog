@@ -15,6 +15,8 @@ namespace MBlogModel
         public DateTime Posted { get; private set; }
         public DateTime? Edited { get; private set; }
 
+        public virtual Blog Blog { get; set; }
+
         public void AddPost(string title, string entry)
         {
             Title = title;
