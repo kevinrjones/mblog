@@ -30,16 +30,25 @@ namespace MBlog
             );
 
             routes.MapRoute(
+                "Users",
+                "user/{action}",
+                new { controller = "User", action = "Index" }
+            );
+
+            routes.MapRoute(
                 "Posts-Default",
                 "{nickname}/{action}",
                 new { controller = "Post", action = "Index" }
             );
 
+            
             routes.MapRoute(
-                "Default",
+                "Default-Home",
                 "",
                 new { controller = "Home", action = "Index"}
             );
+
+
         }
 
         protected void Application_Start()

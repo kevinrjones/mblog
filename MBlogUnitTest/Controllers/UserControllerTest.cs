@@ -179,7 +179,7 @@ namespace MBlogUnitTest.Controllers
         }
         
         [Test]
-        public void GivenALoggdInUser_WhenILogout_TheTheCookieIsCleared()
+        public void GivenALoggdInUser_WhenILogout_ThenTheCookieIsCleared()
         {
             var cookies = new HttpCookieCollection();
             string cookieName = "USER";
@@ -194,6 +194,18 @@ namespace MBlogUnitTest.Controllers
             Assert.That(_fakeResponse.Cookies.Count, Is.EqualTo(0));
         }
 
+        [Test]
+        public void GivenALoggdInUser_WhenILogout_ThenTheUserIsRemovedFromTheContext()
+        {
+            var cookies = new HttpCookieCollection();
+            string cookieName = "USER";
+
+            _controller.HttpContext.User = new UserViewModel();
+            _mockRequest.Setup(r => r.Cookies).Returns(cookies);
+
+            RedirectToRouteResult result = _controller.Logout() as RedirectToRouteResult;
+            Assert.That(_controller.HttpContext.User, Is.Null);
+        }
         [Test]
         public void GivenANotLoggdInUser_WhenILogout_TheUserIsRedirectedToTheHomePage()
         {

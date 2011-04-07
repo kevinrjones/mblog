@@ -32,6 +32,16 @@ namespace Tests
             }));
         }
 
+        [Test]
+        public void GivenACorrectRoutesCollection_WhenIAskToCreateAUrlForUserLogout_ThenIGetTheCorrectUrl()
+        {
+            Assert.AreEqual("/user/logout", GetOutboundUrl(new
+            {
+                controller = "User",
+                action = "logout"
+            }));
+        }
+
         string GetOutboundUrl(object routeValues)
         {
             // Get route configuration and mock request context

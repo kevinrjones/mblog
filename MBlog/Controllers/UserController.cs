@@ -79,6 +79,7 @@ namespace MBlog.Controllers
             if ((cookie = Request.Cookies[GetCookieUserFilterAttribute.UserCookie]) != null)
             {
                 Response.Cookies.Remove(cookie.Name);
+                HttpContext.User = null;
             }
             return RedirectToRoute(new { Controller = "Home", action = "Index" });
         }

@@ -337,7 +337,7 @@ INSERT INTO [$(DATABASE)].[dbo].[posts]
 		,[posted]
 		,[blog_id])
      VALUES
-  ('Use of the repository pattern?'
+  ('Use of the repository pattern'
    ,'<p>
 Writing data access code involves choices, which database, do I use an ORM?, do I use data access patterns?, if so, which one(s)? For this blog I''m currently using SQL Server, although as I''ve said I''d like to try out a NoSQL database. I''m also using Entity Framework (currently CTP 5 of EF code first). As for data access patterns ''repository'' seems to be the flavour of the month and that''s what I''m using. Using repository allows me to separate the use of the data access layer from the implementation of the access. In this case I have EF as the implementation but the users of the implmentation, the controllers simply code against interfaces.
 </p>
