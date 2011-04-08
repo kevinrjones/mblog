@@ -15,16 +15,21 @@ namespace MBlogModel
 {
     public class User
     {
+        public User()
+        {
+            Blogs = new List<Blog>();
+        }
         public virtual int Id { get; private set; }
         [Required]
         public virtual string Email { get; private set; }
         [Required]
         public virtual string Name { get; set; }
+        [Column("hashed_password")]
         public virtual string HashedPassword { get; private set; }
         public virtual string Salt { get; private set; }
         [Column("is_site_admin")]
         public virtual bool IsSiteAdmin { get; private set; }
-        [ForeignKey("blog_id")]
+        
         public virtual ICollection<Blog> Blogs { get; set; }
 
         [NotMapped]

@@ -18,7 +18,6 @@ namespace MBlogModel
 
         public virtual ICollection<Post> Posts { get; set; }
 
-        [ForeignKey("user_id")]
-        public virtual ICollection<User> Users { get; set; }
+        public User User { get; set; }
     }
 }

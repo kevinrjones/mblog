@@ -4,9 +4,9 @@
 		('Kevin Jones', 'kevin@requiredattribute.com', 'foo' ,'bar', 'true')
 
 INSERT INTO [$(DATABASE)].[dbo].[blogs]
-		([title],[description],[nickname])
+		([title],[description],[nickname],[user_id])
 		VALUES
-		('Wish I Knew Now', 'The blog of this site', 'kevin' )
+		('Wish I Knew Now', 'The blog of this site', 'kevin', 1 )
 
 INSERT INTO [$(DATABASE)].[dbo].[users_blogs]
 		([user_id],[blog_id])
@@ -467,4 +467,4 @@ This relies on the underlying abstraction being able to return something that I 
 I use these interfaces in the controllers. These are injected using an IoC container, more on that later.
 </p>
 '
-  ,'2011-04-26 20:02:00', 1)
+  ,'2011-04-06 20:02:00', 1)

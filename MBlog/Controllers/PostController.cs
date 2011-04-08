@@ -12,8 +12,6 @@ namespace MBlog.Controllers
     public class PostController : BaseController
     {
         private readonly IBlogPostRepository _blogPostRepository;
-        //
-        // GET: /Home/
 
         public PostController(IBlogPostRepository blogPostRepository, IUserRepository userRepository) : base(userRepository)
         {

@@ -1,4 +1,7 @@
-﻿using System.Linq;
+﻿using System;
+using System.Collections.Generic;
+using System.Data.Entity;
+using System.Linq;
 using MBlogModel;
 using Repository;
 
@@ -9,6 +12,18 @@ namespace MBlogRepository
         public UserRepository(string connectionString)
             : base(new UserDbContext(connectionString))
         {
+        }
+
+        public IEnumerable<User> GetUsers()
+        {
+            return Entities.ToList();
+        }
+
+        public IEnumerable<User> GetUsersWithTheirBlogs()
+        {
+            DbSet<User> users = Entities as DbSet<User>;
+
+            return users.Include("Blogs").ToList();
         }
 
         public User GetUser(string email)

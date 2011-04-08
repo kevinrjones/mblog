@@ -50,6 +50,13 @@ legend { font-size: 1.2em; font-weight: bold; padding: 0 10px 0 10px; }
 .blog-side-bar {float:right; width: 20%;}
 .inline-code {font-family:Consolas, Courier New, Courier; font-weight: bold; font-size: larger; }
 .blog-list {list-style-image: none; list-style-position: outside; list-style-type: none;}
+.home-page-content {margin: 0em auto; width: 65%; }
+.home-page-list {list-style-image: none; list-style-position: outside; list-style-type: none; }
+.home-page-list li {font-size: 10pt;}
+.home-page-blog-post{margin: 5px 0 40px 10px;}
+.home-page-blog-header-section {margin-bottom: 5px; border-bottom: 1px solid black;}
+.home-page-blog-title{ font-size: 12pt; display: inline-block;}
+.home-page-sub-title{ padding-left: 10px; padding-bottom: 10px; }
 /* Styles for validation helpers
 -----------------------------------------------------------*/
 .field-validation-error { color: #ff0000; }

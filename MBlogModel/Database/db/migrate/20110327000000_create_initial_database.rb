@@ -14,6 +14,7 @@ class CreateInitialDatabase < ActiveRecord::Migration
         t.string :title,        :null => false
         t.string :description,  :null => false
         t.string :nickname,     :null => false
+        t.integer :user_id,     :null => false
     end
 
     create_table :users_blogs do |t|

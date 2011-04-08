@@ -1,8 +1,33 @@
-﻿@model IEnumerable<MBlog.Models.PostViewModel> 
-
+﻿@model MBlog.Models.HomePageViewModel
 @{
     ViewBag.Title = "Home Page";
 }
-
-<h2>Home Page</h2>
-
+<div class="home-page-content">
+    <h2 class="home-page-sub-title">
+        Blogs on this site</h2>
+    <ul class="home-page-list">
+        @foreach (var userBlogViewModel in Model.UserBlogViewModels)
+        {
+            <li class="blog-post">
+                @Html.ActionLink(userBlogViewModel.Title, "Index", new { nickname = userBlogViewModel.Nickname, Controller = "Post"}) written by:
+                @userBlogViewModel.Name
+            </li>
+        }
+    </ul>
+    <h2 class="home-page-sub-title">
+        Latest posts</h2>
+    <ul class="home-page-list">
+        @foreach (var blogViewModel in Model.HomePagePostViewModels)
+        {
+            <li class="home-page-blog-post">
+                <div class="blog-header-section">
+                    <h1 class="home-page-blog-title">@blogViewModel.Title</h1>
+                    <div class="blog-date-posted">
+                        <span>@blogViewModel.DatePosted.ToLongDateString()</span> by <span>@blogViewModel.UserName</span>
+                    </div>
+                </div>
+                <div class="blog-entry">@MvcHtmlString.Create(blogViewModel.Post)</div>
+            </li>
+        }
+    </ul>
+</div>

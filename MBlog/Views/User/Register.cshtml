@@ -3,7 +3,7 @@
     ViewBag.Title = "Register";
 }
 <div style="margin-top: 30px">
-    @using (Html.BeginForm("DoRegister", "users", FormMethod.Post, new { @class = "form" }))
+    @using (Html.BeginForm("DoRegister", "user", FormMethod.Post, new { @class = "form" }))
     {
         @Html.ValidationSummary(true)
         <fieldset>

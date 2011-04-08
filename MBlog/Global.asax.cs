@@ -1,9 +1,7 @@
 ﻿using System.Configuration;
-using System.Data.Entity;
 using System.Web.Mvc;
 using System.Web.Routing;
 using MBlog.Infrastructure;
-using MBlogModel;
 using MBlogRepository;
 using Microsoft.Practices.Unity;
 
@@ -67,6 +65,7 @@ namespace MBlog
             IUnityContainer container = new UnityContainer()
                 .RegisterType<IBlogPostRepository, BlogPostPostRepository>(ctor)
                 .RegisterType<IUserRepository, UserRepository>(ctor)
+                .RegisterType<IPostRepository, PostRepository>(ctor)
                 ;
 
             return container;

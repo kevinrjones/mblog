@@ -7,13 +7,13 @@ namespace MBlogModel
     {
         public int Id { get; set; }
         [Required]
-        public string Title { get; private set; }
+        public string Title { get; set; }
         [Required]
         [MaxLength(int.MaxValue)]
-        public string BlogPost { get; private set; }
+        public string BlogPost { get; set; }
         [Required]
-        public DateTime Posted { get; private set; }
-        public DateTime? Edited { get; private set; }
+        public DateTime Posted { get; set; }
+        public DateTime? Edited { get; set; }
 
         public virtual Blog Blog { get; set; }
 

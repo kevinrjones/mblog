@@ -61,7 +61,10 @@
     <Compile Include="BlogPostDbContext.cs" />
     <Compile Include="BlogPostPostRepository.cs" />
     <Compile Include="IBlogPostRepository.cs" />
+    <Compile Include="IPostRepository.cs" />
     <Compile Include="IUserRepository.cs" />
+    <Compile Include="PostDbContext.cs" />
+    <Compile Include="PostRepository.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="UserDbContext.cs" />
     <Compile Include="UserRepository.cs" />
