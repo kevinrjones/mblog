@@ -6,6 +6,7 @@ using System.Web.Mvc;
 using MBlog.Models;
 using MBlogModel;
 using MBlogRepository;
+using MBlogRepository.Interfaces;
 
 namespace MBlog.Controllers
 {
@@ -20,19 +21,30 @@ namespace MBlog.Controllers
 
         public ActionResult Index(string nickname)
         {
-            IList<Post> blogs = _blogPostRepository.GetBlogPosts(nickname);
+            IList<Post> posts = _blogPostRepository.GetBlogPosts(nickname);
             List<PostViewModel> viewModels = new List<PostViewModel>();
 
-            if (blogs != null)
+            if (posts != null)
             {
-                foreach (var blog in blogs)
+                foreach (var post in posts)
                 {
-                    PostViewModel viewModel = new PostViewModel {Id = blog.Id, Post = blog.BlogPost, Title = blog.Title, DateLastEdited = blog.Edited, DatePosted = blog.Posted};
+                    PostViewModel viewModel = new PostViewModel {Id = post.Id, Post = post.BlogPost, Title = post.Title, DateLastEdited = post.Edited, DatePosted = post.Posted};
                     viewModels.Add(viewModel);
                 }
             }
             return View(viewModels);
         }
 
+        public ActionResult Show(PostLinkViewModel model)
+        {
+            List<PostViewModel> viewModel = new List<PostViewModel>();            
+            IEnumerable<Post> posts = _blogPostRepository.GetBlogPosts(model.Year, model.Month, model.Day, model.Title);
+
+            foreach (var post in posts)
+            {
+                viewModel.Add(new PostViewModel{Title = post.Title, Id = post.Id, DatePosted = post.Posted, DateLastEdited = post.Edited});
+            }
+            return View(viewModel);
+        }
     }
 }

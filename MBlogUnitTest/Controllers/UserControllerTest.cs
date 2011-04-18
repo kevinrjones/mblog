@@ -9,6 +9,7 @@ using MBlog.Controllers;
 using MBlog.Models;
 using MBlogModel;
 using MBlogRepository;
+using MBlogRepository.Interfaces;
 using MBlogUnitTest.Helpers;
 using Moq;
 using NUnit.Framework;
@@ -24,6 +25,7 @@ namespace MBlogUnitTest.Controllers
         ControllerContext _controllerContext;
         UserController _controller;
         private Mock<IUserRepository> _userRepository;
+        private Mock<IUsernameBlacklistRepository> _usernameBlacklistRepository;
 
         [SetUp]
         public void Setup()
@@ -32,11 +34,12 @@ namespace MBlogUnitTest.Controllers
             _mockRequest = new Mock<HttpRequestBase>();
             _fakeResponse = new FakeResponse();
             _userRepository = new Mock<IUserRepository>();
+            _usernameBlacklistRepository = new Mock<IUsernameBlacklistRepository>();
 
             _mockHttpContext.Setup(m => m.Request).Returns(_mockRequest.Object);
             _mockHttpContext.Setup(m => m.Response).Returns(_fakeResponse);
 
-            _controller = new UserController(_userRepository.Object);
+            _controller = new UserController(_userRepository.Object, _usernameBlacklistRepository.Object);
             _controllerContext = new ControllerContext(_mockHttpContext.Object, new RouteData(), _controller);
 
             _controller.ControllerContext = _controllerContext;
@@ -66,7 +69,7 @@ namespace MBlogUnitTest.Controllers
         }
         
         [Test]
-        public void GivenAnInvalidUser_WhenILogin_ThenIGetRedirectedToTheRegistrationPage()
+        public void GivenAnInvalidEMail_WhenILogin_ThenIGetRedirectedToTheRegistrationPage()
         {
             _controller.ModelState.AddModelError("EMail", "Email error");
 
@@ -74,6 +77,29 @@ namespace MBlogUnitTest.Controllers
 
             Assert.That(result, Is.Not.Null);
             Assert.That(result.ViewName, Is.EqualTo("Login").IgnoreCase);
+        }
+
+        [Test]
+        public void GivenANonMatchingPassword_WhenILogin_ThenIGetRedirectedToTheRegistrationPage()
+        {
+            _userRepository.Setup(u => u.GetUser("email@mail.com")).Returns(new User{Password = "foo"});
+            ViewResult result = _controller.DoLogin(new UserViewModel{Email = "email@mail.com", Password = "password"}) as ViewResult;
+
+            Assert.That(result, Is.Not.Null);
+            Assert.That(result.ViewName, Is.EqualTo("Login").IgnoreCase);
+        }
+
+        [Test]
+        public void GivenAMatchingPassword_WhenILogin_ThenIGetRedirectedToThePostIndexForThisUserPage()
+        {
+            string password = "password";
+            string nickname = "nickname";
+            _userRepository.Setup(u => u.GetUser("email@mail.com")).Returns(new User { Password = password });
+            RedirectToRouteResult result = _controller.DoLogin(new UserViewModel { Email = "email@mail.com", Password = password, Nickname = nickname }) as RedirectToRouteResult;
+
+            Assert.That(result, Is.Not.Null);
+            Assert.That(result.RouteValues["controller"], Is.EqualTo("Post"));
+            Assert.That(result.RouteValues["nickname"], Is.EqualTo(nickname));
         }
 
         [Test]
@@ -89,9 +115,8 @@ namespace MBlogUnitTest.Controllers
         public void GivenAUserThatAlreadyExists_WhenTheyLogin_ThenIGetRedirectedToThePostsPage()
         {
             string email = "email";
-            string nickname = "nickname";
             User user = new User();
-            user.AddUser("", email, "", false);
+            user.AddUserDetails("", email, "", false);
             _userRepository.Setup(u => u.GetUser(email)).Returns(user);
             
             RedirectToRouteResult result = _controller.DoLogin(new UserViewModel{Email = email}) as RedirectToRouteResult;
@@ -107,7 +132,7 @@ namespace MBlogUnitTest.Controllers
             string email = "email";
             string nickname = "nickname";
             User user = new User();
-            user.AddUser("", email, "", false);
+            user.AddUserDetails("", email, "", false);
             
             _userRepository.Setup(u => u.GetUser(email)).Returns(user);
 
@@ -146,7 +171,7 @@ namespace MBlogUnitTest.Controllers
             string email = "foo@bar.com";
             UserViewModel userViewModel = new UserViewModel { Email = email};
             User user = new User();
-            user.AddUser("", email, "", false);
+            user.AddUserDetails("", email, "", false);
             _userRepository.Setup(u => u.GetUser(email)).Returns(user);
 
             ViewResult result = _controller.DoRegister(userViewModel) as ViewResult;
@@ -155,6 +180,22 @@ namespace MBlogUnitTest.Controllers
             Assert.That(result.ViewName, Is.EqualTo("Register").IgnoreCase);
             Assert.That(_controller.ModelState["EMail"].Errors.Count, Is.EqualTo(1));
             Assert.That(_controller.ModelState["EMail"].Errors[0].ErrorMessage, Is.EqualTo("EMail already exists in database"));
+        }
+
+        [Test]
+        public void GivenAUser_WhenIRegister_AndTheUserIsBlacklisted_ThenIGetRedirectedToTheRegistrationPage()
+        {
+            string name = "name";
+            UserViewModel userViewModel = new UserViewModel { Name = name };
+
+            _usernameBlacklistRepository.Setup(u => u.GetName(name)).Returns(new Blacklist());
+
+            ViewResult result = _controller.DoRegister(userViewModel) as ViewResult;
+
+            Assert.That(result, Is.Not.Null);
+            Assert.That(result.ViewName, Is.EqualTo("Register").IgnoreCase);
+            Assert.That(_controller.ModelState["Name"].Errors.Count, Is.EqualTo(1));
+            Assert.That(_controller.ModelState["Name"].Errors[0].ErrorMessage, Is.EqualTo("That user name is reserved"));
         }
 
         [Test]
@@ -198,7 +239,6 @@ namespace MBlogUnitTest.Controllers
         public void GivenALoggdInUser_WhenILogout_ThenTheUserIsRemovedFromTheContext()
         {
             var cookies = new HttpCookieCollection();
-            string cookieName = "USER";
 
             _controller.HttpContext.User = new UserViewModel();
             _mockRequest.Setup(r => r.Cookies).Returns(cookies);

@@ -35,7 +35,7 @@ namespace MBlogUnitTest.Model
         public void GivenAUser_WhenIInitializeItsProperties_ThenItIsValid()
         {
             User user = new User();
-            user.AddUser("Name", "EMail","hpass", false);
+            user.AddUserDetails("Name", "EMail","hpass", false);
             ValidationContext ctx = new ValidationContext(user, null, null);
             List<ValidationResult> validationResults = new List<ValidationResult>();
             bool isValid = Validator.TryValidateObject(user, ctx, validationResults);

@@ -3,6 +3,8 @@ using System.Web.Mvc;
 using System.Web.Routing;
 using MBlog.Infrastructure;
 using MBlogRepository;
+using MBlogRepository.Interfaces;
+using MBlogRepository.Repositories;
 using Microsoft.Practices.Unity;
 
 namespace MBlog
@@ -34,11 +36,17 @@ namespace MBlog
             );
 
             routes.MapRoute(
-                "Posts-Default",
-                "{nickname}/{action}",
+                "Posts-index",
+                "{nickname}",
                 new { controller = "Post", action = "Index" }
-            );
+                );
 
+            routes.MapRoute(
+                "Posts-others",
+                "{nickname}/{action}/{year}/{month}/{day}/{link}",
+                new { controller = "Post", action = "Index", year = "0000", month = "00", day = "00", link = UrlParameter.Optional }
+                , new { year = @"\d{4}", month = @"\d{2}", day = @"\d{2}" }
+                );
             
             routes.MapRoute(
                 "Default-Home",
@@ -57,6 +65,7 @@ namespace MBlog
 
             RegisterGlobalFilters(GlobalFilters.Filters);
             RegisterRoutes(RouteTable.Routes);
+            //RouteDebug.RouteDebugger.RewriteRoutesForTesting(RouteTable.Routes);
         }
 
         private IUnityContainer GetUnityContainer()
@@ -66,6 +75,8 @@ namespace MBlog
                 .RegisterType<IBlogPostRepository, BlogPostPostRepository>(ctor)
                 .RegisterType<IUserRepository, UserRepository>(ctor)
                 .RegisterType<IPostRepository, PostRepository>(ctor)
+                .RegisterType<IUsernameBlacklistRepository, UsernameBlacklistRepository>(ctor)
+                .RegisterType<INicknameBlacklistRepository, NicknameBlacklistRepository>(ctor)
                 ;
 
             return container;

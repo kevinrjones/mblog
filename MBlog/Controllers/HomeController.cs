@@ -5,6 +5,7 @@ using System.Web;
 using System.Web.Mvc;
 using MBlog.Models;
 using MBlogRepository;
+using MBlogRepository.Interfaces;
 
 namespace MBlog.Controllers
 {
@@ -45,7 +46,7 @@ namespace MBlog.Controllers
                 {
                     blogPost = post.BlogPost;
                 }
-                HomePagePostViewModel vm = new HomePagePostViewModel { Title = post.Title, DatePosted = post.Posted, Post = blogPost, UserName = post.Blog.User.Name};
+                HomePagePostViewModel vm = new HomePagePostViewModel() { Title = post.Title, DatePosted = post.Posted, Post = blogPost, UserName = post.Blog.User.Name};
                 model.HomePagePostViewModels.Add(vm);
             }
 

@@ -7,9 +7,12 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
+using System;
 using System.Collections.Generic;
 using System.Collections.Specialized;
 using System.ComponentModel.DataAnnotations;
+using System.Security.Cryptography;
+using System.Text;
 
 namespace MBlogModel
 {
@@ -21,27 +24,57 @@ namespace MBlogModel
         }
         public virtual int Id { get; private set; }
         [Required]
-        public virtual string Email { get; private set; }
+        public virtual string Email { get; set; }
         [Required]
         public virtual string Name { get; set; }
-        [Column("hashed_password")]
+
+        [Required, Column("hashed_password")]
         public virtual string HashedPassword { get; private set; }
-        public virtual string Salt { get; private set; }
+        [Required]
+        public virtual string Salt { get; set; }
         [Column("is_site_admin")]
         public virtual bool IsSiteAdmin { get; private set; }
-        
+
         public virtual ICollection<Blog> Blogs { get; set; }
 
         [NotMapped]
         public virtual bool IsBlogOwner { get; set; }
+        [NotMapped]
+        public virtual string Password
+        {
+            set { HashedPassword = GenerateHashedPasswordFromPlaintext(value); }
+        }
 
-        public void AddUser(string name, string email, string password, bool isAdmin)
+        public void AddUserDetails(string name, string email, string password, bool isAdmin)
         {
             Name = name;
             Email = email;
-            HashedPassword = password;
             IsSiteAdmin = isAdmin;
-            Salt = "this is salt";
+            GeneratePassword(password);
+        }
+
+        private void GeneratePassword(string password)
+        {
+            SHA256 shaM = new SHA256Managed();
+            byte[] data;
+            Salt = Convert.ToBase64String(Encoding.UTF32.GetBytes(GetHashCode() + new Random().ToString()));
+            data = Encoding.UTF32.GetBytes(password + "wibble" + Salt);
+            HashedPassword = Convert.ToBase64String(shaM.ComputeHash(data));
+        }
+
+        public bool MatchPassword(string password)
+        {
+            string hashedPassword = GenerateHashedPasswordFromPlaintext(password);
+
+            return HashedPassword == hashedPassword;
+        }
+
+        private string GenerateHashedPasswordFromPlaintext(string password)
+        {
+            SHA256 shaM = new SHA256Managed();
+            byte[] data = Encoding.UTF32.GetBytes(password + "wibble" + Salt);
+
+            return Convert.ToBase64String(shaM.ComputeHash(data));
         }
     }
 }

@@ -10,6 +10,7 @@ using MBlog.Filters;
 using MBlog.Infrastructure;
 using MBlogModel;
 using MBlogRepository;
+using MBlogRepository.Interfaces;
 using Moq;
 using NUnit.Framework;
 
@@ -27,7 +28,7 @@ namespace MBlogUnitTest.Filters
         {
             var mockRepo = new Mock<IUserRepository>();
             var user = new User();
-            user.AddUser("Name", "EMail", "Password", false);
+            user.AddUserDetails("Name", "EMail", "Password", false);
             mockRepo.Setup(r => r.GetUser(1)).Returns(user);
 
             _userRepository = mockRepo.Object;

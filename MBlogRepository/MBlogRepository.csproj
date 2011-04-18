@@ -45,8 +45,8 @@
     <CodeAnalysisRuleDirectories>;C:\Program Files\Microsoft Visual Studio 10.0\Team Tools\Static Analysis Tools\FxCop\\Rules</CodeAnalysisRuleDirectories>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="EntityFramework">
-      <HintPath>..\packages\EntityFramework.4.1.10311.0\lib\EntityFramework.dll</HintPath>
+    <Reference Include="EntityFramework, Version=4.1.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.4.1.10331.0\lib\EntityFramework.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.ComponentModel.DataAnnotations" />
@@ -58,19 +58,22 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="BlogPostDbContext.cs" />
-    <Compile Include="BlogPostPostRepository.cs" />
-    <Compile Include="IBlogPostRepository.cs" />
-    <Compile Include="IPostRepository.cs" />
-    <Compile Include="IUserRepository.cs" />
-    <Compile Include="PostDbContext.cs" />
-    <Compile Include="PostRepository.cs" />
+    <Compile Include="Contexts\BlogPostDbContext.cs" />
+    <Compile Include="Repositories\BlogPostPostRepository.cs" />
+    <Compile Include="Interfaces\INicknameBlacklistRepository.cs" />
+    <Compile Include="Interfaces\IBlogPostRepository.cs" />
+    <Compile Include="Interfaces\IPostRepository.cs" />
+    <Compile Include="Interfaces\IUsernameBlacklistRepository.cs" />
+    <Compile Include="Interfaces\IUserRepository.cs" />
+    <Compile Include="Contexts\NicknameBlacklistDbContext.cs" />
+    <Compile Include="Repositories\NicknameBlacklistRepository.cs" />
+    <Compile Include="Contexts\PostDbContext.cs" />
+    <Compile Include="Repositories\PostRepository.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="UserDbContext.cs" />
-    <Compile Include="UserRepository.cs" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="packages.config" />
+    <Compile Include="Contexts\UserDbContext.cs" />
+    <Compile Include="Contexts\UsernameBlacklistDbContext.cs" />
+    <Compile Include="Repositories\UsernameBlacklistRepository.cs" />
+    <Compile Include="Repositories\UserRepository.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\MBlogModel\MBlogModel.csproj">
@@ -81,6 +84,9 @@
       <Project>{6B41D66F-0003-45EC-9692-023F9FCA62E8}</Project>
       <Name>Repository</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="packages.config" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

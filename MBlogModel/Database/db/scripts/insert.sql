@@ -283,7 +283,7 @@ public static void RegisterRoutes(RouteCollection routes)
     // ...
 }
 </pre>
-This says that the first paramter after the root is the nickname, there''s a discussion to be had here for the default value for the ''nickname''. The way it will work currently is that if an arbitrary nickname is entered then there is no error, just an empty list of posts to be returned.
+This says that the first parameter after the root is the nickname, there''s a discussion to be had here for the default value for the ''nickname''. The way it will work currently is that if an arbitrary nickname is entered then there is no error, just an empty list of posts to be returned.
 </p>
 <p>
 This nickname is passed on to the controller, so:
@@ -468,3 +468,37 @@ I use these interfaces in the controllers. These are injected using an IoC conta
 </p>
 '
   ,'2011-04-06 20:02:00', 1)
+
+INSERT INTO [$(DATABASE)].[dbo].[posts]
+		([title]
+		,[blogPost]
+		,[posted]
+		,[blog_id])
+     VALUES
+  ('Installing the development environment'
+   ,'<p>
+I wanted to document how I setup my PCs to develop this blog. The obvious thing is that I''m using Visual Studio 2010 (professional in my case). I''ve also started using NuGet to download packages including EF 4.1; Moq and NUnit.
+</p>
+<p>
+I''m using Ruby to manage the migrations which means I have installed the Windows Ruby binaries from <a href="http://rubyinstaller.org/downloads/">http://rubyinstaller.org/downloads/</a>. I''ve also had to install the development kit from the same site (follow the instructions <a href="https://github.com/oneclick/rubyinstaller/wiki/Development-Kit">here</a>)
+</p>
+<p>
+Once Ruby was installed I do a 
+<pre class="brush :bash">
+gem install rake
+gem install dbi
+gem install activerecord-sqlserver-adapter
+</pre> 
+These steps require the dev kit is installed.
+</p>
+<p>
+You also need to install an ODBC soucre. Depending on whether you are using a 32bit or 64 bit version of Windows you''re going to need to run either c:\windows\sysWOW64\odbcad32.exe or c:\windows\system32\odbcad32.exe. Create a system DSN called MBlog using the SQLServer ODBC driver.
+</p>
+<p>
+After all that you can create the database (mblog_development) then cd to the MBlogModel\Database directory and run
+<pre class="brush :bash">
+rake
+</pre>
+this should create the tables for the blog. We''re now up and running
+</p>'
+  ,'2011-04-11 20:00:00', 1)

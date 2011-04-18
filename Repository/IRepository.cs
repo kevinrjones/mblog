@@ -10,6 +10,6 @@ namespace Repository
         void Add(T entity);
         void Create(T entity);
         void Delete(T entity);
-        void Save();
+        //void Save();
     }
 }

@@ -19,6 +19,21 @@ namespace MBlogUnitTest.Routing
         }
 
         [Test]
+        public void GivenACorrectRoutesCollection_WhenIAskForAPost_ThenIGetTheShowView()
+        {
+            TestRoute("~/nickname/show/2000/01/02/post", new
+            {
+                controller = "Post",
+                action = "Show",
+                nickname = "nickname",
+                year=2000,
+                month="01",
+                day="02",
+                link = "post"
+            });
+        }
+
+        [Test]
         public void GivenACorrectRoutesCollection_WhenIAskForTheErrorPage_ThenIGetTheErrorInde()
         {
             TestRoute("~/Error", new

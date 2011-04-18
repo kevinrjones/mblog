@@ -33,6 +33,21 @@ namespace Tests
         }
 
         [Test]
+        public void GivenACorrectRoutesCollection_WhenIAskToCreateAUrlForABlogPostsPageShowView_ThenIGetTheCorrectUrl()
+        {
+            Assert.AreEqual("/nickname/Show/1999/01/02/link", GetOutboundUrl(new
+            {
+                controller = "Post",
+                action = "Show",
+                nickname = "nickname",
+                year = "1999",
+                month = "01",
+                day = "02",
+                link = "link"
+            }));
+        }
+
+        [Test]
         public void GivenACorrectRoutesCollection_WhenIAskToCreateAUrlForUserLogout_ThenIGetTheCorrectUrl()
         {
             Assert.AreEqual("/user/logout", GetOutboundUrl(new
