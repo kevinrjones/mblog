@@ -43,10 +43,11 @@ namespace MBlog
 
             routes.MapRoute(
                 "Posts-others",
-                "{nickname}/{action}/{year}/{month}/{day}/{link}",
-                new { controller = "Post", action = "Index", year = "0000", month = "00", day = "00", link = UrlParameter.Optional }
-                , new { year = @"\d{4}", month = @"\d{2}", day = @"\d{2}" }
+                "{nickname}/{year}/{month}/{day}/{link}",
+                new { controller = "Post", action = "Show", year = UrlParameter.Optional, month = UrlParameter.Optional, day = UrlParameter.Optional, link = UrlParameter.Optional }
+                //,new { year = @"\d{4}", month = @"\d{2}", day = @"\d{2}" }
                 );
+
             
             routes.MapRoute(
                 "Default-Home",

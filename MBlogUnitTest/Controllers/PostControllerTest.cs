@@ -22,7 +22,7 @@ namespace MBlogUnitTest.Controllers
         {
             var mock = new Mock<IBlogPostRepository>();
             mock.Setup(r => r.GetBlogPosts(It.IsAny<string>())).Returns(posts);
-            mock.Setup(r => r.GetBlogPosts(It.IsAny<int>(), It.IsAny<int>(), It.IsAny<int>(), It.IsAny<string>())).Returns(new List<Post>{new Post{Id = 1, BlogPost = "empty", Title = "empty", Posted = DateTime.Today}});
+            mock.Setup(r => r.GetBlogPosts(It.IsAny<int>(), It.IsAny<int>(), It.IsAny<int>(), It.IsAny<string>(), It.IsAny<string>())).Returns(new List<Post> { new Post { Id = 1, BlogPost = "empty", Title = "empty", Posted = DateTime.Today } });
             _repository = mock.Object;
         }
 

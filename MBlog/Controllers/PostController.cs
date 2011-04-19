@@ -38,11 +38,11 @@ namespace MBlog.Controllers
         public ActionResult Show(PostLinkViewModel model)
         {
             List<PostViewModel> viewModel = new List<PostViewModel>();            
-            IEnumerable<Post> posts = _blogPostRepository.GetBlogPosts(model.Year, model.Month, model.Day, model.Title);
+            IEnumerable<Post> posts = _blogPostRepository.GetBlogPosts(model.Year, model.Month, model.Day, model.Nickname, model.Link);
 
             foreach (var post in posts)
             {
-                viewModel.Add(new PostViewModel{Title = post.Title, Id = post.Id, DatePosted = post.Posted, DateLastEdited = post.Edited});
+                viewModel.Add(new PostViewModel{Title = post.Title, Id = post.Id, DatePosted = post.Posted, DateLastEdited = post.Edited, Post = post.BlogPost});
             }
             return View(viewModel);
         }

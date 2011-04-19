@@ -21,7 +21,7 @@ namespace MBlogUnitTest.Routing
         [Test]
         public void GivenACorrectRoutesCollection_WhenIAskForAPost_ThenIGetTheShowView()
         {
-            TestRoute("~/nickname/show/2000/01/02/post", new
+            TestRoute("~/nickname/2000/01/02/post", new
             {
                 controller = "Post",
                 action = "Show",

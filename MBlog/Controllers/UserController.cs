@@ -1,14 +1,10 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Text;
 using System.Web;
 using System.Web.Mvc;
 using MBlog.Filters;
 using MBlog.Infrastructure;
 using MBlog.Models;
 using MBlogModel;
-using MBlogRepository;
-using MBlog.Infrastructure;
 using MBlogRepository.Interfaces;
 
 namespace MBlog.Controllers

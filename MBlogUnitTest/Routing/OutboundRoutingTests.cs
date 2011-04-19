@@ -1,3 +1,4 @@
+using System.Collections.Specialized;
 using System.Web;
 using System.Web.Mvc;
 using System.Web.Routing;
@@ -6,7 +7,7 @@ using MBlogUnitTest.Helpers;
 using Moq;
 using NUnit.Framework;
 
-namespace Tests
+namespace MBlogUnitTest.Routing
 {
     [TestFixture]
     public class OutboundRoutingTests
@@ -35,7 +36,7 @@ namespace Tests
         [Test]
         public void GivenACorrectRoutesCollection_WhenIAskToCreateAUrlForABlogPostsPageShowView_ThenIGetTheCorrectUrl()
         {
-            Assert.AreEqual("/nickname/Show/1999/01/02/link", GetOutboundUrl(new
+            Assert.AreEqual("/nickname/1999/01/02/link", GetOutboundUrl(new
             {
                 controller = "Post",
                 action = "Show",
@@ -73,6 +74,112 @@ namespace Tests
             var ctx = new RequestContext(mockHttpContext.Object, new RouteData());
             return routes.GetVirtualPath(ctx, new RouteValueDictionary(routeValues))
                 .VirtualPath;
+        }
+
+        [Test]
+        public void ActionWithSpecificControllerAndAction()
+        {
+            UrlHelper helper = GetUrlHelper();
+
+            string url = helper.Action("index", "home");
+
+            Assert.AreEqual("/", url);
+        }
+
+        [Test]
+        public void _GivenACorrectRoutesCollection_WhenIAskToCreateAUrlForABlogPostsPageShowView_ThenIGetTheCorrectUrl()
+        {
+            /*@Html.ActionLink(Model.Title, "show", new { controller = "Post", link = Model.Link, year = Model.YearPosted, month = Model.MonthPosted, day = Model.DayPosted })*/
+            UrlHelper helper = GetUrlHelper();
+
+            string expectedurl = "/nickname/1999/01/02/link";
+
+            string year = 1999.ToString("D4");
+            string month = 1.ToString("D2");
+            string day = 2.ToString("D2");
+            string url = helper.Action("Show", "Post", new { nickname = "nickname", year = year, month = month, day = day, link = "link" });
+
+            Assert.AreEqual(expectedurl, url);
+        }
+
+
+        static UrlHelper GetUrlHelper(string appPath = "/", RouteCollection routes = null)
+        {
+            if (routes == null)
+            {
+                routes = new RouteCollection();
+                MvcApplication.RegisterRoutes(routes);
+            }
+
+            HttpContextBase httpContext = new StubHttpContextForRouting(appPath);
+            RouteData routeData = new RouteData();
+            routeData.Values.Add("controller", "defaultcontroller");
+            routeData.Values.Add("action", "defaultaction");
+            RequestContext requestContext = new RequestContext(httpContext, routeData);
+            UrlHelper helper = new UrlHelper(requestContext, routes);
+            return helper;
+        }
+
+        public class StubHttpContextForRouting : HttpContextBase
+        {
+            StubHttpRequestForRouting _request;
+            StubHttpResponseForRouting _response;
+
+            public StubHttpContextForRouting(string appPath = "/", string requestUrl = "~/")
+            {
+                _request = new StubHttpRequestForRouting(appPath, requestUrl);
+                _response = new StubHttpResponseForRouting();
+            }
+
+            public override HttpRequestBase Request
+            {
+                get { return _request; }
+            }
+
+            public override HttpResponseBase Response
+            {
+                get { return _response; }
+            }
+        }
+
+        public class StubHttpRequestForRouting : HttpRequestBase
+        {
+            string _appPath;
+            string _requestUrl;
+
+            public StubHttpRequestForRouting(string appPath, string requestUrl)
+            {
+                _appPath = appPath;
+                _requestUrl = requestUrl;
+            }
+
+            public override string ApplicationPath
+            {
+                get { return _appPath; }
+            }
+
+            public override string AppRelativeCurrentExecutionFilePath
+            {
+                get { return _requestUrl; }
+            }
+
+            public override string PathInfo
+            {
+                get { return ""; }
+            }
+
+            public override NameValueCollection ServerVariables
+            {
+                get { return new NameValueCollection(); }
+            }
+        }
+
+        public class StubHttpResponseForRouting : HttpResponseBase
+        {
+            public override string ApplyAppPathModifier(string virtualPath)
+            {
+                return virtualPath;
+            }
         }
     }
 }
