@@ -55,9 +55,10 @@
     <Compile Include="Builder\Builder.cs" />
     <Compile Include="Builder\BuildMeA.cs" />
     <Compile Include="Builder\PostBuilder.cs" />
+    <Compile Include="BlogPostRepositoryTest.cs" />
+    <Compile Include="UserRepositoryTest.cs" />
     <Compile Include="PostRepositoryTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Test.cs" />
     <Compile Include="Builder\UserBuilder.cs" />
   </ItemGroup>
   <ItemGroup>

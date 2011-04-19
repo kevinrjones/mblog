@@ -502,3 +502,14 @@ rake
 this should create the tables for the blog. We''re now up and running
 </p>'
   ,'2011-04-11 20:00:00', 1)
+
+INSERT INTO [$(DATABASE)].[dbo].[posts]
+		([title]
+		,[blogPost]
+		,[posted]
+		,[blog_id])
+     VALUES
+  ('Repository Save/Update as a Smell'
+   ,'<p>Very interesting <a href="http://codebetter.com/iancooper/2011/04/12/repository-saveupdate-is-a-smell/">post</a>. And you know what I agree with him. 
+   I''m changing my repositories to match</p>'
+  ,'2011-04-19 08:00:00', 1)

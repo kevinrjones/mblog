@@ -59,7 +59,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Contexts\BlogPostDbContext.cs" />
-    <Compile Include="Repositories\BlogPostPostRepository.cs" />
+    <Compile Include="Repositories\BlogPostRepository.cs" />
     <Compile Include="Interfaces\INicknameBlacklistRepository.cs" />
     <Compile Include="Interfaces\IBlogPostRepository.cs" />
     <Compile Include="Interfaces\IPostRepository.cs" />

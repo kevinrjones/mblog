@@ -8,12 +8,6 @@ namespace MBlogModel
 {
     public class Blog
     {
-        public Blog(string title, string description, string nickname) : this()
-        {
-            this.Title = title;
-            this.Description = description;
-            this.Nickname = nickname;
-        }
         public Blog()
         {
             Posts = new List<Post>();
