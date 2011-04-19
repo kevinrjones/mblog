@@ -1,0 +1,10 @@
+﻿@model IEnumerable<MBlog.Models.PostViewModel>
+@{
+    ViewBag.Title = "Blog Posts";
+}
+<ul class="blog-list">
+    @foreach (var viewModel in Model)
+    {
+        Html.RenderPartial("ShowSinglePost", viewModel);
+    }
+</ul>
