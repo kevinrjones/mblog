@@ -27,11 +27,11 @@ namespace MBlog.Controllers
                 return View();
             }
             UserViewModel user = HttpContext.User as UserViewModel;
-            return RedirectToAction("index", "Post", new { nickname = user.Nickname });
+            return RedirectToAction("index", "admin");
         }
 
         [HttpPost]
-        public ActionResult DoLogin(UserViewModel userViewModel)
+        public ActionResult DoLogin(LoginUserViewModel userViewModel)
         {
             if (!ModelState.IsValid)
             {
@@ -43,7 +43,7 @@ namespace MBlog.Controllers
                 byte[] cipherText = user.Id.ToString().Encrypt();
                 string base64CipherText = Convert.ToBase64String(cipherText);
                 Response.Cookies.Add(new HttpCookie(GetCookieUserFilterAttribute.UserCookie, base64CipherText));
-                return RedirectToRoute(new { Controller = "Post", action = "Index", nickname = userViewModel.Nickname });
+                return RedirectToRoute(new { action = "Index", controller = "admin"});
             }
             return View("Login");
         }
@@ -56,7 +56,7 @@ namespace MBlog.Controllers
                 return View();
             }
             UserViewModel user = (UserViewModel)HttpContext.User;
-            return RedirectToAction("index", "Post", new { nickname = user.Nickname });
+            return RedirectToAction("index", "admin");
         }
 
         [HttpPost]
@@ -65,14 +65,13 @@ namespace MBlog.Controllers
             User user = UserRepository.GetUser(userViewModel.Email);
             if(!IsRegistrationValid(userViewModel, user))
             {
-                return View("Register");
-                
+                return View("Register");                
             }
             
             user = new User();
             user.AddUserDetails(userViewModel.Name, userViewModel.Email, userViewModel.Password, false);
             UserRepository.Create(user);
-            return RedirectToAction("index", "Home");
+            return RedirectToAction("index", "admin");
         }
 
         private bool IsRegistrationValid(UserViewModel userViewModel, User user)
@@ -103,7 +102,7 @@ namespace MBlog.Controllers
                 Response.Cookies.Remove(cookie.Name);
                 HttpContext.User = null;
             }
-            return RedirectToRoute(new { Controller = "Home", action = "Index" });
+            return RedirectToAction("index", "home");
         }
     }
 }

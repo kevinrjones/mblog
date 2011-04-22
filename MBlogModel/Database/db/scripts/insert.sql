@@ -1,7 +1,7 @@
 ﻿INSERT INTO [$(DATABASE)].[dbo].[users]
 		([name],[email],[hashed_password],[salt], [is_site_admin])
 		VALUES
-		('Kevin Jones', 'kevin@requiredattribute.com', 'foo' ,'bar', 'true')
+		('Kevin Jones', 'kevin@requiredattribute.com', '/lU2Uf4Dq//bEoM6rBDnDwmUg6FFvkJjpVh22XOqR14=' ,'MwAAADgAAAA3AAAANQAAADMAAAAyAAAANQAAADMAAABTAAAAeQAAAHMAAAB0AAAAZQAAAG0AAAAuAAAAUgAAAGEAAABuAAAAZAAAAG8AAABtAAAA', 'true')
 
 INSERT INTO [$(DATABASE)].[dbo].[blogs]
 		([title],[description],[nickname],[user_id])
@@ -164,7 +164,7 @@ INSERT INTO [$(DATABASE)].[dbo].[posts]
 		,[blog_id])
      VALUES
   ('Gotta Love JetBrains'
-   ,'<p>I''ve just installed dotCover, TeamCity and YouTrack and it was trivially easy. Have CI builds running off GitHub and the output looks like this <img src=''images/teamcity.png'' style="width:100%"/></p>'
+   ,'<p>I''ve just installed dotCover, TeamCity and YouTrack and it was trivially easy. Have CI builds running off GitHub and the output looks like this <img src=''/images/teamcity.png'' style="width:100%"/></p>'
   ,'2011-03-31 18:47:00', 1)
 
 INSERT INTO [$(DATABASE)].[dbo].[posts]

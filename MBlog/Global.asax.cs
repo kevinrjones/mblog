@@ -36,6 +36,12 @@ namespace MBlog
             );
 
             routes.MapRoute(
+                "Admin",
+                "admin/{action}",
+                new { controller = "Admin", action = "Index" }
+                );
+
+            routes.MapRoute(
                 "Posts-index",
                 "{nickname}",
                 new { controller = "Post", action = "Index" }

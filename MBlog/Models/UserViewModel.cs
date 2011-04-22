@@ -25,7 +25,7 @@ namespace MBlog.Models
         [Editable(false)]
         public bool IsLoggedIn { get; set; }
 
-        public string Nickname { get; set; }
+//        public string Nickname { get; set; }
 
         public string AuthenticationType
         {

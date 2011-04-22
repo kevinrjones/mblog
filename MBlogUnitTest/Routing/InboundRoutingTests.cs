@@ -53,6 +53,16 @@ namespace MBlogUnitTest.Routing
             });
         }
 
+        [Test]
+        public void GivenACorrectRoutesCollection_WhenIAskForAdmin_ThenIGetTheAdminControllerIndexView()
+        {
+            TestRoute("~/Admin/index", new
+            {
+                controller = "Admin",
+                action = "Index"
+            });
+        }
+
         private void TestRoute(string url, object expectedValues)
         {
             // Arrange: Prepare the route collection and a mock request context

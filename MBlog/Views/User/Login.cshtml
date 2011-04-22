@@ -3,7 +3,7 @@
     ViewBag.Title = "Login";
 }
 <div style="margin-top: 30px">
-    @using (Html.BeginForm("DoLogin", "users", FormMethod.Post, new { @class = "form" }))
+    @using (Html.BeginForm("DoLogin", "user", FormMethod.Post, new { @class = "form" }))
     {
         <fieldset>
             <legend>Login</legend>
@@ -18,7 +18,7 @@
                 <div class="form-label">@Html.ValidationMessageFor(m => m.Password)</div>
             </div>
             <div class="form-row">
-                <input type="submit" value="Login" />
+                <input type="submit" />
             </div>
         </fieldset>
     }

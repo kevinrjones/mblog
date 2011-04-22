@@ -17,21 +17,18 @@ namespace MBogIntegrationTest
     {
         private User user;
         private TransactionScope _transactionScope;
-        private Post _post;
         private string _nickname1;
-        private string _nickname2;
         UserRepository userRepository;
-        BlogPostRepository postRepository;
+        BlogPostRepository _postRepository;
 
         [SetUp]
         public void Setup()
         {
             _transactionScope = new TransactionScope();
             _nickname1 = "nickname1";
-            _nickname2 = "nickname2";
 
             userRepository = new UserRepository(ConfigurationManager.ConnectionStrings["testdb"].ConnectionString);
-            postRepository = new BlogPostRepository(ConfigurationManager.ConnectionStrings["testdb"].ConnectionString);
+            _postRepository = new BlogPostRepository(ConfigurationManager.ConnectionStrings["testdb"].ConnectionString);
 
             Blog blog1 = BuildMeA
                 .Blog("title1", "description1", _nickname1);
