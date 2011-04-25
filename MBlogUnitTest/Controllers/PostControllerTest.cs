@@ -18,7 +18,7 @@ namespace MBlogUnitTest.Controllers
         private IBlogPostRepository _postRepository;
         private Mock<IUserRepository> _userRepositoryMock;
 
-        List<Post> posts = new List<Post> { new Post(), new Post(), new Post() };
+        List<Post> posts = new List<Post> { new Post { Title = "title" }, new Post { Title = "title" }, new Post { Title = "title" } };
         [SetUp]
         public void SetUp()
         {
@@ -73,7 +73,7 @@ namespace MBlogUnitTest.Controllers
         public void GivenAPostController_WhenICallItsShowMethod_AndIPassAYear_ThenItReturnsTheCorrectPosts()
         {
             PostController controller = new PostController(_postRepository, null);
-            ViewResult result = controller.Show(new PostLinkViewModel()) as ViewResult;
+            ViewResult result = controller.Show(new PostLinkViewModel{Year = 2010, Month = 0, Day = 0, Link = null}) as ViewResult;
             IEnumerable<PostViewModel> posts = (IEnumerable<PostViewModel>) result.Model;
 
             Assert.That(posts.Count(), Is.EqualTo(1));

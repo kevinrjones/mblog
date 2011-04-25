@@ -28,12 +28,6 @@ namespace MBlog.Models
         }
 
         public DateTime? DateLastEdited { get; set; }
-        public string Link
-        {
-            get
-            {
-                return string.Format("{0}", Title.Replace(' ', '-').Replace('/','-').ToLower());
-            }
-        }
+        public string Link { get; set; }
     }
 }

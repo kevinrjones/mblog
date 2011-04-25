@@ -28,7 +28,7 @@ namespace MBlog.Controllers
             {
                 foreach (var post in posts)
                 {
-                    PostViewModel viewModel = new PostViewModel {Id = post.Id, Post = post.BlogPost, Title = post.Title, DateLastEdited = post.Edited, DatePosted = post.Posted};
+                    PostViewModel viewModel = new PostViewModel {Id = post.Id, Post = post.BlogPost, Title = post.Title, DateLastEdited = post.Edited, DatePosted = post.Posted, Link = post.ToTitleLink()};
                     viewModels.Add(viewModel);
                 }
             }
@@ -42,7 +42,7 @@ namespace MBlog.Controllers
 
             foreach (var post in posts)
             {
-                viewModel.Add(new PostViewModel{Title = post.Title, Id = post.Id, DatePosted = post.Posted, DateLastEdited = post.Edited, Post = post.BlogPost});
+                viewModel.Add(new PostViewModel { Title = post.Title, Id = post.Id, DatePosted = post.Posted, DateLastEdited = post.Edited, Post = post.BlogPost, Link = post.ToTitleLink() });
             }
             return View(viewModel);
         }

@@ -8,8 +8,8 @@
     <ProjectGuid>{E40CBEB2-C300-45DD-AC20-0E70E8CF68DD}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>MBogIntegrationTest</RootNamespace>
-    <AssemblyName>MBogIntegrationTest</AssemblyName>
+    <RootNamespace>MBlogIntegrationTest</RootNamespace>
+    <AssemblyName>MBlogIntegrationTest</AssemblyName>
     <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
   </PropertyGroup>

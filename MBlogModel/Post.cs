@@ -32,5 +32,10 @@ namespace MBlogModel
                 BlogPost = entry;
             Edited = DateTime.Now;
         }
+
+        public string ToTitleLink()
+        {
+            return Title.Replace(' ', '-').Replace('/', '-').ToLower(); 
+        }
     }
 }

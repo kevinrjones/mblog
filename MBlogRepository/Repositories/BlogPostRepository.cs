@@ -57,14 +57,23 @@ namespace MBlogRepository.Repositories
                 return SelectAllForNicknameAndYearAndMonthAndDay(year, nickname, month, day);
             }
             // add link filter
-            return (from post in Entities
-                    orderby post.Posted descending
-                    where post.Blog.Nickname == nickname
-                          && post.Posted.Year == year
-                          && post.Posted.Month == month
-                          && post.Posted.Day == day
-                    select post)
+            return FilterByTitle(year, nickname, month, day, link);
+        }
+
+        private IList<Post> FilterByTitle(int year, string nickname, int month, int day, string link)
+        {
+            var posts = (from post in Entities
+                         orderby post.Posted descending
+                         where post.Blog.Nickname == nickname
+                               && post.Posted.Year == year
+                               && post.Posted.Month == month
+                               && post.Posted.Day == day
+                         select post)
                 .ToList();
+
+            return (from post in posts
+                   where post.ToTitleLink() == link
+                   select post).ToList();
         }
 
         private IList<Post> SelectAllForNicknameAndYearAndMonthAndDay(int year, string nickname, int month, int day)

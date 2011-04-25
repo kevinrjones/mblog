@@ -109,7 +109,7 @@ namespace MBogIntegrationTest
         }
 
         [Test]
-        public void GivenTheUserHasCreatedMultiplePostsOnTheSmaeDate_WhenIGetAllPosts_ThenIGetTheCorrectPosts()
+        public void GivenTheUserHasCreatedMultiplePostsOnTheSameDate_WhenIGetAllPosts_ThenIGetTheCorrectPosts()
         {
             List<Post> posts = new List<Post> { BuildMeA.Post("title 1", "entry 1", new DateTime(2011, 4, 19)), 
                 BuildMeA.Post("title 1", "entry 1", new DateTime(2011, 4, 19)), 
@@ -142,6 +142,191 @@ namespace MBogIntegrationTest
 
             Assert.That(newPosts, Is.Not.Null);
             Assert.That(newPosts.Count(), Is.EqualTo(2));
+        }
+
+        [Test]
+        public void GivenTheUserHasMultiplePostsForTheSameYear_WhenIGetAllPostsForThatYear_ThenIGetTheCorrectPosts()
+        {
+            List<Post> posts = new List<Post> { BuildMeA.Post("title 1", "entry 1", new DateTime(2010, 4, 19)), 
+                BuildMeA.Post("title 1", "entry 1", new DateTime(2011, 4, 19)), 
+                BuildMeA.Post("title 1", "entry 1", new DateTime(2011, 5, 20)), 
+                BuildMeA.Post("title 1", "entry 1", new DateTime(2011, 6, 21)), 
+            };
+
+            Blog blog = BuildMeA
+                .Blog("title", "description", _nickname)
+                .WithPosts(posts);
+
+            _user1 = BuildMeA.User("email", "name", "password")
+                              .WithBlog(blog);
+
+            List<Post> posts2 = new List<Post> { BuildMeA.Post("title 2", "entry 1", new DateTime(2010, 4, 18)), 
+                BuildMeA.Post("title 2", "entry 1", new DateTime(2011, 3, 19)), 
+                BuildMeA.Post("title 2", "entry 1", new DateTime(2011, 4, 20)), 
+            };
+
+            Blog blog2 = BuildMeA
+                .Blog("title2", "description2", "nickname2")
+                .WithPosts(posts2);
+
+            _user2 = BuildMeA.User("email2", "name2", "password2")
+                              .WithBlog(blog2);
+
+            userRepository.Create(_user1);
+            userRepository.Create(_user2);
+
+            IEnumerable<Post> newPosts = postRepository.GetBlogPosts(2011, 0, 0, _nickname, null);
+
+            Assert.That(newPosts, Is.Not.Null);
+            Assert.That(newPosts.Count(), Is.EqualTo(3));
+        }
+
+        [Test]
+        public void GivenTheUserHasMultiplePostsForTheSameYearAndMonth_WhenIGetAllPostsForThatYearAndMonth_ThenIGetTheCorrectPosts()
+        {
+            List<Post> posts = new List<Post> { BuildMeA.Post("title 1", "entry 1", new DateTime(2010, 4, 19)), 
+                BuildMeA.Post("title 1", "entry 1", new DateTime(2011, 4, 19)), 
+                BuildMeA.Post("title 1", "entry 1", new DateTime(2011, 4, 20)), 
+                BuildMeA.Post("title 1", "entry 1", new DateTime(2011, 6, 21)), 
+            };
+
+            Blog blog = BuildMeA
+                .Blog("title", "description", _nickname)
+                .WithPosts(posts);
+
+            _user1 = BuildMeA.User("email", "name", "password")
+                              .WithBlog(blog);
+
+            List<Post> posts2 = new List<Post> { BuildMeA.Post("title 2", "entry 1", new DateTime(2010, 4, 19)), 
+                BuildMeA.Post("title 2", "entry 1", new DateTime(2011, 4, 19)), 
+                BuildMeA.Post("title 2", "entry 1", new DateTime(2011, 4, 20)), 
+            };
+
+            Blog blog2 = BuildMeA
+                .Blog("title2", "description2", "nickname2")
+                .WithPosts(posts2);
+
+            _user2 = BuildMeA.User("email2", "name2", "password2")
+                              .WithBlog(blog2);
+
+            userRepository.Create(_user1);
+            userRepository.Create(_user2);
+
+            IEnumerable<Post> newPosts = postRepository.GetBlogPosts(2011, 4, 0, _nickname, null);
+
+            Assert.That(newPosts, Is.Not.Null);
+            Assert.That(newPosts.Count(), Is.EqualTo(2));
+        }
+
+        [Test]
+        public void GivenTheUserHasMultiplePostsForTheSameYearMonthAndDay_WhenIGetAllPostsForThatYearMonthAndDay_ThenIGetTheCorrectPosts()
+        {
+            List<Post> posts = new List<Post> { BuildMeA.Post("title 1", "entry 1", new DateTime(2010, 4, 19)), 
+                BuildMeA.Post("title 1", "entry 1", new DateTime(2011, 4, 19)), 
+                BuildMeA.Post("title 1", "entry 1", new DateTime(2011, 4, 19)), 
+                BuildMeA.Post("title 1", "entry 1", new DateTime(2011, 6, 21)), 
+            };
+
+            Blog blog = BuildMeA
+                .Blog("title", "description", _nickname)
+                .WithPosts(posts);
+
+            _user1 = BuildMeA.User("email", "name", "password")
+                              .WithBlog(blog);
+
+            List<Post> posts2 = new List<Post> { BuildMeA.Post("title 2", "entry 1", new DateTime(2010, 4, 19)), 
+                BuildMeA.Post("title 2", "entry 1", new DateTime(2011, 4, 19)), 
+                BuildMeA.Post("title 2", "entry 1", new DateTime(2011, 4, 20)), 
+            };
+
+            Blog blog2 = BuildMeA
+                .Blog("title2", "description2", "nickname2")
+                .WithPosts(posts2);
+
+            _user2 = BuildMeA.User("email2", "name2", "password2")
+                              .WithBlog(blog2);
+
+            userRepository.Create(_user1);
+            userRepository.Create(_user2);
+
+            IEnumerable<Post> newPosts = postRepository.GetBlogPosts(2011, 4, 19, _nickname, null);
+
+            Assert.That(newPosts, Is.Not.Null);
+            Assert.That(newPosts.Count(), Is.EqualTo(2));
+        }
+
+        [Test]
+        public void GivenTheUserHasMultiplePostsForTheSameYearMonthDayAndTitle_WhenIGetAllPostsForThatYearMonthDayAndTitle_ThenIGetTheCorrectPosts()
+        {
+            List<Post> posts = new List<Post> { BuildMeA.Post("title 1", "entry 1", new DateTime(2010, 4, 19)), 
+                BuildMeA.Post("title 2", "entry 1", new DateTime(2011, 4, 19)), 
+                BuildMeA.Post("title 3", "entry 1", new DateTime(2011, 4, 19)), 
+                BuildMeA.Post("title 4", "entry 1", new DateTime(2011, 6, 21)), 
+            };
+
+            Blog blog = BuildMeA
+                .Blog("title", "description", _nickname)
+                .WithPosts(posts);
+
+            _user1 = BuildMeA.User("email", "name", "password")
+                              .WithBlog(blog);
+
+            List<Post> posts2 = new List<Post> { BuildMeA.Post("title 2", "entry 1", new DateTime(2010, 4, 19)), 
+                BuildMeA.Post("title 2", "entry 1", new DateTime(2011, 4, 19)), 
+                BuildMeA.Post("title 2", "entry 1", new DateTime(2011, 4, 20)), 
+            };
+
+            Blog blog2 = BuildMeA
+                .Blog("title2", "description2", "nickname2")
+                .WithPosts(posts2);
+
+            _user2 = BuildMeA.User("email2", "name2", "password2")
+                              .WithBlog(blog2);
+
+            userRepository.Create(_user1);
+            userRepository.Create(_user2);
+
+            IEnumerable<Post> newPosts = postRepository.GetBlogPosts(2011, 4, 19, _nickname, "title-2");
+
+            Assert.That(newPosts, Is.Not.Null);
+            Assert.That(newPosts.Count(), Is.EqualTo(1));
+        }
+
+        [Test]
+        public void GivenTheUserHasMultiplePostsForTheSameYearMonthDayAndTitle_WhenIGetAllPostsForThatYearMonthDayWithTheWrongTitleTitle_ThenIGetNoPosts()
+        {
+            List<Post> posts = new List<Post> { BuildMeA.Post("title 1", "entry 1", new DateTime(2010, 4, 19)), 
+                BuildMeA.Post("title 2", "entry 1", new DateTime(2011, 4, 19)), 
+                BuildMeA.Post("title 3", "entry 1", new DateTime(2011, 4, 19)), 
+                BuildMeA.Post("title 4", "entry 1", new DateTime(2011, 6, 21)), 
+            };
+
+            Blog blog = BuildMeA
+                .Blog("title", "description", _nickname)
+                .WithPosts(posts);
+
+            _user1 = BuildMeA.User("email", "name", "password")
+                              .WithBlog(blog);
+
+            List<Post> posts2 = new List<Post> { BuildMeA.Post("title 2", "entry 1", new DateTime(2010, 4, 19)), 
+                BuildMeA.Post("title 2", "entry 1", new DateTime(2011, 4, 19)), 
+                BuildMeA.Post("title 2", "entry 1", new DateTime(2011, 4, 20)), 
+            };
+
+            Blog blog2 = BuildMeA
+                .Blog("title2", "description2", "nickname2")
+                .WithPosts(posts2);
+
+            _user2 = BuildMeA.User("email2", "name2", "password2")
+                              .WithBlog(blog2);
+
+            userRepository.Create(_user1);
+            userRepository.Create(_user2);
+
+            IEnumerable<Post> newPosts = postRepository.GetBlogPosts(2011, 4, 19, _nickname, "title-3");
+
+            Assert.That(newPosts, Is.Not.Null);
+            Assert.That(newPosts.Count(), Is.EqualTo(1));
         }
 
         [TearDown]
