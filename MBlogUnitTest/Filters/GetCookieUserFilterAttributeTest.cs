@@ -8,6 +8,7 @@ using System.Web.Routing;
 using MBlog.Controllers;
 using MBlog.Filters;
 using MBlog.Infrastructure;
+using MBlog.Models;
 using MBlogModel;
 using MBlogRepository;
 using MBlogRepository.Interfaces;
@@ -22,14 +23,27 @@ namespace MBlogUnitTest.Filters
         private ActionExecutingContext _actionExecutingContext;
         private IUserRepository _userRepository;
         Mock<HttpContextBase> _mockHttpContext;
+        private const string Nickname = "nickname";
 
         [SetUp]
         public void SetUp()
-        {
-            var mockRepo = new Mock<IUserRepository>();
+        {           
+            List<Blog> blogs = new List<Blog> { new Blog { Nickname = Nickname } };
+
             var user = new User();
             user.AddUserDetails("Name", "EMail", "Password", false);
+            user.Blogs = blogs;
+
+            var mockRepo = new Mock<IUserRepository>();
+
             mockRepo.Setup(r => r.GetUser(1)).Returns(user);
+            mockRepo.Setup(r => r.GetUserWithTheirBlogs(1)).Returns(user);
+
+            var user2 = new User();
+            user2.AddUserDetails("Name", "EMail", "Password", false);
+
+            mockRepo.Setup(r => r.GetUser(2)).Returns(user2);
+            mockRepo.Setup(r => r.GetUserWithTheirBlogs(2)).Returns(user2);
 
             _userRepository = mockRepo.Object;
             _mockHttpContext = new Mock<HttpContextBase>();
@@ -97,10 +111,64 @@ namespace MBlogUnitTest.Filters
             Assert.That(_mockHttpContext.Object.User, Is.Not.Null);
             Assert.That(_mockHttpContext.Object.User.Identity.IsAuthenticated, Is.False);                
         }
+
+        [Test]
+        public void GivenAUserWithThatOwnsBlogs_WhenTheFilterExecutes_NicknamesAreAddedToTheUser()
+        {
+            _mockHttpContext.Setup(h => h.Request).Returns(new FakeRequestWithValidUserId());
+            GetCookieUserFilterAttribute attribute = new GetCookieUserFilterAttribute();
+
+            attribute.OnActionExecuting(_actionExecutingContext);
+            UserViewModel userViewModel = (UserViewModel) _mockHttpContext.Object.User;
+            
+            Assert.That(userViewModel.Nicknames.Count, Is.GreaterThan(0));
+            Assert.That(userViewModel.IsBlogOwner(Nickname), Is.True);
+        }
+
+        [Test]
+        public void GetNoNicknamesWhenNotLoggedIn()
+        {
+            _mockHttpContext.Setup(h => h.Request).Returns(new FakeRequestWithInvalidUserId());
+            GetCookieUserFilterAttribute attribute = new GetCookieUserFilterAttribute();
+
+            attribute.OnActionExecuting(_actionExecutingContext);
+            UserViewModel userViewModel = (UserViewModel)_mockHttpContext.Object.User;
+
+            Assert.That(userViewModel.Nicknames.Count, Is.EqualTo(0));
+            Assert.That(userViewModel.IsBlogOwner(Nickname), Is.False);
+        }
+
+        [Test]
+        public void GivenAUserWithThatOwnsNoBlogs_WhenTHeFilterExecutes_NoNicknamesAreAddedToTheUser()
+        {
+            _mockHttpContext.Setup(h => h.Request).Returns(new FakeRequestWithValidUserIdButNoBlogs());
+            GetCookieUserFilterAttribute attribute = new GetCookieUserFilterAttribute();
+
+            attribute.OnActionExecuting(_actionExecutingContext);
+            UserViewModel userViewModel = (UserViewModel)_mockHttpContext.Object.User;
+
+            Assert.That(userViewModel.Nicknames.Count, Is.EqualTo(0));
+            Assert.That(userViewModel.IsBlogOwner(Nickname), Is.False);
+        }
     }
 
     class FakeController : Controller
     { }
+
+    class FakeRequestWithValidUserIdButNoBlogs : HttpRequestBase
+    {
+        public override HttpCookieCollection Cookies
+        {
+            get
+            {
+                HttpCookieCollection collection = new HttpCookieCollection();
+                byte[] cipherText = "2".Encrypt();
+                string cookie = Convert.ToBase64String(cipherText);
+                collection.Add(new HttpCookie("USER", cookie));
+                return collection;
+            }
+        }
+    }
 
     class FakeRequestWithValidUserId : HttpRequestBase
     {
@@ -124,7 +192,7 @@ namespace MBlogUnitTest.Filters
             get
             {
                 HttpCookieCollection collection = new HttpCookieCollection();
-                byte[] cipherText = "2".Encrypt();
+                byte[] cipherText = "3".Encrypt();
                 string cookie = Convert.ToBase64String(cipherText);
                 collection.Add(new HttpCookie("USER", cookie));
                 return collection;

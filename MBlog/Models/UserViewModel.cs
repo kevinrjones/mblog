@@ -1,12 +1,17 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.Linq;
 using System.Security.Principal;
 
 namespace MBlog.Models
 {
     public class UserViewModel : IPrincipal, IIdentity, IValidatableObject
     {
+        public UserViewModel()
+        {
+            Nicknames = new List<string>();
+        }
         public int Id { get; set; }
 
         [Required]
@@ -24,8 +29,6 @@ namespace MBlog.Models
 
         [Editable(false)]
         public bool IsLoggedIn { get; set; }
-
-//        public string Nickname { get; set; }
 
         public string AuthenticationType
         {
@@ -52,5 +55,16 @@ namespace MBlog.Models
             if (Password != RepeatPassword)
                 yield return new ValidationResult("The passwords fields must match", new[] { "Password" });
         }
+
+        public bool IsBlogOwner(string nickname)
+        {
+            var result = (from n in Nicknames
+                          where n == nickname
+                          select n).Count();
+
+            return result != 0;
+        }
+
+        public List<string> Nicknames { get; set; }
     }
 }

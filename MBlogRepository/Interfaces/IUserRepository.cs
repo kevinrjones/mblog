@@ -10,5 +10,6 @@ namespace MBlogRepository.Interfaces
         IEnumerable<User> GetUsersWithTheirBlogs();
         User GetUser(string email);
         User GetUser(int id);
+        User GetUserWithTheirBlogs(int id);
     }
 }

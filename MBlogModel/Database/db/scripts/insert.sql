@@ -164,8 +164,10 @@ INSERT INTO [$(DATABASE)].[dbo].[posts]
 		,[blog_id])
      VALUES
   ('Gotta Love JetBrains'
-   ,'<p>I''ve just installed dotCover, TeamCity and YouTrack and it was trivially easy. Have CI builds running off GitHub and the output looks like this <img src=''/images/teamcity.png'' style="width:100%"/></p>'
+   ,'<p>I''ve just installed dotCover, TeamCity and YouTrack and it was trivially easy. Have CI builds running off GitHub and the output looks like this <img src="/images/teamcity.png" style="width:100%"/></p>'
   ,'2011-03-31 18:47:00', 1)
+
+  
 
 INSERT INTO [$(DATABASE)].[dbo].[posts]
 		([title]

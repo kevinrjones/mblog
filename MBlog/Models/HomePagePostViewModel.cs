@@ -24,7 +24,12 @@ namespace MBlog.Models
 
         public string Post
         {
-            get { return _postViewModel.Post; }
+            get
+            {
+                //const int maxEntryLength = 200;
+                // todo: trim this to 200 but remember to leave in the closing html tags
+                return _postViewModel.Post;
+            }
             set { _postViewModel.Post = value; }
         }
 

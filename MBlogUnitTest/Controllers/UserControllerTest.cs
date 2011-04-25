@@ -1,7 +1,10 @@
 ﻿using System;
+using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using MBlog.Controllers;
+using MBlog.Filters;
+using MBlog.Infrastructure;
 using MBlog.Models;
 using MBlogModel;
 using MBlogRepository.Interfaces;
@@ -38,7 +41,7 @@ namespace MBlogUnitTest.Controllers
         }
 
         [Test]
-        public void GivenAnAuthenticatedUser_WhenILogin_ThenIGetTheRedirectView_AndTheNicknameIsSet()
+        public void GivenAnAuthenticatedUser_WhenILogin_ThenIGetTheRedirectView()
         {
             UserViewModel userViewModel = new UserViewModel {IsLoggedIn = true};
 
@@ -92,7 +95,7 @@ namespace MBlogUnitTest.Controllers
         }
 
         [Test]
-        public void GivenAUserThatAlreadyExists_WhenTheyLogin_ThenIGetRedirectedToTheAdminPage()
+        public void GivenAUserThatExists_WhenTheyLogin_ThenIGetRedirectedToTheAdminPage()
         {
             string email = "email";
             User user = new User();
@@ -104,6 +107,61 @@ namespace MBlogUnitTest.Controllers
             Assert.That(result, Is.Not.Null);
             Assert.That(result.RouteValues["Controller"], Is.EqualTo("Admin").IgnoreCase);
             Assert.That(result.RouteValues["Action"], Is.EqualTo("Index").IgnoreCase);
+        }
+
+        [Test]
+        public void GivenAUserThatExists_WhenTheyLogin_ThenTheUserIsInTheContext()
+        {
+            string email = "email";
+            User user = new User();
+            user.AddUserDetails("", email, "", false);
+            _userRepository.Setup(u => u.GetUser(email)).Returns(user);
+
+            MockHttpContext.SetupProperty(h => h.User);
+
+            Assert.That(_controller.HttpContext.User, Is.Null);
+            _controller.DoLogin(new LoginUserViewModel { Email = email });
+
+            Assert.That(_controller.HttpContext.User, Is.Not.Null);
+        }
+
+        [Test]
+        public void GivenAUserThatExists_WhenTheyLogin_ThenTheCorrectCookieIsSet()
+        {
+            string email = "email";
+            User user = new User{Id = 1};
+            user.AddUserDetails("", email, "", false);
+            _userRepository.Setup(u => u.GetUser(email)).Returns(user);
+
+            MockHttpContext.SetupProperty(h => h.User);
+
+            Assert.That(_controller.HttpContext.User, Is.Null);
+            _controller.DoLogin(new LoginUserViewModel { Email = email });
+
+            byte[] cipherText = user.Id.ToString().Encrypt();
+            string base64CipherText = Convert.ToBase64String(cipherText);
+
+
+            Assert.That(FakeResponse.Cookies.Count, Is.EqualTo(1));
+            HttpCookie cookie = FakeResponse.Cookies[0];
+            Assert.That(cookie.Value, Is.EqualTo(base64CipherText));
+        }
+
+        [Test]
+        public void GivenAUserThatExists_WhenTheyLogin_ThenTheUserMarkedAsLoggedIn()
+        {
+            string email = "email";
+            User user = new User();
+            user.AddUserDetails("", email, "", false);
+            _userRepository.Setup(u => u.GetUser(email)).Returns(user);
+
+            MockHttpContext.SetupProperty(h => h.User);
+
+            Assert.That(_controller.HttpContext.User, Is.Null);
+            _controller.DoLogin(new LoginUserViewModel { Email = email });
+
+            UserViewModel model = _controller.HttpContext.User as UserViewModel;
+            Assert.That(model.IsAuthenticated, Is.True);
         }
 
         [Test]
@@ -199,19 +257,17 @@ namespace MBlogUnitTest.Controllers
         }
         
         [Test]
-        public void GivenALoggdInUser_WhenILogout_ThenTheCookieIsCleared()
+        public void GivenALoggdInUser_WhenILogout_ThenTheCookieIsExpired()
         {
             var cookies = new HttpCookieCollection();
             string cookieName = "USER";
 
-            FakeResponse.Cookies.Add(new HttpCookie(cookieName));
-            Assert.That(FakeResponse.Cookies.Count, Is.EqualTo(1));
-
             cookies.Add(new HttpCookie(cookieName));
             MockRequest.Setup(r => r.Cookies).Returns(cookies);
 
-            RedirectToRouteResult result = _controller.Logout() as RedirectToRouteResult;
-            Assert.That(FakeResponse.Cookies.Count, Is.EqualTo(0));
+            _controller.Logout();
+            HttpCookie cookie = FakeResponse.Cookies[GetCookieUserFilterAttribute.UserCookie];
+            Assert.That(cookie.Expires, Is.EqualTo(new DateTime(1970, 1, 1)));
         }
 
         [Test]

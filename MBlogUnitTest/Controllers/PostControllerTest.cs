@@ -13,23 +13,28 @@ using NUnit.Framework;
 namespace MBlogUnitTest.Controllers
 {
     [TestFixture]
-    public class TestPostController
+    public class TestPostController : BaseControllerTests
     {
-        private IBlogPostRepository _repository;
-        List<Post> posts = new List<Post>{new Post(), new Post(), new Post()};
+        private IBlogPostRepository _postRepository;
+        private Mock<IUserRepository> _userRepositoryMock;
+
+        List<Post> posts = new List<Post> { new Post(), new Post(), new Post() };
         [SetUp]
         public void SetUp()
         {
-            var mock = new Mock<IBlogPostRepository>();
-            mock.Setup(r => r.GetBlogPosts(It.IsAny<string>())).Returns(posts);
-            mock.Setup(r => r.GetBlogPosts(It.IsAny<int>(), It.IsAny<int>(), It.IsAny<int>(), It.IsAny<string>(), It.IsAny<string>())).Returns(new List<Post> { new Post { Id = 1, BlogPost = "empty", Title = "empty", Posted = DateTime.Today } });
-            _repository = mock.Object;
+            var blogPostRepositoryMock = new Mock<IBlogPostRepository>();
+            _postRepository = blogPostRepositoryMock.Object;
+
+            _userRepositoryMock = new Mock<IUserRepository>();
+
+            blogPostRepositoryMock.Setup(r => r.GetBlogPosts(It.IsAny<string>())).Returns(posts);
+            blogPostRepositoryMock.Setup(r => r.GetBlogPosts(It.IsAny<int>(), It.IsAny<int>(), It.IsAny<int>(), It.IsAny<string>(), It.IsAny<string>())).Returns(new List<Post> { new Post { Id = 1, BlogPost = "empty", Title = "empty", Posted = DateTime.Today } });
         }
 
         [Test]
         public void GivenAPostController_WhenICallItsIndexMethod_ThenItReturnsTheCorrectView()
         {
-            PostController controller = new PostController(_repository, null);
+            PostController controller = new PostController(_postRepository, null);
             ActionResult result = controller.Index(It.IsAny<string>());
 
             Assert.That(result, Is.TypeOf(typeof(ViewResult)));
@@ -38,7 +43,7 @@ namespace MBlogUnitTest.Controllers
         [Test]
         public void GivenAPostController_WhenICallItsIndexMethod_ThenItReturnsTheCorrectNumberOfPosts()
         {
-            PostController controller = new PostController(_repository, null);
+            PostController controller = new PostController(_postRepository, null);
             ViewResult result = (ViewResult) controller.Index("");
 
             IEnumerable<PostViewModel> model = (IEnumerable<PostViewModel>) result.Model;
@@ -49,7 +54,7 @@ namespace MBlogUnitTest.Controllers
         [Test]
         public void GivenAPostController_WhenICallItsShowMethod_ThenItReturnsTheCorrectView()
         {
-            PostController controller = new PostController(_repository, null);
+            PostController controller = new PostController(_postRepository, null);
             ViewResult result = controller.Show(new PostLinkViewModel()) as ViewResult;
 
             Assert.That(result, Is.Not.Null);
@@ -58,7 +63,7 @@ namespace MBlogUnitTest.Controllers
         [Test]
         public void GivenAPostController_WhenICallItsShowMethod_ThenItReturnsTheCorrectModelInTheView()
         {
-            PostController controller = new PostController(_repository, null);
+            PostController controller = new PostController(_postRepository, null);
             ViewResult result = controller.Show(new PostLinkViewModel()) as ViewResult;
 
             Assert.That(result.Model, Is.AssignableTo<IEnumerable<PostViewModel>>());
@@ -67,12 +72,11 @@ namespace MBlogUnitTest.Controllers
         [Test]
         public void GivenAPostController_WhenICallItsShowMethod_AndIPassAYear_ThenItReturnsTheCorrectPosts()
         {
-            PostController controller = new PostController(_repository, null);
+            PostController controller = new PostController(_postRepository, null);
             ViewResult result = controller.Show(new PostLinkViewModel()) as ViewResult;
             IEnumerable<PostViewModel> posts = (IEnumerable<PostViewModel>) result.Model;
 
             Assert.That(posts.Count(), Is.EqualTo(1));
         }
-
     }
 }

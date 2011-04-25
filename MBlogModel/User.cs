@@ -22,7 +22,7 @@ namespace MBlogModel
         {
             Blogs = new List<Blog>();
         }
-        public virtual int Id { get; private set; }
+        public virtual int Id { get; set; }
         [Required]
         public virtual string Email { get; set; }
         [Required]

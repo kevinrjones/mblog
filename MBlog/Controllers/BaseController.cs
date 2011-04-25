@@ -5,7 +5,7 @@ using MBlogRepository.Interfaces;
 
 namespace MBlog.Controllers
 {
-    //[GetCookieUserFilter]
+    [GetCookieUserFilter]
     public class BaseController : Controller
     {
         internal IUserRepository UserRepository { get; set; }

@@ -26,17 +26,26 @@ namespace MBlog.Filters
                     int id;
                     if (int.TryParse(plainText, out id))
                     {
-                        User user = controller.UserRepository.GetUser(id);
+                        User user = controller.UserRepository.GetUserWithTheirBlogs(id);
                         if (user != null)
                         {
                             userViewModel.Id = id;
                             userViewModel.Email = user.Email;
                             userViewModel.Name = user.Name;
                             userViewModel.IsLoggedIn = true;
+                            AddNicknamesToUser(user, userViewModel);
                         }
                     }
                 }
                 filterContext.HttpContext.User = userViewModel;
+            }
+        }
+
+        private void AddNicknamesToUser(User user, UserViewModel userViewModel)
+        {
+            foreach (Blog blog in user.Blogs)
+            {
+                userViewModel.Nicknames.Add(blog.Nickname);
             }
         }
     }

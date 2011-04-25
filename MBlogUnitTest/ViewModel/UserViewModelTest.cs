@@ -101,5 +101,17 @@ namespace MBlogUnitTest.ViewModel
 
             Assert.That(isValid, Is.False);
         }
+
+        // todo: move both test to UserViewMOdel tests
+        [Test]
+        public void GivenALoggedInUser_WhenThenBrowseToABlog_AndTheyAreNotTheOwner_ThenTheirIsOwnerFlagIsFalse()
+        {
+        }
+
+        [Test]
+        public void GivenALoggedInUser_WhenThenBrowseToABlog_AndTheyAreTheOwner_ThenTheirIsOwnerFlagIsTrue()
+        {
+        }
+
     }
 }

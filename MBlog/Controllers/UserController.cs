@@ -40,10 +40,8 @@ namespace MBlog.Controllers
             User user = UserRepository.GetUser(userViewModel.Email);
             if (user != null && user.MatchPassword(userViewModel.Password))
             {
-                byte[] cipherText = user.Id.ToString().Encrypt();
-                string base64CipherText = Convert.ToBase64String(cipherText);
-                Response.Cookies.Add(new HttpCookie(GetCookieUserFilterAttribute.UserCookie, base64CipherText));
-                return RedirectToRoute(new { action = "Index", controller = "admin"});
+                UpdateCookiesAndContext(user);
+                return RedirectToRoute(new { action = "Index", controller = "admin" });
             }
             return View("Login");
         }
@@ -63,14 +61,15 @@ namespace MBlog.Controllers
         public ActionResult DoRegister(UserViewModel userViewModel)
         {
             User user = UserRepository.GetUser(userViewModel.Email);
-            if(!IsRegistrationValid(userViewModel, user))
+            if (!IsRegistrationValid(userViewModel, user))
             {
-                return View("Register");                
+                return View("Register");
             }
-            
+
             user = new User();
             user.AddUserDetails(userViewModel.Name, userViewModel.Email, userViewModel.Password, false);
             UserRepository.Create(user);
+            UpdateCookiesAndContext(user);
             return RedirectToAction("index", "admin");
         }
 
@@ -99,10 +98,20 @@ namespace MBlog.Controllers
             HttpCookie cookie;
             if ((cookie = Request.Cookies[GetCookieUserFilterAttribute.UserCookie]) != null)
             {
-                Response.Cookies.Remove(cookie.Name);
+                cookie.Expires = new DateTime(1970, 1, 1);
+                Response.Cookies.Add(cookie);
                 HttpContext.User = null;
             }
             return RedirectToAction("index", "home");
         }
+
+        private void UpdateCookiesAndContext(User user)
+        {
+            byte[] cipherText = user.Id.ToString().Encrypt();
+            string base64CipherText = Convert.ToBase64String(cipherText);
+            Response.Cookies.Add(new HttpCookie(GetCookieUserFilterAttribute.UserCookie, base64CipherText));
+            HttpContext.User = new UserViewModel { Email = user.Email, Name = user.Name, IsLoggedIn = true };
+        }
+
     }
 }

@@ -27,6 +27,15 @@ namespace MBlogRepository.Repositories
             return users.Include("Blogs").ToList();
         }
 
+        public User GetUserWithTheirBlogs(int id)
+        {
+            DbSet<User> users = Entities as DbSet<User>;
+
+            return (from e in users.Include("Blogs")
+                    where e.Id == id
+                    select e).FirstOrDefault();
+        }
+
         public User GetUser(string email)
         {
             return (from e in Entities
