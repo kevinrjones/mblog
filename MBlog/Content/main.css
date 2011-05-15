@@ -5,8 +5,8 @@ body { font-family: arial, helvetica, sans-serif; background-color: #cccccc; }
 .wrapper { height: 100%; }
 .main-list { padding: 10px 20px 10px 0; float: right; }
 h2.page-header { padding: 20px 0 0 10px; }
-.header { background-color: #eeeeee; overflow:auto; width:100%}
-header { background-color: #eeeeee; overflow:auto; width:100%; display:block}
+.header { background-color: #eeeeee; overflow: auto; width: 100%; }
+header { background-color: #eeeeee; overflow: auto; width: 100%; display: block; }
 .mainbody { margin: 0em auto; width: 65%; background-color: #ffffff; }
 .footer { }
 
@@ -39,27 +39,33 @@ fieldset { border: 1px solid #ccc; padding: 0 1.4em 1.4em 1.4em; margin: 0 0 1.5
 
 legend { font-size: 1.2em; font-weight: bold; padding: 0 10px 0 10px; }
 
-.blog-post{margin: 5px 0 40px 10px;}
-.blog-header-section {margin-bottom: 5px; border-bottom: 1px solid black;}
-.blog-title{ font-size: 16pt; display: inline-block;}
-.blog-date-posted{ float:right; color: gray;}
-.blog-entry{line-height: 20px; }
-.blog-entry ul{padding-left: 20px; }
-.blog-inner-body {width: 75%; float: left; padding: 10px 0 10px 10px; }
-.blog-main-body {background-color: White; overflow:auto; width:100%;}
-.blog-side-bar {float:right; width: 20%;}
-.blog-comments {}
-.blog-comment {}
-.blog-comment-form {}
-.inline-code {font-family:Consolas, Courier New, Courier; font-weight: bold; font-size: larger; }
-.blog-list {list-style-image: none; list-style-position: outside; list-style-type: none;}
-.home-page-content {margin: 0em auto; width: 65%; }
-.home-page-list {list-style-image: none; list-style-position: outside; list-style-type: none; }
-.home-page-list li {font-size: 10pt;}
-.home-page-blog-post{margin: 5px 0 40px 10px;}
-.home-page-blog-header-section {margin-bottom: 5px; border-bottom: 1px solid black;}
-.home-page-blog-title{ font-size: 12pt; display: inline-block;}
-.home-page-sub-title{ padding-left: 10px; padding-bottom: 10px; }
+.blog-post { margin: 5px 0 40px 10px; }
+.blog-header-section { margin-bottom: 5px; border-bottom: 1px solid black; }
+.blog-title { font-size: 16pt; display: inline-block; }
+.blog-date-posted { float: right; color: gray; }
+.blog-entry { line-height: 20px; }
+.blog-entry ul { padding-left: 20px; }
+.blog-inner-body { width: 75%; float: left; padding: 10px 0 10px 10px; }
+.blog-main-body { background-color: White; overflow: auto; width: 100%; }
+.blog-side-bar { float: right; width: 20%; }
+.blog-comments { padding: 10px 0 0 5px; }
+.blog-comment { background-color: #eeeeee; padding: 5px 5px 10px 5px; }
+.blog-comment-header { font-weight: bold; }
+.blog-comment-body { padding: 10px 0 0 0; }
+#blog-comment-form { padding: 10px 0 0 10px; }
+#blog-comment-form-header { font-size: 20pt; padding: 5px 0 15px 0px; }
+#blog-comment-form-body { padding: 0px 0 0px 10px; }
+#Name { width: 100%; }
+#Comment { width: 100%; }
+.inline-code { font-family: Consolas, Courier New, Courier; font-weight: bold; font-size: larger; }
+.blog-list { list-style-image: none; list-style-position: outside; list-style-type: none; }
+.home-page-content { margin: 0em auto; width: 65%; }
+.home-page-list { list-style-image: none; list-style-position: outside; list-style-type: none; }
+.home-page-list li { font-size: 10pt; }
+.home-page-blog-post { margin: 5px 0 40px 10px; }
+.home-page-blog-header-section { margin-bottom: 5px; border-bottom: 1px solid black; }
+.home-page-blog-title { font-size: 12pt; display: inline-block; }
+.home-page-sub-title { padding-left: 10px; padding-bottom: 10px; }
 /* Styles for validation helpers
 -----------------------------------------------------------*/
 .field-validation-error { color: #ff0000; }

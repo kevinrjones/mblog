@@ -3,11 +3,20 @@
     @foreach (var Comment in Model.Comments)
     {            
         <div class="blog-comment">
-            @Comment.Comment
+            <div class ="blog-comment-header">
+                <span>@Comment.Commented.ToLongDateString()</span> by <span>@Comment.Name</span>
+            </div>
+            <div class="blog-comment-body">
+                @Comment.Comment
+            </div>
         </div>
     }
 </div>
-<div class="blog-comment-form">
+<div id="blog-comment-form">
+    <div id="blog-comment-form-header">
+    Leave a Comment:
+    </div>
+    <div id="blog-comment-form-body">
     @using (Html.BeginForm("new", "comment", FormMethod.Post, new { }))
     {
         @Html.HiddenFor(m => m.Id)
@@ -32,4 +41,5 @@
             <input type="submit" value="Post Comment" />
         </div>
     }
+    </div>
 </div>

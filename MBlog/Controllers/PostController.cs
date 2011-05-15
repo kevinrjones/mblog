@@ -85,7 +85,9 @@ namespace MBlog.Controllers
         {
             foreach (Comment comment in post.Comments)
             {
-                CommentViewModel commentViewModel = new CommentViewModel {Name = comment.Name, Comment = comment.CommentText, Commented = comment.Commented, EMail = comment.EMail};
+                string name;
+                name = string.IsNullOrEmpty(comment.Name) ? "Anonymous" : comment.Name;
+                CommentViewModel commentViewModel = new CommentViewModel {Name = name, Comment = comment.CommentText, Commented = comment.Commented, EMail = comment.EMail};
                 postViewModel.Comments.Add(commentViewModel);
                 
             }
