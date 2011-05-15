@@ -14,17 +14,17 @@
       <Filter>
         <ClassFilter>*</ClassFilter>
         <FunctionFilter>*</FunctionFilter>
-        <ModuleFilter>MBlogRepository</ModuleFilter>
-      </Filter>
-      <Filter>
-        <ClassFilter>*</ClassFilter>
-        <FunctionFilter>*</FunctionFilter>
         <ModuleFilter>Repository</ModuleFilter>
       </Filter>
       <Filter>
         <ClassFilter>*</ClassFilter>
         <FunctionFilter>*</FunctionFilter>
         <ModuleFilter>MBlogUnitTest</ModuleFilter>
+      </Filter>
+      <Filter>
+        <ClassFilter>*</ClassFilter>
+        <FunctionFilter>*</FunctionFilter>
+        <ModuleFilter>MBlogIntegrationTest</ModuleFilter>
       </Filter>
     </DenyFilters>
   </CoverageFilters>

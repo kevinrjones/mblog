@@ -1,0 +1,12 @@
+﻿@model MBlog.Models.Comment.AddCommentViewModel
+@{
+    ViewBag.Title = "Blog Posts";
+}
+<ul class="blog-list">
+        <li class="blog-post">
+            @{
+                Html.RenderPartial("ShowSinglePost", Model);
+                Html.RenderPartial("ShowCommentsForPost", Model);
+            }
+        </li>        
+</ul>

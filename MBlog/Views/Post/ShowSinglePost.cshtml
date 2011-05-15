@@ -1,13 +1,8 @@
 ﻿@model MBlog.Models.PostViewModel
-<li class="blog-post">
-    <div class="blog-header-section">
-        <h1 class="blog-title">@Html.ActionLink(Model.Title, "show", new { controller = "Post", link = Model.Link, year = Model.YearPosted, month = Model.MonthPosted, day = Model.DayPosted })</h1>
-        <div class="blog-date-posted">
-            <span>@Model.DatePosted.ToLongDateString()</span>
-        </div>
+<div class="blog-header-section">
+    <h1 class="blog-title">@Html.ActionLink(Model.Title, "show", new { controller = "Post", link = Model.Link, year = Model.YearPosted, month = Model.MonthPosted, day = Model.DayPosted })</h1>
+    <div class="blog-date-posted">
+        <span>@Model.DatePosted.ToLongDateString()</span> | <span>@Html.ActionLink("Comments(" + @Model.CommentCount + ")", "show", new { controller = "Post", link = Model.Link, year = Model.YearPosted, month = Model.MonthPosted, day = Model.DayPosted })</span>
     </div>
-    <div class="blog-entry">@MvcHtmlString.Create(Model.Post)</div>
-    <div class="blog-buttons">
-        
-    </div>
-</li>
+</div>
+<div class="blog-entry">@MvcHtmlString.Create(Model.Post)</div>

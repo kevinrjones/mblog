@@ -1,10 +1,18 @@
-﻿@model IEnumerable<MBlog.Models.PostViewModel>
+﻿@model MBlog.Models.PostsViewModel
 @{
     ViewBag.Title = "Blog Posts";
 }
 <ul class="blog-list">
-    @foreach (var viewModel in Model)
+    @foreach (var viewModel in Model.Posts)
     {
-        Html.RenderPartial("ShowSinglePost", viewModel);
+        <li class="blog-post">
+            @{
+                Html.RenderPartial("ShowSinglePost", viewModel);
+                if (Model.ShowComments)
+                {
+                    Html.RenderPartial("ShowCommentsForPost", viewModel);
+                }
+            }
+        </li>        
     }
 </ul>

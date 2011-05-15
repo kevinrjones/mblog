@@ -15,6 +15,8 @@ class CreateInitialDatabase < ActiveRecord::Migration
         t.string :description,  :null => false
         t.string :nickname,     :null => false
         t.integer :user_id,     :null => false
+        t.boolean :comments_enabled, :null => false, :default => true
+        t.boolean :comment_approval, :null => false, :default => false
     end
 
     create_table :users_blogs do |t|
@@ -31,11 +33,12 @@ class CreateInitialDatabase < ActiveRecord::Migration
     end    
 
     create_table :comments do |t|
-      t.string :text, :null => false
-      t.integer :user_id, :null => false
+      t.text :text, :null => false
       t.integer :post_id, :null => false
-      t.string :email, :null => false
-      t.datetime :commented, :null => true
+      t.integer :user_id, :null => true
+      t.string :name, :null => true
+      t.string :email, :null => true
+      t.datetime :commented, :null => false
     end    
   end
 

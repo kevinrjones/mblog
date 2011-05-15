@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using MBlogModel;
 
-namespace MBogIntegrationTest.Builder
+namespace MBlogIntegrationTest.Builder
 {
     internal class BlogBuilder : Builder<Blog>
     {

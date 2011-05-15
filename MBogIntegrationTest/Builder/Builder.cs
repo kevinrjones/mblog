@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace MBogIntegrationTest.Builder
+namespace MBlogIntegrationTest.Builder
 {
     public class Builder<T> where T : new()
     {

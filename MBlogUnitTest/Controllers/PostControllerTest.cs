@@ -15,14 +15,14 @@ namespace MBlogUnitTest.Controllers
     [TestFixture]
     public class TestPostController : BaseControllerTests
     {
-        private IBlogPostRepository _postRepository;
+        private IPostRepository _postRepository;
         private Mock<IUserRepository> _userRepositoryMock;
 
         List<Post> posts = new List<Post> { new Post { Title = "title" }, new Post { Title = "title" }, new Post { Title = "title" } };
         [SetUp]
         public void SetUp()
         {
-            var blogPostRepositoryMock = new Mock<IBlogPostRepository>();
+            var blogPostRepositoryMock = new Mock<IPostRepository>();
             _postRepository = blogPostRepositoryMock.Object;
 
             _userRepositoryMock = new Mock<IUserRepository>();

@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 
 namespace MBlogModel
@@ -16,6 +17,14 @@ namespace MBlogModel
         public DateTime? Edited { get; set; }
 
         public virtual Blog Blog { get; set; }
+
+
+        List<Comment> _comments = new List<Comment>();
+        public List<Comment> Comments
+        {
+            get { return _comments; }
+            private set { _comments = value; }
+        }
 
         public void AddPost(string title, string entry)
         {

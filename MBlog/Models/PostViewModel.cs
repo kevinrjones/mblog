@@ -1,18 +1,23 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Web;
+using MBlog.Models.Comment;
 
 namespace MBlog.Models
 {
     public class PostViewModel
     {
+        public PostViewModel()
+        {
+            Comments = new List<CommentViewModel>();
+        }
         public int Id { get; set; }
         public string Title { get; set; }
         public string Post { get; set; }
         public string YearPosted { get; set; }
         public string MonthPosted { get; set; }
         public string DayPosted { get; set; }
+        public int CommentCount { get { return Comments.Count; }   }
+        public List<CommentViewModel> Comments { get; set; }
 
         private DateTime _datePosted;
         public DateTime DatePosted
@@ -29,5 +34,6 @@ namespace MBlog.Models
 
         public DateTime? DateLastEdited { get; set; }
         public string Link { get; set; }
+
     }
 }

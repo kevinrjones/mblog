@@ -1,15 +1,13 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Configuration;
 using System.Linq;
-using System.Text;
 using System.Transactions;
+using MBlogIntegrationTest.Builder;
 using MBlogModel;
 using MBlogRepository.Repositories;
-using MBogIntegrationTest.Builder;
 using NUnit.Framework;
 
-namespace MBogIntegrationTest
+namespace MBlogIntegrationTest
 {
 
     [TestFixture]
@@ -18,8 +16,7 @@ namespace MBogIntegrationTest
         private User user;
         private TransactionScope _transactionScope;
         private string _nickname1;
-        UserRepository userRepository;
-        BlogPostRepository _postRepository;
+        UserRepository _userRepository;
 
         [SetUp]
         public void Setup()
@@ -27,8 +24,7 @@ namespace MBogIntegrationTest
             _transactionScope = new TransactionScope();
             _nickname1 = "nickname1";
 
-            userRepository = new UserRepository(ConfigurationManager.ConnectionStrings["testdb"].ConnectionString);
-            _postRepository = new BlogPostRepository(ConfigurationManager.ConnectionStrings["testdb"].ConnectionString);
+            _userRepository = new UserRepository(ConfigurationManager.ConnectionStrings["testdb"].ConnectionString);
 
             Blog blog1 = BuildMeA
                 .Blog("title1", "description1", _nickname1);
@@ -39,25 +35,54 @@ namespace MBogIntegrationTest
                               .WithBlog(blog1)
                               .WithBlog(blog2);
 
-            userRepository.Create(user);
+            _userRepository.Create(user);
 
             User user2 = BuildMeA.User("email1", "name1", "password1");
-            userRepository.Create(user2);
+            _userRepository.Create(user2);
+            _userRepository.Dispose();
+        }
+
+        [Test]
+        public void GivenMoreThanOneUser_WhenIGetAskForAllUsers_ThenIGetAllUsers()
+        {
+            var users = _userRepository.GetUsers();
+
+            Assert.That(users, Is.Not.Null);
+            Assert.That(users.Count(), Is.EqualTo(2));
+        }
+
+        [Test]
+        public void GivenMoreThanOneUser_WhenIGetAskForAllUsersAndBlogs_ThenIGetAllUsersAndBlogs()
+        {
+            var users = _userRepository.GetUsersWithTheirBlogs().ToList();
+
+            Assert.That(users[0].Blogs.Count, Is.EqualTo(2));
+            Assert.That(users[1].Blogs.Count, Is.EqualTo(0));
         }
 
         [Test]
         public void WhenIGetASpecificUserById_ThenIGetTheCorrectUser()
         {
-            User newUser = userRepository.GetUser(user.Id);
+            User newUser = _userRepository.GetUser(user.Id);
 
             Assert.That(newUser, Is.Not.Null);
             Assert.That(newUser.Id, Is.EqualTo(user.Id));
         }
 
         [Test]
+        public void WhenIGetASpecificUserAndTheirBlogsById_ThenIGetTheCorrectUserAndTheirBlogs()
+        {
+            _userRepository = new UserRepository(ConfigurationManager.ConnectionStrings["testdb"].ConnectionString);
+            User newUser = _userRepository.GetUserWithTheirBlogs(user.Id);
+
+            Assert.That(newUser.Id, Is.EqualTo(user.Id));
+            Assert.That(newUser.Blogs.Count, Is.EqualTo(2));
+        }
+
+        [Test]
         public void WhenIGetASpecificUserByEMail_ThenIGetTheCorrectUser()
         {
-            User newUser = userRepository.GetUser(user.Email);
+            User newUser = _userRepository.GetUser(user.Email);
 
             Assert.That(newUser, Is.Not.Null);
             Assert.That(newUser.Id, Is.EqualTo(user.Id));
@@ -66,7 +91,7 @@ namespace MBogIntegrationTest
         [Test]
         public void WhenIGetAUserAndAllBlogs_ThenIGetTheCorrectBlogs()
         {
-            IEnumerable<User> users = userRepository.GetUsersWithTheirBlogs();
+            IEnumerable<User> users = _userRepository.GetUsersWithTheirBlogs();
 
             Assert.That(users, Is.Not.Null);
             Assert.That(users.Count(), Is.EqualTo(2));

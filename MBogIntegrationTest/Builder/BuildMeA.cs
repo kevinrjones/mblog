@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace MBogIntegrationTest.Builder
+namespace MBlogIntegrationTest.Builder
 {
     internal static class BuildMeA
     {

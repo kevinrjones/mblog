@@ -1,6 +1,6 @@
 ﻿using MBlogModel;
 
-namespace MBogIntegrationTest.Builder
+namespace MBlogIntegrationTest.Builder
 {
     internal class UserBuilder : Builder<User>
     {

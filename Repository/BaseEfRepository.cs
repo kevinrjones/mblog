@@ -40,7 +40,7 @@ namespace Repository
             _dbSet.Remove(entity);
         }
 
-        internal void Save()
+        protected internal void Save()
         {
             _dataDbContext.SaveChanges();
         }

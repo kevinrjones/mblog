@@ -21,6 +21,7 @@ namespace MBlog
 
         public static void RegisterRoutes(RouteCollection routes)
         {
+            routes.IgnoreRoute("favicon.ico");
             routes.IgnoreRoute("{resource}.axd/{*pathInfo}");
 
             routes.MapRoute(
@@ -39,6 +40,12 @@ namespace MBlog
                 "Admin",
                 "admin/{action}",
                 new { controller = "Admin", action = "Index" }
+                );
+
+            routes.MapRoute(
+                "comments",
+                "comment/{action}",
+                new { controller = "Comment", action = "Index" }
                 );
 
             routes.MapRoute(
@@ -79,7 +86,6 @@ namespace MBlog
         {
             InjectionConstructor ctor = new InjectionConstructor(ConfigurationManager.ConnectionStrings["mblog"].ConnectionString);
             IUnityContainer container = new UnityContainer()
-                .RegisterType<IBlogPostRepository, BlogPostRepository>(ctor)
                 .RegisterType<IUserRepository, UserRepository>(ctor)
                 .RegisterType<IPostRepository, PostRepository>(ctor)
                 .RegisterType<IUsernameBlacklistRepository, UsernameBlacklistRepository>(ctor)

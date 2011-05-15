@@ -1,0 +1,35 @@
+﻿@model MBlog.Models.Comment.AddCommentViewModel
+<div class="blog-comments">
+    @foreach (var Comment in Model.Comments)
+    {            
+        <div class="blog-comment">
+            @Comment.Comment
+        </div>
+    }
+</div>
+<div class="blog-comment-form">
+    @using (Html.BeginForm("new", "comment", FormMethod.Post, new { }))
+    {
+        @Html.HiddenFor(m => m.Id)
+        <div>
+            Name:
+        </div>
+        <div>
+            @Html.TextBoxFor(m => m.Name)
+        </div>
+        <div>
+            Comment:
+        </div>
+        <div>
+            <div>
+                @Html.TextAreaFor(m => m.Comment, new { cols = "25", rows = "5" })
+            </div>
+            <div>
+                @Html.ValidationMessageFor(m => m.Comment)
+            </div>
+        </div>
+        <div>
+            <input type="submit" value="Post Comment" />
+        </div>
+    }
+</div>

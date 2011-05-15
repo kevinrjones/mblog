@@ -48,6 +48,9 @@ legend { font-size: 1.2em; font-weight: bold; padding: 0 10px 0 10px; }
 .blog-inner-body {width: 75%; float: left; padding: 10px 0 10px 10px; }
 .blog-main-body {background-color: White; overflow:auto; width:100%;}
 .blog-side-bar {float:right; width: 20%;}
+.blog-comments {}
+.blog-comment {}
+.blog-comment-form {}
 .inline-code {font-family:Consolas, Courier New, Courier; font-weight: bold; font-size: larger; }
 .blog-list {list-style-image: none; list-style-position: outside; list-style-type: none;}
 .home-page-content {margin: 0em auto; width: 65%; }
