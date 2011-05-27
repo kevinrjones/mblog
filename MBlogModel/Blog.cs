@@ -17,6 +17,12 @@ namespace MBlogModel
         public virtual string Title { get; set; }
         [Required]
         public virtual string Description { get; set; }
+
+        [Required, Column("comments_enabled")]
+        public virtual bool CommentsEnabled{ get; set; }
+        [Required, Column("comment_approval")]
+        public virtual bool ApproveComments { get; set; }
+        
         [Required]
         public virtual string Nickname { get; set; }
 

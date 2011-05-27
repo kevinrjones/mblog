@@ -8,6 +8,7 @@ namespace MBlogModel
         public int Id { get; set; }
         public string Name { get; set; }
         public string EMail { get; set; }
+        public bool Approved { get; set; }
 
         [Required]
         public DateTime Commented { get; set; }

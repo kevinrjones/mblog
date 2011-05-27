@@ -3,7 +3,7 @@
     @foreach (var Comment in Model.Comments)
     {            
         <div class="blog-comment">
-            <div class ="blog-comment-header">
+            <div class="blog-comment-header">
                 <span>@Comment.Commented.ToLongDateString()</span> by <span>@Comment.Name</span>
             </div>
             <div class="blog-comment-body">
@@ -12,34 +12,41 @@
         </div>
     }
 </div>
-<div id="blog-comment-form">
-    <div id="blog-comment-form-header">
-    Leave a Comment:
+@if (Model.CommentsEnabled)
+{ 
+    <div id="blog-comment-form">
+        <div id="blog-comment-form-header">
+            Leave a Comment:
+        </div>
+        <div class="comment-help">
+            Comments use BBCode. you can use [b], [i], [u], [code], [image], [quote], [list]
+            (for ul), [*] (for li) and [url].
+        </div>
+        <div id="blog-comment-form-body">
+            @using (Html.BeginForm("new", "comment", FormMethod.Post, new { }))
+            {
+                @Html.HiddenFor(m => m.Id)
+                <div>
+                    Name:
+                </div>
+                <div>
+                    @Html.TextBoxFor(m => m.Name)
+                </div>
+                <div>
+                    Comment:
+                </div>
+                <div>
+                    <div>
+                        @Html.TextAreaFor(m => m.Comment, new { cols = "25", rows = "5" })
+                    </div>
+                    <div>
+                        @Html.ValidationMessageFor(m => m.Comment)
+                    </div>
+                </div>
+                <div>
+                    <input type="submit" value="Post Comment" />
+                </div>
+            }
+        </div>
     </div>
-    <div id="blog-comment-form-body">
-    @using (Html.BeginForm("new", "comment", FormMethod.Post, new { }))
-    {
-        @Html.HiddenFor(m => m.Id)
-        <div>
-            Name:
-        </div>
-        <div>
-            @Html.TextBoxFor(m => m.Name)
-        </div>
-        <div>
-            Comment:
-        </div>
-        <div>
-            <div>
-                @Html.TextAreaFor(m => m.Comment, new { cols = "25", rows = "5" })
-            </div>
-            <div>
-                @Html.ValidationMessageFor(m => m.Comment)
-            </div>
-        </div>
-        <div>
-            <input type="submit" value="Post Comment" />
-        </div>
-    }
-    </div>
-</div>
+}

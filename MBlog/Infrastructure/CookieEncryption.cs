@@ -23,7 +23,7 @@ namespace MBlog.Infrastructure
             }
         }
 
-        private static byte[] IV
+        private static byte[] InitializationVector
         {
             get
             {
@@ -35,12 +35,12 @@ namespace MBlog.Infrastructure
 
         public static byte[] Encrypt(this string plainText)
         {
-            return Encrypt(plainText, Key, IV);
+            return Encrypt(plainText, Key, InitializationVector);
         }
 
         public static string Decrypt(this byte[] cipherText)
         {
-            return Decrypt(cipherText, Key, IV);
+            return Decrypt(cipherText, Key, InitializationVector);
         }
 
         private static byte[] Encrypt(this string plainText, byte[] Key, byte[] IV)
@@ -70,12 +70,11 @@ namespace MBlog.Infrastructure
                     {
                         using (var swEncrypt = new StreamWriter(csEncrypt))
                         {
-
-                            //Write all data to the stream.
                             swEncrypt.Write(plainText);
+                            swEncrypt.Flush();
                         }
-                        encrypted = msEncrypt.ToArray();
                     }
+                    encrypted = msEncrypt.ToArray();
                 }
             }
 
@@ -84,13 +83,13 @@ namespace MBlog.Infrastructure
             return encrypted;
         }
 
-        private static string Decrypt(this byte[] cipherText, byte[] Key, byte[] IV)
+        private static string Decrypt(this byte[] cipherText, byte[] key, byte[] IV)
         {
             // Check arguments.
             if (cipherText == null || cipherText.Length <= 0)
                 throw new ArgumentNullException("cipherText");
-            if (Key == null || Key.Length <= 0)
-                throw new ArgumentNullException("Key");
+            if (key == null || key.Length <= 0)
+                throw new ArgumentNullException("key");
             if (IV == null || IV.Length <= 0)
                 throw new ArgumentNullException("IV");
 
@@ -98,7 +97,7 @@ namespace MBlog.Infrastructure
 
             using (AesCryptoServiceProvider aesAlg = new AesCryptoServiceProvider())
             {
-                aesAlg.Key = Key;
+                aesAlg.Key = key;
                 aesAlg.IV = IV;
 
                 ICryptoTransform decryptor = aesAlg.CreateDecryptor(aesAlg.Key, aesAlg.IV);

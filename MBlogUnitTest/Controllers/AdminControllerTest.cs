@@ -13,7 +13,7 @@ namespace MBlogUnitTest.Controllers
     class AdminControllerTest : BaseControllerTests
     {
         [Test]
-        public void GivenNoUserInContext_WhenIGoToTheAdminIndexPage_ThenIGetRedirectedToTheHomePage()
+        public void GivenNoUserInContext_WhenIGoToTheAdminIndexPage_ThenIGetRedirectedToTheLoginPage()
         {
             AdminController controller = new AdminController(null);
 
@@ -21,21 +21,37 @@ namespace MBlogUnitTest.Controllers
 
             RedirectToRouteResult result = controller.Index() as RedirectToRouteResult;
             Assert.That(result, Is.Not.Null);
-            Assert.That(result.RouteValues["controller"], Is.EqualTo("Home").IgnoreCase);
-            Assert.That(result.RouteValues["action"], Is.EqualTo("Index").IgnoreCase);
+            Assert.That(result.RouteValues["controller"], Is.EqualTo("User").IgnoreCase);
+            Assert.That(result.RouteValues["action"], Is.EqualTo("Login").IgnoreCase);
         }
 
         [Test]
-        public void GivenAUserInContext_WhenIGoToTheAdminIndexPage_ThenIGetRedirectedToTheHomePage()
+        public void GivenAUserInContext_AndTheUserIsNotLoggedIn_WhenIGoToTheAdminIndexPage_ThenIGetRedirectedToTheLoginPage()
         {
             AdminController controller = new AdminController(null);
 
             SetControllerContext(controller);
 
             MockHttpContext.SetupProperty(h => h.User);
-            controller.HttpContext.User = new UserViewModel();
+            controller.HttpContext.User = new UserViewModel { IsLoggedIn = false };
 
-            ViewResult result = controller.Index() as ViewResult;
+            RedirectToRouteResult result = controller.Index() as RedirectToRouteResult;
+            Assert.That(result, Is.Not.Null);
+            Assert.That(result.RouteValues["controller"], Is.EqualTo("User").IgnoreCase);
+            Assert.That(result.RouteValues["action"], Is.EqualTo("Login").IgnoreCase);
+        }
+
+        [Test]
+        public void GivenAUserInContext_AndTheUserIsLoggedIn_WhenIGoToTheAdminIndexPage_ThenIGetTheAdminPage()
+        {
+            AdminController controller = new AdminController(null);
+
+            SetControllerContext(controller);
+
+            MockHttpContext.SetupProperty(h => h.User);
+            controller.HttpContext.User = new UserViewModel { IsLoggedIn = true };
+
+            ViewResult result = (ViewResult) controller.Index();
             Assert.That(result, Is.Not.Null);
         }
     }

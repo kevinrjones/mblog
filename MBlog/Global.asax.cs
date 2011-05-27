@@ -88,6 +88,7 @@ namespace MBlog
             IUnityContainer container = new UnityContainer()
                 .RegisterType<IUserRepository, UserRepository>(ctor)
                 .RegisterType<IPostRepository, PostRepository>(ctor)
+                .RegisterType<IBlogRepository, BlogRepository>(ctor)
                 .RegisterType<IUsernameBlacklistRepository, UsernameBlacklistRepository>(ctor)
                 .RegisterType<INicknameBlacklistRepository, NicknameBlacklistRepository>(ctor)
                 ;

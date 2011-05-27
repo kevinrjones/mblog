@@ -18,27 +18,33 @@ namespace MBlogRepository.Repositories
 
         public IEnumerable<Post> GetPosts()
         {
-            return (from p in Entities.Include("Blog.User")
-                    orderby p.Posted descending
-                    select p)
-                       .Take(Count)
-                       .ToList();
+            return GetPostsAndComments().ToList();
         }
 
         public Post GetBlogPost(int id)
         {
-            var b = (from e in Entities
-                     where e.Id == id
-                     select e).FirstOrDefault();
+            var b = (from p in Entities.Include(p => p.Comments)
+                         .Include(p=>p.Blog.User)
+                     where p.Id == id
+                     select p).FirstOrDefault();
             return b;
         }
 
         public IList<Post> GetBlogPosts(string nickname)
         {
             if (string.IsNullOrEmpty(nickname))
-                return (GetPostsAndComments().ToList());
-
+            {
+                return (GetPostsAndComments()).ToList();
+            }
             return SelectAllForNickname(nickname);
+        }
+
+        public Post AddComment(int id, string name, string comment)
+        {
+            Post post = GetBlogPost(id);
+            post.Comments.Add(new Comment { Name = name, CommentText = comment, Commented = DateTime.UtcNow });
+            Save();
+            return post;
         }
 
         public IList<Post> GetBlogPosts(int year, int month, int day, string nickname, string link)
@@ -60,18 +66,10 @@ namespace MBlogRepository.Repositories
                 return SelectAllForNicknameAndYearAndMonthAndDay(year, nickname, month, day);
             }
             // add link filter
-            return SeelectByTitle(year, nickname, month, day, link);
+            return SelectByTitle(year, nickname, month, day, link);
         }
 
-        public Post AddComment(int id, string name, string comment)
-        {
-            Post post = GetBlogPost(id);
-            post.Comments.Add(new Comment { Name = name, CommentText = comment, Commented = DateTime.UtcNow });
-            Save();
-            return post;
-        }
-
-        private IList<Post> SeelectByTitle(int year, string nickname, int month, int day, string link)
+        private IList<Post> SelectByTitle(int year, string nickname, int month, int day, string link)
         {
             var posts = GetPostsAndComments().Where(post => post.Blog.Nickname == nickname
                                                             && post.Posted.Year == year
@@ -79,7 +77,7 @@ namespace MBlogRepository.Repositories
                                                             && post.Posted.Day == day).ToList();
 
             return (from post in posts
-                    where post.ToTitleLink() == link
+                    where post.TitleLink == link
                     select post).ToList();
         }
 
@@ -116,7 +114,11 @@ namespace MBlogRepository.Repositories
 
         private IOrderedQueryable<Post> GetPostsAndComments()
         {
-            return Entities.Include("Comments").OrderByDescending(post => post.Posted);
+            return Entities
+                .Include(p => p.Comments)
+                .Include(p => p.Blog.User)
+                .Take(Count)
+                .OrderByDescending(post => post.Posted);
         }
     }
 }

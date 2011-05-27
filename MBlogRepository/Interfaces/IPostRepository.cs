@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using MBlogModel;
+using MBlogRepository.Repositories;
 
 namespace MBlogRepository.Interfaces
 {

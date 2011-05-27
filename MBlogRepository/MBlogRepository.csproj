@@ -59,11 +59,14 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Contexts\BlogDbContext.cs" />
+    <Compile Include="Interfaces\IBlogRepository.cs" />
     <Compile Include="Interfaces\INicknameBlacklistRepository.cs" />
     <Compile Include="Interfaces\IPostRepository.cs" />
     <Compile Include="Interfaces\IUsernameBlacklistRepository.cs" />
     <Compile Include="Interfaces\IUserRepository.cs" />
     <Compile Include="Contexts\NicknameBlacklistDbContext.cs" />
+    <Compile Include="Repositories\BlogRepository.cs" />
     <Compile Include="Repositories\NicknameBlacklistRepository.cs" />
     <Compile Include="Contexts\PostDbContext.cs" />
     <Compile Include="Repositories\PostRepository.cs" />

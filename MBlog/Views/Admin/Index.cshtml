@@ -1,17 +1,28 @@
-﻿@model MBlog.Models.UserViewModel
-
+﻿@model MBlog.Models.Admin.AdminUserViewModel
 @{
-    ViewBag.Title = "ViewPage1";
+    ViewBag.Title = "Dashboard";
+    Layout = "~/Views/Admin/_AdminLayout.cshtml";
 }
-
-<h2>Administrative Page for @Model.Name</h2>
-
-<table>
-<thead>
-<tr><th></th></tr>
-</thead>
-<tbody>
-<tr><td></td></tr>
-</tbody>
-</table>
-
+<section class="admin-dashboard">
+    <section class="admin-title">
+        <h2>Dashboard</h2>
+    </section>
+    <section class="admin-user">
+        <!-- List blogs. Links to posts. Link to comments. Add new post. Add new blog-->
+        <div id="admin-user-name">@Model.Name</div>
+        <div id="admin-user-manage">
+            <span id="admin-manageblogs-title">Manage Blogs (@Model.Blogs.Count Total)</span> <span id="admin-createablog"><a href="#">Create A Blog</a></span>
+            <div id="admin-blog-list">
+                @foreach (var blog in Model.Blogs)
+                {
+                    <span>@blog.Title</span>
+                }
+            </div>
+        </div>
+    </section>
+    <section class="admin-manage">
+        <div>
+            <span></span>
+        </div>
+    </section>
+</section>

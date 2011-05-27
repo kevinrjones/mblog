@@ -52,6 +52,7 @@ legend { font-size: 1.2em; font-weight: bold; padding: 0 10px 0 10px; }
 .blog-comment { background-color: #eeeeee; padding: 5px 5px 10px 5px; }
 .blog-comment-header { font-weight: bold; }
 .blog-comment-body { padding: 10px 0 0 0; }
+.comment-help { font-size: 12px; padding: 5px 0 5px 10px; margin: 0 0 10px 10px; background-color: black; color: White; }
 #blog-comment-form { padding: 10px 0 0 10px; }
 #blog-comment-form-header { font-size: 20pt; padding: 5px 0 15px 0px; }
 #blog-comment-form-body { padding: 0px 0 0px 10px; }
@@ -59,13 +60,25 @@ legend { font-size: 1.2em; font-weight: bold; padding: 0 10px 0 10px; }
 #Comment { width: 100%; }
 .inline-code { font-family: Consolas, Courier New, Courier; font-weight: bold; font-size: larger; }
 .blog-list { list-style-image: none; list-style-position: outside; list-style-type: none; }
-.home-page-content { margin: 0em auto; width: 65%; }
+.home-page { margin: 0 0 0 20px; }
+.home-page-content { margin: 0em auto; width: 65%; float: left; }
 .home-page-list { list-style-image: none; list-style-position: outside; list-style-type: none; }
 .home-page-list li { font-size: 10pt; }
 .home-page-blog-post { margin: 5px 0 40px 10px; }
 .home-page-blog-header-section { margin-bottom: 5px; border-bottom: 1px solid black; }
 .home-page-blog-title { font-size: 12pt; display: inline-block; }
 .home-page-sub-title { padding-left: 10px; padding-bottom: 10px; }
+.home-page-header { margin: 20px 0 0 0; }
+.home-page-sidebar { margin: 0em auto; width: 30%; float: right; }
+
+.admin-dashboard { }
+.admin-title { }
+.admin-user { }
+#admin-blog-list { text-align: left;}
+#admin-user-name { float: left; width: 35%; }
+#admin-user-manage { float: right; width: 60%; }
+#admin-manageblogs-title { text-align: left; display: inline-block; width: 80%; }
+#admin-createablog {text-align: right; display: inline-block;}
 /* Styles for validation helpers
 -----------------------------------------------------------*/
 .field-validation-error { color: #ff0000; }

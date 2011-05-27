@@ -42,16 +42,10 @@ namespace MBlogIntegrationTest
                 .Blog("title", "description", "nickname2")
                 .WithPost(_post2);
 
-            _user2 = BuildMeA.User("email", "name", "password")
+            _user2 = BuildMeA.User("email", "name2", "password")
                               .WithBlog(blog2);
 
-            List<Post> posts = new List<Post>();
-
-            for (int i = 0; i < 12; i++)
-            {
-                Post post = BuildMeA.Post("title " + i, "entry " + i, DateTime.Today);
-                posts.Add(post);
-            }
+            List<Post> posts = new List<Post>();    
 
             _userRepository = new UserRepository(ConfigurationManager.ConnectionStrings["testdb"].ConnectionString);
             _postRepository = new PostRepository(ConfigurationManager.ConnectionStrings["testdb"].ConnectionString);
@@ -69,6 +63,17 @@ namespace MBlogIntegrationTest
         }
 
         [Test]
+        public void WhenIGetASpecificPost_ThenIGetTheCorrectUser()
+        {
+            _userRepository.Create(_user1);
+
+            Post newPost = _postRepository.GetBlogPost(_post1.Id);
+
+            Assert.That(newPost, Is.Not.Null);
+            Assert.That(newPost.Blog.User.Name, Is.EqualTo("name"));
+        }
+
+        [Test]
         public void GivenASetOfBlogPosts_WhenIGetAllPosts_ThenIGetTheCorrectPosts()
         {
             _userRepository.Create(_user1);
@@ -78,6 +83,16 @@ namespace MBlogIntegrationTest
 
             Assert.That(newPosts, Is.Not.Null);
             Assert.That(newPosts.Count(), Is.EqualTo(2));
+        }
+
+        [Test]
+        public void GivenASetOfBlogPosts_WhenIGetAllPosts_ThenIAlsoGetTheUsers()
+        {
+            _userRepository.Create(_user1);
+
+            IList<Post> newPosts = _postRepository.GetBlogPosts(_nickname);
+
+            Assert.That(newPosts[0].Blog.User.Name, Is.EqualTo("name"));
         }
 
         [Test]
@@ -389,10 +404,28 @@ namespace MBlogIntegrationTest
         [Test]
         public void GivenThereIsAPost_WhenIAddAComment_TheCommentIsAdded()
         {
-            _userRepository.Create(_user1); 
+            _userRepository.Create(_user1);
             Post post = _postRepository.AddComment(_post1.Id, "CommentName", "Comment Text");
 
             Assert.That(post.Comments.Count, Is.EqualTo(1));
+        }
+
+        [Test]
+        public void GivenThereIsAComment_WhenIRetriveTheOwningPost_ThenCommentIsRetrived()
+        {
+            Comment comment = BuildMeA.Comment("This is a comment", DateTime.Now);
+
+            List<Post> posts = new List<Post> { BuildMeA.Post("title 1", "entry 1", new DateTime(2011, 4, 19)).WithComment(comment)};
+
+            Blog blog = BuildMeA
+                .Blog("title", "description", _nickname)
+                .WithPosts(posts);
+
+            _user1 = BuildMeA.User("email", "name", "password")
+                              .WithBlog(blog);
+            _userRepository.Create(_user1);
+            Post newPost = _postRepository.GetBlogPost(posts[0].Id);
+            Assert.That(newPost.Comments.Count, Is.EqualTo(1));
         }
 
         [TearDown]

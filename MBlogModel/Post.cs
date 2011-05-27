@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Linq;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 
@@ -23,7 +24,12 @@ namespace MBlogModel
         public List<Comment> Comments
         {
             get { return _comments; }
-            private set { _comments = value; }
+            set { _comments = value; }
+        }
+
+        public IEnumerable<Comment> ApprovedComments
+        {
+            get { return Comments.Where(c => c.Approved); }
         }
 
         public void AddPost(string title, string entry)
@@ -42,9 +48,9 @@ namespace MBlogModel
             Edited = DateTime.Now;
         }
 
-        public string ToTitleLink()
+        public string TitleLink
         {
-            return Title.Replace(' ', '-').Replace('/', '-').ToLower(); 
+            get{return Title.Replace(' ', '-').Replace('/', '-').ToLower(); }
         }
     }
 }

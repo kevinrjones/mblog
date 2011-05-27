@@ -16,5 +16,9 @@ namespace MBlogIntegrationTest.Builder
         {
             return (PostBuilder)new PostBuilder().With(p => { p.AddPost(title, entry); p.Posted = posted; }); 
         }
+        public static CommentBuilder Comment(string text, DateTime commented, bool approved = true)
+        {
+            return (CommentBuilder)new CommentBuilder().With(c => { c.CommentText = text; c.Commented = commented; c.Approved = approved;});
+        }
     }
 }

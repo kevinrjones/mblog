@@ -14,6 +14,5 @@ namespace MBlog.Controllers
         {
             UserRepository = userRepository;
         }
-
     }
 }

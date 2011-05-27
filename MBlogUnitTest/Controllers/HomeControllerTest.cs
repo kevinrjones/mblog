@@ -8,6 +8,7 @@ using MBlog.Models;
 using MBlogModel;
 using MBlogRepository;
 using MBlogRepository.Interfaces;
+using MBlogRepository.Repositories;
 using Moq;
 using NUnit.Framework;
 
@@ -28,7 +29,7 @@ namespace MBlogUnitTest.Controllers
 
             InitializeUserRepository();
 
-            Post post = new Post { Posted = DateTime.Today, BlogPost = "post", Title = "title", Blog = new Blog{User = new User{Name = "name"}}};
+            var post = new Post { Posted = DateTime.Today, BlogPost = "post", Title = "title", Blog = new Blog{User = new User{Name = "name"}}};
             _postRepository.Setup(p => p.GetPosts()).Returns(new List<Post> { post, post, post, post, post });
 
             _controller = new HomeController(_userRepository.Object, _postRepository.Object);

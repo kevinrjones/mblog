@@ -1,6 +1,7 @@
 ﻿@model MBlog.Models.PostsViewModel
 @{
     ViewBag.Title = "Blog Posts";
+    Layout = "~/Views/Shared/_BlogLayout.cshtml";
 }
 <ul class="blog-list">
     @foreach (var viewModel in Model.Posts)

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using CodeKicker.BBCode;
 using MBlog.Models.Comment;
 using MBlogRepository.Interfaces;
 
@@ -27,6 +28,10 @@ namespace MBlog.Controllers
             if (ModelState.IsValid)
             {
                 _blogPostRepository.AddComment(commentViewModel.Id, commentViewModel.Name, commentViewModel.Comment);
+            }
+            else
+            {
+                TempData["comment"] = ViewData.ModelState;
             }
             return new RedirectResult(Request.Headers["Referer"]);
         }

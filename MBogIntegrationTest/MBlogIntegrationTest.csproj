@@ -55,7 +55,9 @@
     <Compile Include="Builder\BlogBuilder.cs" />
     <Compile Include="Builder\Builder.cs" />
     <Compile Include="Builder\BuildMeA.cs" />
+    <Compile Include="Builder\CommentBuilder.cs" />
     <Compile Include="Builder\PostBuilder.cs" />
+    <Compile Include="BlogRepositoryTest.cs" />
     <Compile Include="PostRepositoryTest.cs" />
     <Compile Include="UserRepositoryTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

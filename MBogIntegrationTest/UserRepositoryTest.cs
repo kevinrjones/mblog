@@ -39,7 +39,6 @@ namespace MBlogIntegrationTest
 
             User user2 = BuildMeA.User("email1", "name1", "password1");
             _userRepository.Create(user2);
-            _userRepository.Dispose();
         }
 
         [Test]
