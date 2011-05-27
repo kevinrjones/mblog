@@ -12,8 +12,9 @@ namespace MBlog.Controllers
 {
     public class AdminController : BaseController
     {
-        public AdminController(IUserRepository userRepository) : base(userRepository)
-        {}
+        public AdminController(IUserRepository userRepository)
+            : base(userRepository)
+        { }
 
         public ActionResult Index()
         {
@@ -22,11 +23,16 @@ namespace MBlog.Controllers
             {
                 return RedirectToAction("login", "user");
             }
-            var users =  UserRepository.GetUserWithTheirBlogs(user.Id);
-            AdminUserViewModel adminUserViewModel = new AdminUserViewModel{Name = user.Name};
+            var users = UserRepository.GetUserWithTheirBlogs(user.Id);
+            AdminUserViewModel adminUserViewModel = new AdminUserViewModel { Name = user.Name };
             foreach (Blog blog in users.Blogs)
             {
-                adminUserViewModel.Blogs.Add(new AdminBlogViewModel {Name = blog.Nickname, Title = blog.Title, Description = blog.Description});
+                adminUserViewModel.Blogs.Add(new AdminBlogViewModel
+                                                 {
+                                                     Name = blog.Nickname,
+                                                     Title = blog.Title,
+                                                     Description = blog.Description
+                                                 });
             }
             return View(adminUserViewModel);
         }
