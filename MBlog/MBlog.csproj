@@ -257,7 +257,9 @@
     <Content Include="Scripts\shBrushXml.js" />
     <Content Include="Scripts\shCore.js" />
     <Content Include="Scripts\shLegacy.js" />
-    <Content Include="Web.config" />
+    <Content Include="Web.config">
+      <SubType>Designer</SubType>
+    </Content>
     <Content Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </Content>
@@ -345,6 +347,9 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Views\Post\New.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Post\EditPost.cshtml" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v10.0\WebApplications\Microsoft.WebApplication.targets" />
