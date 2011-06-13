@@ -5,6 +5,7 @@ using System.Text;
 using System.Web.Mvc;
 using MBlog.Controllers;
 using MBlog.Models;
+using MBlog.Models.User;
 using MBlogModel;
 using MBlogRepository.Interfaces;
 using Moq;
@@ -28,7 +29,7 @@ namespace MBlogUnitTest.Controllers
         [Test]
         public void GivenNoUserInContext_WhenIGoToTheAdminIndexPage_ThenIGetRedirectedToTheLoginPage()
         {
-            AdminController controller = new AdminController(null);
+            AdminController controller = new AdminController(null, null);
 
             SetControllerContext(controller);
 
@@ -41,7 +42,7 @@ namespace MBlogUnitTest.Controllers
         [Test]
         public void GivenAUserInContext_AndTheUserIsNotLoggedIn_WhenIGoToTheAdminIndexPage_ThenIGetRedirectedToTheLoginPage()
         {
-            AdminController controller = new AdminController(null);
+            AdminController controller = new AdminController(null, null);
 
             SetControllerContext(controller);
 
@@ -57,7 +58,7 @@ namespace MBlogUnitTest.Controllers
         [Test]
         public void GivenAUserInContext_AndTheUserIsLoggedIn_WhenIGoToTheAdminIndexPage_ThenIGetTheAdminPage()
         {
-            AdminController controller = new AdminController(_mockUserRepository.Object);
+            AdminController controller = new AdminController(_mockUserRepository.Object, null);
 
             SetControllerContext(controller);
 

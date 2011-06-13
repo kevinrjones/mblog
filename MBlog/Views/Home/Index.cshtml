@@ -1,4 +1,5 @@
-﻿@model MBlog.Models.HomePageViewModel
+﻿@using MBlog.Models.Home
+@model HomePageViewModel
 @{
     ViewBag.Title = "Home Page";
 }
@@ -25,7 +26,7 @@
                     <div class="blog-header-section">
                         <h1 class="home-page-blog-title">@blogViewModel.Title</h1>
                         <div class="blog-date-posted">
-                            <span>@blogViewModel.DatePosted.ToLongDateString()</span> by <span>@blogViewModel.UserName</span>
+                            <div>@blogViewModel.DatePosted.ToLongDateString()</div><div>@blogViewModel.UserName</div>
                         </div>
                     </div>
                     <div class="blog-entry">@MvcHtmlString.Create(blogViewModel.Post)</div>

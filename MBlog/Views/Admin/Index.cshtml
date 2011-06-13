@@ -22,7 +22,7 @@
             </div>
             <div id="admin-blog-actions">
                 <span class="admin-link">@Html.ActionLink("New Post", "new", "Post", new {nickname = blog.Nickname, blogId = blog.BlogId}, null)</span>
-                <span class="admin-link"><a href="#">Edit Posts</a></span>
+                <span class="admin-link">@Html.ActionLink("Edit Posts", "listposts", "Admin", new {nickname = blog.Nickname, blogId = blog.BlogId}, null)</span>
                 <span class="admin-link"><a href="#">Comments</a></span>
                 <span class="admin-link"><a href="#">Settings</a></span>
             </div>

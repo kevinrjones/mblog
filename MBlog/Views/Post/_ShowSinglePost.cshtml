@@ -1,4 +1,5 @@
-﻿@model MBlog.Models.PostViewModel
+﻿@using MBlog.Models.Post
+@model PostViewModel
 <div class="blog-header-section">
     <h1 class="blog-title">@Html.ActionLink(Model.Title, "show", new { controller = "Post", link = Model.Link, year = Model.YearPosted, month = Model.MonthPosted, day = Model.DayPosted })</h1>
     <div class="blog-date-posted">

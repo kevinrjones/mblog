@@ -39,9 +39,9 @@ fieldset { border: 1px solid #ccc; padding: 0 1.4em 1.4em 1.4em; margin: 0 0 1.5
 legend { font-size: 1.2em; font-weight: bold; padding: 0 10px 0 10px; }
 
 .blog-post { margin: 5px 0 40px 10px; }
-.blog-header-section { margin-bottom: 5px; border-bottom: 1px solid black; }
+.blog-header-section { margin: 0 0 5px 0; padding: 0 0 10px 0; border-bottom: 1px solid black; }
 .blog-title { font-size: 16pt; display: inline-block; }
-.blog-date-posted { float: right; color: gray; }
+.blog-date-posted { float: right; color: gray;font-size: 8pt; margin: 0 0 0 10px}
 .blog-entry { line-height: 20px; }
 .blog-entry ul { padding-left: 20px; }
 .blog-inner-body { width: 75%; float: left; padding: 10px 0 10px 10px; }
@@ -87,6 +87,9 @@ legend { font-size: 1.2em; font-weight: bold; padding: 0 10px 0 10px; }
 .admin-link { text-align: right; display: inline-block;padding: 0 5px 0 0;}
 #admin-blog-actions { padding: 10px 0; }
 
+
+.list-posts { width: 90%; font-size: 14pt; padding: 0 10px 0 10px}
+.list-posts table tr td { padding: 10px 0 0 5px;}
 /* Styles for validation helpers
 -----------------------------------------------------------*/
 .field-validation-error { color: #ff0000; }

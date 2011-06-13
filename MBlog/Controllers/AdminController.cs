@@ -5,6 +5,8 @@ using System.Web;
 using System.Web.Mvc;
 using MBlog.Models;
 using MBlog.Models.Admin;
+using MBlog.Models.Post;
+using MBlog.Models.User;
 using MBlogModel;
 using MBlogRepository.Interfaces;
 
@@ -12,9 +14,13 @@ namespace MBlog.Controllers
 {
     public class AdminController : BaseController
     {
-        public AdminController(IUserRepository userRepository)
+        private readonly IPostRepository _postRepository;
+
+        public AdminController(IUserRepository userRepository, IPostRepository postRepository)
             : base(userRepository)
-        { }
+        {
+            _postRepository = postRepository;
+        }
 
         public ActionResult Index()
         {
@@ -36,6 +42,18 @@ namespace MBlog.Controllers
                                                  });
             }
             return View(adminUserViewModel);
+        }
+
+        public ActionResult ListPosts(string nickname, int blogId)
+        {
+            var posts = _postRepository.GetBlogPosts(nickname);
+            PostsViewModel postsViewModel = new PostsViewModel();
+            foreach (var post in posts)
+            {
+                PostViewModel pvm = new PostViewModel(post);
+                postsViewModel.Posts.Add(pvm);
+            }
+            return View(postsViewModel);
         }
     }
 }

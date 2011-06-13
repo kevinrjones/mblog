@@ -1,0 +1,27 @@
+﻿@using MBlog.Models.Post
+@model PostsViewModel
+@{
+    ViewBag.Title = "ListPosts";
+    Layout = "~/Views/Admin/_AdminLayout.cshtml";
+}
+<section class="list-posts">
+    <table >
+        @foreach (var postViewModel in Model.Posts)
+        {
+            <tr>
+                <td>
+                    @Html.ActionLink("Edit", "edit", "Post", new { nickname = "kevin", link = postViewModel.Link, year = postViewModel.YearPosted, month = postViewModel.MonthPosted, day = postViewModel.DayPosted }, null)
+                </td>
+                <td>
+                    @Html.ActionLink("View", "show", "Post", new { nickname = "kevin", link = postViewModel.Link, year = postViewModel.YearPosted, month = postViewModel.MonthPosted, day = postViewModel.DayPosted }, null)
+                </td>
+                <td>
+                    @MvcHtmlString.Create(postViewModel.Title)
+                </td>
+                <td>
+                    Delete
+                </td>
+            </tr>
+        }
+    </table>
+</section>

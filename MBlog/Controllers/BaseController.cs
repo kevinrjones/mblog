@@ -3,6 +3,7 @@ using System.Web;
 using System.Web.Mvc;
 using MBlog.Filters;
 using MBlog.Models;
+using MBlog.Models.User;
 using MBlogRepository;
 using MBlogRepository.Interfaces;
 

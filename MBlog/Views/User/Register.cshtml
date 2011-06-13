@@ -1,4 +1,5 @@
-﻿@model MBlog.Models.UserViewModel
+﻿@using MBlog.Models.User
+@model UserViewModel
 @{
     ViewBag.Title = "Register";
 }
@@ -52,6 +53,6 @@
         </fieldset>
     }
     <div>
-        @Html.ActionLink("Back to List", "Index")
+        @Html.ActionLink("Back to List", "Index", "Home")
     </div>
 </div>

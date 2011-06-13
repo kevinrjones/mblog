@@ -5,6 +5,7 @@ using System.Linq;
 using System.Security.Principal;
 using System.Text;
 using MBlog.Models;
+using MBlog.Models.User;
 using NUnit.Framework;
 
 namespace MBlogUnitTest.ViewModel

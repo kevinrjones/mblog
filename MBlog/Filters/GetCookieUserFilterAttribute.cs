@@ -4,6 +4,7 @@ using System.Web.Mvc;
 using MBlog.Controllers;
 using MBlog.Infrastructure;
 using MBlog.Models;
+using MBlog.Models.User;
 using MBlogModel;
 
 namespace MBlog.Filters

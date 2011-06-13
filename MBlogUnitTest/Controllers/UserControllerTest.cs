@@ -6,6 +6,7 @@ using MBlog.Controllers;
 using MBlog.Filters;
 using MBlog.Infrastructure;
 using MBlog.Models;
+using MBlog.Models.User;
 using MBlogModel;
 using MBlogRepository.Interfaces;
 using Moq;

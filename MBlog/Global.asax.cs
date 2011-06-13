@@ -58,19 +58,31 @@ namespace MBlog
                 );
 
             routes.MapRoute(
+                "Posts-update",
+                "{nickname}/update",
+                new { controller = "Post", action = "Update" }
+                );
+
+            routes.MapRoute(
                 "Posts-index",
                 "{nickname}",
                 new { controller = "Post", action = "Index" }
                 );
 
             routes.MapRoute(
-                "Posts-others",
+                "Posts-edit",
+                "{nickname}/edit/{year}/{month}/{day}/{link}",
+                new { controller = "Post", action = "Edit", year = UrlParameter.Optional, month = UrlParameter.Optional, day = UrlParameter.Optional, link = UrlParameter.Optional }
+                //,new { year = @"\d{4}", month = @"\d{2}", day = @"\d{2}" }
+                );
+
+            routes.MapRoute(
+                "Posts-show",
                 "{nickname}/{year}/{month}/{day}/{link}",
                 new { controller = "Post", action = "Show", year = UrlParameter.Optional, month = UrlParameter.Optional, day = UrlParameter.Optional, link = UrlParameter.Optional }
                 //,new { year = @"\d{4}", month = @"\d{2}", day = @"\d{2}" }
                 );
 
-            
             routes.MapRoute(
                 "Default-Home",
                 "",

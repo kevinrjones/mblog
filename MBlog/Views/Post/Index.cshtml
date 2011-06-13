@@ -1,4 +1,5 @@
-﻿@model MBlog.Models.PostsViewModel
+﻿@using MBlog.Models.Post
+@model PostsViewModel
 @{
     ViewBag.Title = "Blog Posts";
     Layout = "~/Views/Shared/_BlogLayout.cshtml";
@@ -8,7 +9,7 @@
     {
         <li class="blog-post">
             @{
-                Html.RenderPartial("ShowSinglePost", blogViewModel);
+                Html.RenderPartial("_ShowSinglePost", blogViewModel);
             }
         </li>
     }

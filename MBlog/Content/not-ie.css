@@ -8,7 +8,7 @@ border-top-right-radius:1em;
 
 -moz-background-clip:border; 
 -moz-background-inline-policy:continuous;
--moz-background-origin:padding;
+-moz-background-origin:padding-box;
 -moz-border-radius-bottomleft:1em;
 -moz-border-radius-bottomright:1em;
 -moz-border-radius-topleft:1em;

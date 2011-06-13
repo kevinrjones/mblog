@@ -1,0 +1,10 @@
+﻿@using MBlog.Models.Post
+@model CreatePostViewModel
+@{
+    ViewBag.Title = "Edit Post";
+    ViewBag.Action = "Update";
+    Layout = "~/Views/Shared/_BlogLayout.cshtml";
+}
+@{
+    Html.RenderPartial("_EditPost", Model);
+}

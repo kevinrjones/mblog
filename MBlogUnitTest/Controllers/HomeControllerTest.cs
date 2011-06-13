@@ -5,6 +5,7 @@ using System.Text;
 using System.Web.Mvc;
 using MBlog.Controllers;
 using MBlog.Models;
+using MBlog.Models.Home;
 using MBlogModel;
 using MBlogRepository;
 using MBlogRepository.Interfaces;

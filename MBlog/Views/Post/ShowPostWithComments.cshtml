@@ -5,8 +5,8 @@
 <ul class="blog-list">
         <li class="blog-post">
             @{
-                Html.RenderPartial("ShowSinglePost", Model);
-                Html.RenderPartial("ShowCommentsForPost", Model);
+                Html.RenderPartial("_ShowSinglePost", Model);
+                Html.RenderPartial("_ShowCommentsForPost", Model);
             }
         </li>        
 </ul>

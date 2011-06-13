@@ -6,6 +6,7 @@ using CodeKicker.BBCode;
 using MBlog.Models;
 using MBlog.Models.Comment;
 using MBlog.Models.Post;
+using MBlog.Models.User;
 using MBlogModel;
 using MBlogRepository.Interfaces;
 using MBlogRepository.Repositories;
@@ -63,6 +64,27 @@ namespace MBlog.Controllers
             return CreatePost(model);
         }
 
+        [HttpGet]
+        public ActionResult Edit(string nickname, int blogId, int postId)
+        {
+            ActionResult redirectToAction;
+            if (RedirectIfInvalidUser(nickname, blogId, out redirectToAction)) return redirectToAction;
+            return View(new UpdatePostViewModel { BlogId = blogId, PostId = postId });
+        }
+
+        [HttpPost]
+        public ActionResult Update(UpdatePostViewModel model)
+        {
+            ActionResult redirectToAction;
+            if (RedirectIfInvalidUser(model.Nickname, model.BlogId, out redirectToAction)) return redirectToAction;
+
+            if (!ModelState.IsValid)
+            {
+                return View("Edit", model);
+            }
+            return UpdatePost(model);
+        }
+
         public ActionResult Show(PostLinkViewModel postLinkViewModel)
         {
             blog = _blogRepository.GetBlog(postLinkViewModel.Nickname);
@@ -103,6 +125,17 @@ namespace MBlog.Controllers
             };
             _blogPostRepository.Create(post);
             return RedirectToRoute(new { controller = "admin", action="Index" });
+        }
+
+        private ActionResult UpdatePost(UpdatePostViewModel model)
+        {
+            Post post = _blogPostRepository.GetBlogPost(model.PostId);
+            post.Title = model.Title;
+            post.BlogPost = model.Post;
+            post.Edited = DateTime.UtcNow;
+            
+            _blogPostRepository.Add(post);
+            return RedirectToRoute(new { controller = "admin", action = "Index" });
         }
 
         private bool UserOwnsBlog(string nickname, int blogId)
