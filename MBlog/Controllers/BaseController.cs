@@ -21,23 +21,26 @@ namespace MBlog.Controllers
         protected override void OnException(ExceptionContext filterContext)
         {
             // Bail if we can't do anything; app will crash.
-            if (filterContext == null)
-                return;
-
-            // since we're handling this, log to elmah
-            var ex = filterContext.Exception ?? new Exception("No further information exists.");
-            //LogException(ex);
-            filterContext.ExceptionHandled = true;
-            if ((ex.GetType() != typeof(HttpRequestValidationException)))
+            if (filterContext.HttpContext.IsCustomErrorEnabled)
             {
-                var data = new ErrorPresentation
-                               {
-                                   ErrorMessage = HttpUtility.HtmlEncode(ex.Message),
-                                   TheException = ex,
-                                   ShowMessage = filterContext.Exception != null,
-                                   ShowLink = false
-                               };
-                filterContext.Result = View("Error", data);
+                if (filterContext == null)
+                    return;
+
+                // since we're handling this, log to elmah
+                var ex = filterContext.Exception ?? new Exception("No further information exists.");
+                //LogException(ex);
+                filterContext.ExceptionHandled = true;
+                if ((ex.GetType() != typeof (HttpRequestValidationException)))
+                {
+                    var data = new ErrorPresentation
+                                   {
+                                       ErrorMessage = HttpUtility.HtmlEncode(ex.Message),
+                                       TheException = ex,
+                                       ShowMessage = filterContext.Exception != null,
+                                       ShowLink = false
+                                   };
+                    filterContext.Result = View("Error", data);
+                }
             }
         }
 
