@@ -112,13 +112,13 @@ namespace MBlogRepository.Repositories
                 .ToList();
         }
 
-        private IOrderedQueryable<Post> GetPostsAndComments()
+        private IQueryable<Post> GetPostsAndComments()
         {
             return Entities
                 .Include(p => p.Comments)
                 .Include(p => p.Blog.User)
-                .Take(Count)
-                .OrderByDescending(post => post.Posted);
+                .OrderByDescending(post => post.Posted)
+                .Take(Count);
         }
     }
 }

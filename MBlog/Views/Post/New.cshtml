@@ -1,0 +1,46 @@
+﻿@using MBlog.Models.Post
+@model CreatePostViewModel
+@{
+    ViewBag.Title = "Create a New Post";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<h2>
+    New Post</h2>
+<section id="blog-post-form">
+    <div id="blog-post-form-header">
+        Create a New Post:
+    </div>
+    <div class="post-help">
+        Posts use BBCode. you can use [b], [i], [u], [code], [image], [quote], [list]
+        (for ul), [*] (for li) and [url].
+    </div>
+    <div id="blog-post-form-body">
+        @using (Html.BeginForm("Create", "post", FormMethod.Post, new { }))
+        {
+            @Html.HiddenFor(m => m.BlogId)
+            <div>
+                Title:
+            </div>
+            <div>
+                @Html.TextBoxFor(m => m.Title, new { @class = "maxwidth" })
+            </div>
+            <div>
+                @Html.ValidationMessageFor(m => m.Post)
+            </div>
+            <div>
+                Post:
+            </div>
+            <div>
+                <div>
+                    @Html.TextAreaFor(m => m.Post, new { cols = "25", rows = "25", @class = "maxwidth" })
+                </div>
+                <div>
+                    @Html.ValidationMessageFor(m => m.Post)
+                </div>
+            </div>
+            <div>
+                <input type="submit" value="Create Post" />
+            </div>
+        }
+    </div>
+</section>

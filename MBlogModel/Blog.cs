@@ -12,7 +12,7 @@ namespace MBlogModel
         {
             Posts = new List<Post>();
         }
-        public virtual int Id { get; private set; }
+        public virtual int Id { get; set; }
         [Required]
         public virtual string Title { get; set; }
         [Required]
@@ -20,6 +20,7 @@ namespace MBlogModel
 
         [Required, Column("comments_enabled")]
         public virtual bool CommentsEnabled{ get; set; }
+
         [Required, Column("comment_approval")]
         public virtual bool ApproveComments { get; set; }
         

@@ -81,6 +81,7 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="Database\db\migrate\20110612000000_add_foreign_keys.rb" />
     <Content Include="Database\db\scripts\insert.sql" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

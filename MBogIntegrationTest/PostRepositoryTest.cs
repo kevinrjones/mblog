@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Configuration;
+using System.Data.Entity.Infrastructure;
+using System.Data.SqlClient;
 using System.Linq;
 using System.Transactions;
 using MBlogIntegrationTest.Builder;
@@ -20,6 +22,7 @@ namespace MBlogIntegrationTest
         private string _nickname;
         UserRepository _userRepository;
         PostRepository _postRepository;
+        private Blog _blog1;
 
         [SetUp]
         public void Setup()
@@ -29,12 +32,12 @@ namespace MBlogIntegrationTest
 
             _post1 = BuildMeA.Post("Title", "Entry", DateTime.Today);
 
-            Blog blog1 = BuildMeA
+            _blog1 = BuildMeA
                 .Blog("title", "description", _nickname)
                 .WithPost(_post1);
 
             _user1 = BuildMeA.User("email", "name", "password")
-                              .WithBlog(blog1);
+                              .WithBlog(_blog1);
 
             Post _post2 = BuildMeA.Post("Title", "Entry", DateTime.Today);
 
@@ -426,6 +429,26 @@ namespace MBlogIntegrationTest
             _userRepository.Create(_user1);
             Post newPost = _postRepository.GetBlogPost(posts[0].Id);
             Assert.That(newPost.Comments.Count, Is.EqualTo(1));
+        }
+
+        [Test]
+        public void GivenANewPost_WhenIAddThePostToTheDatabase_AndTheBlogDoesNotExist_ThenItIsAdded()
+        {
+            _userRepository.Create(_user1);
+            Post post = new Post { Title = "Title", BlogPost = "Post", Edited = DateTime.UtcNow, Posted = DateTime.UtcNow, BlogId = 10 };
+            
+            Assert.Throws<DbUpdateException>(() => _postRepository.Create(post));
+        }
+
+        [Test]
+        public void GivenANewPost_WhenIAddThePostToTheDatabase_ThenItIsAdded()
+        {
+            _userRepository.Create(_user1);
+            Post post = new Post { Title = "Title", BlogPost = "Post", Edited = DateTime.UtcNow, Posted = DateTime.UtcNow, BlogId = _blog1.Id };
+
+            _postRepository.Create(post);
+
+            Assert.That(post.Id, Is.Not.EqualTo(0));
         }
 
         [TearDown]

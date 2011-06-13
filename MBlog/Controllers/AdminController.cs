@@ -19,7 +19,7 @@ namespace MBlog.Controllers
         public ActionResult Index()
         {
             UserViewModel user = HttpContext.User as UserViewModel;
-            if (user == null || !user.IsLoggedIn)
+            if (!IsLoggedInUser(user))
             {
                 return RedirectToAction("login", "user");
             }
@@ -29,7 +29,8 @@ namespace MBlog.Controllers
             {
                 adminUserViewModel.Blogs.Add(new AdminBlogViewModel
                                                  {
-                                                     Name = blog.Nickname,
+                                                     BlogId = blog.Id,
+                                                     Nickname = blog.Nickname,
                                                      Title = blog.Title,
                                                      Description = blog.Description
                                                  });

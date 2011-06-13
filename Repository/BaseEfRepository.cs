@@ -1,4 +1,6 @@
-﻿using System.Data.Entity;
+﻿using System;
+using System.Data.Entity;
+using System.Data.Entity.Validation;
 using System.Linq;
 
 namespace Repository
@@ -31,8 +33,19 @@ namespace Repository
 
         public void Create(T entity)
         {
-            _dbSet.Add(entity);
-            Save();
+            try
+            {
+                _dbSet.Add(entity);
+                Save();
+            }
+            catch (DbEntityValidationException ex)
+            {
+                foreach (var dbEntityValidationResult in ex.EntityValidationErrors)
+                {
+                    
+                }
+                throw;
+            }
         }
 
         public void Delete(T entity)

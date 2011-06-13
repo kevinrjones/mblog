@@ -9,9 +9,6 @@ using Microsoft.Practices.Unity;
 
 namespace MBlog
 {
-    // Note: For instructions on enabling IIS6 or IIS7 classic mode, 
-    // visit http://go.microsoft.com/?LinkId=9394801
-
     public class MvcApplication : System.Web.HttpApplication
     {
         public static void RegisterGlobalFilters(GlobalFilterCollection filters)
@@ -49,6 +46,18 @@ namespace MBlog
                 );
 
             routes.MapRoute(
+                "Posts-new",
+                "{nickname}/new/{blogId}",
+                new { controller = "Post", action = "New" }
+                );
+
+            routes.MapRoute(
+                "Posts-create",
+                "{nickname}/create",
+                new { controller = "Post", action = "Create" }
+                );
+
+            routes.MapRoute(
                 "Posts-index",
                 "{nickname}",
                 new { controller = "Post", action = "Index" }
@@ -70,6 +79,12 @@ namespace MBlog
 
 
         }
+
+        //protected void Application_Error()
+        //{
+        //    var error = Server.GetLastError();
+        //    // todo: log
+        //}
 
         protected void Application_Start()
         {

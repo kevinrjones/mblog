@@ -34,21 +34,6 @@ namespace MBlogUnitTest.Routing
         }
 
         [Test]
-        public void GivenACorrectRoutesCollection_WhenIAskToCreateAUrlForABlogPostsPageShowView_ThenIGetTheCorrectUrl()
-        {
-            Assert.AreEqual("/nickname/1999/01/02/link", GetOutboundUrl(new
-            {
-                controller = "Post",
-                action = "Show",
-                nickname = "nickname",
-                year = "1999",
-                month = "01",
-                day = "02",
-                link = "link"
-            }));
-        }
-
-        [Test]
         public void GivenACorrectRoutesCollection_WhenIAskToCreateAUrlForUserLogout_ThenIGetTheCorrectUrl()
         {
             Assert.AreEqual("/user/logout", GetOutboundUrl(new
@@ -87,7 +72,7 @@ namespace MBlogUnitTest.Routing
         }
 
         [Test]
-        public void _GivenACorrectRoutesCollection_WhenIAskToCreateAUrlForABlogPostsPageShowView_ThenIGetTheCorrectUrl()
+        public void GivenACorrectRoutesCollection_WhenIAskToCreateAUrlForABlogPostsPageShowView_ThenIGetTheCorrectUrl()
         {
             /*@Html.ActionLink(Model.Title, "show", new { controller = "Post", link = Model.Link, year = Model.YearPosted, month = Model.MonthPosted, day = Model.DayPosted })*/
             UrlHelper helper = GetUrlHelper();
@@ -98,6 +83,32 @@ namespace MBlogUnitTest.Routing
             string month = 1.ToString("D2");
             string day = 2.ToString("D2");
             string url = helper.Action("Show", "Post", new { nickname = "nickname", year = year, month = month, day = day, link = "link" });
+
+            Assert.AreEqual(expectedurl, url);
+        }
+
+        [Test]
+        public void GivenACorrectRoutesCollection_WhenIAskToCreateAUrlForANewBlogPost_ThenIGetTheCorrectUrl()
+        {
+            /*@Html.ActionLink("Foo", "New", "Post")*/
+            UrlHelper helper = GetUrlHelper();
+
+            string expectedurl = "/nickname/new/1";
+
+            string url = helper.Action("New", "Post", new { nickname = "nickname", blogId = 1 });
+
+            Assert.AreEqual(expectedurl, url);
+        }
+
+        [Test]
+        public void GivenACorrectRoutesCollection_WhenIAskToCreateAUrlForCreatingABlogPost_ThenIGetTheCorrectUrl()
+        {
+            /*@Html.ActionLink("Foo", "Create", "Post")*/
+            UrlHelper helper = GetUrlHelper();
+
+            string expectedurl = "/nickname/create";
+
+            string url = helper.Action("Create", "Post", new { nickname = "nickname" });
 
             Assert.AreEqual(expectedurl, url);
         }

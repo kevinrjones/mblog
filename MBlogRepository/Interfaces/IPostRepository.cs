@@ -1,10 +1,11 @@
 ﻿using System.Collections.Generic;
 using MBlogModel;
 using MBlogRepository.Repositories;
+using Repository;
 
 namespace MBlogRepository.Interfaces
 {
-    public interface IPostRepository
+    public interface IPostRepository : IRepository<Post>
     {
         IEnumerable<Post> GetPosts();
         Post GetBlogPost(int id);

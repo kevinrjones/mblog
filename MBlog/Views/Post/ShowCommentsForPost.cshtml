@@ -23,21 +23,21 @@
             (for ul), [*] (for li) and [url].
         </div>
         <div id="blog-comment-form-body">
-            @using (Html.BeginForm("new", "comment", FormMethod.Post, new { }))
+            @using (Html.BeginForm("Create", "comment", FormMethod.Post, new { }))
             {
                 @Html.HiddenFor(m => m.Id)
                 <div>
                     Name:
                 </div>
                 <div>
-                    @Html.TextBoxFor(m => m.Name)
+                    @Html.TextBoxFor(m => m.Name, new { @class="maxwidth" })
                 </div>
                 <div>
                     Comment:
                 </div>
                 <div>
                     <div>
-                        @Html.TextAreaFor(m => m.Comment, new { cols = "25", rows = "5" })
+                        @Html.TextAreaFor(m => m.Comment, new { cols = "25", rows = "5", @class="maxwidth" })
                     </div>
                     <div>
                         @Html.ValidationMessageFor(m => m.Comment)

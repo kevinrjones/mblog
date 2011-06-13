@@ -22,16 +22,21 @@ namespace MBlogModel
         {
             Blogs = new List<Blog>();
         }
+
         public virtual int Id { get; set; }
+
         [Required]
         public virtual string Email { get; set; }
+
         [Required]
         public virtual string Name { get; set; }
 
         [Required, Column("hashed_password")]
         public virtual string HashedPassword { get; private set; }
+
         [Required]
         public virtual string Salt { get; set; }
+
         [Column("is_site_admin")]
         public virtual bool IsSiteAdmin { get; private set; }
 

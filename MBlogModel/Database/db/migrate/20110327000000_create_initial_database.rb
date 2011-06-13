@@ -40,6 +40,7 @@ class CreateInitialDatabase < ActiveRecord::Migration
       t.string :email, :null => true
       t.datetime :commented, :null => false
     end    
+    
   end
 
   

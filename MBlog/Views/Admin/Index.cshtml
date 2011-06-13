@@ -10,19 +10,22 @@
     <section class="admin-user">
         <!-- List blogs. Links to posts. Link to comments. Add new post. Add new blog-->
         <div id="admin-user-name">@Model.Name</div>
-        <div id="admin-user-manage">
-            <span id="admin-manageblogs-title">Manage Blogs (@Model.Blogs.Count Total)</span> <span id="admin-createablog"><a href="#">Create A Blog</a></span>
-            <div id="admin-blog-list">
-                @foreach (var blog in Model.Blogs)
-                {
+    </section>
+    @foreach (var blog in Model.Blogs)
+    {
+        <section class="admin-manage">
+            <div id="admin-user-manage">
+                <span id="admin-manageblogs-title">Manage Blogs (@Model.Blogs.Count Total)</span> <span class="admin-link"><a href="#">Create A Blog</a></span>
+                <div id="admin-blog-list">
                     <span>@blog.Title</span>
-                }
+                </div>
             </div>
-        </div>
-    </section>
-    <section class="admin-manage">
-        <div>
-            <span></span>
-        </div>
-    </section>
+            <div id="admin-blog-actions">
+                <span class="admin-link">@Html.ActionLink("New Post", "new", "Post", new {nickname = blog.Nickname, blogId = blog.BlogId}, null)</span>
+                <span class="admin-link"><a href="#">Edit Posts</a></span>
+                <span class="admin-link"><a href="#">Comments</a></span>
+                <span class="admin-link"><a href="#">Settings</a></span>
+            </div>
+        </section>
+    }
 </section>

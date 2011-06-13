@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using MBlog.Models.Comment;
 
 namespace MBlog.Models
@@ -11,7 +12,9 @@ namespace MBlog.Models
             Comments = new List<CommentViewModel>();
         }
         public int Id { get; set; }
+        [Required]
         public string Title { get; set; }
+        [Required]
         public string Post { get; set; }
         public string YearPosted { get; set; }
         public string MonthPosted { get; set; }

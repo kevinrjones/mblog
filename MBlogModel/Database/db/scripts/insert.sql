@@ -490,6 +490,7 @@ Once Ruby was installed I do a
 gem install rake
 gem install dbi
 gem install activerecord-sqlserver-adapter
+gem install ruby-odbc
 </pre> 
 These steps require the dev kit is installed.
 </p>

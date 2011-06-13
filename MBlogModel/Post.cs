@@ -7,21 +7,23 @@ namespace MBlogModel
 {
     public class Post
     {
-        public int Id { get; set; }
+        public virtual int Id { get; set; }
         [Required]
-        public string Title { get; set; }
+        public virtual string Title { get; set; }
         [Required]
         [MaxLength(int.MaxValue)]
-        public string BlogPost { get; set; }
+        public virtual string BlogPost { get; set; }
         [Required]
-        public DateTime Posted { get; set; }
-        public DateTime? Edited { get; set; }
+        public virtual DateTime Posted { get; set; }
+        public virtual DateTime? Edited { get; set; }
+
+        [Column("blog_id")]
+        public int BlogId { get; set; }
 
         public virtual Blog Blog { get; set; }
 
-
         List<Comment> _comments = new List<Comment>();
-        public List<Comment> Comments
+        public virtual List<Comment> Comments
         {
             get { return _comments; }
             set { _comments = value; }

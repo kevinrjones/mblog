@@ -11,7 +11,6 @@ header { background-color: #eeeeee; overflow: auto; width: 100%; display: block;
 .footer { }
 
 #_createList { margin-left: .5em; }
-
 ul.headerList li { display: inline; }
 ul.headerList li a { text-decoration: none; background: #1D6896 none repeat scroll 0 0; color: #FFFFFF; padding: 0.35em 0.75em; }
 
@@ -52,11 +51,17 @@ legend { font-size: 1.2em; font-weight: bold; padding: 0 10px 0 10px; }
 .blog-comment { background-color: #eeeeee; padding: 5px 5px 10px 5px; }
 .blog-comment-header { font-weight: bold; }
 .blog-comment-body { padding: 10px 0 0 0; }
+.blog-post-body { padding: 10px 0 0 0; }
 .comment-help { font-size: 12px; padding: 5px 0 5px 10px; margin: 0 0 10px 10px; background-color: black; color: White; }
-#blog-comment-form { padding: 10px 0 0 10px; }
+#blog-comment-form { padding: 10px 0 0 10px;width: 90%; }
 #blog-comment-form-header { font-size: 20pt; padding: 5px 0 15px 0px; }
 #blog-comment-form-body { padding: 0px 0 0px 10px; }
-#Name { width: 100%; }
+
+.post-help { font-size: 12px; padding: 5px 0 5px 10px; margin: 0 0 10px 10px; background-color: black; color: White; }
+#blog-post-form { padding: 10px 0 0 10px;width: 90%; }
+#blog-post-form-header { font-size: 20pt; padding: 5px 0 15px 0px; }
+#blog-post-form-body { padding: 0px 0 0px 10px; }
+.maxwidth { width: 100%; }
 #Comment { width: 100%; }
 .inline-code { font-family: Consolas, Courier New, Courier; font-weight: bold; font-size: larger; }
 .blog-list { list-style-image: none; list-style-position: outside; list-style-type: none; }
@@ -71,14 +76,17 @@ legend { font-size: 1.2em; font-weight: bold; padding: 0 10px 0 10px; }
 .home-page-header { margin: 20px 0 0 0; }
 .home-page-sidebar { margin: 0em auto; width: 30%; float: right; }
 
-.admin-dashboard { }
+.admin-dashboard { overflow: auto; }
 .admin-title { }
-.admin-user { }
-#admin-blog-list { text-align: left;}
+.admin-user { float: left; width: 35%; }
+.admin-manage { float: left;width: 60%; }
+#admin-blog-list { text-align: left;padding: 10px 0;}
 #admin-user-name { float: left; width: 35%; }
-#admin-user-manage { float: right; width: 60%; }
+#admin-user-manage {  }
 #admin-manageblogs-title { text-align: left; display: inline-block; width: 80%; }
-#admin-createablog {text-align: right; display: inline-block;}
+.admin-link { text-align: right; display: inline-block;padding: 0 5px 0 0;}
+#admin-blog-actions { padding: 10px 0; }
+
 /* Styles for validation helpers
 -----------------------------------------------------------*/
 .field-validation-error { color: #ff0000; }

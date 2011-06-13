@@ -7,8 +7,10 @@ namespace MBlog.Models.Admin
 {
     public class AdminBlogViewModel
     {
-        public string Name { get; set; }
+        public string Nickname { get; set; }
         private string _title;
+        public int BlogId;
+
         public string Title
         {
             get

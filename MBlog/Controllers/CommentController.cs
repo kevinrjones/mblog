@@ -18,12 +18,13 @@ namespace MBlog.Controllers
         {
             _blogPostRepository = blogPostRepository;
         }
+
         public ActionResult Index()
         {
             return new ContentResult();
         }
 
-        public ActionResult New(AddCommentViewModel commentViewModel)
+        public ActionResult Create(AddCommentViewModel commentViewModel)
         {
             if (ModelState.IsValid)
             {
