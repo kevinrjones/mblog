@@ -3,13 +3,11 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web.Mvc;
 using CodeKicker.BBCode;
-using MBlog.Models;
 using MBlog.Models.Comment;
 using MBlog.Models.Post;
 using MBlog.Models.User;
 using MBlogModel;
 using MBlogRepository.Interfaces;
-using MBlogRepository.Repositories;
 
 namespace MBlog.Controllers
 {
@@ -18,7 +16,6 @@ namespace MBlog.Controllers
     {
         private readonly IBlogRepository _blogRepository;
         private readonly IPostRepository _blogPostRepository;
-        private Blog blog;
         public PostController(IBlogRepository blogRepository, IPostRepository blogPostRepository, IUserRepository userRepository)
             : base(userRepository)
         {
@@ -28,14 +25,14 @@ namespace MBlog.Controllers
 
         public ActionResult Index(string nickname)
         {
-            PostsViewModel postsViewModel = new PostsViewModel();
-            IList<Post> posts = _blogPostRepository.GetBlogPosts(nickname);
+            var postsViewModel = new PostsViewModel();
+            var posts = _blogPostRepository.GetBlogPosts(nickname);
 
             if (posts != null)
             {
                 foreach (var post in posts)
                 {
-                    PostViewModel pvm = CreatePostViewModel(post);
+                    var pvm = CreatePostViewModel(post);
                     postsViewModel.Posts.Add(pvm);
                     AddComments(pvm, post);
                 }
@@ -69,7 +66,8 @@ namespace MBlog.Controllers
         {
             ActionResult redirectToAction;
             if (RedirectIfInvalidUser(nickname, blogId, out redirectToAction)) return redirectToAction;
-            return View(new UpdatePostViewModel { BlogId = blogId, PostId = postId });
+            Post post = _blogPostRepository.GetBlogPost(postId);
+            return View(new UpdatePostViewModel { BlogId = blogId, PostId = postId, Title = post.Title, Post = post.BlogPost });
         }
 
         [HttpPost]
@@ -87,11 +85,11 @@ namespace MBlog.Controllers
 
         public ActionResult Show(PostLinkViewModel postLinkViewModel)
         {
-            blog = _blogRepository.GetBlog(postLinkViewModel.Nickname);
-            PostsViewModel postsViewModel = new PostsViewModel();
-            IEnumerable<Post> posts = _blogPostRepository.GetBlogPosts(postLinkViewModel.Year, postLinkViewModel.Month, postLinkViewModel.Day, postLinkViewModel.Nickname, postLinkViewModel.Link);
-            //string key = PassStateAttribute.TempDataTransferKey; 
-            ModelStateDictionary modelStateDictionary = TempData["comment"] as ModelStateDictionary;
+            var blog = _blogRepository.GetBlog(postLinkViewModel.Nickname);
+            var postsViewModel = new PostsViewModel();
+            var posts = _blogPostRepository.GetBlogPosts(postLinkViewModel.Year, postLinkViewModel.Month, postLinkViewModel.Day, postLinkViewModel.Nickname, postLinkViewModel.Link);
+
+            var modelStateDictionary = TempData["comment"] as ModelStateDictionary;
 
             if (modelStateDictionary != null)
             {
@@ -103,7 +101,7 @@ namespace MBlog.Controllers
 
         private bool RedirectIfInvalidUser(string nickname, int blogId, out ActionResult redirectToAction)
         {
-            UserViewModel user = HttpContext.User as UserViewModel;
+            var user = HttpContext.User as UserViewModel;
             if (!IsLoggedInUser(user) || !UserOwnsBlog(nickname, blogId))
             {
                 redirectToAction = RedirectToAction("login", "user");
@@ -115,7 +113,7 @@ namespace MBlog.Controllers
 
         private ActionResult CreatePost(CreatePostViewModel model)
         {
-            Post post = new Post
+            var post = new Post
             {
                 Title = model.Title,
                 BlogPost = model.Post,
@@ -124,16 +122,16 @@ namespace MBlog.Controllers
                 BlogId = model.BlogId
             };
             _blogPostRepository.Create(post);
-            return RedirectToRoute(new { controller = "admin", action="Index" });
+            return RedirectToRoute(new { controller = "admin", action = "Index" });
         }
 
         private ActionResult UpdatePost(UpdatePostViewModel model)
         {
-            Post post = _blogPostRepository.GetBlogPost(model.PostId);
+            var post = _blogPostRepository.GetBlogPost(model.PostId);
             post.Title = model.Title;
             post.BlogPost = model.Post;
             post.Edited = DateTime.UtcNow;
-            
+
             _blogPostRepository.Add(post);
             return RedirectToRoute(new { controller = "admin", action = "Index" });
         }
@@ -149,39 +147,31 @@ namespace MBlog.Controllers
             return new PostViewModel { Id = post.Id, Post = post.BlogPost, Title = post.Title, DateLastEdited = post.Edited, DatePosted = post.Posted, Link = post.TitleLink };
         }
 
-        private ActionResult GetPosts(PostLinkViewModel model, Blog blog, IEnumerable<Post> posts, PostsViewModel postsViewModel)
+        private ActionResult GetPosts(PostLinkViewModel model, Blog blog, IList<Post> posts, PostsViewModel postsViewModel)
         {
-            if (!ShouldShowComments(model, posts, postsViewModel))
-            {
-                foreach (var post in posts)
-                {
-                    PostViewModel pvm = CreatePostViewModel(post);
-                    AddComments(pvm, post);
-                    postsViewModel.Posts.Add(pvm);
-                }
-                return View("Show", postsViewModel);
-            }
-            else
+            if (IfSinglePost(model, posts, postsViewModel))
             {
                 var post = posts.FirstOrDefault();
-                AddCommentViewModel acvm = CreateAddCommentViewModel(post);
-                blog = _blogRepository.GetBlog(model.Nickname);
+                var acvm = CreateAddCommentViewModel(post);
                 acvm.CommentsEnabled = blog.CommentsEnabled;
                 AddComments(acvm, post);
                 return View("ShowPostWithComments", acvm);
             }
+
+            foreach (var post in posts)
+            {
+                PostViewModel pvm = CreatePostViewModel(post);
+                AddComments(pvm, post);
+                postsViewModel.Posts.Add(pvm);
+            }
+            return View("Show", postsViewModel);
         }
 
         private AddCommentViewModel CreateAddCommentViewModel(Post post)
         {
             return new AddCommentViewModel
                        {
-                           Title = post.Title,
-                           Id = post.Id,
-                           DatePosted = post.Posted,
-                           DateLastEdited = post.Edited,
-                           Post = post.BlogPost,
-                           Link = post.TitleLink
+                           PostId = post.Id,
                        };
         }
 
@@ -189,14 +179,23 @@ namespace MBlog.Controllers
         {
             foreach (Comment comment in post.ApprovedComments)
             {
-                string name;
-                name = string.IsNullOrEmpty(comment.Name) ? "Anonymous" : comment.Name;
-                CommentViewModel commentViewModel = new CommentViewModel { Name = name, Comment = BBCode.ToHtml(comment.CommentText), Commented = comment.Commented, EMail = comment.EMail };
+                string name = string.IsNullOrEmpty(comment.Name) ? "Anonymous" : comment.Name;
+                var commentViewModel = new CommentViewModel { Name = name, Comment = BBCode.ToHtml(comment.CommentText), Commented = comment.Commented, EMail = comment.EMail };
                 postViewModel.Comments.Add(commentViewModel);
             }
         }
 
-        private bool ShouldShowComments(PostLinkViewModel model, IEnumerable<Post> posts, PostsViewModel postsViewModel)
+        private void AddComments(AddCommentViewModel addCommentViewModel, Post post)
+        {
+            foreach (Comment comment in post.ApprovedComments)
+            {
+                string name = string.IsNullOrEmpty(comment.Name) ? "Anonymous" : comment.Name;
+                var commentViewModel = new CommentViewModel { Name = name, Comment = BBCode.ToHtml(comment.CommentText), Commented = comment.Commented, EMail = comment.EMail };
+                addCommentViewModel.Comments.Add(commentViewModel);
+            }
+        }
+
+        private bool IfSinglePost(PostLinkViewModel model, IEnumerable<Post> posts, PostsViewModel postsViewModel)
         {
             if (model.Year != 0
                 && model.Month != 0
