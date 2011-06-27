@@ -47,7 +47,7 @@ namespace MBlog.Controllers
         public ActionResult ListPosts(string nickname, int blogId)
         {
             var posts = _postRepository.GetBlogPosts(nickname);
-            PostsViewModel postsViewModel = new PostsViewModel();
+            PostsViewModel postsViewModel = new PostsViewModel{BlogId = blogId};
             foreach (var post in posts)
             {
                 PostViewModel pvm = new PostViewModel(post);

@@ -32,9 +32,8 @@ namespace MBlog.Controllers
             {
                 foreach (var post in posts)
                 {
-                    var pvm = CreatePostViewModel(post);
-                    postsViewModel.Posts.Add(pvm);
-                    AddComments(pvm, post);
+                    var postViewModel = new PostViewModel(post);
+                    postsViewModel.Posts.Add(postViewModel);
                 }
             }
             return View(postsViewModel);
@@ -45,7 +44,7 @@ namespace MBlog.Controllers
         {
             ActionResult redirectToAction;
             if (RedirectIfInvalidUser(nickname, blogId, out redirectToAction)) return redirectToAction;
-            return View(new CreatePostViewModel { BlogId = blogId });
+            return View(new EditPostViewModel { BlogId = blogId });
         }
 
         [HttpPost]
@@ -67,11 +66,11 @@ namespace MBlog.Controllers
             ActionResult redirectToAction;
             if (RedirectIfInvalidUser(nickname, blogId, out redirectToAction)) return redirectToAction;
             Post post = _blogPostRepository.GetBlogPost(postId);
-            return View(new UpdatePostViewModel { BlogId = blogId, PostId = postId, Title = post.Title, Post = post.BlogPost });
+            return View(new EditPostViewModel { BlogId = blogId, PostId = postId, Title = post.Title, Post = post.BlogPost });
         }
 
         [HttpPost]
-        public ActionResult Update(UpdatePostViewModel model)
+        public ActionResult Update(EditPostViewModel model)
         {
             ActionResult redirectToAction;
             if (RedirectIfInvalidUser(model.Nickname, model.BlogId, out redirectToAction)) return redirectToAction;
@@ -99,6 +98,11 @@ namespace MBlog.Controllers
             return GetPosts(postLinkViewModel, blog, posts, postsViewModel);
         }
 
+        public string Delete()
+        {
+            return "";
+        }
+
         private bool RedirectIfInvalidUser(string nickname, int blogId, out ActionResult redirectToAction)
         {
             var user = HttpContext.User as UserViewModel;
@@ -119,19 +123,21 @@ namespace MBlog.Controllers
                 BlogPost = model.Post,
                 Edited = DateTime.UtcNow,
                 Posted = DateTime.UtcNow,
-                BlogId = model.BlogId
+                BlogId = model.BlogId,
+                CommentsEnabled = true, //todo: get this from the admin
             };
             _blogPostRepository.Create(post);
             return RedirectToRoute(new { controller = "admin", action = "Index" });
         }
 
-        private ActionResult UpdatePost(UpdatePostViewModel model)
+        private ActionResult UpdatePost(EditPostViewModel model)
         {
             var post = _blogPostRepository.GetBlogPost(model.PostId);
-            post.Title = model.Title;
-            post.BlogPost = model.Post;
-            post.Edited = DateTime.UtcNow;
-
+            if (post == null)
+            {
+                throw new Exception("postId not valid");
+            }
+            post.UpdatePost(model.Title, model.Post);
             _blogPostRepository.Add(post);
             return RedirectToRoute(new { controller = "admin", action = "Index" });
         }
@@ -142,57 +148,23 @@ namespace MBlog.Controllers
             return blog.Id == blogId;
         }
 
-        private PostViewModel CreatePostViewModel(Post post)
-        {
-            return new PostViewModel { Id = post.Id, Post = post.BlogPost, Title = post.Title, DateLastEdited = post.Edited, DatePosted = post.Posted, Link = post.TitleLink };
-        }
-
         private ActionResult GetPosts(PostLinkViewModel model, Blog blog, IList<Post> posts, PostsViewModel postsViewModel)
         {
             if (IfSinglePost(model, posts, postsViewModel))
             {
                 var post = posts.FirstOrDefault();
-                var acvm = CreateAddCommentViewModel(post);
-                acvm.CommentsEnabled = blog.CommentsEnabled;
-                AddComments(acvm, post);
-                return View("ShowPostWithComments", acvm);
+                var postViewModel = new PostViewModel(post);
+                postViewModel.CommentsEnabled = post.CommentsEnabled && blog.CommentsEnabled;
+                postsViewModel.Posts.Add(postViewModel);
+                return View("Show", postsViewModel);
             }
 
             foreach (var post in posts)
             {
-                PostViewModel pvm = CreatePostViewModel(post);
-                AddComments(pvm, post);
-                postsViewModel.Posts.Add(pvm);
+                var postViewModel = new PostViewModel(post);
+                postsViewModel.Posts.Add(postViewModel);
             }
             return View("Show", postsViewModel);
-        }
-
-        private AddCommentViewModel CreateAddCommentViewModel(Post post)
-        {
-            return new AddCommentViewModel
-                       {
-                           PostId = post.Id,
-                       };
-        }
-
-        private void AddComments(PostViewModel postViewModel, Post post)
-        {
-            foreach (Comment comment in post.ApprovedComments)
-            {
-                string name = string.IsNullOrEmpty(comment.Name) ? "Anonymous" : comment.Name;
-                var commentViewModel = new CommentViewModel { Name = name, Comment = BBCode.ToHtml(comment.CommentText), Commented = comment.Commented, EMail = comment.EMail };
-                postViewModel.Comments.Add(commentViewModel);
-            }
-        }
-
-        private void AddComments(AddCommentViewModel addCommentViewModel, Post post)
-        {
-            foreach (Comment comment in post.ApprovedComments)
-            {
-                string name = string.IsNullOrEmpty(comment.Name) ? "Anonymous" : comment.Name;
-                var commentViewModel = new CommentViewModel { Name = name, Comment = BBCode.ToHtml(comment.CommentText), Commented = comment.Commented, EMail = comment.EMail };
-                addCommentViewModel.Comments.Add(commentViewModel);
-            }
         }
 
         private bool IfSinglePost(PostLinkViewModel model, IEnumerable<Post> posts, PostsViewModel postsViewModel)

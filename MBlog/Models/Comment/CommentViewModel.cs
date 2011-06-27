@@ -1,4 +1,5 @@
 ﻿using System;
+using CodeKicker.BBCode;
 
 namespace MBlog.Models.Comment
 {
@@ -11,10 +12,10 @@ namespace MBlog.Models.Comment
 
         public CommentViewModel(MBlogModel.Comment comment)
         {
-            this.Comment = comment.CommentText;
-            this.Commented = comment.Commented;
-            this.EMail = comment.EMail;
-            this.Name = comment.Name;
+            Comment = BBCode.ToHtml(comment.CommentText);
+            Commented = comment.Commented;
+            EMail = comment.EMail;
+            Name = comment.Name ?? "Anonymous";
         }
 
         public string Name { get; set; }

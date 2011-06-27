@@ -12,7 +12,7 @@
                 Html.RenderPartial("_ShowSinglePost", viewModel);
                 if (Model.ShowComments)
                 {
-                    Html.RenderPartial("_ShowCommentsForPost", viewModel);
+                    Html.RenderPartial("_ShowCommentsForPost", viewModel.AddCommentViewModel);
                 }
             }
         </li>        

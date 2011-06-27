@@ -1,16 +1,34 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using CodeKicker.BBCode;
 using MBlog.Models.Comment;
 
 namespace MBlog.Models.Post
 {
     public class PostViewModel
     {
-        public PostViewModel()
+        public PostViewModel(){}
+
+        public PostViewModel(MBlogModel.Post post) : this()
         {
-            Comments = new List<CommentViewModel>();
+            DateLastEdited = post.Edited;
+            DatePosted = post.Posted;
+            Id = post.Id;
+            Title = post.Title;
+            Post = post.BlogPost;
+            Link = post.TitleLink;
+            AddCommentViewModel = new AddCommentViewModel(post.Id, post.CommentsEnabled);
+            foreach (var comment in post.Comments)
+            {
+                if (comment.Approved)
+                {
+                    CommentViewModel cvm = new CommentViewModel(comment);
+                    AddCommentViewModel.AddComment(cvm);
+                }
+            }
         }
+
         public int Id { get; set; }
         [Required]
         public string Title { get; set; }
@@ -19,24 +37,9 @@ namespace MBlog.Models.Post
         public string YearPosted { get; set; }
         public string MonthPosted { get; set; }
         public string DayPosted { get; set; }
-        public int CommentCount { get { return Comments.Count; }   }
-        public List<CommentViewModel> Comments { get; set; }
+        public int CommentCount { get { return AddCommentViewModel.CommentCount; } }
 
         private DateTime _datePosted;
-
-        public PostViewModel(MBlogModel.Post post) : this()
-        {
-            this.DateLastEdited = post.Edited;
-            this.DatePosted = post.Posted;
-            this.Id = post.Id;
-            this.Title = post.Title;
-            this.Post = post.BlogPost;
-            foreach (var comment in post.Comments)
-            {
-                CommentViewModel cvm = new CommentViewModel(comment);
-                this.Comments.Add(cvm);
-            }
-        }
 
         public DateTime DatePosted
         {
@@ -52,6 +55,11 @@ namespace MBlog.Models.Post
 
         public DateTime? DateLastEdited { get; set; }
         public string Link { get; set; }
+
+        public bool CommentsEnabled { get; set; }
+
+        public AddCommentViewModel AddCommentViewModel { get; set; }
+
 
     }
 }

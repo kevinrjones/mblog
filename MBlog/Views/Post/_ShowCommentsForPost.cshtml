@@ -7,7 +7,7 @@
                 <span>@Comment.Commented.ToLongDateString()</span> by <span>@Comment.Name</span>
             </div>
             <div class="blog-comment-body">
-                @Comment.Comment
+                @Html.Raw(Comment.Comment)
             </div>
         </div>
     }
@@ -25,7 +25,7 @@
         <div id="blog-comment-form-body">
             @using (Html.BeginForm("Create", "comment", FormMethod.Post, new { }))
             {
-                @Html.HiddenFor(m => m.Id)
+                @Html.HiddenFor(m => m.PostId)
                 <div>
                     Name:
                 </div>

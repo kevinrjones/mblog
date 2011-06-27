@@ -43,24 +43,6 @@ namespace MBlogUnitTest.Routing
             }));
         }
 
-        string GetOutboundUrl(object routeValues)
-        {
-            // Get route configuration and mock request context
-            RouteCollection routes = new RouteCollection();
-            MvcApplication.RegisterRoutes(routes);
-            var mockHttpContext = new Mock<HttpContextBase>();
-            var mockRequest = new Mock<HttpRequestBase>();
-            var fakeResponse = new FakeResponse();
-            mockHttpContext.Setup(x => x.Request).Returns(mockRequest.Object);
-            mockHttpContext.Setup(x => x.Response).Returns(fakeResponse);
-            mockRequest.Setup(x => x.ApplicationPath).Returns("/");
-
-            // Generate the outbound URL
-            var ctx = new RequestContext(mockHttpContext.Object, new RouteData());
-            return routes.GetVirtualPath(ctx, new RouteValueDictionary(routeValues))
-                .VirtualPath;
-        }
-
         [Test]
         public void ActionWithSpecificControllerAndAction()
         {
@@ -82,7 +64,7 @@ namespace MBlogUnitTest.Routing
             string year = 1999.ToString("D4");
             string month = 1.ToString("D2");
             string day = 2.ToString("D2");
-            string url = helper.Action("Show", "Post", new { nickname = "nickname", year = year, month = month, day = day, link = "link" });
+            string url = helper.Action("Show", "Post", new { nickname = "nickname", year, month, day, link = "link" });
 
             Assert.AreEqual(expectedurl, url);
         }
@@ -113,6 +95,23 @@ namespace MBlogUnitTest.Routing
             Assert.AreEqual(expectedurl, url);
         }
 
+        string GetOutboundUrl(object routeValues)
+        {
+            // Get route configuration and mock request context
+            RouteCollection routes = new RouteCollection();
+            MvcApplication.RegisterRoutes(routes);
+            var mockHttpContext = new Mock<HttpContextBase>();
+            var mockRequest = new Mock<HttpRequestBase>();
+            var fakeResponse = new FakeResponse();
+            mockHttpContext.Setup(x => x.Request).Returns(mockRequest.Object);
+            mockHttpContext.Setup(x => x.Response).Returns(fakeResponse);
+            mockRequest.Setup(x => x.ApplicationPath).Returns("/");
+
+            // Generate the outbound URL
+            var ctx = new RequestContext(mockHttpContext.Object, new RouteData());
+            return routes.GetVirtualPath(ctx, new RouteValueDictionary(routeValues))
+                .VirtualPath;
+        }
 
         static UrlHelper GetUrlHelper(string appPath = "/", RouteCollection routes = null)
         {

@@ -42,7 +42,11 @@ namespace MBlogRepository.Repositories
         public Post AddComment(int id, string name, string comment)
         {
             Post post = GetBlogPost(id);
-            post.Comments.Add(new Comment { Name = name, CommentText = comment, Commented = DateTime.UtcNow });
+            if (!post.CommentsEnabled)
+            {
+                throw new MBlogException("Comments are disabled for this post");
+            }
+            post.Comments.Add(new Comment { Name = name, CommentText = comment, Commented = DateTime.UtcNow, Approved = !post.Blog.ApproveComments});
             Save();
             return post;
         }

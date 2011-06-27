@@ -98,6 +98,7 @@
     <Compile Include="Blacklist.cs" />
     <Compile Include="Blog.cs" />
     <Compile Include="Comment.cs" />
+    <Compile Include="MBlogException.cs" />
     <Compile Include="Post.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="User.cs" />
@@ -114,6 +115,7 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="Database\db\migrate\20110614000000_mangage_comments_for_post.rb" />
     <Content Include="Scripts\jquery-1.6.1-vsdoc.js" />
     <Content Include="Scripts\jquery-1.6.1.js" />
     <Content Include="Scripts\jquery-1.6.1.min.js" />

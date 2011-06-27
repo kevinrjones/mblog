@@ -41,7 +41,7 @@ namespace MBlog
 
             routes.MapRoute(
                 "comments",
-                "comment/{action}",
+                "{nickname}/comment/{action}",
                 new { controller = "Comment", action = "Index" }
                 );
 
@@ -71,9 +71,8 @@ namespace MBlog
 
             routes.MapRoute(
                 "Posts-edit",
-                "{nickname}/edit/{year}/{month}/{day}/{link}",
-                new { controller = "Post", action = "Edit", year = UrlParameter.Optional, month = UrlParameter.Optional, day = UrlParameter.Optional, link = UrlParameter.Optional }
-                //,new { year = @"\d{4}", month = @"\d{2}", day = @"\d{2}" }
+                "{nickname}/edit/{blogId}/{postId}",
+                new { controller = "Post", action = "Edit" }                
                 );
 
             routes.MapRoute(

@@ -95,14 +95,14 @@ namespace MBlogUnitTest.Controllers
         }
 
         [Test]
-        public void GivenAPostController_WhenIGetItsPostsWithComments_ThenItReturnsTheCorrectComments()
+        public void GivenAPostController_WhenIGetItsPostsWithComments_ThenItReturnsTheApprovedComments()
         {
             PostController controller = new PostController(_blogRepositoryMock, _postRepositoryMock, null);
             ViewResult result = controller.Show(new PostLinkViewModel()) as ViewResult;
             PostsViewModel model = (PostsViewModel)result.Model;
 
             Assert.That(model.Posts.Count, Is.EqualTo(1));
-            Assert.That(model.Posts[0].Comments.Count, Is.EqualTo(1));
+            Assert.That(model.Posts[0].CommentCount, Is.EqualTo(1));
         }
 
         [Test]

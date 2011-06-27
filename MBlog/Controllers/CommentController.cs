@@ -5,30 +5,26 @@ using System.Web;
 using System.Web.Mvc;
 using CodeKicker.BBCode;
 using MBlog.Models.Comment;
+using MBlogModel;
 using MBlogRepository.Interfaces;
 
 namespace MBlog.Controllers
 {
     public class CommentController : BaseController
     {
-        private readonly IPostRepository _blogPostRepository;
+        private readonly IPostRepository _postRepository;
 
-        public CommentController(IPostRepository blogPostRepository, IUserRepository userRepository)
+        public CommentController(IPostRepository postRepository, IUserRepository userRepository)
             : base(userRepository)
         {
-            _blogPostRepository = blogPostRepository;
-        }
-
-        public ActionResult Index()
-        {
-            return new ContentResult();
+            _postRepository = postRepository;
         }
 
         public ActionResult Create(AddCommentViewModel commentViewModel)
         {
             if (ModelState.IsValid)
             {
-                _blogPostRepository.AddComment(commentViewModel.Id, commentViewModel.Name, commentViewModel.Comment);
+                _postRepository.AddComment(commentViewModel.PostId, commentViewModel.Name, commentViewModel.Comment);
             }
             else
             {

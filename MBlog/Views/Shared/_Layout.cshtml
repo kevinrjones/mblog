@@ -18,7 +18,7 @@
     <script src="@Url.Content("~/Scripts/shBrushRuby.js")" type="text/javascript"></script>
     <script src="@Url.Content("~/Scripts/shBrushSql.js")" type="text/javascript"></script>
     <script src="@Url.Content("~/Scripts/shBrushBash.js")" type="text/javascript"></script>
-    <script src="@Url.Content("~/Scripts/modernizr-1.7.min.js")" type="text/javascript"></script>    
+    <script src="@Url.Content("~/Scripts/modernizr-1.7.min.js")" type="text/javascript"></script>
     <script type="text/javascript">
         SyntaxHighlighter.defaults['toolbar'] = true;
         SyntaxHighlighter.all();
@@ -37,6 +37,7 @@
                         }
                         else
                         { 
+                            <li>@Html.ActionLink("admin", "Index", "admin", null, null)</li>
                             <li>@Html.ActionLink("logout", "logout", "user", null, null)</li>
                         }
                         <li><a href="#">about</a></li>
@@ -45,7 +46,7 @@
                 </nav>
             </header>
             <div class="blog-main-body">
-                    @RenderBody()
+                @RenderBody()
             </div>
         </div>
     </div>

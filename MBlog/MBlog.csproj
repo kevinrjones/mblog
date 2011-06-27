@@ -170,6 +170,7 @@
     <Compile Include="Models\Post\PostLinkViewModel.cs" />
     <Compile Include="Models\Post\PostsViewModel.cs" />
     <Compile Include="Models\Post\PostViewModel.cs" />
+    <Compile Include="Models\Post\EditPostViewModel.cs" />
     <Compile Include="Models\User\LoginUserViewModel.cs" />
     <Compile Include="Models\User\UserBlogViewModel.cs" />
     <Compile Include="Models\User\UserViewModel.cs" />

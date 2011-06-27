@@ -1,5 +1,5 @@
 ﻿@using MBlog.Models.Post
-@model CreatePostViewModel
+@model EditPostViewModel
 
 <section id="blog-post-form">
     <div id="blog-post-form-header">
@@ -12,6 +12,7 @@
     <div id="blog-post-form-body">
         @using (Html.BeginForm((string)ViewBag.Action, "post", FormMethod.Post, new { }))
         {
+            @Html.HiddenFor(m => m.PostId)
             @Html.HiddenFor(m => m.BlogId)
             <div>
                 Title:
@@ -20,7 +21,7 @@
                 @Html.TextBoxFor(m => m.Title, new { @class = "maxwidth" })
             </div>
             <div>
-                @Html.ValidationMessageFor(m => m.Post)
+                @Html.ValidationMessageFor(m => m.Title)
             </div>
             <div>
                 Post:

@@ -47,12 +47,16 @@ namespace MBlogModel
                 Title = title;
             if (!string.IsNullOrEmpty(entry))
                 BlogPost = entry;
-            Edited = DateTime.Now;
+            Edited = DateTime.UtcNow;
+
         }
 
         public string TitleLink
         {
             get{return Title.Replace(' ', '-').Replace('/', '-').ToLower(); }
         }
+
+        [Column("comments_enabled")]
+        public bool CommentsEnabled { get; set; }
     }
 }
