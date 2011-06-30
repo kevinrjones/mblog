@@ -48,6 +48,7 @@ namespace MBlog.Controllers
         }
 
         [HttpPost]
+        [ValidateInput(false)]
         public ActionResult Create(CreatePostViewModel model)
         {
             ActionResult redirectToAction;
@@ -70,6 +71,7 @@ namespace MBlog.Controllers
         }
 
         [HttpPost]
+        [ValidateInput(false)]
         public ActionResult Update(EditPostViewModel model)
         {
             ActionResult redirectToAction;
