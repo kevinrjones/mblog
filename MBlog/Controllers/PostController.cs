@@ -44,10 +44,11 @@ namespace MBlog.Controllers
         {
             ActionResult redirectToAction;
             if (RedirectIfInvalidUser(nickname, blogId, out redirectToAction)) return redirectToAction;
-            return View(new EditPostViewModel { BlogId = blogId });
+            return View(new EditPostViewModel { BlogId = blogId, IsCreate = true });
         }
 
         [HttpPost]
+        [ValidateInput(false)]
         public ActionResult Create(CreatePostViewModel model)
         {
             ActionResult redirectToAction;
@@ -70,6 +71,7 @@ namespace MBlog.Controllers
         }
 
         [HttpPost]
+        [ValidateInput(false)]
         public ActionResult Update(EditPostViewModel model)
         {
             ActionResult redirectToAction;
