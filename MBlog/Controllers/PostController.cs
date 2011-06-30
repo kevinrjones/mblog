@@ -44,7 +44,7 @@ namespace MBlog.Controllers
         {
             ActionResult redirectToAction;
             if (RedirectIfInvalidUser(nickname, blogId, out redirectToAction)) return redirectToAction;
-            return View(new EditPostViewModel { BlogId = blogId });
+            return View(new EditPostViewModel { BlogId = blogId, IsCreate = true });
         }
 
         [HttpPost]

@@ -5,10 +5,6 @@
     <div id="blog-post-form-header">
         @ViewBag.Title
     </div>
-    <div class="post-help">
-        Posts use BBCode. you can use [b], [i], [u], [code], [image], [quote], [list]
-        (for ul), [*] (for li) and [url].
-    </div>
     <div id="blog-post-form-body">
         @using (Html.BeginForm((string)ViewBag.Action, "post", FormMethod.Post, new { }))
         {
@@ -35,7 +31,13 @@
                 </div>
             </div>
             <div>
-                <input type="submit" value="Create Post" />
+            @if (Model.IsCreate)
+            {
+                <input type="submit" value="New Post" />
+            } else
+            {
+                <input type="submit" value="Edit Post" />                
+            }
             </div>
         }
     </div>

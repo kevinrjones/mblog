@@ -13,5 +13,7 @@ namespace MBlog.Models.Post
         public string Title { get; set; }
         [BBCodeValidator(ErrorMessage = "Text is in an invalid format")]
         public string Post { get; set; }
+
+        public bool IsCreate { get; set; }
     }
 }
