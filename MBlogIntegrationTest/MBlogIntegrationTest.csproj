@@ -77,6 +77,10 @@
       <Project>{555BF169-88EA-4EF1-B532-D152AF974680}</Project>
       <Name>MBlogRepository</Name>
     </ProjectReference>
+    <ProjectReference Include="..\MBlog\MBlog.csproj">
+      <Project>{DAFFCFE0-9AE5-4FA3-AFBF-BA43FC16BCAC}</Project>
+      <Name>MBlog</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Repository\Repository.csproj">
       <Project>{6B41D66F-0003-45EC-9692-023F9FCA62E8}</Project>
       <Name>Repository</Name>
