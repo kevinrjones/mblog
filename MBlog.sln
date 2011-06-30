@@ -11,7 +11,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Repository", "Repository\Re
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MBlogRepository", "MBlogRepository\MBlogRepository.csproj", "{555BF169-88EA-4EF1-B532-D152AF974680}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MBlogIntegrationTest", "..\..\..\..\..\home\kevinj\projects\MBlog\MBlogIntegrationTest\MBlogIntegrationTest.csproj", "{E40CBEB2-C300-45DD-AC20-0E70E8CF68DD}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MBlogIntegrationTest", "MBlogIntegrationTest\MBlogIntegrationTest.csproj", "{E40CBEB2-C300-45DD-AC20-0E70E8CF68DD}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
