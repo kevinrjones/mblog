@@ -1,4 +1,3 @@
-
 class CreateInitialDatabase < ActiveRecord::Migration
 
   def self.up
