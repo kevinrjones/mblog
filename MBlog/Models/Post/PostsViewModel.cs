@@ -15,5 +15,6 @@ namespace MBlog.Models.Post
         public bool ShowComments { get; set; }
 
         public int BlogId { get; set; }
+        public string Nickname { get; set; }
     }
 }

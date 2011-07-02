@@ -49,7 +49,7 @@ namespace MBlog.Controllers
             ActionResult redirectToAction;
             if (RedirectIfInvalidUser(model.Nickname, model.BlogId, out redirectToAction)) return redirectToAction;
             var posts = _postRepository.GetBlogPosts(model.BlogId);
-            PostsViewModel postsViewModel = new PostsViewModel { BlogId = model.BlogId };
+            PostsViewModel postsViewModel = new PostsViewModel { BlogId = model.BlogId, Nickname = model.Nickname };
             foreach (var post in posts)
             {
                 PostViewModel pvm = new PostViewModel(post);
@@ -64,7 +64,7 @@ namespace MBlog.Controllers
             if (RedirectIfInvalidUser(nickname, blogId, out redirectToAction)) return redirectToAction;
             var posts = _postRepository.GetBlogPosts(blogId);
             // todo: list comments not posts
-            PostsViewModel postsViewModel = new PostsViewModel { BlogId = blogId };
+            PostsViewModel postsViewModel = new PostsViewModel { BlogId = blogId, Nickname = nickname};
             foreach (var post in posts)
             {
                 PostViewModel pvm = new PostViewModel(post);
