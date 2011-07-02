@@ -27,7 +27,7 @@ namespace MBlogUnitTest.Controllers
             _userRepository = new Mock<IUserRepository>();
             _usernameBlacklistRepository = new Mock<IUsernameBlacklistRepository>();
 
-            _controller = new UserController(_userRepository.Object, _usernameBlacklistRepository.Object);
+            _controller = new UserController(_userRepository.Object, _usernameBlacklistRepository.Object, null);
 
             SetControllerContext(_controller);
         }

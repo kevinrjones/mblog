@@ -10,9 +10,12 @@ namespace MBlogModel
     {
         public Blog()
         {
-            Posts = new List<Post>();
+            //Posts = new List<Post>();
         }
         public virtual int Id { get; set; }
+
+        [Column("user_id")]
+        public virtual int UserId { get; set; }
         [Required]
         public virtual string Title { get; set; }
         [Required]

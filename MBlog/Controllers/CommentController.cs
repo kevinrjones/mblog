@@ -14,8 +14,8 @@ namespace MBlog.Controllers
     {
         private readonly IPostRepository _postRepository;
 
-        public CommentController(IPostRepository postRepository, IUserRepository userRepository)
-            : base(userRepository)
+        public CommentController(IPostRepository postRepository, IUserRepository userRepository, IBlogRepository blogRepository)
+            : base(userRepository, blogRepository)
         {
             _postRepository = postRepository;
         }

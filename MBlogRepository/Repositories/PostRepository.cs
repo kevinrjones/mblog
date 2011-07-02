@@ -39,6 +39,13 @@ namespace MBlogRepository.Repositories
             return SelectAllForNickname(nickname);
         }
 
+        public IList<Post> GetBlogPosts(int blogId)
+        {
+            return (from e in Entities
+                    where e.BlogId == blogId
+                    select e).ToList();
+        }
+
         public Post AddComment(int id, string name, string comment)
         {
             Post post = GetBlogPost(id);

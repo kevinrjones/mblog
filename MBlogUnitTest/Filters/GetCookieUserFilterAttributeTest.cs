@@ -56,7 +56,7 @@ namespace MBlogUnitTest.Filters
             ControllerContext controllerContext =
             new ControllerContext(httpContextBase,
                                   new RouteData(),
-                                  new BaseController(_userRepository));
+                                  new BaseController(_userRepository, null));
 
             var actionDescriptor = new Mock<ActionDescriptor>();
             actionDescriptor.SetupGet(x => x.ActionName).Returns("Action_With_SomeAttribute");

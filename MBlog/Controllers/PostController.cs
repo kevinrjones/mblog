@@ -14,12 +14,11 @@ namespace MBlog.Controllers
     // todo: get all comments and hide them
     public class PostController : BaseController
     {
-        private readonly IBlogRepository _blogRepository;
         private readonly IPostRepository _blogPostRepository;
         public PostController(IBlogRepository blogRepository, IPostRepository blogPostRepository, IUserRepository userRepository)
-            : base(userRepository)
+            : base(userRepository, blogRepository)
         {
-            _blogRepository = blogRepository;
+            BlogRepository = blogRepository;
             _blogPostRepository = blogPostRepository;
         }
 
@@ -86,7 +85,7 @@ namespace MBlog.Controllers
 
         public ActionResult Show(PostLinkViewModel postLinkViewModel)
         {
-            var blog = _blogRepository.GetBlog(postLinkViewModel.Nickname);
+            var blog = BlogRepository.GetBlog(postLinkViewModel.Nickname);
             var postsViewModel = new PostsViewModel();
             var posts = _blogPostRepository.GetBlogPosts(postLinkViewModel.Year, postLinkViewModel.Month, postLinkViewModel.Day, postLinkViewModel.Nickname, postLinkViewModel.Link);
 
@@ -103,18 +102,6 @@ namespace MBlog.Controllers
         public string Delete()
         {
             return "";
-        }
-
-        private bool RedirectIfInvalidUser(string nickname, int blogId, out ActionResult redirectToAction)
-        {
-            var user = HttpContext.User as UserViewModel;
-            if (!IsLoggedInUser(user) || !UserOwnsBlog(nickname, blogId))
-            {
-                redirectToAction = RedirectToAction("login", "user");
-                return true;
-            }
-            redirectToAction = null;
-            return false;
         }
 
         private ActionResult CreatePost(CreatePostViewModel model)
@@ -142,12 +129,6 @@ namespace MBlog.Controllers
             post.UpdatePost(model.Title, model.Post);
             _blogPostRepository.Add(post);
             return RedirectToRoute(new { controller = "admin", action = "Index" });
-        }
-
-        private bool UserOwnsBlog(string nickname, int blogId)
-        {
-            var blog = _blogRepository.GetBlog(nickname);
-            return blog.Id == blogId;
         }
 
         private ActionResult GetPosts(PostLinkViewModel model, Blog blog, IList<Post> posts, PostsViewModel postsViewModel)

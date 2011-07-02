@@ -8,6 +8,7 @@ namespace MBlog.Models.Admin
 {
     public class AdminUserViewModel
     {
+        public int UserId { get; set; }
         public string Name { get; set; }
         private List<AdminBlogViewModel> _blogs = new List<AdminBlogViewModel>();
         public List<AdminBlogViewModel> Blogs

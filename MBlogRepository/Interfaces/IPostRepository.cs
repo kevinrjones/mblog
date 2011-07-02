@@ -10,6 +10,7 @@ namespace MBlogRepository.Interfaces
         IEnumerable<Post> GetPosts();
         Post GetBlogPost(int id);
         IList<Post> GetBlogPosts(string nickname);
+        IList<Post> GetBlogPosts(int blogId);
         IList<Post> GetBlogPosts(int year, int month, int day, string nickname, string link);
         Post AddComment(int id, string name, string comment);
     }

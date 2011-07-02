@@ -29,7 +29,7 @@ namespace MBlogUnitTest.Controllers
         [Test]
         public void GivenNoUserInContext_WhenIGoToTheAdminIndexPage_ThenIGetRedirectedToTheLoginPage()
         {
-            AdminController controller = new AdminController(null, null);
+            AdminController controller = new AdminController(null, null, null);
 
             SetControllerContext(controller);
 
@@ -42,7 +42,7 @@ namespace MBlogUnitTest.Controllers
         [Test]
         public void GivenAUserInContext_AndTheUserIsNotLoggedIn_WhenIGoToTheAdminIndexPage_ThenIGetRedirectedToTheLoginPage()
         {
-            AdminController controller = new AdminController(null, null);
+            AdminController controller = new AdminController(null, null, null);
 
             SetControllerContext(controller);
 
@@ -58,7 +58,7 @@ namespace MBlogUnitTest.Controllers
         [Test]
         public void GivenAUserInContext_AndTheUserIsLoggedIn_WhenIGoToTheAdminIndexPage_ThenIGetTheAdminPage()
         {
-            AdminController controller = new AdminController(_mockUserRepository.Object, null);
+            AdminController controller = new AdminController(_mockUserRepository.Object, null, null);
 
             SetControllerContext(controller);
 

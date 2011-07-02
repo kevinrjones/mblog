@@ -12,11 +12,13 @@ namespace MBlog.Controllers
     [GetCookieUserFilter]
     public class BaseController : Controller
     {
-        internal IUserRepository UserRepository { get; set; }
+        protected internal IUserRepository UserRepository { get; set; }
+        public IBlogRepository BlogRepository { get; set; }
 
-        public BaseController(IUserRepository userRepository)
+        public BaseController(IUserRepository userRepository, IBlogRepository blogRepository)
         {
             UserRepository = userRepository;
+            BlogRepository = blogRepository;
         }
 
         protected override void OnException(ExceptionContext filterContext)
@@ -48,6 +50,24 @@ namespace MBlog.Controllers
         protected bool IsLoggedInUser(UserViewModel user)
         {
             return (user != null && user.IsLoggedIn);
+        }
+
+        protected bool UserOwnsBlog(string nickname, int blogId)
+        {
+            var blog = BlogRepository.GetBlog(nickname);
+            return blog.Id == blogId;
+        }
+
+        protected bool RedirectIfInvalidUser(string nickname, int blogId, out ActionResult redirectToAction)
+        {
+            var user = HttpContext.User as UserViewModel;
+            if (!IsLoggedInUser(user) || !UserOwnsBlog(nickname, blogId))
+            {
+                redirectToAction = RedirectToAction("login", "user");
+                return true;
+            }
+            redirectToAction = null;
+            return false;
         }
     }
 

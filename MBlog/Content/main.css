@@ -1,7 +1,6 @@
 ﻿* { padding: 0; margin: 0; }
 a { text-decoration: none; }
 body { font-family: arial, helvetica, sans-serif; background-color: #cccccc; }
-/*ol, ul { list-style-image: none; list-style-position: outside; list-style-type: none; }*/
 .wrapper { height: 100%; }
 .main-list { padding: 10px 20px 10px 0; float: right; }
 h2.page-header { padding: 20px 0 0 10px; }
@@ -41,7 +40,7 @@ legend { font-size: 1.2em; font-weight: bold; padding: 0 10px 0 10px; }
 .blog-post { margin: 5px 0 40px 10px; }
 .blog-header-section { margin: 0 0 5px 0; padding: 0 0 10px 0; border-bottom: 1px solid black; }
 .blog-title { font-size: 16pt; display: inline-block; }
-.blog-date-posted { float: right; color: gray;font-size: 8pt; margin: 0 0 0 10px}
+.blog-date-posted { float: right; color: gray; font-size: 8pt; margin: 0 0 0 10px; }
 .blog-entry { line-height: 20px; }
 .blog-entry ul { padding-left: 20px; }
 .blog-inner-body { width: 75%; float: left; padding: 10px 0 10px 10px; }
@@ -53,15 +52,23 @@ legend { font-size: 1.2em; font-weight: bold; padding: 0 10px 0 10px; }
 .blog-comment-body { padding: 10px 0 0 0; }
 .blog-post-body { padding: 10px 0 0 0; }
 .comment-help { font-size: 12px; padding: 5px 0 5px 10px; margin: 0 0 10px 10px; background-color: black; color: White; }
-#blog-comment-form { padding: 10px 0 0 10px;width: 90%; }
+#blog-comment-form { padding: 10px 0 0 10px; width: 90%; }
 #blog-comment-form-header { font-size: 20pt; padding: 5px 0 15px 0px; }
 #blog-comment-form-body { padding: 0px 0 0px 10px; }
 
 .post-help { font-size: 12px; padding: 5px 0 5px 10px; margin: 0 0 10px 10px; background-color: black; color: White; }
-#blog-post-form { padding: 10px 0 0 10px;width: 90%; }
+#blog-post-form { padding: 10px 0 0 10px; width: 90%; }
 #blog-post-form-header { font-size: 20pt; padding: 5px 0 15px 0px; }
 #blog-post-form-body { padding: 0px 0 0px 10px; }
+#blog-form { padding: 10px 0 0 10px; width: 90%; }
+#blog-form-header { font-size: 20pt; padding: 5px 0 15px 0px; }
+#blog-form-body { padding: 0px 0 0px 10px; width: 500px; margin: 0px auto; }
 .maxwidth { width: 100%; }
+
+div.row { clear: both; padding-top: 5px; }
+div.row span.label { float: left; width: 120px; text-align: right; }
+div.row span.formw { float: right; width: 370px; text-align: left; }
+
 #Comment { width: 100%; }
 .inline-code { font-family: Consolas, Courier New, Courier; font-weight: bold; font-size: larger; }
 .blog-list { list-style-image: none; list-style-position: outside; list-style-type: none; }
@@ -78,18 +85,18 @@ legend { font-size: 1.2em; font-weight: bold; padding: 0 10px 0 10px; }
 
 .admin-dashboard { overflow: auto; }
 .admin-title { }
-.admin-user { float: left; width: 35%; }
-.admin-manage { float: left;width: 60%; }
-#admin-blog-list { text-align: left;padding: 10px 0;}
+.admin-user { margin: 0em auto; width: 65%; }
+.admin-manage { margin: 0em auto; width: 65%; }
+#admin-blog-list { text-align: left; padding: 10px 0; }
 #admin-user-name { float: left; width: 35%; }
-#admin-user-manage {  }
+#admin-user-manage { }
 #admin-manageblogs-title { text-align: left; display: inline-block; width: 80%; }
-.admin-link { text-align: right; display: inline-block;padding: 0 5px 0 0;}
+.admin-link { text-align: right; display: inline-block; padding: 0 5px 0 0; }
 #admin-blog-actions { padding: 10px 0; }
 
 
-.list-posts { width: 90%; font-size: 14pt; padding: 0 10px 0 10px}
-.list-posts table tr td { padding: 10px 0 0 5px;}
+.list-posts { width: 90%; font-size: 14pt; padding: 0 10px 0 10px; }
+.list-posts table tr td { padding: 10px 0 0 5px; }
 /* Styles for validation helpers
 -----------------------------------------------------------*/
 .field-validation-error { color: #ff0000; }

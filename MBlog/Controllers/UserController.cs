@@ -14,8 +14,8 @@ namespace MBlog.Controllers
     {
         private readonly IUsernameBlacklistRepository _usernameBlacklistRepository;
 
-        public UserController(IUserRepository userRepository, IUsernameBlacklistRepository usernameBlacklistRepository)
-            : base(userRepository)
+        public UserController(IUserRepository userRepository, IUsernameBlacklistRepository usernameBlacklistRepository, IBlogRepository blogRepository)
+            : base(userRepository, blogRepository)
         {
             _usernameBlacklistRepository = usernameBlacklistRepository;
         }

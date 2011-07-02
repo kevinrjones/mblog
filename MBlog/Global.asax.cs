@@ -28,6 +28,30 @@ namespace MBlog
             );
 
             routes.MapRoute(
+                "Blog-new",
+                "blog/new",
+                new { controller = "Blog", action = "New" }
+                );
+
+            routes.MapRoute(
+                "Blog-create",
+                "blog/create",
+                new { controller = "Blog", action = "Create" }
+                );
+
+            routes.MapRoute(
+                "Blog-update",
+                "blog/update",
+                new { controller = "Blog", action = "Update" }
+                );
+
+            routes.MapRoute(
+                "Blog-edit",
+                "blog/edit",
+                new { controller = "Blog", action = "Edit" }
+                );
+
+            routes.MapRoute(
                 "Users",
                 "user/{action}",
                 new { controller = "User", action = "Index" }
@@ -35,8 +59,8 @@ namespace MBlog
 
             routes.MapRoute(
                 "Admin",
-                "admin/{action}",
-                new { controller = "Admin", action = "Index" }
+                "admin/{action}/{blogId}",
+                new { controller = "Admin", action = "Index", blogId = UrlParameter.Optional }
                 );
 
             routes.MapRoute(
@@ -64,15 +88,15 @@ namespace MBlog
                 );
 
             routes.MapRoute(
-                "Posts-index",
-                "{nickname}",
-                new { controller = "Post", action = "Index" }
+                "Posts-edit",
+                "{nickname}/edit/{blogId}/{postId}",
+                new { controller = "Post", action = "Edit" }
                 );
 
             routes.MapRoute(
-                "Posts-edit",
-                "{nickname}/edit/{blogId}/{postId}",
-                new { controller = "Post", action = "Edit" }                
+                "Posts-index",
+                "{nickname}",
+                new { controller = "Post", action = "Index" }
                 );
 
             routes.MapRoute(
@@ -85,7 +109,7 @@ namespace MBlog
             routes.MapRoute(
                 "Default-Home",
                 "",
-                new { controller = "Home", action = "Index"}
+                new { controller = "Home", action = "Index" }
             );
 
 

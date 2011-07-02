@@ -33,7 +33,7 @@ namespace MBlogUnitTest.Controllers
             var post = new Post { Posted = DateTime.Today, BlogPost = "post", Title = "title", Blog = new Blog{User = new User{Name = "name"}}};
             _postRepository.Setup(p => p.GetPosts()).Returns(new List<Post> { post, post, post, post, post });
 
-            _controller = new HomeController(_userRepository.Object, _postRepository.Object);
+            _controller = new HomeController(_userRepository.Object, _postRepository.Object, null);
         }
 
         private void InitializeUserRepository()

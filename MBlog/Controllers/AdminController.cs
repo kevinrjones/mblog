@@ -16,8 +16,8 @@ namespace MBlog.Controllers
     {
         private readonly IPostRepository _postRepository;
 
-        public AdminController(IUserRepository userRepository, IPostRepository postRepository)
-            : base(userRepository)
+        public AdminController(IUserRepository userRepository, IPostRepository postRepository, IBlogRepository blogRepository)
+            : base(userRepository, blogRepository)
         {
             _postRepository = postRepository;
         }
@@ -30,7 +30,7 @@ namespace MBlog.Controllers
                 return RedirectToAction("login", "user");
             }
             var users = UserRepository.GetUserWithTheirBlogs(user.Id);
-            AdminUserViewModel adminUserViewModel = new AdminUserViewModel { Name = user.Name };
+            AdminUserViewModel adminUserViewModel = new AdminUserViewModel { Name = user.Name, UserId = user.Id};
             foreach (Blog blog in users.Blogs)
             {
                 adminUserViewModel.Blogs.Add(new AdminBlogViewModel
@@ -44,10 +44,32 @@ namespace MBlog.Controllers
             return View(adminUserViewModel);
         }
 
-        public ActionResult ListPosts(string nickname, int blogId)
+        public ActionResult ListPosts(int blogId)
         {
-            var posts = _postRepository.GetBlogPosts(nickname);
+            UserViewModel user = HttpContext.User as UserViewModel;
+            if (!IsLoggedInUser(user))
+            {
+                return RedirectToAction("login", "user");
+            }
+            var posts = _postRepository.GetBlogPosts(blogId);
             PostsViewModel postsViewModel = new PostsViewModel{BlogId = blogId};
+            foreach (var post in posts)
+            {
+                PostViewModel pvm = new PostViewModel(post);
+                postsViewModel.Posts.Add(pvm);
+            }
+            return View(postsViewModel);
+        }
+
+        public ActionResult ListComments(int blogId)
+        {
+            UserViewModel user = HttpContext.User as UserViewModel;
+            if (!IsLoggedInUser(user))
+            {
+                return RedirectToAction("login", "user");
+            }
+            var posts = _postRepository.GetBlogPosts(blogId);
+            PostsViewModel postsViewModel = new PostsViewModel { BlogId = blogId };
             foreach (var post in posts)
             {
                 PostViewModel pvm = new PostViewModel(post);
