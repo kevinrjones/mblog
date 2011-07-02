@@ -1,0 +1,12 @@
+﻿@using MBlog.Models.Blog
+@model CreateBlogViewModel
+
+@{
+    ViewBag.Title = "Create a New Blog";
+    ViewBag.Action = "Create";
+    Layout = "~/Views/Shared/_BlogLayout.cshtml";
+}
+
+@{
+    Html.RenderPartial("_EditBlog", Model );
+}

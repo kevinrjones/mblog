@@ -44,15 +44,12 @@ namespace MBlog.Controllers
             return View(adminUserViewModel);
         }
 
-        public ActionResult ListPosts(int blogId)
+        public ActionResult ListPosts(AdminBlogViewModel model)
         {
-            UserViewModel user = HttpContext.User as UserViewModel;
-            if (!IsLoggedInUser(user))
-            {
-                return RedirectToAction("login", "user");
-            }
-            var posts = _postRepository.GetBlogPosts(blogId);
-            PostsViewModel postsViewModel = new PostsViewModel{BlogId = blogId};
+            ActionResult redirectToAction;
+            if (RedirectIfInvalidUser(model.Nickname, model.BlogId, out redirectToAction)) return redirectToAction;
+            var posts = _postRepository.GetBlogPosts(model.BlogId);
+            PostsViewModel postsViewModel = new PostsViewModel { BlogId = model.BlogId };
             foreach (var post in posts)
             {
                 PostViewModel pvm = new PostViewModel(post);
@@ -61,14 +58,12 @@ namespace MBlog.Controllers
             return View(postsViewModel);
         }
 
-        public ActionResult ListComments(int blogId)
+        public ActionResult ListComments(string nickname, int blogId)
         {
-            UserViewModel user = HttpContext.User as UserViewModel;
-            if (!IsLoggedInUser(user))
-            {
-                return RedirectToAction("login", "user");
-            }
+            ActionResult redirectToAction;
+            if (RedirectIfInvalidUser(nickname, blogId, out redirectToAction)) return redirectToAction;
             var posts = _postRepository.GetBlogPosts(blogId);
+            // todo: list comments not posts
             PostsViewModel postsViewModel = new PostsViewModel { BlogId = blogId };
             foreach (var post in posts)
             {

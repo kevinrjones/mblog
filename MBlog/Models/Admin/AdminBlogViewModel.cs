@@ -9,7 +9,6 @@ namespace MBlog.Models.Admin
     {
         public string Nickname { get; set; }
         private string _title;
-        public int BlogId;
 
         public string Title
         {
@@ -25,5 +24,7 @@ namespace MBlog.Models.Admin
         }
 
         public string Description { get; set; }
+
+        public int BlogId { get; set; }
     }
 }

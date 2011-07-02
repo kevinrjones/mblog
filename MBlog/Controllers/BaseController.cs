@@ -52,7 +52,7 @@ namespace MBlog.Controllers
             return (user != null && user.IsLoggedIn);
         }
 
-        protected bool UserOwnsBlog(string nickname, int blogId)
+        private bool UserOwnsBlog(string nickname, int blogId)
         {
             var blog = BlogRepository.GetBlog(nickname);
             return blog.Id == blogId;

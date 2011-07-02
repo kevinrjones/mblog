@@ -58,9 +58,15 @@ namespace MBlog
             );
 
             routes.MapRoute(
+                "Admin-index",
+                "admin/index",
+                new { controller = "Admin", action = "Index"}
+                );
+
+            routes.MapRoute(
                 "Admin",
-                "admin/{action}/{blogId}",
-                new { controller = "Admin", action = "Index", blogId = UrlParameter.Optional }
+                "admin/{action}/{nickname}/{blogId}",
+                new { controller = "Admin", action = "Index", nickname = UrlParameter.Optional, blogId = UrlParameter.Optional, }
                 );
 
             routes.MapRoute(

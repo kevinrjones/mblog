@@ -3,7 +3,6 @@ using System.Web;
 using System.Web.Mvc;
 using MBlog.Filters;
 using MBlog.Infrastructure;
-using MBlog.Models;
 using MBlog.Models.User;
 using MBlogModel;
 using MBlogRepository.Interfaces;
@@ -27,7 +26,6 @@ namespace MBlog.Controllers
             {
                 return View();
             }
-            UserViewModel user = HttpContext.User as UserViewModel;
             return RedirectToAction("index", "admin");
         }
 
@@ -53,8 +51,7 @@ namespace MBlog.Controllers
             if (!HttpContext.User.Identity.IsAuthenticated)
             {
                 return View();
-            }
-            UserViewModel user = (UserViewModel)HttpContext.User;
+            }            
             return RedirectToAction("index", "admin");
         }
 
