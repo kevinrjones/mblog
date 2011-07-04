@@ -10,25 +10,25 @@ namespace MBlogModel
     {
         public Blog()
         {
-            //Posts = new List<Post>();
+            Posts = new List<Post>();
         }
-        public virtual int Id { get; set; }
+        public int Id { get; set; }
 
         [Column("user_id")]
-        public virtual int UserId { get; set; }
+        public int UserId { get; set; }
         [Required]
-        public virtual string Title { get; set; }
+        public string Title { get; set; }
         [Required]
-        public virtual string Description { get; set; }
+        public string Description { get; set; }
 
         [Required, Column("comments_enabled")]
-        public virtual bool CommentsEnabled{ get; set; }
+        public bool CommentsEnabled{ get; set; }
 
         [Required, Column("comment_approval")]
-        public virtual bool ApproveComments { get; set; }
+        public bool ApproveComments { get; set; }
         
         [Required]
-        public virtual string Nickname { get; set; }
+        public string Nickname { get; set; }
 
         public virtual ICollection<Post> Posts { get; set; }
 
