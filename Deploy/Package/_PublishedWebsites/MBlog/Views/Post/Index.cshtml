@@ -1,0 +1,16 @@
+﻿@using MBlog.Models.Post
+@model PostsViewModel
+@{
+    ViewBag.Title = "Blog Posts";
+    Layout = "~/Views/Shared/_BlogLayout.cshtml";
+}
+<ul class="blog-list">
+    @foreach (var blogViewModel in Model.Posts)
+    {
+        <li class="blog-post">
+            @{
+                Html.RenderPartial("_ShowSinglePost", blogViewModel);
+            }
+        </li>
+    }
+</ul>

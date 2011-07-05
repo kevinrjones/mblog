@@ -1,0 +1,26 @@
+﻿@using MBlog.Models.User
+@model UserViewModel
+@{
+    ViewBag.Title = "Login";
+}
+<div style="margin-top: 30px">
+    @using (Html.BeginForm("DoLogin", "user", FormMethod.Post, new { @class = "form" }))
+    {
+        <fieldset>
+            <legend>Login</legend>
+            <div class="form-row">
+                <div class="form-label">@Html.LabelFor(m => m.Email)</div>
+                <span>@Html.TextBoxFor(m => m.Email)</span>
+                <div class="form-label">@Html.ValidationMessageFor(m => m.Email)</div>
+            </div>
+            <div class="form-row">
+                <div class="form-label">@Html.LabelFor(m => m.Password)</div>
+                <span>@Html.PasswordFor(m => m.Password)</span>
+                <div class="form-label">@Html.ValidationMessageFor(m => m.Password)</div>
+            </div>
+            <div class="form-row">
+                <input type="submit" />
+            </div>
+        </fieldset>
+    }
+</div>

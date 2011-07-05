@@ -1,0 +1,44 @@
+﻿@using MBlog.Models.Post
+@model EditPostViewModel
+
+<section id="blog-post-form">
+    <div id="blog-post-form-header">
+        @ViewBag.Title
+    </div>
+    <div id="blog-post-form-body">
+        @using (Html.BeginForm((string)ViewBag.Action, "post", FormMethod.Post, new { }))
+        {
+            @Html.HiddenFor(m => m.PostId)
+            @Html.HiddenFor(m => m.BlogId)
+            <div>
+                Title:
+            </div>
+            <div>
+                @Html.TextBoxFor(m => m.Title, new { @class = "maxwidth" })
+            </div>
+            <div>
+                @Html.ValidationMessageFor(m => m.Title)
+            </div>
+            <div>
+                Post:
+            </div>
+            <div>
+                <div>
+                    @Html.TextAreaFor(m => m.Post, new { cols = "25", rows = "25", @class = "maxwidth" })
+                </div>
+                <div>
+                    @Html.ValidationMessageFor(m => m.Post)
+                </div>
+            </div>
+            <div>
+            @if (Model.IsCreate)
+            {
+                <input type="submit" value="New Post" />
+            } else
+            {
+                <input type="submit" value="Edit Post" />                
+            }
+            </div>
+        }
+    </div>
+</section>

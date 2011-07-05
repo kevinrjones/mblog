@@ -1,0 +1,32 @@
+﻿@model MBlog.Models.Admin.AdminUserViewModel
+@{
+    ViewBag.Title = "Dashboard";
+    Layout = "~/Views/Admin/_AdminLayout.cshtml";
+}
+<section class="admin-dashboard">
+    <section class="admin-title">
+        <h2>Dashboard</h2>
+    </section>
+    <section class="admin-user">
+        <!-- List blogs. Links to posts. Link to comments. Add new post. Add new blog-->
+        <div id="admin-user-name">@Model.Name</div>
+        <div id="admin-user-manage">
+            <span id="admin-manageblogs-title">Manage Blogs (@Model.Blogs.Count Total)</span>
+            <span class="admin-link">@Html.ActionLink("Create Blog", "new", "Blog", null, null)</span>
+        </div>
+    </section>
+    @foreach (var blog in Model.Blogs)
+    {
+        <section class="admin-manage">
+                <div id="admin-blog-list">
+                    <span>@blog.Title</span>
+                </div>
+            <div id="admin-blog-actions">
+                <span class="admin-link">@Html.ActionLink("New Post", "new", "Post", new { nickname = blog.Nickname, blogId = blog.BlogId }, null)</span>
+                <span class="admin-link">@Html.ActionLink("Edit Posts", "listposts", "Admin", new { nickname = blog.Nickname, blogId = blog.BlogId }, null)</span>
+                <span class="admin-link">@Html.ActionLink("Comments", "listcomments", "Admin", new { nickname = blog.Nickname, blogId = blog.BlogId }, null)</span>
+                <span class="admin-link"><a href="#">Settings</a></span>
+            </div>
+        </section>
+    }
+</section>
