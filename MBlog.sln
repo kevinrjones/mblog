@@ -13,6 +13,13 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Repository", "Repository\Re
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MBlogIntegrationTest", "MBlogIntegrationTest\MBlogIntegrationTest.csproj", "{E40CBEB2-C300-45DD-AC20-0E70E8CF68DD}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Deply", "Deply", "{66B9AA14-9D36-4828-BEE1-75FDA431C118}"
+	ProjectSection(SolutionItems) = preProject
+		Deploy\psake.ps1 = Deploy\psake.ps1
+		Deploy\psake.psm1 = Deploy\psake.psm1
+		Deploy\teamcity.ps1 = Deploy\teamcity.ps1
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU

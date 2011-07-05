@@ -1,13 +1,15 @@
+# for production
+# call like .\deploy.ps1 -properties @{Configuration="Release"; TargetDir="c:\inetpub\wwwroot\mblog"}
+
 properties {
-    $TargetDir = "c:\inetpub\staging\"
     $BaseDir = Resolve-Path "..\"
     $SolutionFile = "$BaseDir\MBlog.sln"
     $ProjectFile = "$BaseDir\MBlog\MBlog.csproj"
     $OutputDir = "$BaseDir\Deploy\Package\"
     $OutputWebDir = "$OutputDir" + "_PublishedWebsites\MBlog"
-    $WebConfigFile = "$OutputWebDir\Web.config"
-    $Debug="false"
     $MsDeploy="C:\Program Files\IIS\Microsoft Web Deploy V2\msdeploy.exe"
+    $TargetDir = "c:\inetpub\wwwroot\staging\"
+    $Configuration="Staging"    
 }
 
 task default -depends Deploy
@@ -16,18 +18,17 @@ task Init {
     cls
 }
 
-task Clean {
+task Clean -depends Init {
     if (Test-Path $OutputDir) {
-        ri $OutputDir -Recurse
+        ri $OutputDir -Recurse -Force
     }
 }
 
-task Build {
-    exec { msbuild $SolutionFile "/p:MvcBuildViews=False;OutDir=$OutputDir" }
-    exec { msbuild $ProjectFile "/t:TransformWebConfig" "/p:MvcBuildViews=False;Configuration=Staging;OutDir=$OutputDir" }
+task Build -depends Clean {
+    exec { msbuild $SolutionFile "/p:MvcBuildViews=False;OutDir=$OutputDir;UseWPP_CopyWebApplication=True;PipelineDependsOnBuild=False;Configuration=$Configuration" }
 }
 
-task Deploy -depends Init,Clean,Build {
-    copy $BaseDir\MBlog\obj\Staging\TransformWebConfig\transformed\Web.config $OutputWebDir
+task Deploy -depends Build {
+    out-host -InputObject $TargetDir
     exec { &$MsDeploy "-verb:sync" "-source:contentPath=$OutputWebDir" "-dest:contentPath=$TargetDir" }
 }
