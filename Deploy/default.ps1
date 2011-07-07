@@ -39,5 +39,8 @@ task DeployDatabase -depends Init {
 
 task Deploy -depends Build, DeployDatabase {
     out-host -InputObject $TargetDir
+    if(!(Test-Path $MSDeploy)) {
+        $MSDeploy = C:\Program Files (x86)\IIS\Microsoft Web Deploy V2\msdeploy.exe
+    }
     exec { &$MsDeploy "-verb:sync" "-source:contentPath=$OutputWebDir" "-dest:contentPath=$TargetDir" }
 }
