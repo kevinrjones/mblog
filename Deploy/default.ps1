@@ -10,6 +10,8 @@ properties {
     $MsDeploy="C:\Program Files\IIS\Microsoft Web Deploy V2\msdeploy.exe"
     $TargetDir = "c:\inetpub\wwwroot\staging\"
     $Configuration="Staging"    
+    $DataBaseEnvironment="staging"    
+    $Database="MBlogModel\Database"
 }
 
 task default -depends Deploy
@@ -28,7 +30,14 @@ task Build -depends Clean {
     exec { msbuild $SolutionFile "/p:MvcBuildViews=False;OutDir=$OutputDir;UseWPP_CopyWebApplication=True;PipelineDependsOnBuild=False;Configuration=$Configuration" }
 }
 
-task Deploy -depends Build {
+task DeployDatabase -depends Init {
+    pushd
+    cd ..\$Database
+    rake RAILS_ENV=$DataBaseEnvironment 
+    popd
+} 
+
+task Deploy -depends Build, DeployDatabase {
     out-host -InputObject $TargetDir
     exec { &$MsDeploy "-verb:sync" "-source:contentPath=$OutputWebDir" "-dest:contentPath=$TargetDir" }
 }
