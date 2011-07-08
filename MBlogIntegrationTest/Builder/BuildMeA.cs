@@ -20,5 +20,9 @@ namespace MBlogIntegrationTest.Builder
         {
             return (CommentBuilder)new CommentBuilder().With(c => { c.CommentText = text; c.Commented = commented; c.Approved = approved; });
         }
+        public static BlacklistBuilder Blacklist(string name)
+        {
+            return (BlacklistBuilder)new BlacklistBuilder().With(b => { b.Name = name; });
+        }
     }
 }

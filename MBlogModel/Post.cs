@@ -29,11 +29,6 @@ namespace MBlogModel
             set { _comments = value; }
         }
 
-        public IEnumerable<Comment> ApprovedComments
-        {
-            get { return Comments.Where(c => c.Approved); }
-        }
-
         public void AddPost(string title, string entry)
         {
             Title = title;

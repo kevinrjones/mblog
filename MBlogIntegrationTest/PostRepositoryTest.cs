@@ -23,6 +23,7 @@ namespace MBlogIntegrationTest
         UserRepository _userRepository;
         PostRepository _postRepository;
         private Blog _blog1;
+        private Post _post2;
 
         [SetUp]
         public void Setup()
@@ -39,7 +40,7 @@ namespace MBlogIntegrationTest
             _user1 = BuildMeA.User("email", "name", "password")
                               .WithBlog(_blog1);
 
-            Post _post2 = BuildMeA.Post("Title", "Entry", DateTime.Today);
+            _post2 = BuildMeA.Post("Title", "Entry", DateTime.Today, false);
 
             Blog blog2 = BuildMeA
                 .Blog("title", "description", "nickname2")
@@ -47,8 +48,6 @@ namespace MBlogIntegrationTest
 
             _user2 = BuildMeA.User("email", "name2", "password")
                               .WithBlog(blog2);
-
-            List<Post> posts = new List<Post>();    
 
             _userRepository = new UserRepository(ConfigurationManager.ConnectionStrings["testdb"].ConnectionString);
             _postRepository = new PostRepository(ConfigurationManager.ConnectionStrings["testdb"].ConnectionString);
@@ -78,6 +77,19 @@ namespace MBlogIntegrationTest
 
         [Test]
         public void GivenASetOfBlogPosts_WhenIGetAllPosts_ThenIGetTheCorrectPosts()
+        {
+            _userRepository.Create(_user1);
+            _userRepository.Create(_user2);
+
+            IEnumerable<Post> newPosts = _postRepository.GetPosts();
+
+            Assert.That(newPosts, Is.Not.Null);
+            Assert.That(newPosts.Count(), Is.EqualTo(2));
+        }
+
+
+        [Test]
+        public void GivenASetOfBlogPosts_WhenIGetAllPostsForANulllUser_ThenIGetTheCorrectPosts()
         {
             _userRepository.Create(_user1);
             _userRepository.Create(_user2);
@@ -405,6 +417,13 @@ namespace MBlogIntegrationTest
         }
 
         [Test]
+        public void GivenThereIsAPostWherCommentsAreDisabled_WhenIAddAComment_TheCommentIGetAnException()
+        {
+            _userRepository.Create(_user2);
+            Assert.Throws<MBlogException>(() => _postRepository.AddComment(_post2.Id, "CommentName", "Comment Text"));
+        }
+
+        [Test]
         public void GivenThereIsAPost_WhenIAddAComment_TheCommentIsAdded()
         {
             _userRepository.Create(_user1);
@@ -449,6 +468,23 @@ namespace MBlogIntegrationTest
             _postRepository.Create(post);
 
             Assert.That(post.Id, Is.Not.EqualTo(0));
+        }
+
+        [Test]
+        public void GivenABlogId_WhenIAskForItsPosts_ThenIGetAllThePosts()
+        {
+            _userRepository.Create(_user1);
+            IList<Post> posts = _postRepository.GetBlogPosts(_blog1.Id);
+
+            Assert.That(posts.Count, Is.EqualTo(1));
+        }
+
+        [Test]
+        public void GivenAnInvalidBlogId_WhenIAskForItsPosts_ThenIGetNoPosts()
+        {
+            IList<Post> posts = _postRepository.GetBlogPosts(_blog1.Id);
+
+            Assert.That(posts.Count, Is.EqualTo(0));
         }
 
         [TearDown]

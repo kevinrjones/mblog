@@ -34,13 +34,13 @@ namespace MBlogRepository.Repositories
         {
             if (string.IsNullOrEmpty(nickname))
             {
-                return (GetPostsAndComments()).ToList();
+                return (IList<Post>)GetPosts();
             }
             return SelectAllForNickname(nickname);
         }
 
         public IList<Post> GetBlogPosts(int blogId)
-        {
+        {            
             return (from e in Entities
                     where e.BlogId == blogId
                     select e).ToList();
