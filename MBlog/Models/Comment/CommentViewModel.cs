@@ -5,11 +5,6 @@ namespace MBlog.Models.Comment
 {
     public class CommentViewModel
     {
-        public CommentViewModel()
-        {
-            
-        }
-
         public CommentViewModel(MBlogModel.Comment comment)
         {
             Comment = BBCode.ToHtml(comment.CommentText);

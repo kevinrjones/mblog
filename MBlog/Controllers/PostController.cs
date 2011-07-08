@@ -99,11 +99,6 @@ namespace MBlog.Controllers
             return GetPosts(postLinkViewModel, blog, posts, postsViewModel);
         }
 
-        public string Delete()
-        {
-            return "";
-        }
-
         private ActionResult CreatePost(CreatePostViewModel model)
         {
             var post = new Post
@@ -124,7 +119,7 @@ namespace MBlog.Controllers
             var post = _blogPostRepository.GetBlogPost(model.PostId);
             if (post == null)
             {
-                throw new Exception("postId not valid");
+                throw new MBlogException("postId not valid");
             }
             post.UpdatePost(model.Title, model.Post);
             _blogPostRepository.Add(post);

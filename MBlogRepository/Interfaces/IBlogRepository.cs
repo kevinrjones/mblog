@@ -9,6 +9,6 @@ namespace MBlogRepository.Interfaces
 {
     public interface IBlogRepository : IRepository<Blog>
     {
-        Blog GetBlog(string name);
+        Blog GetBlog(string nickname);
     }
 }

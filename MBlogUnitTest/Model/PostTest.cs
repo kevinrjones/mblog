@@ -5,6 +5,7 @@ using System.Linq;
 using System.Web.Mvc;
 using MBlog.Controllers;
 using MBlog.Models;
+using MBlog.Models.Validators;
 using MBlogModel;
 using MBlogRepository;
 using Moq;

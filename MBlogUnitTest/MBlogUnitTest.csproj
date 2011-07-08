@@ -60,16 +60,19 @@
   <ItemGroup>
     <Compile Include="Controllers\AdminControllerTest.cs" />
     <Compile Include="Controllers\BaseControllerTests.cs" />
+    <Compile Include="Controllers\CommentControllerTest.cs" />
     <Compile Include="Controllers\HomeControllerTest.cs" />
     <Compile Include="Controllers\PostControllerTest.cs" />
     <Compile Include="Controllers\UserControllerTest.cs" />
     <Compile Include="Filters\GetCookieUserFilterAttributeTest.cs" />
     <Compile Include="Model\UserTest.cs" />
     <Compile Include="Model\PostTest.cs" />
+    <Compile Include="Model\ValidatorTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Helpers\FakeResponse.cs" />
     <Compile Include="Routing\InboundRoutingTests.cs" />
     <Compile Include="Routing\OutboundRoutingTests.cs" />
+    <Compile Include="ViewModel\CreatePostViewModelTest.cs" />
     <Compile Include="ViewModel\UserViewModelTest.cs" />
   </ItemGroup>
   <ItemGroup>

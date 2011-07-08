@@ -14,10 +14,10 @@ namespace MBlogRepository.Repositories
         {
         }
 
-        public Blog GetBlog(string name)
+        public Blog GetBlog(string nickname)
         {
             return (from b in Entities
-                   where b.Nickname == name
+                   where b.Nickname == nickname
                    select b).FirstOrDefault();
         }
     }
