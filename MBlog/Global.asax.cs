@@ -30,25 +30,29 @@ namespace MBlog
             routes.MapRoute(
                 "Blog-new",
                 "blog/new",
-                new { controller = "Blog", action = "New" }
+                new { controller = "Blog", action = "New" },
+                new { httpMethod = new HttpMethodConstraint("GET") }
                 );
 
             routes.MapRoute(
                 "Blog-create",
                 "blog/create",
-                new { controller = "Blog", action = "Create" }
+                new { controller = "Blog", action = "Create" },
+                new { httpMethod = new HttpMethodConstraint("POST") }
                 );
 
             routes.MapRoute(
                 "Blog-update",
                 "blog/update",
-                new { controller = "Blog", action = "Update" }
+                new { controller = "Blog", action = "Update" },
+                new { httpMethod = new HttpMethodConstraint("POST") }
                 );
 
             routes.MapRoute(
                 "Blog-edit",
                 "blog/edit",
-                new { controller = "Blog", action = "Edit" }
+                new { controller = "Blog", action = "Edit" },
+                new { httpMethod = new HttpMethodConstraint("GET") }
                 );
 
             routes.MapRoute(
@@ -78,25 +82,29 @@ namespace MBlog
             routes.MapRoute(
                 "Posts-new",
                 "{nickname}/new/{blogId}",
-                new { controller = "Post", action = "New" }
+                new { controller = "Post", action = "New" },
+                new { httpMethod = new HttpMethodConstraint("GET") }
                 );
 
             routes.MapRoute(
                 "Posts-create",
                 "{nickname}/create",
-                new { controller = "Post", action = "Create" }
+                new { controller = "Post", action = "Create" },
+                new { httpMethod = new HttpMethodConstraint("POST") }
                 );
 
             routes.MapRoute(
                 "Posts-update",
                 "{nickname}/update",
-                new { controller = "Post", action = "Update" }
+                new { controller = "Post", action = "Update" },
+                new { httpMethod = new HttpMethodConstraint("POST") }
                 );
 
             routes.MapRoute(
                 "Posts-edit",
                 "{nickname}/edit/{blogId}/{postId}",
-                new { controller = "Post", action = "Edit" }
+                new { controller = "Post", action = "Edit" },
+                new { httpMethod = new HttpMethodConstraint("GET") }
                 );
 
             routes.MapRoute(
