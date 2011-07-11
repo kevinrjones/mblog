@@ -40,15 +40,7 @@ namespace MBlog.Controllers
         private ActionResult CreateBlog(CreateBlogViewModel model)
         {
             var user = HttpContext.User as UserViewModel;
-            var blog = new Blog
-                           {
-                               Title = model.Title,
-                               Description = model.Description,
-                               ApproveComments = model.ApproveComments,
-                               CommentsEnabled = model.CommentsEnabled,
-                               Nickname = model.Nickname,
-                               UserId = user.Id
-                           };
+            var blog = new Blog(model.Title,model.Description,model.ApproveComments,model.CommentsEnabled,model.Nickname,user.Id);
             BlogRepository.Create(blog);
             return RedirectToRoute(new { controller = "admin", action = "Index" });
 

@@ -25,22 +25,11 @@ namespace MBlog.Controllers
         public ActionResult Index()
         {
             UserViewModel user = HttpContext.User as UserViewModel;
-            if (!IsLoggedInUser(user))
-            {
-                return RedirectToAction("login", "user");
-            }
+            if (!IsLoggedInUser(user)) return RedirectToAction("login", "user");
+
             var users = UserRepository.GetUserWithTheirBlogs(user.Id);
-            AdminUserViewModel adminUserViewModel = new AdminUserViewModel { Name = user.Name, UserId = user.Id};
-            foreach (Blog blog in users.Blogs)
-            {
-                adminUserViewModel.Blogs.Add(new AdminBlogViewModel
-                                                 {
-                                                     BlogId = blog.Id,
-                                                     Nickname = blog.Nickname,
-                                                     Title = blog.Title,
-                                                     Description = blog.Description
-                                                 });
-            }
+            AdminUserViewModel adminUserViewModel = new AdminUserViewModel { Name = user.Name, UserId = user.Id };
+            adminUserViewModel.AddBlogs(users.Blogs);
             return View(adminUserViewModel);
         }
 
@@ -50,11 +39,7 @@ namespace MBlog.Controllers
             if (RedirectIfInvalidUser(model.Nickname, model.BlogId, out redirectToAction)) return redirectToAction;
             var posts = _postRepository.GetBlogPosts(model.BlogId);
             PostsViewModel postsViewModel = new PostsViewModel { BlogId = model.BlogId, Nickname = model.Nickname };
-            foreach (var post in posts)
-            {
-                PostViewModel pvm = new PostViewModel(post);
-                postsViewModel.Posts.Add(pvm);
-            }
+            postsViewModel.AddPosts(posts);
             return View(postsViewModel);
         }
 

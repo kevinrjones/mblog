@@ -16,5 +16,19 @@ namespace MBlog.Models.Admin
             get { return _blogs; }
             set { _blogs = value; }
         }
+
+        public void AddBlogs(ICollection<MBlogModel.Blog> blogs)
+        {
+            foreach (MBlogModel.Blog blog in blogs)
+            {
+                Blogs.Add(new AdminBlogViewModel
+                {
+                    BlogId = blog.Id,
+                    Nickname = blog.Nickname,
+                    Title = blog.Title,
+                    Description = blog.Description
+                });
+            }
+        }
     }
 }

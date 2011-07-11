@@ -12,6 +12,17 @@ namespace MBlogModel
         {
             Posts = new List<Post>();
         }
+
+        public Blog(string title, string description, bool approveComments, bool commentsEnabled, string nickname, int userId) : this()
+        {
+            ApproveComments = approveComments;
+            Nickname = nickname;
+            UserId = userId;
+            Title = title;
+            Description = description;
+            CommentsEnabled = commentsEnabled;
+        }
+
         public int Id { get; set; }
 
         [Column("user_id")]

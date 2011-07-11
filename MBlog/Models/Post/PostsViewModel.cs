@@ -16,5 +16,14 @@ namespace MBlog.Models.Post
 
         public int BlogId { get; set; }
         public string Nickname { get; set; }
+
+        public void AddPosts(IList<MBlogModel.Post> posts)
+        {
+            foreach (var post in posts)
+            {
+                PostViewModel pvm = new PostViewModel(post);
+                Posts.Add(pvm);
+            }
+        }
     }
 }
