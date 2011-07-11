@@ -1,14 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
-
-namespace MBlog.Models.Admin
+﻿namespace MBlog.Models.Admin
 {
     public class AdminBlogViewModel
     {
-        public string Nickname { get; set; }
         private string _title;
+        public string Nickname { get; set; }
 
         public string Title
         {

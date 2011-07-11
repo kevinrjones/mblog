@@ -14,6 +14,8 @@ namespace MBlog.Infrastructure
             _container = container;
         }
 
+        #region IDependencyResolver Members
+
         public object GetService(Type serviceType)
         {
             try
@@ -37,5 +39,7 @@ namespace MBlog.Infrastructure
                 return new List<object>();
             }
         }
+
+        #endregion
     }
 }

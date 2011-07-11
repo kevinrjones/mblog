@@ -1,11 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
-using System.Web.Mvc;
-using CodeKicker.BBCode;
+﻿using System.Web.Mvc;
 using MBlog.Models.Comment;
-using MBlogModel;
 using MBlogRepository.Interfaces;
 
 namespace MBlog.Controllers
@@ -14,7 +8,8 @@ namespace MBlog.Controllers
     {
         private readonly IPostRepository _postRepository;
 
-        public CommentController(IPostRepository postRepository, IUserRepository userRepository, IBlogRepository blogRepository)
+        public CommentController(IPostRepository postRepository, IUserRepository userRepository,
+                                 IBlogRepository blogRepository)
             : base(userRepository, blogRepository)
         {
             _postRepository = postRepository;

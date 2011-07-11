@@ -82,7 +82,7 @@ namespace MBlogUnitTest.Controllers
             RedirectToRouteResult result = _controller.DoLogin(new LoginUserViewModel { Email = "email@mail.com", Password = password }) as RedirectToRouteResult;
 
             Assert.That(result, Is.Not.Null);
-            Assert.That(result.RouteValues["controller"], Is.EqualTo("admin"));
+            Assert.That(result.RouteValues["controller"], Is.EqualTo("Admin").IgnoreCase);
             Assert.That(result.RouteValues["action"], Is.EqualTo("Index"));
         }
 

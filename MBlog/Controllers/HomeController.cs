@@ -1,12 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
+﻿using System.Collections.Generic;
 using System.Web.Mvc;
-using MBlog.Models;
 using MBlog.Models.Home;
-using MBlog.Models.User;
-using MBlogRepository;
+using MBlogModel;
 using MBlogRepository.Interfaces;
 
 namespace MBlog.Controllers
@@ -15,7 +10,8 @@ namespace MBlog.Controllers
     {
         private readonly IPostRepository _postRepository;
 
-        public HomeController(IUserRepository userRepository, IPostRepository postRepository, IBlogRepository blogRepository)
+        public HomeController(IUserRepository userRepository, IPostRepository postRepository,
+                              IBlogRepository blogRepository)
             : base(userRepository, blogRepository)
         {
             _postRepository = postRepository;
@@ -23,7 +19,7 @@ namespace MBlog.Controllers
 
         public ActionResult Index()
         {
-            HomePageViewModel model = new HomePageViewModel();
+            var model = new HomePageViewModel();
 
             GetUsersAndBlogs(model);
             GetPosts(model);
@@ -33,15 +29,14 @@ namespace MBlog.Controllers
 
         private void GetPosts(HomePageViewModel homePageViewModel)
         {
-            var posts = _postRepository.GetPosts();
+            IEnumerable<Post> posts = _postRepository.GetPosts();
             homePageViewModel.Add(posts);
         }
 
         private void GetUsersAndBlogs(HomePageViewModel homePageViewModel)
         {
-            var users = UserRepository.GetUsersWithTheirBlogs();
+            IEnumerable<User> users = UserRepository.GetUsersWithTheirBlogs();
             homePageViewModel.Add(users);
-
         }
     }
 }

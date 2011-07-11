@@ -2,10 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Web.Mvc;
-using CodeKicker.BBCode;
-using MBlog.Models.Comment;
 using MBlog.Models.Post;
-using MBlog.Models.User;
 using MBlogModel;
 using MBlogRepository.Interfaces;
 
@@ -15,7 +12,9 @@ namespace MBlog.Controllers
     public class PostController : BaseController
     {
         private readonly IPostRepository _blogPostRepository;
-        public PostController(IBlogRepository blogRepository, IPostRepository blogPostRepository, IUserRepository userRepository)
+
+        public PostController(IBlogRepository blogRepository, IPostRepository blogPostRepository,
+                              IUserRepository userRepository)
             : base(userRepository, blogRepository)
         {
             BlogRepository = blogRepository;
@@ -25,7 +24,7 @@ namespace MBlog.Controllers
         public ActionResult Index(string nickname)
         {
             var postsViewModel = new PostsViewModel();
-            var posts = _blogPostRepository.GetBlogPosts(nickname);
+            IList<Post> posts = _blogPostRepository.GetBlogPosts(nickname);
             postsViewModel.AddPosts(posts);
             return View(postsViewModel);
         }
@@ -35,7 +34,7 @@ namespace MBlog.Controllers
         {
             ActionResult redirectToAction;
             if (RedirectIfInvalidUser(nickname, blogId, out redirectToAction)) return redirectToAction;
-            return View(new EditPostViewModel { BlogId = blogId, IsCreate = true });
+            return View(new EditPostViewModel {BlogId = blogId, IsCreate = true});
         }
 
         [HttpPost]
@@ -58,7 +57,8 @@ namespace MBlog.Controllers
             ActionResult redirectToAction;
             if (RedirectIfInvalidUser(nickname, blogId, out redirectToAction)) return redirectToAction;
             Post post = _blogPostRepository.GetBlogPost(postId);
-            return View(new EditPostViewModel { BlogId = blogId, PostId = postId, Title = post.Title, Post = post.BlogPost });
+            return
+                View(new EditPostViewModel {BlogId = blogId, PostId = postId, Title = post.Title, Post = post.BlogPost});
         }
 
         [HttpPost]
@@ -78,7 +78,9 @@ namespace MBlog.Controllers
         public ActionResult Show(PostLinkViewModel postLinkViewModel)
         {
             var postsViewModel = new PostsViewModel();
-            var posts = _blogPostRepository.GetBlogPosts(postLinkViewModel.Year, postLinkViewModel.Month, postLinkViewModel.Day, postLinkViewModel.Nickname, postLinkViewModel.Link);
+            IList<Post> posts = _blogPostRepository.GetBlogPosts(postLinkViewModel.Year, postLinkViewModel.Month,
+                                                                 postLinkViewModel.Day, postLinkViewModel.Nickname,
+                                                                 postLinkViewModel.Link);
 
             var modelStateDictionary = TempData["comment"] as ModelStateDictionary;
 
@@ -93,28 +95,29 @@ namespace MBlog.Controllers
         private ActionResult CreatePost(CreatePostViewModel model)
         {
             var post = new Post
-            {
-                Title = model.Title,
-                BlogPost = model.Post,
-                Edited = DateTime.UtcNow,
-                Posted = DateTime.UtcNow,
-                BlogId = model.BlogId,
-                CommentsEnabled = true, //todo: get this from the admin
-            };
+                           {
+                               Title = model.Title,
+                               BlogPost = model.Post,
+                               Edited = DateTime.UtcNow,
+                               Posted = DateTime.UtcNow,
+                               BlogId = model.BlogId,
+                               CommentsEnabled = true,
+                               //todo: get this from the admin
+                           };
             _blogPostRepository.Create(post);
-            return RedirectToRoute(new { controller = "admin", action = "Index" });
+            return RedirectToRoute(new {controller = "Admin", action = "Index"});
         }
 
         private ActionResult UpdatePost(EditPostViewModel model)
         {
-            var post = _blogPostRepository.GetBlogPost(model.PostId);
+            Post post = _blogPostRepository.GetBlogPost(model.PostId);
             if (post == null)
             {
                 throw new MBlogException("postId not valid");
             }
             post.UpdatePost(model.Title, model.Post);
             _blogPostRepository.Add(post);
-            return RedirectToRoute(new { controller = "admin", action = "Index" });
+            return RedirectToRoute(new {controller = "Admin", action = "Index"});
         }
 
         private ActionResult GetPosts(PostLinkViewModel model, IList<Post> posts, PostsViewModel postsViewModel)

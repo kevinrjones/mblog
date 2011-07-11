@@ -1,9 +1,7 @@
 ﻿using System;
-using System.Web;
 using System.Web.Mvc;
 using MBlog.Controllers;
 using MBlog.Infrastructure;
-using MBlog.Models;
 using MBlog.Models.User;
 using MBlogModel;
 
@@ -15,14 +13,14 @@ namespace MBlog.Filters
 
         public override void OnActionExecuting(ActionExecutingContext filterContext)
         {
-            BaseController controller = filterContext.Controller as BaseController;
+            var controller = filterContext.Controller as BaseController;
             if (controller != null)
             {
-                UserViewModel userViewModel = new UserViewModel { IsLoggedIn = false };
+                var userViewModel = new UserViewModel {IsLoggedIn = false};
                 if (filterContext.HttpContext.Request.Cookies[UserCookie] != null)
                 {
                     string cookie = filterContext.HttpContext.Request.Cookies[UserCookie].Value;
-                    var cipherText = Convert.FromBase64String(cookie);
+                    byte[] cipherText = Convert.FromBase64String(cookie);
                     string plainText = cipherText.Decrypt();
                     int id;
                     if (int.TryParse(plainText, out id))

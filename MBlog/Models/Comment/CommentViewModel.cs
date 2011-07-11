@@ -17,6 +17,5 @@ namespace MBlog.Models.Comment
         public string Comment { get; set; }
         public string EMail { get; set; }
         public DateTime Commented { get; set; }
-
     }
 }

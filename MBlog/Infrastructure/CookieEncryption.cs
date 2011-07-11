@@ -9,9 +9,12 @@ namespace MBlog.Infrastructure
     public static class CookieEncryption
     {
         private static readonly byte[] Salt = Encoding.Default.GetBytes(ConfigurationManager.AppSettings["salt"]);
-        private static readonly Rfc2898DeriveBytes KeyGenerator = new Rfc2898DeriveBytes(ConfigurationManager.AppSettings["keyphrase"], Salt);
-        private static byte[] _keyValue = null;
-        private static byte[] _ivValue = null;
+
+        private static readonly Rfc2898DeriveBytes KeyGenerator =
+            new Rfc2898DeriveBytes(ConfigurationManager.AppSettings["keyphrase"], Salt);
+
+        private static byte[] _keyValue;
+        private static byte[] _ivValue;
 
         private static byte[] Key
         {
@@ -65,7 +68,7 @@ namespace MBlog.Infrastructure
 
             string plaintext = null;
 
-            using (AesCryptoServiceProvider aesAlg = new AesCryptoServiceProvider())
+            using (var aesAlg = new AesCryptoServiceProvider())
             {
                 aesAlg.Key = Key;
                 aesAlg.IV = InitializationVector;
@@ -99,11 +102,11 @@ namespace MBlog.Infrastructure
         private static string Decrypt(byte[] cipherText, ICryptoTransform transform)
         {
             string plaintext;
-            using (MemoryStream msDecrypt = new MemoryStream(cipherText))
+            using (var msDecrypt = new MemoryStream(cipherText))
             {
-                using (CryptoStream csDecrypt = new CryptoStream(msDecrypt, transform, CryptoStreamMode.Read))
+                using (var csDecrypt = new CryptoStream(msDecrypt, transform, CryptoStreamMode.Read))
                 {
-                    using (StreamReader srDecrypt = new StreamReader(csDecrypt))
+                    using (var srDecrypt = new StreamReader(csDecrypt))
                     {
                         plaintext = srDecrypt.ReadToEnd();
                     }

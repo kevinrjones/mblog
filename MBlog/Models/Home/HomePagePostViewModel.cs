@@ -15,7 +15,9 @@ namespace MBlog.Models.Home
             _postViewModel = postViewModel;
         }
 
-        public HomePagePostViewModel() : this(new PostViewModel()) { }
+        public HomePagePostViewModel() : this(new PostViewModel())
+        {
+        }
 
         public string Title
         {
@@ -27,7 +29,6 @@ namespace MBlog.Models.Home
         {
             get
             {
-                //const int maxEntryLength = 200;
                 if (_postViewModel.Post.Length > MaxLength)
                 {
                     var doc = new HtmlDocument();
@@ -35,10 +36,10 @@ namespace MBlog.Models.Home
                     doc.OptionAutoCloseOnEnd = false;
                     doc.OptionFixNestedTags = true;
                     doc.OptionWriteEmptyNodes = true;
-                    string post = _postViewModel.Post.Substring(0, MaxLength - 3) + "..."; 
+                    string post = _postViewModel.Post.Substring(0, MaxLength - 3) + "...";
                     doc.LoadHtml(post);
-                    StringWriter writer = new StringWriter();
-                    doc.Save(writer);                
+                    var writer = new StringWriter();
+                    doc.Save(writer);
 
                     return writer.ToString();
                 }

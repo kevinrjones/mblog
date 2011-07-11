@@ -1,16 +1,13 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
-using MBlogModel;
+﻿using System.Collections.Generic;
 
 namespace MBlog.Models.Admin
 {
     public class AdminUserViewModel
     {
+        private List<AdminBlogViewModel> _blogs = new List<AdminBlogViewModel>();
         public int UserId { get; set; }
         public string Name { get; set; }
-        private List<AdminBlogViewModel> _blogs = new List<AdminBlogViewModel>();
+
         public List<AdminBlogViewModel> Blogs
         {
             get { return _blogs; }
@@ -22,12 +19,12 @@ namespace MBlog.Models.Admin
             foreach (MBlogModel.Blog blog in blogs)
             {
                 Blogs.Add(new AdminBlogViewModel
-                {
-                    BlogId = blog.Id,
-                    Nickname = blog.Nickname,
-                    Title = blog.Title,
-                    Description = blog.Description
-                });
+                              {
+                                  BlogId = blog.Id,
+                                  Nickname = blog.Nickname,
+                                  Title = blog.Title,
+                                  Description = blog.Description
+                              });
             }
         }
     }

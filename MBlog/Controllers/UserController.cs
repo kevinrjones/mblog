@@ -13,7 +13,8 @@ namespace MBlog.Controllers
     {
         private readonly IUsernameBlacklistRepository _usernameBlacklistRepository;
 
-        public UserController(IUserRepository userRepository, IUsernameBlacklistRepository usernameBlacklistRepository, IBlogRepository blogRepository)
+        public UserController(IUserRepository userRepository, IUsernameBlacklistRepository usernameBlacklistRepository,
+                              IBlogRepository blogRepository)
             : base(userRepository, blogRepository)
         {
             _usernameBlacklistRepository = usernameBlacklistRepository;
@@ -26,7 +27,7 @@ namespace MBlog.Controllers
             {
                 return View();
             }
-            return RedirectToAction("index", "admin");
+            return RedirectToAction("index", "Admin");
         }
 
         [HttpPost]
@@ -40,7 +41,7 @@ namespace MBlog.Controllers
             if (user != null && user.MatchPassword(userViewModel.Password))
             {
                 UpdateCookiesAndContext(user);
-                return RedirectToRoute(new { action = "Index", controller = "admin" });
+                return RedirectToRoute(new {action = "Index", controller = "Admin"});
             }
             return View("Login");
         }
@@ -51,8 +52,8 @@ namespace MBlog.Controllers
             if (!HttpContext.User.Identity.IsAuthenticated)
             {
                 return View();
-            }            
-            return RedirectToAction("index", "admin");
+            }
+            return RedirectToAction("index", "Admin");
         }
 
         [HttpPost]
@@ -67,7 +68,7 @@ namespace MBlog.Controllers
             user = new User(userViewModel.Name, userViewModel.Email, userViewModel.Password, false);
             UserRepository.Create(user);
             UpdateCookiesAndContext(user);
-            return RedirectToAction("index", "admin");
+            return RedirectToAction("index", "Admin");
         }
 
         private bool IsRegistrationValid(UserViewModel userViewModel, User user)
@@ -99,7 +100,7 @@ namespace MBlog.Controllers
                 Response.Cookies.Add(cookie);
                 HttpContext.User = null;
             }
-            return RedirectToAction("index", "home");
+            return RedirectToAction("index", "Home");
         }
 
         private void UpdateCookiesAndContext(User user)
@@ -107,8 +108,7 @@ namespace MBlog.Controllers
             byte[] cipherText = user.Id.ToString().Encrypt();
             string base64CipherText = Convert.ToBase64String(cipherText);
             Response.Cookies.Add(new HttpCookie(GetCookieUserFilterAttribute.UserCookie, base64CipherText));
-            HttpContext.User = new UserViewModel { Email = user.Email, Name = user.Name, IsLoggedIn = true };
+            HttpContext.User = new UserViewModel {Email = user.Email, Name = user.Name, IsLoggedIn = true};
         }
-
     }
 }

@@ -12,10 +12,8 @@ namespace MBlog.Models.User
         {
             Nicknames = new List<string>();
         }
-        public int Id { get; set; }
 
-        [Required]
-        public string Name { get; set; }
+        public int Id { get; set; }
 
         [Required]
         public string Email { get; set; }
@@ -30,6 +28,13 @@ namespace MBlog.Models.User
         [Editable(false)]
         public bool IsLoggedIn { get; set; }
 
+        public List<string> Nicknames { get; set; }
+
+        #region IIdentity Members
+
+        [Required]
+        public string Name { get; set; }
+
         public string AuthenticationType
         {
             get { return "Cookie"; }
@@ -39,6 +44,10 @@ namespace MBlog.Models.User
         {
             get { return IsLoggedIn; }
         }
+
+        #endregion
+
+        #region IPrincipal Members
 
         public bool IsInRole(string role)
         {
@@ -50,21 +59,25 @@ namespace MBlog.Models.User
             get { return this; }
         }
 
+        #endregion
+
+        #region IValidatableObject Members
+
         public IEnumerable<ValidationResult> Validate(ValidationContext validationContext)
         {
             if (Password != RepeatPassword)
-                yield return new ValidationResult("The passwords fields must match", new[] { "Password" });
+                yield return new ValidationResult("The passwords fields must match", new[] {"Password"});
         }
+
+        #endregion
 
         public bool IsBlogOwner(string nickname)
         {
-            var result = (from n in Nicknames
+            int result = (from n in Nicknames
                           where n == nickname
                           select n).Count();
 
             return result != 0;
         }
-
-        public List<string> Nicknames { get; set; }
     }
 }

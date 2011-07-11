@@ -5,7 +5,7 @@ namespace MBlog.Models.Post
     public class PostsViewModel
     {
         private List<PostViewModel> _posts = new List<PostViewModel>();
-        
+
         public List<PostViewModel> Posts
         {
             get { return _posts; }
@@ -19,9 +19,9 @@ namespace MBlog.Models.Post
 
         public void AddPosts(IList<MBlogModel.Post> posts)
         {
-            foreach (var post in posts)
+            foreach (MBlogModel.Post post in posts)
             {
-                PostViewModel pvm = new PostViewModel(post);
+                var pvm = new PostViewModel(post);
                 pvm.CommentsEnabled = post.CommentsEnabled && post.Blog.CommentsEnabled;
                 Posts.Add(pvm);
             }

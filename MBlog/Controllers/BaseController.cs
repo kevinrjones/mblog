@@ -2,9 +2,8 @@
 using System.Web;
 using System.Web.Mvc;
 using MBlog.Filters;
-using MBlog.Models;
 using MBlog.Models.User;
-using MBlogRepository;
+using MBlogModel;
 using MBlogRepository.Interfaces;
 
 namespace MBlog.Controllers
@@ -12,14 +11,14 @@ namespace MBlog.Controllers
     [GetCookieUserFilter]
     public class BaseController : Controller
     {
-        protected internal IUserRepository UserRepository { get; set; }
-        public IBlogRepository BlogRepository { get; set; }
-
         public BaseController(IUserRepository userRepository, IBlogRepository blogRepository)
         {
             UserRepository = userRepository;
             BlogRepository = blogRepository;
         }
+
+        protected internal IUserRepository UserRepository { get; set; }
+        public IBlogRepository BlogRepository { get; set; }
 
         protected override void OnException(ExceptionContext filterContext)
         {
@@ -30,7 +29,7 @@ namespace MBlog.Controllers
                     return;
 
                 // since we're handling this, log to elmah
-                var ex = filterContext.Exception ?? new Exception("No further information exists.");
+                Exception ex = filterContext.Exception ?? new Exception("No further information exists.");
                 //LogException(ex);
                 filterContext.ExceptionHandled = true;
                 if ((ex.GetType() != typeof (HttpRequestValidationException)))
@@ -54,7 +53,7 @@ namespace MBlog.Controllers
 
         private bool UserOwnsBlog(string nickname, int blogId)
         {
-            var blog = BlogRepository.GetBlog(nickname);
+            Blog blog = BlogRepository.GetBlog(nickname);
             return blog.Id == blogId;
         }
 
@@ -63,7 +62,7 @@ namespace MBlog.Controllers
             var user = HttpContext.User as UserViewModel;
             if (!IsLoggedInUser(user) || !UserOwnsBlog(nickname, blogId))
             {
-                redirectToAction = RedirectToAction("login", "user");
+                redirectToAction = RedirectToAction("login", "User");
                 return true;
             }
             redirectToAction = null;
@@ -74,8 +73,8 @@ namespace MBlog.Controllers
     public class ErrorPresentation
     {
         public string ErrorMessage;
-        public Exception TheException;
-        public bool ShowMessage;
         public bool ShowLink;
+        public bool ShowMessage;
+        public Exception TheException;
     }
 }

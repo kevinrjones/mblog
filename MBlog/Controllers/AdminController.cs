@@ -1,9 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
+﻿using System.Collections.Generic;
 using System.Web.Mvc;
-using MBlog.Models;
 using MBlog.Models.Admin;
 using MBlog.Models.Post;
 using MBlog.Models.User;
@@ -16,7 +12,8 @@ namespace MBlog.Controllers
     {
         private readonly IPostRepository _postRepository;
 
-        public AdminController(IUserRepository userRepository, IPostRepository postRepository, IBlogRepository blogRepository)
+        public AdminController(IUserRepository userRepository, IPostRepository postRepository,
+                               IBlogRepository blogRepository)
             : base(userRepository, blogRepository)
         {
             _postRepository = postRepository;
@@ -24,11 +21,11 @@ namespace MBlog.Controllers
 
         public ActionResult Index()
         {
-            UserViewModel user = HttpContext.User as UserViewModel;
-            if (!IsLoggedInUser(user)) return RedirectToAction("login", "user");
+            var user = HttpContext.User as UserViewModel;
+            if (!IsLoggedInUser(user)) return RedirectToAction("login", "User");
 
-            var users = UserRepository.GetUserWithTheirBlogs(user.Id);
-            AdminUserViewModel adminUserViewModel = new AdminUserViewModel { Name = user.Name, UserId = user.Id };
+            User users = UserRepository.GetUserWithTheirBlogs(user.Id);
+            var adminUserViewModel = new AdminUserViewModel {Name = user.Name, UserId = user.Id};
             adminUserViewModel.AddBlogs(users.Blogs);
             return View(adminUserViewModel);
         }
@@ -37,8 +34,8 @@ namespace MBlog.Controllers
         {
             ActionResult redirectToAction;
             if (RedirectIfInvalidUser(model.Nickname, model.BlogId, out redirectToAction)) return redirectToAction;
-            var posts = _postRepository.GetBlogPosts(model.BlogId);
-            PostsViewModel postsViewModel = new PostsViewModel { BlogId = model.BlogId, Nickname = model.Nickname };
+            IList<Post> posts = _postRepository.GetBlogPosts(model.BlogId);
+            var postsViewModel = new PostsViewModel {BlogId = model.BlogId, Nickname = model.Nickname};
             postsViewModel.AddPosts(posts);
             return View(postsViewModel);
         }

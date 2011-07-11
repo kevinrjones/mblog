@@ -1,8 +1,8 @@
 namespace MBlog.Models.Blog
 {
-    public class CreateBlogViewModel 
+    public class CreateBlogViewModel
     {
-        public bool ApproveComments { get; set; }    
+        public bool ApproveComments { get; set; }
         public bool IsCreate { get; set; }
         public string Title { get; set; }
         public string Description { get; set; }
