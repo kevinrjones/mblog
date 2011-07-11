@@ -13,6 +13,14 @@ namespace MBlogModel
             Blogs = new List<Blog>();
         }
 
+        public User(string name, string email, string password, bool isAdmin) : this()
+        {
+            Name = name;
+            Email = email;
+            IsSiteAdmin = isAdmin;
+            GeneratePassword(password);
+        }
+
         public virtual int Id { get; set; }
 
         [Required]
@@ -38,14 +46,6 @@ namespace MBlogModel
         public virtual string Password
         {
             set { HashedPassword = GenerateHashedPasswordFromPlaintext(value); }
-        }
-
-        public void AddUserDetails(string name, string email, string password, bool isAdmin)
-        {
-            Name = name;
-            Email = email;
-            IsSiteAdmin = isAdmin;
-            GeneratePassword(password);
         }
 
         private void GeneratePassword(string password)

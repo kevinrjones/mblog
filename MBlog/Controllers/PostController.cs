@@ -26,15 +26,7 @@ namespace MBlog.Controllers
         {
             var postsViewModel = new PostsViewModel();
             var posts = _blogPostRepository.GetBlogPosts(nickname);
-
-            if (posts != null)
-            {
-                foreach (var post in posts)
-                {
-                    var postViewModel = new PostViewModel(post);
-                    postsViewModel.Posts.Add(postViewModel);
-                }
-            }
+            postsViewModel.AddPosts(posts);
             return View(postsViewModel);
         }
 
@@ -85,7 +77,6 @@ namespace MBlog.Controllers
 
         public ActionResult Show(PostLinkViewModel postLinkViewModel)
         {
-            var blog = BlogRepository.GetBlog(postLinkViewModel.Nickname);
             var postsViewModel = new PostsViewModel();
             var posts = _blogPostRepository.GetBlogPosts(postLinkViewModel.Year, postLinkViewModel.Month, postLinkViewModel.Day, postLinkViewModel.Nickname, postLinkViewModel.Link);
 
@@ -96,7 +87,7 @@ namespace MBlog.Controllers
                 ViewData.ModelState.Merge(modelStateDictionary);
             }
 
-            return GetPosts(postLinkViewModel, blog, posts, postsViewModel);
+            return GetPosts(postLinkViewModel, posts, postsViewModel);
         }
 
         private ActionResult CreatePost(CreatePostViewModel model)
@@ -126,26 +117,17 @@ namespace MBlog.Controllers
             return RedirectToRoute(new { controller = "admin", action = "Index" });
         }
 
-        private ActionResult GetPosts(PostLinkViewModel model, Blog blog, IList<Post> posts, PostsViewModel postsViewModel)
+        private ActionResult GetPosts(PostLinkViewModel model, IList<Post> posts, PostsViewModel postsViewModel)
         {
-            if (IfSinglePost(model, posts, postsViewModel))
+            if (IsSinglePost(model, posts))
             {
-                var post = posts.FirstOrDefault();
-                var postViewModel = new PostViewModel(post);
-                postViewModel.CommentsEnabled = post.CommentsEnabled && blog.CommentsEnabled;
-                postsViewModel.Posts.Add(postViewModel);
-                return View("Show", postsViewModel);
+                postsViewModel.ShowComments = true;
             }
-
-            foreach (var post in posts)
-            {
-                var postViewModel = new PostViewModel(post);
-                postsViewModel.Posts.Add(postViewModel);
-            }
+            postsViewModel.AddPosts(posts);
             return View("Show", postsViewModel);
         }
 
-        private bool IfSinglePost(PostLinkViewModel model, IEnumerable<Post> posts, PostsViewModel postsViewModel)
+        private bool IsSinglePost(PostLinkViewModel model, IEnumerable<Post> posts)
         {
             if (model.Year != 0
                 && model.Month != 0
@@ -153,9 +135,9 @@ namespace MBlog.Controllers
                 && !string.IsNullOrEmpty(model.Link)
                 && posts.Count() == 1)
             {
-                postsViewModel.ShowComments = true;
+                return true;
             }
-            return postsViewModel.ShowComments;
+            return false;
         }
     }
 }

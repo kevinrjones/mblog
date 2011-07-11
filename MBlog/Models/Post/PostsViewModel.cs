@@ -22,6 +22,7 @@ namespace MBlog.Models.Post
             foreach (var post in posts)
             {
                 PostViewModel pvm = new PostViewModel(post);
+                pvm.CommentsEnabled = post.CommentsEnabled && post.Blog.CommentsEnabled;
                 Posts.Add(pvm);
             }
         }

@@ -99,8 +99,7 @@ namespace MBlogUnitTest.Controllers
         public void GivenAUserThatExists_WhenTheyLogin_ThenIGetRedirectedToTheAdminPage()
         {
             string email = "email";
-            User user = new User();
-            user.AddUserDetails("", email, "", false);
+            User user = new User("", email, "", false);
             _userRepository.Setup(u => u.GetUser(email)).Returns(user);
 
             RedirectToRouteResult result = _controller.DoLogin(new LoginUserViewModel { Email = email }) as RedirectToRouteResult;
@@ -114,8 +113,7 @@ namespace MBlogUnitTest.Controllers
         public void GivenAUserThatExists_WhenTheyLogin_ThenTheUserIsInTheContext()
         {
             string email = "email";
-            User user = new User();
-            user.AddUserDetails("", email, "", false);
+            User user = new User("", email, "", false);
             _userRepository.Setup(u => u.GetUser(email)).Returns(user);
 
             MockHttpContext.SetupProperty(h => h.User);
@@ -130,8 +128,8 @@ namespace MBlogUnitTest.Controllers
         public void GivenAUserThatExists_WhenTheyLogin_ThenTheCorrectCookieIsSet()
         {
             string email = "email";
-            User user = new User{Id = 1};
-            user.AddUserDetails("", email, "", false);
+            User user = new User("", email, "", false) { Id = 1 };
+            
             _userRepository.Setup(u => u.GetUser(email)).Returns(user);
 
             MockHttpContext.SetupProperty(h => h.User);
@@ -152,8 +150,7 @@ namespace MBlogUnitTest.Controllers
         public void GivenAUserThatExists_WhenTheyLogin_ThenTheUserMarkedAsLoggedIn()
         {
             string email = "email";
-            User user = new User();
-            user.AddUserDetails("", email, "", false);
+            User user = new User("", email, "", false);
             _userRepository.Setup(u => u.GetUser(email)).Returns(user);
 
             MockHttpContext.SetupProperty(h => h.User);
@@ -169,8 +166,7 @@ namespace MBlogUnitTest.Controllers
         public void GivenAnInvalidUser_WhenTheyLogin_ThenIGetReturnedToTheLoginView()
         {
             string email = "email";
-            User user = new User();
-            user.AddUserDetails("", email, "", false);
+            User user = new User("", email, "", false);
             
             _userRepository.Setup(u => u.GetUser(email)).Returns(user);
 
@@ -208,8 +204,7 @@ namespace MBlogUnitTest.Controllers
         {
             string email = "foo@bar.com";
             UserViewModel userViewModel = new UserViewModel { Email = email};
-            User user = new User();
-            user.AddUserDetails("", email, "", false);
+            User user = new User("", email, "", false);
             _userRepository.Setup(u => u.GetUser(email)).Returns(user);
 
             ViewResult result = _controller.DoRegister(userViewModel) as ViewResult;

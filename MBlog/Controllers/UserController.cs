@@ -64,8 +64,7 @@ namespace MBlog.Controllers
                 return View("Register");
             }
 
-            user = new User();
-            user.AddUserDetails(userViewModel.Name, userViewModel.Email, userViewModel.Password, false);
+            user = new User(userViewModel.Name, userViewModel.Email, userViewModel.Password, false);
             UserRepository.Create(user);
             UpdateCookiesAndContext(user);
             return RedirectToAction("index", "admin");

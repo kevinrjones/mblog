@@ -31,8 +31,7 @@ namespace MBlogUnitTest.Filters
         {           
             List<Blog> blogs = new List<Blog> { new Blog { Nickname = Nickname } };
 
-            var user = new User();
-            user.AddUserDetails("Name", "EMail", "Password", false);
+            var user = new User("Name", "EMail", "Password", false);
             user.Blogs = blogs;
 
             var mockRepo = new Mock<IUserRepository>();
@@ -40,8 +39,7 @@ namespace MBlogUnitTest.Filters
             mockRepo.Setup(r => r.GetUser(1)).Returns(user);
             mockRepo.Setup(r => r.GetUserWithTheirBlogs(1)).Returns(user);
 
-            var user2 = new User();
-            user2.AddUserDetails("Name", "EMail", "Password", false);
+            var user2 = new User("Name", "EMail", "Password", false);
 
             mockRepo.Setup(r => r.GetUser(2)).Returns(user2);
             mockRepo.Setup(r => r.GetUserWithTheirBlogs(2)).Returns(user2);

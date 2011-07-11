@@ -25,29 +25,23 @@ namespace MBlog.Controllers
         {
             HomePageViewModel model = new HomePageViewModel();
 
-            var users = UserRepository.GetUsersWithTheirBlogs();
-
-            foreach (var user in users)
-            {
-                foreach (var blog in user.Blogs)
-                {
-                    UserBlogViewModel viewModel = new UserBlogViewModel { Name = user.Name, Title = blog.Title, Nickname = blog.Nickname };
-                    model.UserBlogViewModels.Add(viewModel);
-                }
-            }
-            var posts = _postRepository.GetPosts();
-
-            foreach (var post in posts)
-            {
-                string blogPost;
-                blogPost = post.BlogPost;
-
-                HomePagePostViewModel vm = new HomePagePostViewModel() { Title = post.Title, DatePosted = post.Posted, Post = blogPost, UserName = post.Blog.User.Name };
-                model.HomePagePostViewModels.Add(vm);
-            }
+            GetUsersAndBlogs(model);
+            GetPosts(model);
 
             return View(model);
         }
 
+        private void GetPosts(HomePageViewModel homePageViewModel)
+        {
+            var posts = _postRepository.GetPosts();
+            homePageViewModel.Add(posts);
+        }
+
+        private void GetUsersAndBlogs(HomePageViewModel homePageViewModel)
+        {
+            var users = UserRepository.GetUsersWithTheirBlogs();
+            homePageViewModel.Add(users);
+
+        }
     }
 }
