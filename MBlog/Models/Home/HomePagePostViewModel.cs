@@ -1,10 +1,13 @@
 ﻿using System;
+using System.IO;
+using HtmlAgilityPack;
 using MBlog.Models.Post;
 
 namespace MBlog.Models.Home
 {
     public class HomePagePostViewModel
     {
+        public const int MaxLength = 300;
         private readonly PostViewModel _postViewModel;
 
         public HomePagePostViewModel(PostViewModel postViewModel)
@@ -25,7 +28,20 @@ namespace MBlog.Models.Home
             get
             {
                 //const int maxEntryLength = 200;
-                // todo: trim this to 200 but remember to leave in the closing html tags
+                if (_postViewModel.Post.Length > MaxLength)
+                {
+                    var doc = new HtmlDocument();
+
+                    doc.OptionAutoCloseOnEnd = false;
+                    doc.OptionFixNestedTags = true;
+                    doc.OptionWriteEmptyNodes = true;
+                    string post = _postViewModel.Post.Substring(0, MaxLength - 3) + "..."; 
+                    doc.LoadHtml(post);
+                    StringWriter writer = new StringWriter();
+                    doc.Save(writer);                
+
+                    return writer.ToString();
+                }
                 return _postViewModel.Post;
             }
             set { _postViewModel.Post = value; }
