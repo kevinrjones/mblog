@@ -8,7 +8,12 @@ namespace MBlog.Models.Post
 {
     public class PostViewModel
     {
-        public PostViewModel(){}
+        public PostViewModel()
+        {
+            Title = "";
+            Post = "";
+            DatePosted = new DateTime();
+        }
 
         public PostViewModel(MBlogModel.Post post) : this()
         {

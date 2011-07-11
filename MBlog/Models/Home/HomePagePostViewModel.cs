@@ -37,11 +37,6 @@ namespace MBlog.Models.Home
             set { _postViewModel.DatePosted = value; }
         }
 
-        public string Link
-        {
-            get { return _postViewModel.Link; }
-        }
-
         public string UserName { get; set; }
     }
 }

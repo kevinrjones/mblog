@@ -23,11 +23,12 @@ namespace MBlog.Models.Post
             {
                 var doc = new HtmlDocument();
                 
-                doc.OptionAutoCloseOnEnd = true;
+                doc.OptionAutoCloseOnEnd = false;
                 doc.OptionFixNestedTags = true;
+                doc.OptionWriteEmptyNodes= true;
                 doc.LoadHtml(value);
                 StringWriter writer = new StringWriter();
-                doc.Save(writer);
+                doc.Save(writer);                
                 _post = writer.ToString();
             }
         }

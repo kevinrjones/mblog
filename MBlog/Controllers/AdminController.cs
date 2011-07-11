@@ -58,19 +58,19 @@ namespace MBlog.Controllers
             return View(postsViewModel);
         }
 
-        public ActionResult ListComments(string nickname, int blogId)
-        {
-            ActionResult redirectToAction;
-            if (RedirectIfInvalidUser(nickname, blogId, out redirectToAction)) return redirectToAction;
-            var posts = _postRepository.GetBlogPosts(blogId);
-            // todo: list comments not posts
-            PostsViewModel postsViewModel = new PostsViewModel { BlogId = blogId, Nickname = nickname};
-            foreach (var post in posts)
-            {
-                PostViewModel pvm = new PostViewModel(post);
-                postsViewModel.Posts.Add(pvm);
-            }
-            return View(postsViewModel);
-        }
+        //public ActionResult ListComments(string nickname, int blogId)
+        //{
+        //    ActionResult redirectToAction;
+        //    if (RedirectIfInvalidUser(nickname, blogId, out redirectToAction)) return redirectToAction;
+        //    var posts = _postRepository.GetBlogPosts(blogId);
+        //    // todo: list comments not posts
+        //    PostsViewModel postsViewModel = new PostsViewModel { BlogId = blogId, Nickname = nickname};
+        //    foreach (var post in posts)
+        //    {
+        //        PostViewModel pvm = new PostViewModel(post);
+        //        postsViewModel.Posts.Add(pvm);
+        //    }
+        //    return View(postsViewModel);
+        //}
     }
 }

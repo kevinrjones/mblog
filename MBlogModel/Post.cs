@@ -48,7 +48,7 @@ namespace MBlogModel
 
         public string TitleLink
         {
-            get{return Title.Replace(' ', '-').Replace('/', '-').ToLower(); }
+            get{return Title == null ? "" : Title.Replace(' ', '-').Replace('/', '-').ToLower(); }
         }
 
         [Column("comments_enabled")]

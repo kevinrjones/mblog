@@ -10,10 +10,7 @@ namespace MBlog.Models.Comment
 {
     public class AddCommentViewModel
     {
-        public AddCommentViewModel()
-        {
-
-        }
+        public AddCommentViewModel(){}
         public AddCommentViewModel(int postId, bool commentsEnabled)
         {
             Comments = new List<CommentViewModel>();

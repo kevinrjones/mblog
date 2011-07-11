@@ -35,47 +35,21 @@ namespace MBlog.Infrastructure
 
         public static byte[] Encrypt(this string plainText)
         {
-            return Encrypt(plainText, Key, InitializationVector);
-        }
-
-        public static string Decrypt(this byte[] cipherText)
-        {
-            return Decrypt(cipherText, Key, InitializationVector);
-        }
-
-        private static byte[] Encrypt(this string plainText, byte[] Key, byte[] IV)
-        {
             // Check arguments.
-            if (plainText == null || plainText.Length <= 0)
+            if (string.IsNullOrEmpty(plainText))
                 throw new ArgumentNullException("plainText");
-            if (Key == null || Key.Length <= 0)
-                throw new ArgumentNullException("Key");
-            if (IV == null || IV.Length <= 0)
-                throw new ArgumentNullException("IV");
+
             byte[] encrypted;
             // Create an AesCryptoServiceProvider object
             // with the specified key and IV.
             using (var aesAlg = new AesCryptoServiceProvider())
             {
                 aesAlg.Key = Key;
-                aesAlg.IV = IV;
+                aesAlg.IV = InitializationVector;
 
-                // Create a decrytor to perform the stream transform.
-                ICryptoTransform encryptor = aesAlg.CreateEncryptor(aesAlg.Key, aesAlg.IV);
+                ICryptoTransform transform = aesAlg.CreateEncryptor(aesAlg.Key, aesAlg.IV);
 
-                // Create the streams used for encryption.
-                using (var msEncrypt = new MemoryStream())
-                {
-                    using (var csEncrypt = new CryptoStream(msEncrypt, encryptor, CryptoStreamMode.Write))
-                    {
-                        using (var swEncrypt = new StreamWriter(csEncrypt))
-                        {
-                            swEncrypt.Write(plainText);
-                            swEncrypt.Flush();
-                        }
-                    }
-                    encrypted = msEncrypt.ToArray();
-                }
+                encrypted = Encrypt(plainText, transform);
             }
 
 
@@ -83,33 +57,55 @@ namespace MBlog.Infrastructure
             return encrypted;
         }
 
-        private static string Decrypt(this byte[] cipherText, byte[] key, byte[] IV)
+        public static string Decrypt(this byte[] cipherText)
         {
             // Check arguments.
-            if (cipherText == null || cipherText.Length <= 0)
+            if (cipherText == null || cipherText.Length == 0)
                 throw new ArgumentNullException("cipherText");
-            if (key == null || key.Length <= 0)
-                throw new ArgumentNullException("key");
-            if (IV == null || IV.Length <= 0)
-                throw new ArgumentNullException("IV");
 
             string plaintext = null;
 
             using (AesCryptoServiceProvider aesAlg = new AesCryptoServiceProvider())
             {
-                aesAlg.Key = key;
-                aesAlg.IV = IV;
+                aesAlg.Key = Key;
+                aesAlg.IV = InitializationVector;
 
-                ICryptoTransform decryptor = aesAlg.CreateDecryptor(aesAlg.Key, aesAlg.IV);
+                ICryptoTransform transform = aesAlg.CreateDecryptor(aesAlg.Key, aesAlg.IV);
 
-                using (MemoryStream msDecrypt = new MemoryStream(cipherText))
+                plaintext = Decrypt(cipherText, transform);
+            }
+            return plaintext;
+        }
+
+        private static byte[] Encrypt(string plainText, ICryptoTransform transform)
+        {
+            byte[] encrypted;
+            // Create the streams used for encryption.
+            using (var msEncrypt = new MemoryStream())
+            {
+                using (var csEncrypt = new CryptoStream(msEncrypt, transform, CryptoStreamMode.Write))
                 {
-                    using (CryptoStream csDecrypt = new CryptoStream(msDecrypt, decryptor, CryptoStreamMode.Read))
+                    using (var swEncrypt = new StreamWriter(csEncrypt))
                     {
-                        using (StreamReader srDecrypt = new StreamReader(csDecrypt))
-                        {
-                            plaintext = srDecrypt.ReadToEnd();
-                        }
+                        swEncrypt.Write(plainText);
+                        swEncrypt.Flush();
+                    }
+                }
+                encrypted = msEncrypt.ToArray();
+            }
+            return encrypted;
+        }
+
+        private static string Decrypt(byte[] cipherText, ICryptoTransform transform)
+        {
+            string plaintext;
+            using (MemoryStream msDecrypt = new MemoryStream(cipherText))
+            {
+                using (CryptoStream csDecrypt = new CryptoStream(msDecrypt, transform, CryptoStreamMode.Read))
+                {
+                    using (StreamReader srDecrypt = new StreamReader(csDecrypt))
+                    {
+                        plaintext = srDecrypt.ReadToEnd();
                     }
                 }
             }

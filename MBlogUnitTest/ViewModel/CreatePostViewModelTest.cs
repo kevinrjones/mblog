@@ -14,8 +14,8 @@ namespace MBlogUnitTest.ViewModel
         public void GivenAPostWithMalformedHTML_WhenItIsRetrievedForTheView_ThenTheHtmlIsWellFormed()
         {
             CreatePostViewModel model = new CreatePostViewModel();
-            model.Post = "<p>Test";
-            Assert.That(model.Post, Is.StringEnding("</p>"));
+            model.Post = "<span>Test";
+            Assert.That(model.Post, Is.StringEnding("</span>"));
         }
     }
 }

@@ -18,7 +18,7 @@ namespace MBlog.Models.Admin
                 {
                     return _title;
                 }
-                return _title.Substring(0, 60) + "...";
+                return _title.Substring(0, 57) + "...";
             }
             set { _title = value; }
         }

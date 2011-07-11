@@ -37,16 +37,6 @@ namespace MBlog.Controllers
             return CreateBlog(model);
         }
 
-        private bool RedirectIfInvalidUser()
-        {
-            var user = HttpContext.User as UserViewModel;
-            if (!IsLoggedInUser(user))
-            {
-                return true;
-            }
-            return false;
-        }
-
         private ActionResult CreateBlog(CreateBlogViewModel model)
         {
             var user = HttpContext.User as UserViewModel;
@@ -63,5 +53,16 @@ namespace MBlog.Controllers
             return RedirectToRoute(new { controller = "admin", action = "Index" });
 
         }
+
+        private bool RedirectIfInvalidUser()
+        {
+            var user = HttpContext.User as UserViewModel;
+            if (!IsLoggedInUser(user))
+            {
+                return true;
+            }
+            return false;
+        }
+
     }
 }
