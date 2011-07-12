@@ -16,7 +16,11 @@
                     @Html.ActionLink("Edit", "edit", "Post", new { nickname = Model.Nickname, postId = postViewModel.Id, blogId = Model.BlogId }, null)
                 </td>
                 <td class="post-title">
-                    @MvcHtmlString.Create(postViewModel.Title)
+                    @MvcHtmlString.Create(postViewModel.Title) 
+                    @if (postViewModel.CommentCount != 0)
+                    {
+                        <span class="list-posts-comment-count"><a href="#">(@postViewModel.CommentCount Comments)</a> </span>
+                    }
                 </td>
                 <td>
                     @postViewModel.DatePosted.ToString("dd/MM/yyyy")

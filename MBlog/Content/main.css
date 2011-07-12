@@ -103,10 +103,11 @@ div.row span.formw { float: right; width: 370px; text-align: left; }
 .admin-blog-actions { padding: 10px 0; }
 
 
-.list-posts { font-size: 12pt; padding: 0 10px 0 10px; border: #A5C3D5 4px solid; border-radius: 10;margin: 10px 10px;padding: 0 10px; }
+.list-posts { font-size: 120%; border: #A5C3D5 4px solid; border-radius: 10px; margin: 10px 10px; padding: 0 10px 0 0; }
 .list-posts table { width: 100%; }
-.list-posts table tr td { padding: 10px 0 0 5px; }
-.list-posts table tr td.post-title { width: 100%; }
+.list-posts table tr td { padding: 10px 0 5px 5px;line-height: 19px; border-bottom: 1px solid #CCCCCC;}
+.list-posts table tr td.post-title { width: 100%; padding-left: 20px;}
+.list-posts-comment-count { float: right; }
 /* Styles for validation helpers
 -----------------------------------------------------------*/
 .field-validation-error { color: #ff0000; }
