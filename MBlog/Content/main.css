@@ -83,20 +83,30 @@ div.row span.formw { float: right; width: 370px; text-align: left; }
 .home-page-header { margin: 20px 0 0 0; }
 .home-page-sidebar { margin: 0em auto; width: 30%; float: right; }
 
-.admin-dashboard { overflow: auto; }
-.admin-title { }
-.admin-user { margin: 0em auto; width: 65%; }
-.admin-manage { margin: 0em auto; width: 65%; }
-#admin-blog-list { text-align: left; padding: 10px 0; }
-#admin-user-name { float: left; width: 35%; }
-#admin-user-manage { }
-#admin-manageblogs-title { text-align: left; display: inline-block; width: 80%; }
+.admin-dashboard { overflow: auto; font-size: 11pt; }
+.admin-title { margin: 10px 0 10px 0; }
+.admin-title h2 { color: #655545; }
+.admin-main { margin: 0em auto; width: 90%; }
+.admin-user { height: 30px; }
+.admin-manage { }
+.admin-user-links { float: left; width: 35%; margin: 10px 5px 0 0; }
+.admin-blog-list { float: left; margin-left: 5px; }
+.admin-blog-name { text-align: left; padding: 10px 0; }
+.admin-blog-details { }
+#admin-user-name { background: #A5C3D5; float: left; width: 35%; height: 30px; margin-right: 5px; }
+#admin-user-name h4 { padding: 5px 0 0 10px; }
+#admin-user-manage { background: #A5C3D5; float: left; width: 60%; height: 30px; margin-left: 5px; }
+#admin-user-manage h4 { padding: 5px 0 0 10px; }
+#admin-manageblogs-title { text-align: left; }
 .admin-link { text-align: right; display: inline-block; padding: 0 5px 0 0; }
-#admin-blog-actions { padding: 10px 0; }
+.admin-header-links { float: right; }
+.admin-blog-actions { padding: 10px 0; }
 
 
-.list-posts { width: 90%; font-size: 14pt; padding: 0 10px 0 10px; }
+.list-posts { font-size: 12pt; padding: 0 10px 0 10px; border: #A5C3D5 4px solid; border-radius: 10;margin: 10px 10px;padding: 0 10px; }
+.list-posts table { width: 100%; }
 .list-posts table tr td { padding: 10px 0 0 5px; }
+.list-posts table tr td.post-title { width: 100%; }
 /* Styles for validation helpers
 -----------------------------------------------------------*/
 .field-validation-error { color: #ff0000; }

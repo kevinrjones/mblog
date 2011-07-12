@@ -4,29 +4,47 @@
     Layout = "~/Views/Admin/_AdminLayout.cshtml";
 }
 <section class="admin-dashboard">
+    <section class="admin-main">
     <section class="admin-title">
-        <h2>Dashboard</h2>
+        <h2>
+            Dashboard</h2>
     </section>
-    <section class="admin-user">
-        <!-- List blogs. Links to posts. Link to comments. Add new post. Add new blog-->
-        <div id="admin-user-name">@Model.Name</div>
-        <div id="admin-user-manage">
-            <span id="admin-manageblogs-title">Manage Blogs (@Model.Blogs.Count Total)</span>
-            <span class="admin-link">@Html.ActionLink("Create Blog", "new", "Blog", null, null)</span>
-        </div>
-    </section>
-    @foreach (var blog in Model.Blogs)
-    {
-        <section class="admin-manage">
-                <div id="admin-blog-list">
-                    <span>@blog.Title</span>
-                </div>
-            <div id="admin-blog-actions">
-                <span class="admin-link">@Html.ActionLink("New Post", "new", "Post", new { nickname = blog.Nickname, blogId = blog.BlogId }, null)</span>
-                <span class="admin-link">@Html.ActionLink("Edit Posts", "listposts", "Admin", new { nickname = blog.Nickname, blogId = blog.BlogId }, null)</span>
-                <span class="admin-link">@Html.ActionLink("Comments", "listcomments", "Admin", new { nickname = blog.Nickname, blogId = blog.BlogId }, null)</span>
-                <span class="admin-link"><a href="#">Settings</a></span>
+        <section class="admin-user">
+            <div id="admin-user-name">
+                <h4>@Model.Name</h4>
+            </div>
+            <div id="admin-user-manage">
+                <h4>
+                    <span id="admin-manageblogs-title">Manage Blogs (@Model.Blogs.Count Total)</span>
+                    <span class="admin-link admin-header-links">@Html.ActionLink("Create Blog", "new", "Blog", null, null)</span>
+                </h4>
             </div>
         </section>
-    }
+        <div style="clear: both">
+        </div>
+        <section class="admin-user-links">
+        Profile
+    </section>
+        <section class="admin-blog-list">
+            @foreach (var blog in Model.Blogs)
+            {
+                <section class="admin-manage">
+                    <div class="admin-blog-name">
+                        <span>@blog.Title</span>
+                    </div>
+                    <div class="admin-blog-details">
+                        <span>x posts, last published on xx-xx-xx - <a href="#">View Blog</a></span>
+                    </div>
+                    <div class="admin-blog-actions">
+                        <span class="admin-link">@Html.ActionLink("New Post", "new", "Post", new { nickname = blog.Nickname, blogId = blog.BlogId }, null)</span>
+                        <span class="admin-link">@Html.ActionLink("Edit Posts", "listposts", "Admin", new { nickname = blog.Nickname, blogId = blog.BlogId }, null)</span>
+                        <span class="admin-link">@Html.ActionLink("Comments", "listcomments", "Admin", new { nickname = blog.Nickname, blogId = blog.BlogId }, null)</span>
+                        <span class="admin-link"><a href="#">Settings</a></span>
+                    </div>
+                </section>
+            }
+        </section>
+    </section>
+    <div style="clear: both">
+    </div>
 </section>
