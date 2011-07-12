@@ -125,7 +125,7 @@ namespace MBlogUnitTest.Controllers
 
             blogRepository.Setup(b => b.GetBlog(It.IsAny<string>())).Returns(new Blog{Nickname = nickname, Id = blogId});
             var postRepository = new Mock<IPostRepository>();
-            postRepository.Setup(p => p.GetBlogPosts(It.IsAny<int>())).Returns(new List<Post>{new Post{Title = "empty"}});
+            postRepository.Setup(p => p.GetOrderedBlogPosts(It.IsAny<int>())).Returns(new List<Post>{new Post{Title = "empty"}});
             AdminController controller = new AdminController(_mockUserRepository.Object, postRepository.Object, blogRepository.Object);
 
             SetControllerContext(controller);

@@ -34,7 +34,7 @@ namespace MBlog.Controllers
         {
             ActionResult redirectToAction;
             if (RedirectIfInvalidUser(model.Nickname, model.BlogId, out redirectToAction)) return redirectToAction;
-            IList<Post> posts = _postRepository.GetBlogPosts(model.BlogId);
+            IList<Post> posts = _postRepository.GetOrderedBlogPosts(model.BlogId);
             var postsViewModel = new PostsViewModel {BlogId = model.BlogId, Nickname = model.Nickname};
             postsViewModel.AddPosts(posts);
             return View(postsViewModel);

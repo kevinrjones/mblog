@@ -40,10 +40,22 @@ namespace MBlogRepository.Repositories
         }
 
         public IList<Post> GetBlogPosts(int blogId)
-        {            
-            return (from e in Entities
-                    where e.BlogId == blogId
-                    select e).ToList();
+        {
+            return (BuildGetPostsQuery(blogId)).ToList();
+        }
+
+        public IList<Post> GetOrderedBlogPosts(int blogId)
+        {
+            var query = BuildGetPostsQuery(blogId);
+            query = query.OrderByDescending(e => e.Posted);
+            return query.ToList();
+        }
+
+        private IQueryable<Post> BuildGetPostsQuery(int blogId)
+        {
+            return from e in Entities
+                   where e.BlogId == blogId
+                   select e;
         }
 
         public Post AddComment(int id, string name, string comment)

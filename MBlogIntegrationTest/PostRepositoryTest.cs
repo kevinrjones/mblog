@@ -480,6 +480,24 @@ namespace MBlogIntegrationTest
         }
 
         [Test]
+        public void GivenABlogId_WhenIAskForItsOrderedPosts_ThenIGetThePostsInDateOrder()
+        {
+            List<Post> posts = new List<Post> { BuildMeA.Post("title 1", "entry 1", new DateTime(2000, 4, 19)), BuildMeA.Post("title 2", "entry 1", new DateTime(2011, 4, 19)) };
+
+            Blog blog = BuildMeA
+                .Blog("title", "description", _nickname)
+                .WithPosts(posts);
+
+            _user1 = BuildMeA.User("email", "name", "password")
+                              .WithBlog(blog);
+            _userRepository.Create(_user1);
+
+            List<Post> newPosts = _postRepository.GetOrderedBlogPosts(blog.Id) as List<Post>;
+
+            Assert.That(newPosts[0].Title, Is.StringEnding("2"));
+        }
+
+        [Test]
         public void GivenAnInvalidBlogId_WhenIAskForItsPosts_ThenIGetNoPosts()
         {
             IList<Post> posts = _postRepository.GetBlogPosts(_blog1.Id);
