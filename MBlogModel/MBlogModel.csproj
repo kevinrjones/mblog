@@ -116,6 +116,7 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Database\db\migrate\20110614000000_mangage_comments_for_post.rb" />
+    <None Include="Database\db\migrate\20110711000000_create_elmah_database.rb" />
     <Content Include="Scripts\jquery-1.6.1-vsdoc.js" />
     <Content Include="Scripts\jquery-1.6.1.js" />
     <Content Include="Scripts\jquery-1.6.1.min.js" />

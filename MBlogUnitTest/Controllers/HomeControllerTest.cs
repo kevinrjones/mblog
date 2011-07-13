@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Web.Mvc;
+using Logging;
 using MBlog.Controllers;
 using MBlog.Models;
 using MBlog.Models.Home;
@@ -27,13 +28,14 @@ namespace MBlogUnitTest.Controllers
         {
             _userRepository = new Mock<IUserRepository>();
             _postRepository = new Mock<IPostRepository>();
+            ILogger logger = new Mock<ILogger>().Object;
 
             InitializeUserRepository();
 
             var post = new Post { Posted = DateTime.Today, BlogPost = "post", Title = "title", Blog = new Blog{User = new User{Name = "name"}}};
             _postRepository.Setup(p => p.GetPosts()).Returns(new List<Post> { post, post, post, post, post });
 
-            _controller = new HomeController(_userRepository.Object, _postRepository.Object, null);
+            _controller = new HomeController(logger, _userRepository.Object, _postRepository.Object, null);
         }
 
         private void InitializeUserRepository()

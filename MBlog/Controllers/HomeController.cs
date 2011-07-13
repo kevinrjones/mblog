@@ -1,6 +1,8 @@
 ﻿using System.Collections.Generic;
 using System.Web.Mvc;
+using Logging;
 using MBlog.Models.Home;
+using MBlogLogService;
 using MBlogModel;
 using MBlogRepository.Interfaces;
 
@@ -10,15 +12,16 @@ namespace MBlog.Controllers
     {
         private readonly IPostRepository _postRepository;
 
-        public HomeController(IUserRepository userRepository, IPostRepository postRepository,
+        public HomeController(ILogger logger, IUserRepository userRepository, IPostRepository postRepository,
                               IBlogRepository blogRepository)
-            : base(userRepository, blogRepository)
+            : base(logger, userRepository, blogRepository)
         {
             _postRepository = postRepository;
         }
 
         public ActionResult Index()
         {
+            Logger.Info("HomeController Index method called");
             var model = new HomePageViewModel();
 
             GetUsersAndBlogs(model);

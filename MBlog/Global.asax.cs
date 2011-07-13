@@ -1,7 +1,9 @@
 ﻿using System.Configuration;
 using System.Web.Mvc;
 using System.Web.Routing;
+using Logging;
 using MBlog.Infrastructure;
+using MBlogLogService;
 using MBlogRepository;
 using MBlogRepository.Interfaces;
 using MBlogRepository.Repositories;
@@ -155,6 +157,7 @@ namespace MBlog
                 .RegisterType<IBlogRepository, BlogRepository>(ctor)
                 .RegisterType<IUsernameBlacklistRepository, UsernameBlacklistRepository>(ctor)
                 .RegisterType<INicknameBlacklistRepository, NicknameBlacklistRepository>(ctor)
+                .RegisterType<ILogger, NLogService>()
                 ;
 
             return container;
