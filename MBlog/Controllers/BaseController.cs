@@ -7,6 +7,7 @@ using MBlog.Filters;
 using MBlog.Models.User;
 using MBlogModel;
 using MBlogRepository.Interfaces;
+using MBlog.Logging;
 
 namespace MBlog.Controllers
 {
@@ -56,11 +57,16 @@ namespace MBlog.Controllers
             }
         }
 
-        private void LogException(Exception e)
+        private void LogException(Exception exception)
         {
             var context = System.Web.HttpContext.Current;
-            ErrorLog.GetDefault(context).Log(new Error(e, context));
-            Logger.Error("Unhandled exception", e);
+            ErrorLog.GetDefault(context).Log(new Error(exception, context));
+            Exception logException = exception;
+            while (logException != null)
+            {
+                Logger.Error(exception.BuildExceptionMessage(System.Web.HttpContext.Current), logException);
+                logException = exception.InnerException;
+            }
         }
 
         protected bool IsLoggedInUser(UserViewModel user)

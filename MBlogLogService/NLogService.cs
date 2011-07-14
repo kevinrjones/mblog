@@ -33,7 +33,14 @@ namespace MBlogLogService
 
         public void Error(string message, params object[] args)
         {
-            Logger.Error(message, args);
+            if (args.Length == 1 && args[0] is Exception)
+            {
+                Logger.ErrorException(message, (Exception) args[0]);
+            }
+            else
+            {
+                Logger.Error(message, args);
+            }
         }
 
         public void Fatal(string message, params object[] args)
