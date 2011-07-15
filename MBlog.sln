@@ -22,7 +22,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Deploy", "Deploy", "{66B9AA
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Logging", "Logging\Logging.csproj", "{BF734CD4-7587-422F-BAE9-626051F1A382}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MBlogLogService", "MBlogLogService\MBlogLogService.csproj", "{BCB33239-3B8F-4E53-A891-D18BECEBE7D1}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MBlogNlogService", "MBlogNlogService\MBlogNlogService.csproj", "{BCB33239-3B8F-4E53-A891-D18BECEBE7D1}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

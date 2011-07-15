@@ -8,8 +8,8 @@
     <ProjectGuid>{BCB33239-3B8F-4E53-A891-D18BECEBE7D1}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>MBlogLogService</RootNamespace>
-    <AssemblyName>MBlogLogService</AssemblyName>
+    <RootNamespace>MBlogNlogService</RootNamespace>
+    <AssemblyName>MBlogNlogService</AssemblyName>
     <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
   </PropertyGroup>
@@ -45,6 +45,7 @@
   <ItemGroup>
     <Compile Include="NLogService.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="RavenDbTarget.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Logging\Logging.csproj">

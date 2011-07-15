@@ -2,7 +2,6 @@
 using System.Web.Mvc;
 using Logging;
 using MBlog.Models.Home;
-using MBlogLogService;
 using MBlogModel;
 using MBlogRepository.Interfaces;
 

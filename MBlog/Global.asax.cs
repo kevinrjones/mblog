@@ -3,7 +3,7 @@ using System.Web.Mvc;
 using System.Web.Routing;
 using Logging;
 using MBlog.Infrastructure;
-using MBlogLogService;
+using MBlogNlogService;
 using MBlogRepository;
 using MBlogRepository.Interfaces;
 using MBlogRepository.Repositories;

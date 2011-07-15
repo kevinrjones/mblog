@@ -1,11 +1,8 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using Logging;
 using NLog;
 
-namespace MBlogLogService
+namespace MBlogNlogService
 {
     public class NLogService : ILogger
     {
