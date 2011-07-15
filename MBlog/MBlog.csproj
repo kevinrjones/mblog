@@ -326,6 +326,10 @@
       <Project>{9D26D30F-3E4E-43B9-A93B-6E51AB34AC44}</Project>
       <Name>MBlogModel</Name>
     </ProjectReference>
+    <ProjectReference Include="..\MBlogNlogService\MBlogNlogService.csproj">
+      <Project>{BCB33239-3B8F-4E53-A891-D18BECEBE7D1}</Project>
+      <Name>MBlogNlogService</Name>
+    </ProjectReference>
     <ProjectReference Include="..\MBlogRepository\MBlogRepository.csproj">
       <Project>{555BF169-88EA-4EF1-B532-D152AF974680}</Project>
       <Name>MBlogRepository</Name>

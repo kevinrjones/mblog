@@ -4,7 +4,6 @@ using System.Web.Routing;
 using Logging;
 using MBlog.Infrastructure;
 using MBlogNlogService;
-using MBlogRepository;
 using MBlogRepository.Interfaces;
 using MBlogRepository.Repositories;
 using Microsoft.Practices.Unity;
