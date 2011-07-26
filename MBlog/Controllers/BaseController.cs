@@ -4,6 +4,7 @@ using System.Web.Mvc;
 using Elmah;
 using Logging;
 using MBlog.Filters;
+using MBlog.Models.Error;
 using MBlog.Models.User;
 using MBlogModel;
 using MBlogRepository.Interfaces;
@@ -39,13 +40,12 @@ namespace MBlog.Controllers
 
             if (filterContext.HttpContext.IsCustomErrorEnabled)
             {
-                // since we're handling this, log to elmah
                 Exception ex = filterContext.Exception ?? new Exception("No further information exists.");
-                LogException(ex);
+                LogExceptionToElmah(ex);
                 filterContext.ExceptionHandled = true;
                 if ((ex.GetType() != typeof (HttpRequestValidationException)))
                 {
-                    var data = new ErrorPresentation
+                    var data = new ErrorViewData
                                    {
                                        ErrorMessage = HttpUtility.HtmlEncode(ex.Message),
                                        TheException = ex,
@@ -57,14 +57,14 @@ namespace MBlog.Controllers
             }
         }
 
-        private void LogException(Exception exception)
+        private void LogExceptionToElmah(Exception exception)
         {
             var context = System.Web.HttpContext.Current;
             ErrorLog.GetDefault(context).Log(new Error(exception, context));
             Exception logException = exception;
             while (logException != null)
             {
-                Logger.Error(exception.BuildExceptionMessage(System.Web.HttpContext.Current), logException);
+                Logger.Error(exception.BuildExceptionMessage(new WebMessageInformation()), logException);
                 logException = exception.InnerException;
             }
         }
@@ -91,13 +91,5 @@ namespace MBlog.Controllers
             redirectToAction = null;
             return false;
         }
-    }
-
-    public class ErrorPresentation
-    {
-        public string ErrorMessage;
-        public bool ShowLink;
-        public bool ShowMessage;
-        public Exception TheException;
     }
 }
