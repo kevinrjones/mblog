@@ -37,6 +37,12 @@
     <Reference Include="MissingBitsFromClientProfile">
       <HintPath>..\packages\RavenDB.1.0.0.410\lib\net40\MissingBitsFromClientProfile.dll</HintPath>
     </Reference>
+    <Reference Include="MongoDB.Bson">
+      <HintPath>..\packages\mongocsharpdriver.1.1\lib\net35\MongoDB.Bson.dll</HintPath>
+    </Reference>
+    <Reference Include="MongoDB.Driver">
+      <HintPath>..\packages\mongocsharpdriver.1.1\lib\net35\MongoDB.Driver.dll</HintPath>
+    </Reference>
     <Reference Include="Newtonsoft.Json">
       <HintPath>..\packages\Newtonsoft.Json.4.0.2\lib\net40\Newtonsoft.Json.dll</HintPath>
     </Reference>
@@ -68,6 +74,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="LogDetails.cs" />
+    <Compile Include="MongoDbTarget.cs" />
     <Compile Include="ExceptionHelper.cs" />
     <Compile Include="NLogService.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

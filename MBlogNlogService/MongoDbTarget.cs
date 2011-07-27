@@ -1,32 +1,32 @@
 ﻿using System;
 using System.ComponentModel;
 using System.Configuration;
+using System.Net.Sockets;
+using MongoDB.Driver;
 using NLog;
 using NLog.Common;
 using NLog.Layouts;
 using NLog.Targets;
-using Raven.Client.Document;
-using Raven.Client.Extensions;
 
 namespace MBlogNlogService
 {
-    [Target("RavenDb")]
-    public class RavenDbTarget : TargetWithLayout
+    [Target("MongoDb")]
+    public class MongoDbTarget : TargetWithLayout
     {
         public string ServerUrl { get; set; }
+        private MongoDatabase _database;
         public string DatabaseName { get; set; }
-        private DocumentStore _store;
 
         protected override void InitializeTarget()
-        {            
-            _store = new DocumentStore {Url = ServerUrl};
-            _store.Initialize();
-            _store.DatabaseCommands.EnsureDatabaseExists(DatabaseName);
+        {
+            MongoServer server = MongoServer.Create(ServerUrl);
+            _database = server.GetDatabase(DatabaseName);
         }
 
         protected override void Write(LogEventInfo logEvent)
         {
             LogDetails details = new LogDetails(logEvent);
+
             try
             {
                 WriteEventToDatabase(details);
@@ -39,7 +39,7 @@ namespace MBlogNlogService
                 }
                 else
                 {
-                    InternalLogger.Error("Error when writing to database {0}", new object[]{ex});
+                    InternalLogger.Error("Error when writing to database {0}", new object[] { ex });
                     throw;
                 }
             }
@@ -47,11 +47,21 @@ namespace MBlogNlogService
 
         private void WriteEventToDatabase(LogDetails details)
         {
-            using (var session = _store.OpenSession(DatabaseName))
+            try
             {
-                session.Store(details);    
-                session.SaveChanges();
+                WriteEvent(details);
             }
+            catch (Exception se)
+            {
+                InitializeTarget();
+                WriteEvent(details);
+            }
+        }
+
+        private void WriteEvent(LogDetails details)
+        {
+            MongoCollection<LogDetails> logEventInfos = _database.GetCollection<LogDetails>("logdetails");
+            logEventInfos.Insert(details);
         }
     }
 }
