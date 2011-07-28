@@ -24,6 +24,11 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Logging", "Logging\Logging.
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MBlogNlogService", "MBlogNlogService\MBlogNlogService.csproj", "{BCB33239-3B8F-4E53-A891-D18BECEBE7D1}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "EventLog", "EventLog", "{8C35E417-1BB6-4074-A874-C064C840F640}"
+	ProjectSection(SolutionItems) = preProject
+		EventLog\CreateEventLogSource.ps1 = EventLog\CreateEventLogSource.ps1
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
