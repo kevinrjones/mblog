@@ -8,6 +8,7 @@ namespace MBlogIntegrationTest.Builder
         {
             Instance = new Post();
         }
+
         public PostBuilder WithComment(Comment comment)
         {
             if (comment != null)

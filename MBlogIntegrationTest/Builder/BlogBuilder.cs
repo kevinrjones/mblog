@@ -12,7 +12,7 @@ namespace MBlogIntegrationTest.Builder
 
         public BlogBuilder WithPosts(IEnumerable<Post> posts)
         {
-            foreach (var post in posts)
+            foreach (Post post in posts)
             {
                 post.Blog = Instance;
                 Instance.Posts.Add(post);

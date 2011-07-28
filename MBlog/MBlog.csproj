@@ -272,6 +272,7 @@
     <Content Include="images\teamcity-thumb.png" />
     <Content Include="images\teamcity.png" />
     <Content Include="license.txt" />
+    <Content Include="robots.txt" />
     <Content Include="Scripts\jquery-1.6.1-vsdoc.js" />
     <Content Include="Scripts\jquery-1.6.1.js" />
     <Content Include="Scripts\jquery-1.6.1.min.js" />
@@ -372,6 +373,7 @@
   <ItemGroup>
     <Content Include="Web.Staging.config">
       <DependentUpon>Web.config</DependentUpon>
+      <SubType>Designer</SubType>
     </Content>
   </ItemGroup>
   <ItemGroup>
