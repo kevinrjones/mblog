@@ -10,16 +10,16 @@
         {
             <tr>
                 <td>
-                    @Html.ActionLink("View", "Show", "Post", new { nickname = "kevin", link = postViewModel.Link, year = postViewModel.YearPosted, month = postViewModel.MonthPosted, day = postViewModel.DayPosted }, null)
+                    @Html.ActionLink("View", "Show", "Post", new { nickname = @Model.Nickname, link = postViewModel.Link, year = postViewModel.YearPosted, month = postViewModel.MonthPosted, day = postViewModel.DayPosted }, null)
                 </td>
                 <td>
-                    @Html.ActionLink("Edit", "edit", "Post", new { nickname = "kevin", postId = postViewModel.Id, blogId = Model.BlogId  }, null)
+                    @Html.ActionLink("Edit", "edit", "Post", new { nickname = @Model.Nickname, postId = postViewModel.Id, blogId = Model.BlogId }, null)
                 </td>
                 <td>
                     @MvcHtmlString.Create(postViewModel.Title)
                 </td>
                 <td>
-                    @Html.ActionLink("Delete", "delete", "Post", new { nickname = "kevin", postId = postViewModel.Id, blogId = Model.BlogId }, null)
+                    @Html.ActionLink("Delete", "delete", "Post", new { nickname = @Model.Nickname, postId = postViewModel.Id, blogId = Model.BlogId }, null)
                 </td>
             </tr>
         }
