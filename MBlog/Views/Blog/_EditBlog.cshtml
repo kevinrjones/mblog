@@ -1,4 +1,5 @@
 ﻿@using MBlog.Models.Blog
+@using MBlog.Resources.Blog
 @model CreateBlogViewModel
 <section id="blog-form">
     <div id="blog-form-header">
@@ -8,13 +9,13 @@
         @using (Html.BeginForm((string)ViewBag.Action, "Blog", FormMethod.Post, new { }))
         {
             <div class="row">
-                <span class="label"> Title:</span> <span class="formw">@Html.TextBoxFor(m => m.Title, new{@class="maxwidth"})</span>
+                <span class="label"> @Html.Encode(Edit.Title):</span> <span class="formw">@Html.TextBoxFor(m => m.Title, new{@class="maxwidth"})</span>
             </div>
             <div class="row">
                 @Html.ValidationMessageFor(m => m.Title)
             </div>
             <div class="row">
-                <span class="label">Description:</span> <span class="formw">@Html.TextBoxFor(m => m.Description, new { @class = "maxwidth" })</span>
+                <span class="label">@Html.Encode(Edit.Description):</span> <span class="formw">@Html.TextBoxFor(m => m.Description, new { @class = "maxwidth" })</span>
             </div>
             <div class="row">
                 @Html.ValidationMessageFor(m => m.Description)
@@ -22,26 +23,26 @@
             if (Model.IsCreate)
             {
             <div class="row">
-                <span class="label">Nickname:</span> <span class="formw">@Html.TextBoxFor(m => m.Nickname, new { @class = "maxwidth" })</span>
+                <span class="label">@Html.Encode(Edit.Nickname):</span> <span class="formw">@Html.TextBoxFor(m => m.Nickname, new { @class = "maxwidth" })</span>
             </div>
             <div>
                 @Html.ValidationMessageFor(m => m.Nickname)
             </div>
             }
             <div class="row">
-                <span  class="label" >Enable Comments:</span> <span class="formw">@Html.CheckBoxFor(m => m.CommentsEnabled)</span>
+                <span  class="label" >@Html.Encode(Edit.EnableComments):</span> <span class="formw">@Html.CheckBoxFor(m => m.CommentsEnabled)</span>
             </div>
             <div class="row">
-                <span  class="label">Approve Comments:</span> <span class="formw">@Html.CheckBoxFor(m => m.ApproveComments)</span>
+                <span  class="label">@Html.Encode(Edit.EnableComments):</span> <span class="formw">@Html.CheckBoxFor(m => m.ApproveComments)</span>
             </div>
             <div class="row">
                 @if (Model.IsCreate)
                 {
-                    <input type="submit" value="New Blog" />
+                    <input type="submit" value=@Html.Encode(Edit.NewBlog) />
                 }
                 else
                 {
-                    <input type="submit" value="Edit Blog" />                
+                    <input type="submit" value=@Html.Encode(Edit.EditBlog) />                
                 }
             </div>
         }

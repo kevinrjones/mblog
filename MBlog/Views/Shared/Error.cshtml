@@ -1,15 +1,16 @@
-﻿@{
+﻿@using MBlog.Resources.Shared
+@{
     Layout = null;
 }
 
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Error</title>
+    <title>@Html.Encode(Error.Title)</title>
 </head>
 <body>
     <h2>
-        Sorry, an error occurred while processing your request.
+        @Html.Encode(Error.Sorry)
     </h2>
 </body>
 </html>
