@@ -1,7 +1,8 @@
 ﻿@using MBlog.Models.Post
+@using MBlog.Resources.Post
 @model EditPostViewModel
 @{
-    ViewBag.Title = "Create a New Post";
+    ViewBag.Title = Html.Encode(New.Title);
     ViewBag.Action = "Create";
     Layout = "~/Views/Shared/_BlogLayout.cshtml";
 }

@@ -1,4 +1,5 @@
 ﻿@using MBlog.Models.Post
+@using MBlog.Resources.General
 @model EditPostViewModel
 
 <section id="blog-post-form">
@@ -11,7 +12,7 @@
             @Html.HiddenFor(m => m.PostId)
             @Html.HiddenFor(m => m.BlogId)
             <div>
-                Title:
+                @Html.Encode(Global.Title):
             </div>
             <div>
                 @Html.TextBoxFor(m => m.Title, new { @class = "maxwidth" })
@@ -20,7 +21,7 @@
                 @Html.ValidationMessageFor(m => m.Title)
             </div>
             <div>
-                Post:
+                @Html.Encode(Global.Post):
             </div>
             <div>
                 <div>
@@ -33,10 +34,10 @@
             <div>
             @if (Model.IsCreate)
             {
-                <input type="submit" value="New Post" />
+                <input type="submit" value="@Html.Encode(Global.NewPost)" />
             } else
             {
-                <input type="submit" value="Edit Post" />                
+                <input type="submit" value="@Html.Encode(Global.EditPost)" />                
             }
             </div>
         }

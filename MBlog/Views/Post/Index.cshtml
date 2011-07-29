@@ -1,7 +1,8 @@
 ﻿@using MBlog.Models.Post
+@using MBlog.Resources.Post
 @model PostsViewModel
 @{
-    ViewBag.Title = "Blog Posts";
+    ViewBag.Title = Html.Encode(Index.Title);
     Layout = "~/Views/Shared/_BlogLayout.cshtml";
 }
 <ul class="blog-list">

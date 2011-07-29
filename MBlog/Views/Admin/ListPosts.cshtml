@@ -1,7 +1,9 @@
 ﻿@using MBlog.Models.Post
+@using MBlog.Resources.General
+@using MBlog.Resources.Admin
 @model PostsViewModel
 @{
-    ViewBag.Title = "ListPosts";
+    ViewBag.Title = Html.Encode(Index.ListPosts);
     Layout = "~/Views/Admin/_AdminLayout.cshtml";
 }
 <section class="list-posts">
@@ -10,26 +12,26 @@
         {
             <tr>
                 <td>
-                    @Html.ActionLink("View", "Show", "Post", new { nickname = Model.Nickname, link = postViewModel.Link, year = postViewModel.YearPosted, month = postViewModel.MonthPosted, day = postViewModel.DayPosted }, null)
+                    @Html.ActionLink(Global.View, "Show", "Post", new { nickname = Model.Nickname, link = postViewModel.Link, year = postViewModel.YearPosted, month = postViewModel.MonthPosted, day = postViewModel.DayPosted }, null)
                 </td>
                 <td>
-                    @Html.ActionLink("Edit", "edit", "Post", new { nickname = Model.Nickname, postId = postViewModel.Id, blogId = Model.BlogId }, null)
+                    @Html.ActionLink(Global.Edit, "edit", "Post", new { nickname = Model.Nickname, postId = postViewModel.Id, blogId = Model.BlogId }, null)
                 </td>
                 <td class="post-title">
                     @MvcHtmlString.Create(postViewModel.Title) 
                     @if (postViewModel.CommentCount != 0)
                     {
-                        <span class="list-posts-comment-count"><a href="#">(@postViewModel.CommentCount Comments)</a> </span>
+                        <span class="list-posts-comment-count"><a href="#">(@postViewModel.CommentCount @Global.Comments)</a> </span>
                     }
                 </td>
-                <td>
-                    @postViewModel.DatePosted.ToString("dd/MM/yyyy")
+                <td>                
+                    @postViewModel.DatePosted.ToShortDateString()
                 </td>
                 <td>
                     name
                 </td>
                 <td>
-                    @Html.ActionLink("Delete", "delete", "Post", new { nickname = Model.Nickname, postId = postViewModel.Id, blogId = Model.BlogId }, null)
+                    @Html.ActionLink(Global.Delete, "delete", "Post", new { nickname = Model.Nickname, postId = postViewModel.Id, blogId = Model.BlogId }, null)
                 </td>
             </tr>
         }
