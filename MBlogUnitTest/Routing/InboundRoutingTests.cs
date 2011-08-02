@@ -1,7 +1,9 @@
 using System.Web;
 using MBlog;
+using Moq;
 using NUnit.Framework;
 using System.Web.Routing;
+using MBlogUnitTest.Extensions;
 
 namespace MBlogUnitTest.Routing
 {
@@ -15,7 +17,8 @@ namespace MBlogUnitTest.Routing
                                      {
                                          controller = "Post",
                                          action = "Index"
-                                     });
+                                     },
+            "GET");
         }
 
         [Test]
@@ -30,7 +33,8 @@ namespace MBlogUnitTest.Routing
                 month="01",
                 day="02",
                 link = "post"
-            });
+            },
+            "GET");
         }
 
         [Test]
@@ -40,7 +44,8 @@ namespace MBlogUnitTest.Routing
             {
                 controller = "Error",
                 action = "Index"
-            });
+            },
+            "GET");
         }
 
         [Test]
@@ -50,7 +55,8 @@ namespace MBlogUnitTest.Routing
             {
                 controller = "Home",
                 action = "Index"
-            });
+            },
+            "GET");
         }
 
         [Test]
@@ -60,21 +66,29 @@ namespace MBlogUnitTest.Routing
             {
                 controller = "Admin",
                 action = "Index"
-            });
+            },
+            "GET");
         }
 
-        private void TestRoute(string url, object expectedValues)
+        [Test]
+        public void GivenACorrectRoutesCollection_WhenIAskToEdit_ThenIGetTheEditViewForTheBlogPost()
         {
-            // Arrange: Prepare the route collection and a mock request context
-            RouteCollection routes = new RouteCollection();
-            MvcApplication.RegisterRoutes(routes);
-            var mockHttpContext = new Moq.Mock<HttpContextBase>();
-            var mockRequest = new Moq.Mock<HttpRequestBase>();
-            mockHttpContext.Setup(x => x.Request).Returns(mockRequest.Object);
-            mockRequest.Setup(x => x.AppRelativeCurrentExecutionFilePath).Returns(url);
+            //http://localhost:7969/kevin/edit/1/25
+            TestRoute("~/nickname/edit/1/25", new
+            {
+                nickname = "nickname",
+                controller = "Post",
+                action = "Edit",
+                postId = "25",
+                blogId = "1",
+            },
+            "GET");
+        }
 
-            // Act: Get the mapped route
-            RouteData routeData = routes.GetRouteData(mockHttpContext.Object);
+
+        private void TestRoute(string url, object expectedValues, string httpMethod)
+        {
+            RouteData routeData = url.GetRouteData(httpMethod);
 
             // Assert: Test the route values against expectations
             Assert.That(routeData, Is.Not.Null);

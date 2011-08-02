@@ -85,37 +85,6 @@ namespace MBlogUnitTest.Controllers
             Assert.That(model.Blogs.Count, Is.EqualTo(1));
         }
 
-
-
-        [Test]
-        public void GivenNoUserInContext_WhenIListPosts_ThenIGetRedirectedToTheLoginPage()
-        {
-            AdminController controller = new AdminController(null, null, null);
-
-            SetControllerContext(controller);
-
-            RedirectToRouteResult result = controller.ListPosts(new AdminBlogViewModel()) as RedirectToRouteResult;
-            Assert.That(result, Is.Not.Null);
-            Assert.That(result.RouteValues["controller"], Is.EqualTo("User").IgnoreCase);
-            Assert.That(result.RouteValues["action"], Is.EqualTo("Login").IgnoreCase);
-        }
-
-        [Test]
-        public void GivenAUserInContext_AndTheUserIsNotLoggedIn_WhenIListPosts_ThenIGetRedirectedToTheLoginPage()
-        {
-            AdminController controller = new AdminController(null, null, null);
-
-            SetControllerContext(controller);
-
-            MockHttpContext.SetupProperty(h => h.User);
-            controller.HttpContext.User = new UserViewModel { IsLoggedIn = false };
-
-            RedirectToRouteResult result = controller.ListPosts(new AdminBlogViewModel()) as RedirectToRouteResult;
-            Assert.That(result, Is.Not.Null);
-            Assert.That(result.RouteValues["controller"], Is.EqualTo("User").IgnoreCase);
-            Assert.That(result.RouteValues["action"], Is.EqualTo("Login").IgnoreCase);
-        }
-
         [Test]
         public void GivenAUserInContext_AndTheUserIsLoggedIn_WhenIListPosts_ThenIGetAllThePosts()
         {

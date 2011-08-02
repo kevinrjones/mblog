@@ -139,12 +139,10 @@ namespace MBlogUnitTest.Controllers
             var mockBlog = new Mock<IBlogRepository>();
             _blogRepositoryMock = mockBlog.Object;
 
-            mockBlog.Setup(b => b.GetBlog(_userName)).Returns(new Blog { Id = _blogId });
             MockHttpContext.SetupProperty(h => h.User);
             
             PostController controller = new PostController(_blogRepositoryMock, _postRepositoryMock, _userRepositoryMock);
             SetControllerContext(controller);
-            controller.HttpContext.User = new UserViewModel { IsLoggedIn = true };
             var result = controller.New(_userName, _blogId) as ViewResult;
 
             Assert.That(result, Is.TypeOf<ViewResult>());            
@@ -153,10 +151,8 @@ namespace MBlogUnitTest.Controllers
         [Test]
         public void GivenAPostController_WhenICallItsCreateMethod_AndTheModelIsValid_ThenItReturnsTheCorrectView()
         {
-            MockHttpContext.SetupProperty(h => h.User);
             PostController controller = new PostController(_blogRepositoryMock, _postRepositoryMock, _userRepositoryMock);
             SetControllerContext(controller);
-            controller.HttpContext.User = new UserViewModel { IsLoggedIn = true };
             var result = controller.Create(new CreatePostViewModel()) as RedirectToRouteResult;
 
             Assert.That(result, Is.Not.Null);
@@ -166,10 +162,8 @@ namespace MBlogUnitTest.Controllers
         [Test]
         public void GivenAPostController_WhenICallItsCreateMethod_AndTheModelIsInvalid_ThenItReturnsTheCorrectView()
         {
-            MockHttpContext.SetupProperty(h => h.User);
             PostController controller = new PostController(_blogRepositoryMock, _postRepositoryMock, _userRepositoryMock);
             SetControllerContext(controller);
-            controller.HttpContext.User = new UserViewModel { IsLoggedIn = true };
             controller.ModelState.AddModelError("Title", "Title error");
             var result = controller.Create(new CreatePostViewModel());
 
@@ -177,53 +171,12 @@ namespace MBlogUnitTest.Controllers
         }
 
         [Test]
-        public void GivenANotLoggedInUser_WhenICallItsCreateMethod_ThenIGetRedirect()
-        {
-            MockHttpContext.SetupProperty(h => h.User);
-            PostController controller = new PostController(_blogRepositoryMock, _postRepositoryMock, _userRepositoryMock);
-            SetControllerContext(controller);
-            controller.HttpContext.User = new UserViewModel { IsLoggedIn = false };
-            controller.ModelState.AddModelError("Title", "Title error");
-            var result = controller.Create(new CreatePostViewModel());
-
-            Assert.That(result, Is.TypeOf<RedirectToRouteResult>());
-        }
-
-        [Test]
-        public void GivenANotLoggedInUser_WhenITryAndCreateANewPost_ThenIGetRedirected()
-        {
-            MockHttpContext.SetupProperty(h => h.User);
-            PostController controller = new PostController(_blogRepositoryMock, _postRepositoryMock, _userRepositoryMock);
-            SetControllerContext(controller);
-            controller.HttpContext.User = new UserViewModel { IsLoggedIn = false };
-
-            var result = controller.New("empty", 1);
-            
-            Assert.That(result, Is.TypeOf<RedirectToRouteResult>());
-        }
-
-        [Test]
-        public void GivenALoggedInUser_AndAnInvalidBlog_WhenITryAndCreateANewPost_ThenIGetRedirected()
-        {
-            MockHttpContext.SetupProperty(h => h.User);
-            PostController controller = new PostController(_blogRepositoryMock, _postRepositoryMock, _userRepositoryMock);
-            SetControllerContext(controller);
-            controller.HttpContext.User = new UserViewModel { IsLoggedIn = true };
-
-            var result = controller.New("empty", 1);
-
-            Assert.That(result, Is.TypeOf<RedirectToRouteResult>());
-        }
-
-        [Test]
-        public void GivenALoggedInUser_WhenITryAndEditAPost_ThenIGetTheCorrectView()
+        public void GivenAValidPost_WhenITryAndEditAPost_ThenIGetTheCorrectView()
         {
             var mockBlog = new Mock<IBlogRepository>();
-            mockBlog.Setup(b => b.GetBlog(_userName)).Returns(new Blog { Id = _blogId });
             MockHttpContext.SetupProperty(h => h.User);
             PostController controller = new PostController(mockBlog.Object, _postRepositoryMock, _userRepositoryMock);
             SetControllerContext(controller);
-            controller.HttpContext.User = new UserViewModel { Id = _blogId, IsLoggedIn = true };
 
             var result = controller.Edit(_userName, _blogId, 1);
 
@@ -231,40 +184,12 @@ namespace MBlogUnitTest.Controllers
         }
 
         [Test]
-        public void GivenANotLoggedInUser_WhenITryAndEditAPost_ThenIGetRedirected()
-        {
-            MockHttpContext.SetupProperty(h => h.User);
-            PostController controller = new PostController(_blogRepositoryMock, _postRepositoryMock, _userRepositoryMock);
-            SetControllerContext(controller);
-            controller.HttpContext.User = new UserViewModel { IsLoggedIn = false };
-
-            var result = controller.Edit("empty", 1, 1);
-
-            Assert.That(result, Is.TypeOf<RedirectToRouteResult>());
-        }
-
-        [Test]
-        public void GivenALoggedInUser_AndAnInValidBlog_WhenITryAndEditAPost_ThenIGetRedirected()
-        {
-            MockHttpContext.SetupProperty(h => h.User);
-            PostController controller = new PostController(_blogRepositoryMock, _postRepositoryMock, _userRepositoryMock);
-            SetControllerContext(controller);
-            controller.HttpContext.User = new UserViewModel { IsLoggedIn = true };
-
-            var result = controller.Edit("empty", 1, 1);
-
-            Assert.That(result, Is.TypeOf<RedirectToRouteResult>());
-        }
-
-        [Test]
-        public void GivenALoggedInUser_WhenITryAndUpdateAPost_ThenIGetTheCorrectView()
+        public void GivenAValidPost_WhenITryAndUpdateAPost_ThenIGetTheCorrectView()
         {
             var mockBlog = new Mock<IBlogRepository>();
             mockBlog.Setup(b => b.GetBlog(_userName)).Returns(new Blog { Id = _blogId });
-            MockHttpContext.SetupProperty(h => h.User);
             PostController controller = new PostController(mockBlog.Object, _postRepositoryMock, _userRepositoryMock);
             SetControllerContext(controller);
-            controller.HttpContext.User = new UserViewModel { Id = _blogId, IsLoggedIn = true };
 
             RedirectToRouteResult result = controller.Update(new EditPostViewModel { Nickname = _userName, BlogId = _blogId, PostId = 1 }) as RedirectToRouteResult;
 
@@ -274,15 +199,13 @@ namespace MBlogUnitTest.Controllers
         }
 
         [Test]
-        public void GivenALoggedInUser_AndTheModelIsInvalid_WhenITryAndUpdateAPost_ThenIGetTheCorrectView()
+        public void GivenAnInvalid_WhenITryAndUpdateAPost_ThenIGetTheCorrectView()
         {
             var mockBlog = new Mock<IBlogRepository>();
             mockBlog.Setup(b => b.GetBlog(_userName)).Returns(new Blog { Id = _blogId });
-            MockHttpContext.SetupProperty(h => h.User);
             PostController controller = new PostController(mockBlog.Object, _postRepositoryMock, _userRepositoryMock);
             controller.ModelState.AddModelError("Name", "Name error");
             SetControllerContext(controller);
-            controller.HttpContext.User = new UserViewModel { Id = _blogId, IsLoggedIn = true };
 
             ViewResult result = controller.Update(new EditPostViewModel { Nickname = _userName, BlogId = _blogId, PostId = 1 }) as ViewResult;
 
@@ -290,50 +213,13 @@ namespace MBlogUnitTest.Controllers
         }
 
         [Test]
-        public void GivenANotLoggedInUser_WhenITryAndUpdateAPost_ThenIGetRedirected()
-        {
-            MockHttpContext.SetupProperty(h => h.User);
-            PostController controller = new PostController(_blogRepositoryMock, _postRepositoryMock, _userRepositoryMock);
-            SetControllerContext(controller);
-            controller.HttpContext.User = new UserViewModel { IsLoggedIn = false };
-
-            RedirectToRouteResult result = controller.Update(new EditPostViewModel { PostId = 1, BlogId = 1, Nickname = "empty" }) as RedirectToRouteResult;
-
-            Assert.That(result, Is.Not.Null);
-            Assert.That(result.RouteValues["controller"], Is.EqualTo("user").IgnoreCase);
-            Assert.That(result.RouteValues["action"], Is.EqualTo("login").IgnoreCase);
-        }
-
-        [Test]
-        public void GivenALoggedInUser_AndAnInValidBlog_WhenITryAndUpdateAPost_ThenIGetRedirected()
+        public void GivenAnInValidPost_WhenITryAndUpdateThePost_ThenIGetAnException()
         {
             var mockBlog = new Mock<IBlogRepository>();
             mockBlog.Setup(b => b.GetBlog(_userName)).Returns(new Blog { Id = _blogId });
-            MockHttpContext.SetupProperty(h => h.User);
-            
-            PostController controller = new PostController(mockBlog.Object, _postRepositoryMock, _userRepositoryMock);
-
-            SetControllerContext(controller);
-            
-            controller.HttpContext.User = new UserViewModel { Id = _blogId, IsLoggedIn = true };
-
-            RedirectToRouteResult result = controller.Update(new EditPostViewModel { PostId = 1, BlogId = 1, Nickname = _userName }) as RedirectToRouteResult;
-
-            Assert.That(result, Is.Not.Null);
-            Assert.That(result.RouteValues["controller"], Is.EqualTo("user").IgnoreCase);
-            Assert.That(result.RouteValues["action"], Is.EqualTo("login").IgnoreCase);
-        }
-
-        [Test]
-        public void GivenALoggedInUser_AndAnInValidPost_WhenITryAndUpdateThePost_ThenIGetAnException()
-        {
-            var mockBlog = new Mock<IBlogRepository>();
-            mockBlog.Setup(b => b.GetBlog(_userName)).Returns(new Blog { Id = _blogId });
-            MockHttpContext.SetupProperty(h => h.User);
             var postRepositoryMock = new Mock<IPostRepository>();
             PostController controller = new PostController(mockBlog.Object, postRepositoryMock.Object, _userRepositoryMock);
             SetControllerContext(controller);
-            controller.HttpContext.User = new UserViewModel { IsLoggedIn = true };
 
             Assert.Throws<MBlogException>(() => controller.Update(new EditPostViewModel { PostId = 1, BlogId = _blogId, Nickname = _userName }));
 

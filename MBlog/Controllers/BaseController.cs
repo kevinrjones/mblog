@@ -17,7 +17,7 @@ namespace MBlog.Controllers
     {
         protected ILogger Logger { get; set; }
         protected internal IUserRepository UserRepository { get; set; }
-        protected IBlogRepository BlogRepository { get; set; }
+        protected internal IBlogRepository BlogRepository { get; set; }
 
         public BaseController(ILogger logger, IUserRepository userRepository, IBlogRepository blogRepository)
         {
@@ -72,24 +72,6 @@ namespace MBlog.Controllers
         protected bool IsLoggedInUser(UserViewModel user)
         {
             return (user != null && user.IsLoggedIn);
-        }
-
-        private bool UserOwnsBlog(string nickname, int blogId)
-        {
-            Blog blog = BlogRepository.GetBlog(nickname);
-            return blog.Id == blogId;
-        }
-
-        protected bool RedirectIfInvalidUser(string nickname, int blogId, out ActionResult redirectToAction)
-        {
-            var user = HttpContext.User as UserViewModel;
-            if (!IsLoggedInUser(user) || !UserOwnsBlog(nickname, blogId))
-            {
-                redirectToAction = RedirectToAction("login", "User");
-                return true;
-            }
-            redirectToAction = null;
-            return false;
         }
     }
 }

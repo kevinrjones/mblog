@@ -1,17 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Web;
 using System.Web.Mvc;
 using System.Web.Routing;
 using MBlog.Controllers;
 using MBlog.Filters;
 using MBlog.Infrastructure;
-using MBlog.Models;
 using MBlog.Models.User;
 using MBlogModel;
-using MBlogRepository;
 using MBlogRepository.Interfaces;
 using Moq;
 using NUnit.Framework;
@@ -21,7 +17,7 @@ namespace MBlogUnitTest.Filters
     [TestFixture]
     class GetCookieUserFilterAttributeTest
     {
-        private ActionExecutingContext _actionExecutingContext;
+        private AuthorizationContext _actionExecutingContext;
         private IUserRepository _userRepository;
         Mock<HttpContextBase> _mockHttpContext;
         private const string Nickname = "nickname";
@@ -60,9 +56,8 @@ namespace MBlogUnitTest.Filters
             actionDescriptor.SetupGet(x => x.ActionName).Returns("Action_With_SomeAttribute");
 
             _actionExecutingContext =
-                new ActionExecutingContext(controllerContext,
-                                           actionDescriptor.Object,
-                                           new RouteValueDictionary());
+                new AuthorizationContext(controllerContext,
+                                           actionDescriptor.Object);
 
         }
 
@@ -78,13 +73,12 @@ namespace MBlogUnitTest.Filters
             actionDescriptor.SetupGet(x => x.ActionName).Returns("Action_With_SomeAttribute");
 
             _actionExecutingContext =
-                new ActionExecutingContext(controllerContext,
-                                           actionDescriptor.Object,
-                                           new RouteValueDictionary());
+                new AuthorizationContext(controllerContext,
+                                           actionDescriptor.Object);
 
             GetCookieUserFilterAttribute attribute = new GetCookieUserFilterAttribute();
 
-            attribute.OnActionExecuting(_actionExecutingContext);
+            attribute.OnAuthorization(_actionExecutingContext);
         }
 
         [Test]
@@ -93,7 +87,7 @@ namespace MBlogUnitTest.Filters
             _mockHttpContext.Setup(h => h.Request).Returns(new FakeRequestWithValidUserId());
             GetCookieUserFilterAttribute attribute = new GetCookieUserFilterAttribute();
 
-            attribute.OnActionExecuting(_actionExecutingContext);
+            attribute.OnAuthorization(_actionExecutingContext);
 
             Assert.That(_mockHttpContext.Object.User, Is.Not.Null);
             Assert.That(_mockHttpContext.Object.User.Identity.IsAuthenticated, Is.True);
@@ -105,7 +99,7 @@ namespace MBlogUnitTest.Filters
             _mockHttpContext.Setup(h => h.Request).Returns(new FakeRequestWithInvalidUserId());
             GetCookieUserFilterAttribute attribute = new GetCookieUserFilterAttribute();
 
-            attribute.OnActionExecuting(_actionExecutingContext);
+            attribute.OnAuthorization(_actionExecutingContext);
 
             Assert.That(_mockHttpContext.Object.User, Is.Not.Null);
             Assert.That(_mockHttpContext.Object.User.Identity.IsAuthenticated, Is.False);                
@@ -117,7 +111,7 @@ namespace MBlogUnitTest.Filters
             _mockHttpContext.Setup(h => h.Request).Returns(new FakeRequestWithValidUserId());
             GetCookieUserFilterAttribute attribute = new GetCookieUserFilterAttribute();
 
-            attribute.OnActionExecuting(_actionExecutingContext);
+            attribute.OnAuthorization(_actionExecutingContext);
             UserViewModel userViewModel = (UserViewModel) _mockHttpContext.Object.User;
             
             Assert.That(userViewModel.Nicknames.Count, Is.GreaterThan(0));
@@ -130,7 +124,7 @@ namespace MBlogUnitTest.Filters
             _mockHttpContext.Setup(h => h.Request).Returns(new FakeRequestWithInvalidUserId());
             GetCookieUserFilterAttribute attribute = new GetCookieUserFilterAttribute();
 
-            attribute.OnActionExecuting(_actionExecutingContext);
+            attribute.OnAuthorization(_actionExecutingContext);
             UserViewModel userViewModel = (UserViewModel)_mockHttpContext.Object.User;
 
             Assert.That(userViewModel.Nicknames.Count, Is.EqualTo(0));
@@ -143,7 +137,7 @@ namespace MBlogUnitTest.Filters
             _mockHttpContext.Setup(h => h.Request).Returns(new FakeRequestWithValidUserIdButNoBlogs());
             GetCookieUserFilterAttribute attribute = new GetCookieUserFilterAttribute();
 
-            attribute.OnActionExecuting(_actionExecutingContext);
+            attribute.OnAuthorization(_actionExecutingContext);
             UserViewModel userViewModel = (UserViewModel)_mockHttpContext.Object.User;
 
             Assert.That(userViewModel.Nicknames.Count, Is.EqualTo(0));

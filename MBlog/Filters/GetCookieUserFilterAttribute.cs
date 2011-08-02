@@ -7,16 +7,16 @@ using MBlogModel;
 
 namespace MBlog.Filters
 {
-    public class GetCookieUserFilterAttribute : ActionFilterAttribute
+    public class GetCookieUserFilterAttribute : AuthorizeAttribute
     {
         public static string UserCookie = "USER";
 
-        public override void OnActionExecuting(ActionExecutingContext filterContext)
-        {
+        public override void OnAuthorization(AuthorizationContext filterContext)
+        {            
             var controller = filterContext.Controller as BaseController;
             if (controller != null)
             {
-                var userViewModel = new UserViewModel {IsLoggedIn = false};
+                var userViewModel = new UserViewModel { IsLoggedIn = false };
                 if (filterContext.HttpContext.Request.Cookies[UserCookie] != null)
                 {
                     string cookie = filterContext.HttpContext.Request.Cookies[UserCookie].Value;

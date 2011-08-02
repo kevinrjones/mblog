@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Web.Mvc;
+using MBlog.Filters;
 using MBlog.Models.Post;
 using MBlogModel;
 using MBlogRepository.Interfaces;
@@ -30,20 +31,17 @@ namespace MBlog.Controllers
         }
 
         [HttpGet]
+        [AuthorizeBlogOwner]
         public ActionResult New(string nickname, int blogId)
         {
-            ActionResult redirectToAction;
-            if (RedirectIfInvalidUser(nickname, blogId, out redirectToAction)) return redirectToAction;
             return View(new EditPostViewModel {BlogId = blogId, IsCreate = true});
         }
 
         [HttpPost]
         [ValidateInput(false)]
+        [AuthorizeBlogOwner]
         public ActionResult Create(CreatePostViewModel model)
         {
-            ActionResult redirectToAction;
-            if (RedirectIfInvalidUser(model.Nickname, model.BlogId, out redirectToAction)) return redirectToAction;
-
             if (!ModelState.IsValid)
             {
                 return View("New", model);
@@ -52,10 +50,9 @@ namespace MBlog.Controllers
         }
 
         [HttpGet]
+        [AuthorizeBlogOwner]
         public ActionResult Edit(string nickname, int blogId, int postId)
         {
-            ActionResult redirectToAction;
-            if (RedirectIfInvalidUser(nickname, blogId, out redirectToAction)) return redirectToAction;
             Post post = _blogPostRepository.GetBlogPost(postId);
             return
                 View(new EditPostViewModel {BlogId = blogId, PostId = postId, Title = post.Title, Post = post.BlogPost});
@@ -63,11 +60,9 @@ namespace MBlog.Controllers
 
         [HttpPost]
         [ValidateInput(false)]
+        [AuthorizeBlogOwner]
         public ActionResult Update(EditPostViewModel model)
         {
-            ActionResult redirectToAction;
-            if (RedirectIfInvalidUser(model.Nickname, model.BlogId, out redirectToAction)) return redirectToAction;
-
             if (!ModelState.IsValid)
             {
                 return View("Edit", model);

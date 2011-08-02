@@ -1,4 +1,5 @@
 ﻿using System.Web;
+using Moq;
 
 namespace MBlogUnitTest.Helpers
 {
@@ -13,6 +14,15 @@ namespace MBlogUnitTest.Helpers
             get
             {
                 return cookies;
+            }
+        }
+
+        public override HttpCachePolicyBase Cache
+        {
+            get
+            {
+                var mock = new Mock<HttpCachePolicyBase>();
+                return mock.Object;
             }
         }
     }
