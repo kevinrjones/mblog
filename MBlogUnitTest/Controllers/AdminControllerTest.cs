@@ -28,35 +28,6 @@ namespace MBlogUnitTest.Controllers
         }
 
         [Test]
-        public void GivenNoUserInContext_WhenIGoToTheAdminIndexPage_ThenIGetRedirectedToTheLoginPage()
-        {
-            AdminController controller = new AdminController(null, null, null);
-
-            SetControllerContext(controller);
-
-            RedirectToRouteResult result = controller.Index() as RedirectToRouteResult;
-            Assert.That(result, Is.Not.Null);
-            Assert.That(result.RouteValues["controller"], Is.EqualTo("User").IgnoreCase);
-            Assert.That(result.RouteValues["action"], Is.EqualTo("Login").IgnoreCase);
-        }
-
-        [Test]
-        public void GivenAUserInContext_AndTheUserIsNotLoggedIn_WhenIGoToTheAdminIndexPage_ThenIGetRedirectedToTheLoginPage()
-        {
-            AdminController controller = new AdminController(null, null, null);
-
-            SetControllerContext(controller);
-
-            MockHttpContext.SetupProperty(h => h.User);
-            controller.HttpContext.User = new UserViewModel { IsLoggedIn = false };
-
-            RedirectToRouteResult result = controller.Index() as RedirectToRouteResult;
-            Assert.That(result, Is.Not.Null);
-            Assert.That(result.RouteValues["controller"], Is.EqualTo("User").IgnoreCase);
-            Assert.That(result.RouteValues["action"], Is.EqualTo("Login").IgnoreCase);
-        }
-
-        [Test]
         public void GivenAUserInContext_AndTheUserIsLoggedIn_WhenIGoToTheAdminIndexPage_ThenIGetTheAdminPage()
         {
             AdminController controller = new AdminController(_mockUserRepository.Object, null, null);

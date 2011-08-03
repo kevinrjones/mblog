@@ -66,6 +66,7 @@
     <Compile Include="Controllers\PostControllerTest.cs" />
     <Compile Include="Controllers\UserControllerTest.cs" />
     <Compile Include="Filters\AuthorizeBlogOwnerAttributeTest.cs" />
+    <Compile Include="Filters\AuthorizeLoggedInUserAttributeTest.cs" />
     <Compile Include="Filters\GetCookieUserFilterAttributeTest.cs" />
     <Compile Include="Extensions\RouteExtensions.cs" />
     <Compile Include="Infrastructure\CookieEncryptionTest.cs" />
