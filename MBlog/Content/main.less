@@ -84,9 +84,12 @@ legend { font-size: @base-font-size; font-weight: bold; padding: 0 10px 0 10px; 
 #blog-form-body { padding: 0px 0 0px 10px; width: 500px; margin: 0px auto; }
 .maxwidth { width: 100%; }
 
-div.row { clear: both; padding-top: 5px; }
-div.row span.label { float: left; width: 120px; text-align: right; }
-div.row span.formw { float: right; width: 370px; text-align: left; }
+div
+{
+	&.row { clear: both; padding-top: 5px; }
+	span.label { float: left; width: 120px; text-align: right; }
+	span.formw { float: right; width: 370px; text-align: left; }
+}
 
 #Comment { width: 100%; }
 .inline-code { font-family: @code-font-family; font-weight: bold;  }

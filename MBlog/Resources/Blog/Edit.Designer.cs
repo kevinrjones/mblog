@@ -79,7 +79,7 @@ namespace MBlog.Resources.Blog {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Edit Blog.
+        ///   Looks up a localized string similar to Update Blog.
         /// </summary>
         public static string EditBlog {
             get {

@@ -93,9 +93,6 @@
     <Reference Include="Glimpse.Core">
       <HintPath>..\packages\Glimpse.0.84\lib\net40\Glimpse.Core.dll</HintPath>
     </Reference>
-    <Reference Include="Glimpse.Elmah">
-      <HintPath>..\packages\Glimpse.Elmah.0.9.5\lib\net40\Glimpse.Elmah.dll</HintPath>
-    </Reference>
     <Reference Include="Glimpse.Mvc3">
       <HintPath>..\packages\Glimpse.Mvc3.0.84\lib\net40\Glimpse.Mvc3.dll</HintPath>
     </Reference>
@@ -205,6 +202,7 @@
     <Compile Include="Controllers\BaseController.cs" />
     <Compile Include="Controllers\BlogController.cs" />
     <Compile Include="Controllers\CommentController.cs" />
+    <Compile Include="Models\Blog\EditBlogViewModel.cs" />
     <Compile Include="Filters\AuthorizeBlogOwnerAttribute.cs" />
     <Compile Include="Filters\AuthorizeLoggedInUserAttribute.cs" />
     <Compile Include="Logging\WebMessageInformation.cs" />
@@ -305,7 +303,6 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Content\main.less" />
-    <Content Include="App_Readme\Glimpse.Elmah.Readme.txt" />
     <Content Include="App_Readme\glimpse.mvc3.readme.txt" />
     <Content Include="App_Readme\glimpse.readme.txt" />
     <Content Include="Content\ie.css" />
@@ -528,6 +525,7 @@
       <Generator>PublicResXFileCodeGenerator</Generator>
       <LastGenOutput>Edit.Designer.cs</LastGenOutput>
       <CustomToolNamespace>MBlog.Resources.Blog</CustomToolNamespace>
+      <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="Resources\Blog\New.resx">
       <Generator>PublicResXFileCodeGenerator</Generator>

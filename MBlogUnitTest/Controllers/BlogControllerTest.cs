@@ -6,6 +6,7 @@ using System.Web.Mvc;
 using MBlog.Controllers;
 using MBlog.Models.Blog;
 using MBlog.Models.User;
+using MBlogModel;
 using MBlogRepository.Interfaces;
 using Moq;
 using NUnit.Framework;
@@ -92,6 +93,52 @@ namespace MBlogUnitTest.Controllers
             Assert.That(result.RouteValues["action"], Is.EqualTo("Index").IgnoreCase);
 
         }
+
+        [Test]
+        public void GivenALoggedInUser_WhenITryAndEditABlog_ThenIGetTheCorrectView()
+        {
+            string nickname = "nickname";
+            _blogRepository.Setup(b => b.GetBlog(nickname)).Returns(new Blog("title", "description", true, true,
+                                                                               nickname, 1));
+            var controller = new BlogController(_userRepository.Object, _blogRepository.Object);
+
+            var result = controller.Edit(new CreateBlogViewModel{Nickname = nickname});
+
+            Assert.That(result, Is.TypeOf<ViewResult>());
+        }
+
+        [Test]
+        public void GivenAValidModel_WhenITryAndUpdateABlog_ThenIGetTheCorrectView()
+        {
+            string nickname = "nickname";
+            _blogRepository.Setup(b => b.GetBlog(nickname)).Returns(new Blog("title", "description", true, true,
+                                                                               nickname, 1));
+            var controller = new BlogController(_userRepository.Object, _blogRepository.Object);
+
+
+            RedirectToRouteResult result = controller.Update(new CreateBlogViewModel { Nickname = nickname, Description = "desc", Title = "title"}) as RedirectToRouteResult;
+
+            Assert.That(result, Is.Not.Null);
+            Assert.That(result.RouteValues["controller"], Is.EqualTo("Admin").IgnoreCase);
+            Assert.That(result.RouteValues["action"], Is.EqualTo("index").IgnoreCase);
+        }
+
+        [Test]
+        public void GivenAnInvalidModel_WhenITryAndUpdateABlog_ThenIHaveToReEditTheBlogData()
+        {
+            string nickname = "nickname";
+            _blogRepository.Setup(b => b.GetBlog(nickname)).Returns(new Blog("title", "description", true, true,
+                                                                               nickname, 1));
+            var controller = new BlogController(_userRepository.Object, _blogRepository.Object);
+
+            controller.ModelState.AddModelError("Name", "Name error");
+            SetControllerContext(controller);
+
+            var result = controller.Update(new CreateBlogViewModel ()) as ViewResult;
+
+            Assert.That(result, Is.Not.Null);
+        }
+
 
     }
 }

@@ -44,15 +44,15 @@ namespace MBlog
 
             routes.MapRoute(
                 "Blog-update",
-                "blog/update",
-                new { controller = "Blog", action = "Update" },
+                "blog/update/{blogId}",
+                new { controller = "Blog", action = "Update", nickname = UrlParameter.Optional, blogId = UrlParameter.Optional, },
                 new { httpMethod = new HttpMethodConstraint("POST") }
                 );
 
             routes.MapRoute(
                 "Blog-edit",
-                "blog/edit",
-                new { controller = "Blog", action = "Edit" },
+                "{nickname}/blog/edit/{blogId}",
+                new { controller = "Blog", action = "Edit", nickname = UrlParameter.Optional, blogId = UrlParameter.Optional, },
                 new { httpMethod = new HttpMethodConstraint("GET") }
                 );
 

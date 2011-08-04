@@ -20,5 +20,12 @@ namespace MBlogRepository.Repositories
                    where b.Nickname == nickname
                    select b).FirstOrDefault();
         }
+
+        public Blog GetBlog(int id)
+        {
+            return (from b in Entities
+                    where b.Id == id
+                    select b).FirstOrDefault();
+        }
     }
 }

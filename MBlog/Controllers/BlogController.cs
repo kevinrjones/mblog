@@ -1,4 +1,5 @@
 ﻿using System.Web.Mvc;
+using MBlog.Filters;
 using MBlog.Models.Blog;
 using MBlog.Models.User;
 using MBlogModel;
@@ -34,6 +35,38 @@ namespace MBlog.Controllers
                 return View("New", model);
             }
             return CreateBlog(model);
+        }
+
+        [HttpGet]
+        [AuthorizeBlogOwner]
+        public ActionResult Edit(CreateBlogViewModel model)
+        {
+            Blog blog = BlogRepository.GetBlog(model.Nickname);
+            var modelOut = new CreateBlogViewModel(blog);
+            return View(modelOut);
+        }
+
+        [HttpPost]
+        [AuthorizeBlogOwner]
+        public ActionResult Update(CreateBlogViewModel model)
+        {
+            if (!ModelState.IsValid)
+            {
+                return View("Edit", model);
+            }
+            return UpdateBlog(model);
+        }
+
+        private ActionResult UpdateBlog(CreateBlogViewModel model)
+        {
+            Blog blog = BlogRepository.GetBlog(model.Nickname);
+
+            blog.ApproveComments = model.ApproveComments;
+            blog.CommentsEnabled = model.CommentsEnabled;
+            blog.Description = model.Description;
+            blog.Title = model.Title;
+            BlogRepository.Add(blog);
+            return RedirectToRoute(new {controller = "Admin", action = "Index"});
         }
 
         private ActionResult CreateBlog(CreateBlogViewModel model)

@@ -124,7 +124,7 @@
     <value>Description</value>
   </data>
   <data name="EditBlog" xml:space="preserve">
-    <value>Edit Blog</value>
+    <value>Update Blog</value>
   </data>
   <data name="EnableComments" xml:space="preserve">
     <value>Enable Comments</value>
