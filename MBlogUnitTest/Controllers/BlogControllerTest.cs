@@ -132,7 +132,6 @@ namespace MBlogUnitTest.Controllers
             var controller = new BlogController(_userRepository.Object, _blogRepository.Object);
 
             controller.ModelState.AddModelError("Name", "Name error");
-            SetControllerContext(controller);
 
             var result = controller.Update(new CreateBlogViewModel ()) as ViewResult;
 

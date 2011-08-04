@@ -142,7 +142,6 @@ namespace MBlogUnitTest.Controllers
             MockHttpContext.SetupProperty(h => h.User);
             
             PostController controller = new PostController(_blogRepositoryMock, _postRepositoryMock, _userRepositoryMock);
-            SetControllerContext(controller);
             var result = controller.New(_userName, _blogId) as ViewResult;
 
             Assert.That(result, Is.TypeOf<ViewResult>());            
@@ -152,7 +151,6 @@ namespace MBlogUnitTest.Controllers
         public void GivenAPostController_WhenICallItsCreateMethod_AndTheModelIsValid_ThenItReturnsTheCorrectView()
         {
             PostController controller = new PostController(_blogRepositoryMock, _postRepositoryMock, _userRepositoryMock);
-            SetControllerContext(controller);
             var result = controller.Create(new CreatePostViewModel()) as RedirectToRouteResult;
 
             Assert.That(result, Is.Not.Null);
@@ -163,7 +161,6 @@ namespace MBlogUnitTest.Controllers
         public void GivenAPostController_WhenICallItsCreateMethod_AndTheModelIsInvalid_ThenItReturnsTheCorrectView()
         {
             PostController controller = new PostController(_blogRepositoryMock, _postRepositoryMock, _userRepositoryMock);
-            SetControllerContext(controller);
             controller.ModelState.AddModelError("Title", "Title error");
             var result = controller.Create(new CreatePostViewModel());
 
@@ -176,7 +173,6 @@ namespace MBlogUnitTest.Controllers
             var mockBlog = new Mock<IBlogRepository>();
             MockHttpContext.SetupProperty(h => h.User);
             PostController controller = new PostController(mockBlog.Object, _postRepositoryMock, _userRepositoryMock);
-            SetControllerContext(controller);
 
             var result = controller.Edit(_userName, _blogId, 1);
 
@@ -189,7 +185,6 @@ namespace MBlogUnitTest.Controllers
             var mockBlog = new Mock<IBlogRepository>();
             mockBlog.Setup(b => b.GetBlog(_userName)).Returns(new Blog { Id = _blogId });
             PostController controller = new PostController(mockBlog.Object, _postRepositoryMock, _userRepositoryMock);
-            SetControllerContext(controller);
 
             RedirectToRouteResult result = controller.Update(new EditPostViewModel { Nickname = _userName, BlogId = _blogId, PostId = 1 }) as RedirectToRouteResult;
 
@@ -199,13 +194,12 @@ namespace MBlogUnitTest.Controllers
         }
 
         [Test]
-        public void GivenAnInvalid_WhenITryAndUpdateAPost_ThenIGetTheCorrectView()
+        public void GivenAnInvalidPost_WhenITryAndUpdateAPost_ThenIHaveToReeditThePost()
         {
             var mockBlog = new Mock<IBlogRepository>();
             mockBlog.Setup(b => b.GetBlog(_userName)).Returns(new Blog { Id = _blogId });
             PostController controller = new PostController(mockBlog.Object, _postRepositoryMock, _userRepositoryMock);
             controller.ModelState.AddModelError("Name", "Name error");
-            SetControllerContext(controller);
 
             ViewResult result = controller.Update(new EditPostViewModel { Nickname = _userName, BlogId = _blogId, PostId = 1 }) as ViewResult;
 
@@ -213,13 +207,12 @@ namespace MBlogUnitTest.Controllers
         }
 
         [Test]
-        public void GivenAnInValidPost_WhenITryAndUpdateThePost_ThenIGetAnException()
+        public void GivenAnInvalidPost_WhenITryAndUpdateThePost_ThenIGetAnException()
         {
             var mockBlog = new Mock<IBlogRepository>();
             mockBlog.Setup(b => b.GetBlog(_userName)).Returns(new Blog { Id = _blogId });
             var postRepositoryMock = new Mock<IPostRepository>();
             PostController controller = new PostController(mockBlog.Object, postRepositoryMock.Object, _userRepositoryMock);
-            SetControllerContext(controller);
 
             Assert.Throws<MBlogException>(() => controller.Update(new EditPostViewModel { PostId = 1, BlogId = _blogId, Nickname = _userName }));
 

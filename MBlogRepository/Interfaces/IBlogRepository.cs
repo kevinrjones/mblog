@@ -10,6 +10,5 @@ namespace MBlogRepository.Interfaces
     public interface IBlogRepository : IRepository<Blog>
     {
         Blog GetBlog(string nickname);
-        Blog GetBlog(int id);
     }
 }
