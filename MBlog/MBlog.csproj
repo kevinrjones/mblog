@@ -302,7 +302,9 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <None Include="Content\main.less" />
+    <None Include="Content\main.less">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
     <Content Include="App_Readme\glimpse.mvc3.readme.txt" />
     <Content Include="App_Readme\glimpse.readme.txt" />
     <Content Include="Content\ie.css" />
