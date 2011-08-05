@@ -14,5 +14,6 @@ namespace MBlogRepository.Interfaces
         IList<Post> GetOrderedBlogPosts(int blogId);
         IList<Post> GetBlogPosts(int year, int month, int day, string nickname, string link);
         Post AddComment(int id, string name, string comment);
+        void Update(int postId, string title, string entry);
     }
 }

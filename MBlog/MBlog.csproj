@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
@@ -173,6 +173,7 @@
       <HintPath>..\packages\SassAndCoffee.Core.1.0\lib\net40\SassAndCoffee.Core.dll</HintPath>
     </Reference>
     <Reference Include="System.Data.Entity" />
+    <Reference Include="System.ServiceModel" />
     <Reference Include="System.Web.Mvc, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL" />
     <Reference Include="System.Web.WebPages" />
     <Reference Include="System.Web.Helpers" />
@@ -199,10 +200,12 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ActionResults\RssActionResult.cs" />
     <Compile Include="Controllers\AdminController.cs" />
     <Compile Include="Controllers\BaseController.cs" />
     <Compile Include="Controllers\BlogController.cs" />
     <Compile Include="Controllers\CommentController.cs" />
+    <Compile Include="Controllers\FeedController.cs" />
     <Compile Include="Models\Blog\EditBlogViewModel.cs" />
     <Compile Include="Filters\AuthorizeBlogOwnerAttribute.cs" />
     <Compile Include="Filters\AuthorizeLoggedInUserAttribute.cs" />
@@ -493,9 +496,6 @@
     <Content Include="Views\Post\_ShowSinglePost.cshtml" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Views\Post\ShowPostWithComments.cshtml" />
-  </ItemGroup>
-  <ItemGroup>
     <Content Include="Views\Post\_ShowCommentsForPost.cshtml" />
   </ItemGroup>
   <ItemGroup>
@@ -578,6 +578,9 @@
       <LastGenOutput>Register.Designer.cs</LastGenOutput>
       <CustomToolNamespace>MBlog.Resources.User</CustomToolNamespace>
     </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Post\_PostLayout.cshtml" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v10.0\WebApplications\Microsoft.WebApplication.targets" />

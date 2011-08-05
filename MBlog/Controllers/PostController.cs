@@ -12,20 +12,19 @@ namespace MBlog.Controllers
     // todo: get all comments and hide them
     public class PostController : BaseController
     {
-        private readonly IPostRepository _blogPostRepository;
+        private readonly IPostRepository _postRepository;
 
-        public PostController(IBlogRepository blogRepository, IPostRepository blogPostRepository,
+        public PostController(IBlogRepository blogRepository, IPostRepository postRepository,
                               IUserRepository userRepository)
             : base(userRepository, blogRepository)
         {
-            BlogRepository = blogRepository;
-            _blogPostRepository = blogPostRepository;
+            _postRepository = postRepository;
         }
 
         public ActionResult Index(string nickname)
         {
-            var postsViewModel = new PostsViewModel();
-            IList<Post> posts = _blogPostRepository.GetBlogPosts(nickname);
+            var postsViewModel = new PostsViewModel{Nickname = nickname};
+            IList<Post> posts = _postRepository.GetBlogPosts(nickname);
             postsViewModel.AddPosts(posts);
             return View(postsViewModel);
         }
@@ -34,7 +33,7 @@ namespace MBlog.Controllers
         [AuthorizeBlogOwner]
         public ActionResult New(string nickname, int blogId)
         {
-            return View(new EditPostViewModel {BlogId = blogId, IsCreate = true});
+            return View(new EditPostViewModel {BlogId = blogId, IsCreate = true, Nickname = nickname});
         }
 
         [HttpPost]
@@ -53,9 +52,8 @@ namespace MBlog.Controllers
         [AuthorizeBlogOwner]
         public ActionResult Edit(string nickname, int blogId, int postId)
         {
-            Post post = _blogPostRepository.GetBlogPost(postId);
-            return
-                View(new EditPostViewModel {BlogId = blogId, PostId = postId, Title = post.Title, Post = post.BlogPost});
+            Post post = _postRepository.GetBlogPost(postId);
+            return View(new EditPostViewModel {BlogId = blogId, PostId = postId, Title = post.Title, Post = post.BlogPost});
         }
 
         [HttpPost]
@@ -72,8 +70,8 @@ namespace MBlog.Controllers
 
         public ActionResult Show(PostLinkViewModel postLinkViewModel)
         {
-            var postsViewModel = new PostsViewModel();
-            IList<Post> posts = _blogPostRepository.GetBlogPosts(postLinkViewModel.Year, postLinkViewModel.Month,
+            var postsViewModel = new PostsViewModel{Nickname = postLinkViewModel.Nickname};
+            IList<Post> posts = _postRepository.GetBlogPosts(postLinkViewModel.Year, postLinkViewModel.Month,
                                                                  postLinkViewModel.Day, postLinkViewModel.Nickname,
                                                                  postLinkViewModel.Link);
 
@@ -99,20 +97,16 @@ namespace MBlog.Controllers
                                CommentsEnabled = true,
                                //todo: get this from the admin
                            };
-            _blogPostRepository.Create(post);
+            _postRepository.Create(post);
+            BlogRepository.UpdateBlog(model.BlogId);
             return RedirectToRoute(new {controller = "Admin", action = "Index"});
         }
 
         private ActionResult UpdatePost(EditPostViewModel model)
         {
-            Post post = _blogPostRepository.GetBlogPost(model.PostId);
-            if (post == null)
-            {
-                throw new MBlogException("postId not valid");
-            }
-            post.UpdatePost(model.Title, model.Post);
-            _blogPostRepository.Add(post);
-            return RedirectToRoute(new {controller = "Admin", action = "Index"});
+            _postRepository.Update(model.PostId, model.Title, model.Post);
+            BlogRepository.UpdateBlog(model.BlogId);
+            return RedirectToRoute(new { controller = "Admin", action = "Index" });
         }
 
         private ActionResult GetPosts(PostLinkViewModel model, IList<Post> posts, PostsViewModel postsViewModel)

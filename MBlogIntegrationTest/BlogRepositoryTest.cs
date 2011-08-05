@@ -12,8 +12,6 @@ namespace MBlogIntegrationTest
     [TestFixture]
     public class BlogRepositoryTest
     {
-        #region Setup/Teardown
-
         [SetUp]
         public void Setup()
         {
@@ -24,20 +22,20 @@ namespace MBlogIntegrationTest
 
             for (int i = 0; i < NumberOfPosts; i++)
             {
-                Post post = BuildMeA.Post("title " + i, "entry " + i, DateTime.Today);
+                Post post = BuildMeA.Post("title " + i, "entry " + i, DateTime.Today, DateTime.Today);
                 posts.Add(post);
             }
 
 
             _blog = BuildMeA
-                .Blog("title", "description", _nickname)
+                .Blog("title", "description", _nickname, DateTime.Now)
                 .WithPosts(posts);
 
             _user1 = BuildMeA.User("email", "name", "password")
                 .WithBlog(_blog);
 
             Blog blog2 = BuildMeA
-                .Blog("title", "description", "nickname2");
+                .Blog("title", "description", "nickname2", DateTime.Now);
 
             _user2 = BuildMeA.User("email", "name", "password")
                 .WithBlog(blog2);
@@ -51,8 +49,6 @@ namespace MBlogIntegrationTest
         {
             _transactionScope.Dispose();
         }
-
-        #endregion
 
         private const int NumberOfPosts = 12;
         private User _user1;

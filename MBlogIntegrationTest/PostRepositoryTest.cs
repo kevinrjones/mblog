@@ -22,19 +22,19 @@ namespace MBlogIntegrationTest
             _transactionScope = new TransactionScope();
             _nickname = "nickname";
 
-            _post1 = BuildMeA.Post("Title", "Entry", DateTime.Today);
+            _post1 = BuildMeA.Post("Title", "Entry", DateTime.Today, DateTime.Today);
 
             _blog1 = BuildMeA
-                .Blog("title", "description", _nickname)
+                .Blog("title", "description", _nickname, DateTime.Now)
                 .WithPost(_post1);
 
             _user1 = BuildMeA.User("email", "name", "password")
                 .WithBlog(_blog1);
 
-            _post2 = BuildMeA.Post("Title", "Entry", DateTime.Today, false);
+            _post2 = BuildMeA.Post("Title", "Entry", DateTime.Today, DateTime.Today, false);
 
             Blog blog2 = BuildMeA
-                .Blog("title", "description", "nickname2")
+                .Blog("title", "description", "nickname2", DateTime.Now)
                 .WithPost(_post2);
 
             _user2 = BuildMeA.User("email", "name2", "password")
@@ -67,12 +67,12 @@ namespace MBlogIntegrationTest
         {
             var posts = new List<Post>
                             {
-                                BuildMeA.Post("title 1", "entry 1", new DateTime(2000, 4, 19)),
-                                BuildMeA.Post("title 2", "entry 1", new DateTime(2011, 4, 19))
+                                BuildMeA.Post("title 1", "entry 1", new DateTime(2000, 4, 19), DateTime.Today),
+                                BuildMeA.Post("title 2", "entry 1", new DateTime(2011, 4, 19), DateTime.Today)
                             };
 
             Blog blog = BuildMeA
-                .Blog("title", "description", _nickname)
+                .Blog("title", "description", _nickname, DateTime.Now)
                 .WithPosts(posts);
 
             _user1 = BuildMeA.User("email", "name", "password")
@@ -175,13 +175,13 @@ namespace MBlogIntegrationTest
         {
             var posts = new List<Post>
                             {
-                                BuildMeA.Post("title 1", "entry 1", new DateTime(2011, 4, 19)),
-                                BuildMeA.Post("title 1", "entry 1", new DateTime(2011, 4, 19)),
-                                BuildMeA.Post("title 1", "entry 1", new DateTime(2011, 4, 20)),
+                                BuildMeA.Post("title 1", "entry 1", new DateTime(2011, 4, 19), DateTime.Today),
+                                BuildMeA.Post("title 1", "entry 1", new DateTime(2011, 4, 19), DateTime.Today),
+                                BuildMeA.Post("title 1", "entry 1", new DateTime(2011, 4, 20), DateTime.Today),
                             };
 
             Blog blog = BuildMeA
-                .Blog("title", "description", _nickname)
+                .Blog("title", "description", _nickname, DateTime.Now)
                 .WithPosts(posts);
 
             _user1 = BuildMeA.User("email", "name", "password")
@@ -189,13 +189,13 @@ namespace MBlogIntegrationTest
 
             var posts2 = new List<Post>
                              {
-                                 BuildMeA.Post("title 2", "entry 1", new DateTime(2011, 4, 19)),
-                                 BuildMeA.Post("title 2", "entry 1", new DateTime(2011, 4, 19)),
-                                 BuildMeA.Post("title 2", "entry 1", new DateTime(2011, 4, 20)),
+                                 BuildMeA.Post("title 2", "entry 1", new DateTime(2011, 4, 19), DateTime.Today),
+                                 BuildMeA.Post("title 2", "entry 1", new DateTime(2011, 4, 19), DateTime.Today),
+                                 BuildMeA.Post("title 2", "entry 1", new DateTime(2011, 4, 20), DateTime.Today),
                              };
 
             Blog blog2 = BuildMeA
-                .Blog("title2", "description2", "nickname2")
+                .Blog("title2", "description2", "nickname2", DateTime.Now)
                 .WithPosts(posts2);
 
             _user2 = BuildMeA.User("email2", "name2", "password2")
@@ -215,12 +215,12 @@ namespace MBlogIntegrationTest
         {
             var posts = new List<Post>
                             {
-                                BuildMeA.Post("title 1", "entry 1", DateTime.Today),
-                                BuildMeA.Post("title 1", "entry 1", DateTime.Today),
+                                BuildMeA.Post("title 1", "entry 1", DateTime.Today, DateTime.Today),
+                                BuildMeA.Post("title 1", "entry 1", DateTime.Today, DateTime.Today),
                             };
 
             Blog blog = BuildMeA
-                .Blog("title", "description", _nickname)
+                .Blog("title", "description", _nickname, DateTime.Now)
                 .WithPosts(posts);
 
             _user1 = BuildMeA.User("email", "name", "password")
@@ -238,7 +238,7 @@ namespace MBlogIntegrationTest
         public void GivenTheUserHasCreatedNoPosts_WhenIGetAllPosts_ThenIGetTheCorrectPosts()
         {
             Blog blog = BuildMeA
-                .Blog("title", "description", _nickname);
+                .Blog("title", "description", _nickname, DateTime.Now);
 
             _user1 = BuildMeA.User("email", "name", "password")
                 .WithBlog(blog);
@@ -269,14 +269,14 @@ namespace MBlogIntegrationTest
         {
             var posts = new List<Post>
                             {
-                                BuildMeA.Post("title 1", "entry 1", new DateTime(2010, 4, 19)),
-                                BuildMeA.Post("title 1", "entry 1", new DateTime(2011, 4, 19)),
-                                BuildMeA.Post("title 1", "entry 1", new DateTime(2011, 4, 20)),
-                                BuildMeA.Post("title 1", "entry 1", new DateTime(2011, 6, 21)),
+                                BuildMeA.Post("title 1", "entry 1", new DateTime(2010, 4, 19), DateTime.Today),
+                                BuildMeA.Post("title 1", "entry 1", new DateTime(2011, 4, 19), DateTime.Today),
+                                BuildMeA.Post("title 1", "entry 1", new DateTime(2011, 4, 20), DateTime.Today),
+                                BuildMeA.Post("title 1", "entry 1", new DateTime(2011, 6, 21), DateTime.Today),
                             };
 
             Blog blog = BuildMeA
-                .Blog("title", "description", _nickname)
+                .Blog("title", "description", _nickname, DateTime.Now)
                 .WithPosts(posts);
 
             _user1 = BuildMeA.User("email", "name", "password")
@@ -284,13 +284,13 @@ namespace MBlogIntegrationTest
 
             var posts2 = new List<Post>
                              {
-                                 BuildMeA.Post("title 2", "entry 1", new DateTime(2010, 4, 19)),
-                                 BuildMeA.Post("title 2", "entry 1", new DateTime(2011, 4, 19)),
-                                 BuildMeA.Post("title 2", "entry 1", new DateTime(2011, 4, 20)),
+                                 BuildMeA.Post("title 2", "entry 1", new DateTime(2010, 4, 19), DateTime.Today),
+                                 BuildMeA.Post("title 2", "entry 1", new DateTime(2011, 4, 19), DateTime.Today),
+                                 BuildMeA.Post("title 2", "entry 1", new DateTime(2011, 4, 20), DateTime.Today),
                              };
 
             Blog blog2 = BuildMeA
-                .Blog("title2", "description2", "nickname2")
+                .Blog("title2", "description2", "nickname2", DateTime.Now)
                 .WithPosts(posts2);
 
             _user2 = BuildMeA.User("email2", "name2", "password2")
@@ -312,14 +312,14 @@ namespace MBlogIntegrationTest
         {
             var posts = new List<Post>
                             {
-                                BuildMeA.Post("title 1", "entry 1", new DateTime(2010, 4, 19)),
-                                BuildMeA.Post("title 1", "entry 1", new DateTime(2011, 4, 19)),
-                                BuildMeA.Post("title 1", "entry 1", new DateTime(2011, 4, 19)),
-                                BuildMeA.Post("title 1", "entry 1", new DateTime(2011, 6, 21)),
+                                BuildMeA.Post("title 1", "entry 1", new DateTime(2010, 4, 19), DateTime.Today),
+                                BuildMeA.Post("title 1", "entry 1", new DateTime(2011, 4, 19), DateTime.Today),
+                                BuildMeA.Post("title 1", "entry 1", new DateTime(2011, 4, 19), DateTime.Today),
+                                BuildMeA.Post("title 1", "entry 1", new DateTime(2011, 6, 21), DateTime.Today),
                             };
 
             Blog blog = BuildMeA
-                .Blog("title", "description", _nickname)
+                .Blog("title", "description", _nickname, DateTime.Now)
                 .WithPosts(posts);
 
             _user1 = BuildMeA.User("email", "name", "password")
@@ -327,13 +327,13 @@ namespace MBlogIntegrationTest
 
             var posts2 = new List<Post>
                              {
-                                 BuildMeA.Post("title 2", "entry 1", new DateTime(2010, 4, 19)),
-                                 BuildMeA.Post("title 2", "entry 1", new DateTime(2011, 4, 19)),
-                                 BuildMeA.Post("title 2", "entry 1", new DateTime(2011, 4, 20)),
+                                 BuildMeA.Post("title 2", "entry 1", new DateTime(2010, 4, 19), DateTime.Today),
+                                 BuildMeA.Post("title 2", "entry 1", new DateTime(2011, 4, 19), DateTime.Today),
+                                 BuildMeA.Post("title 2", "entry 1", new DateTime(2011, 4, 20), DateTime.Today),
                              };
 
             Blog blog2 = BuildMeA
-                .Blog("title2", "description2", "nickname2")
+                .Blog("title2", "description2", "nickname2", DateTime.Now)
                 .WithPosts(posts2);
 
             _user2 = BuildMeA.User("email2", "name2", "password2")
@@ -355,14 +355,14 @@ namespace MBlogIntegrationTest
         {
             var posts = new List<Post>
                             {
-                                BuildMeA.Post("title 1", "entry 1", new DateTime(2010, 4, 19)),
-                                BuildMeA.Post("title 2", "entry 1", new DateTime(2011, 4, 19)),
-                                BuildMeA.Post("title 3", "entry 1", new DateTime(2011, 4, 19)),
-                                BuildMeA.Post("title 4", "entry 1", new DateTime(2011, 6, 21)),
+                                BuildMeA.Post("title 1", "entry 1", new DateTime(2010, 4, 19), DateTime.Today),
+                                BuildMeA.Post("title 2", "entry 1", new DateTime(2011, 4, 19), DateTime.Today),
+                                BuildMeA.Post("title 3", "entry 1", new DateTime(2011, 4, 19), DateTime.Today),
+                                BuildMeA.Post("title 4", "entry 1", new DateTime(2011, 6, 21), DateTime.Today),
                             };
 
             Blog blog = BuildMeA
-                .Blog("title", "description", _nickname)
+                .Blog("title", "description", _nickname, DateTime.Now)
                 .WithPosts(posts);
 
             _user1 = BuildMeA.User("email", "name", "password")
@@ -370,13 +370,13 @@ namespace MBlogIntegrationTest
 
             var posts2 = new List<Post>
                              {
-                                 BuildMeA.Post("title 2", "entry 1", new DateTime(2010, 4, 19)),
-                                 BuildMeA.Post("title 2", "entry 1", new DateTime(2011, 4, 19)),
-                                 BuildMeA.Post("title 2", "entry 1", new DateTime(2011, 4, 20)),
+                                 BuildMeA.Post("title 2", "entry 1", new DateTime(2010, 4, 19), DateTime.Today),
+                                 BuildMeA.Post("title 2", "entry 1", new DateTime(2011, 4, 19), DateTime.Today),
+                                 BuildMeA.Post("title 2", "entry 1", new DateTime(2011, 4, 20), DateTime.Today),
                              };
 
             Blog blog2 = BuildMeA
-                .Blog("title2", "description2", "nickname2")
+                .Blog("title2", "description2", "nickname2", DateTime.Now)
                 .WithPosts(posts2);
 
             _user2 = BuildMeA.User("email2", "name2", "password2")
@@ -398,14 +398,14 @@ namespace MBlogIntegrationTest
         {
             var posts = new List<Post>
                             {
-                                BuildMeA.Post("title 1", "entry 1", new DateTime(2010, 4, 19)),
-                                BuildMeA.Post("title 2", "entry 1", new DateTime(2011, 4, 19)),
-                                BuildMeA.Post("title 3", "entry 1", new DateTime(2011, 4, 19)),
-                                BuildMeA.Post("title 4", "entry 1", new DateTime(2011, 6, 21)),
+                                BuildMeA.Post("title 1", "entry 1", new DateTime(2010, 4, 19), DateTime.Today),
+                                BuildMeA.Post("title 2", "entry 1", new DateTime(2011, 4, 19), DateTime.Today),
+                                BuildMeA.Post("title 3", "entry 1", new DateTime(2011, 4, 19), DateTime.Today),
+                                BuildMeA.Post("title 4", "entry 1", new DateTime(2011, 6, 21), DateTime.Today),
                             };
 
             Blog blog = BuildMeA
-                .Blog("title", "description", _nickname)
+                .Blog("title", "description", _nickname, DateTime.Now)
                 .WithPosts(posts);
 
             _user1 = BuildMeA.User("email", "name", "password")
@@ -413,13 +413,13 @@ namespace MBlogIntegrationTest
 
             var posts2 = new List<Post>
                              {
-                                 BuildMeA.Post("title 2", "entry 1", new DateTime(2010, 4, 19)),
-                                 BuildMeA.Post("title 2", "entry 1", new DateTime(2011, 4, 19)),
-                                 BuildMeA.Post("title 2", "entry 1", new DateTime(2011, 4, 20)),
+                                 BuildMeA.Post("title 2", "entry 1", new DateTime(2010, 4, 19), DateTime.Today),
+                                 BuildMeA.Post("title 2", "entry 1", new DateTime(2011, 4, 19), DateTime.Today),
+                                 BuildMeA.Post("title 2", "entry 1", new DateTime(2011, 4, 20), DateTime.Today),
                              };
 
             Blog blog2 = BuildMeA
-                .Blog("title2", "description2", "nickname2")
+                .Blog("title2", "description2", "nickname2", DateTime.Now)
                 .WithPosts(posts2);
 
             _user2 = BuildMeA.User("email2", "name2", "password2")
@@ -439,14 +439,14 @@ namespace MBlogIntegrationTest
         {
             var posts = new List<Post>
                             {
-                                BuildMeA.Post("title 1", "entry 1", new DateTime(2010, 4, 19)),
-                                BuildMeA.Post("title 1", "entry 1", new DateTime(2011, 4, 19)),
-                                BuildMeA.Post("title 1", "entry 1", new DateTime(2011, 5, 20)),
-                                BuildMeA.Post("title 1", "entry 1", new DateTime(2011, 6, 21)),
+                                BuildMeA.Post("title 1", "entry 1", new DateTime(2010, 4, 19), DateTime.Today),
+                                BuildMeA.Post("title 1", "entry 1", new DateTime(2011, 4, 19), DateTime.Today),
+                                BuildMeA.Post("title 1", "entry 1", new DateTime(2011, 5, 20), DateTime.Today),
+                                BuildMeA.Post("title 1", "entry 1", new DateTime(2011, 6, 21), DateTime.Today),
                             };
 
             Blog blog = BuildMeA
-                .Blog("title", "description", _nickname)
+                .Blog("title", "description", _nickname, DateTime.Now)
                 .WithPosts(posts);
 
             _user1 = BuildMeA.User("email", "name", "password")
@@ -454,13 +454,13 @@ namespace MBlogIntegrationTest
 
             var posts2 = new List<Post>
                              {
-                                 BuildMeA.Post("title 2", "entry 1", new DateTime(2010, 4, 18)),
-                                 BuildMeA.Post("title 2", "entry 1", new DateTime(2011, 3, 19)),
-                                 BuildMeA.Post("title 2", "entry 1", new DateTime(2011, 4, 20)),
+                                 BuildMeA.Post("title 2", "entry 1", new DateTime(2010, 4, 18), DateTime.Today),
+                                 BuildMeA.Post("title 2", "entry 1", new DateTime(2011, 3, 19), DateTime.Today),
+                                 BuildMeA.Post("title 2", "entry 1", new DateTime(2011, 4, 20), DateTime.Today),
                              };
 
             Blog blog2 = BuildMeA
-                .Blog("title2", "description2", "nickname2")
+                .Blog("title2", "description2", "nickname2", DateTime.Now)
                 .WithPosts(posts2);
 
             _user2 = BuildMeA.User("email2", "name2", "password2")
@@ -480,14 +480,14 @@ namespace MBlogIntegrationTest
         {
             var posts = new List<Post>
                             {
-                                BuildMeA.Post("title 1", "entry 1", new DateTime(2010, 4, 19)),
-                                BuildMeA.Post("title 1", "entry 1", new DateTime(2011, 4, 19)),
-                                BuildMeA.Post("title 1", "entry 1", new DateTime(2011, 5, 20)),
-                                BuildMeA.Post("title 1", "entry 1", new DateTime(2011, 6, 21)),
+                                BuildMeA.Post("title 1", "entry 1", new DateTime(2010, 4, 19), DateTime.Today),
+                                BuildMeA.Post("title 1", "entry 1", new DateTime(2011, 4, 19), DateTime.Today),
+                                BuildMeA.Post("title 1", "entry 1", new DateTime(2011, 5, 20), DateTime.Today),
+                                BuildMeA.Post("title 1", "entry 1", new DateTime(2011, 6, 21), DateTime.Today),
                             };
 
             Blog blog = BuildMeA
-                .Blog("title", "description", _nickname)
+                .Blog("title", "description", _nickname, DateTime.Now)
                 .WithPosts(posts);
 
             _user1 = BuildMeA.User("email", "name", "password")
@@ -495,13 +495,13 @@ namespace MBlogIntegrationTest
 
             var posts2 = new List<Post>
                              {
-                                 BuildMeA.Post("title 2", "entry 1", new DateTime(2010, 4, 18)),
-                                 BuildMeA.Post("title 2", "entry 1", new DateTime(2011, 3, 19)),
-                                 BuildMeA.Post("title 2", "entry 1", new DateTime(2011, 4, 20)),
+                                 BuildMeA.Post("title 2", "entry 1", new DateTime(2010, 4, 18), DateTime.Today),
+                                 BuildMeA.Post("title 2", "entry 1", new DateTime(2011, 3, 19), DateTime.Today),
+                                 BuildMeA.Post("title 2", "entry 1", new DateTime(2011, 4, 20), DateTime.Today),
                              };
 
             Blog blog2 = BuildMeA
-                .Blog("title2", "description2", "nickname2")
+                .Blog("title2", "description2", "nickname2", DateTime.Now)
                 .WithPosts(posts2);
 
             _user2 = BuildMeA.User("email2", "name2", "password2")
@@ -521,11 +521,10 @@ namespace MBlogIntegrationTest
         {
             Comment comment = BuildMeA.Comment("This is a comment", DateTime.Now);
 
-            var posts = new List<Post>
-                            {BuildMeA.Post("title 1", "entry 1", new DateTime(2011, 4, 19)).WithComment(comment)};
+            var posts = new List<Post> { BuildMeA.Post("title 1", "entry 1", new DateTime(2011, 4, 19), DateTime.Today).WithComment(comment) };
 
             Blog blog = BuildMeA
-                .Blog("title", "description", _nickname)
+                .Blog("title", "description", _nickname, DateTime.Now)
                 .WithPosts(posts);
 
             _user1 = BuildMeA.User("email", "name", "password")

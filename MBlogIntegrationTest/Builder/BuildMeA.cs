@@ -15,23 +15,25 @@ namespace MBlogIntegrationTest.Builder
                                                             });
         }
 
-        public static BlogBuilder Blog(string title, string description, string nickname)
+        public static BlogBuilder Blog(string title, string description, string nickname, DateTime updated)
         {
             return (BlogBuilder) new BlogBuilder().With(b =>
                                                             {
                                                                 b.Nickname = nickname;
                                                                 b.Title = title;
                                                                 b.Description = description;
+                                                                b.LastUpdated = updated;
                                                             });
         }
 
-        public static PostBuilder Post(string title, string entry, DateTime posted, bool commentsEnabled = true)
+        public static PostBuilder Post(string title, string entry, DateTime posted, DateTime edited, bool commentsEnabled = true)
         {
             return (PostBuilder) new PostBuilder().With(p =>
                                                             {
                                                                 p.AddPost(title, entry);
                                                                 p.Posted = posted;
                                                                 p.CommentsEnabled = commentsEnabled;
+                                                                p.Edited = edited;
                                                             });
         }
 

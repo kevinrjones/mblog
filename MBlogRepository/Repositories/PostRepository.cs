@@ -70,6 +70,17 @@ namespace MBlogRepository.Repositories
             return post;
         }
 
+        public void Update(int postId, string title, string entry)
+        {
+            Post post = GetBlogPost(postId);
+            if (post == null)
+            {
+                throw new MBlogException("postId not valid");
+            }
+            post.UpdatePost(title, entry);
+            Add(post);
+        }
+
         public IList<Post> GetBlogPosts(int year, int month, int day, string nickname, string link)
         {
             if (year == 0)

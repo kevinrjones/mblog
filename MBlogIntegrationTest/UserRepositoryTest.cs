@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Configuration;
 using System.Linq;
 using System.Transactions;
@@ -23,9 +24,9 @@ namespace MBlogIntegrationTest
             _userRepository = new UserRepository(ConfigurationManager.ConnectionStrings["testdb"].ConnectionString);
 
             Blog blog1 = BuildMeA
-                .Blog("title1", "description1", _nickname1);
+                .Blog("title1", "description1", _nickname1, DateTime.Now);
             Blog blog2 = BuildMeA
-                .Blog("title2", "description2", _nickname1);
+                .Blog("title2", "description2", _nickname1, DateTime.Now);
 
             user = BuildMeA.User("email1", "name1", "password1")
                 .WithBlog(blog1)

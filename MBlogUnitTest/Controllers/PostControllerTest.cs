@@ -205,17 +205,5 @@ namespace MBlogUnitTest.Controllers
 
             Assert.That(result, Is.Not.Null);
         }
-
-        [Test]
-        public void GivenAnInvalidPost_WhenITryAndUpdateThePost_ThenIGetAnException()
-        {
-            var mockBlog = new Mock<IBlogRepository>();
-            mockBlog.Setup(b => b.GetBlog(_userName)).Returns(new Blog { Id = _blogId });
-            var postRepositoryMock = new Mock<IPostRepository>();
-            PostController controller = new PostController(mockBlog.Object, postRepositoryMock.Object, _userRepositoryMock);
-
-            Assert.Throws<MBlogException>(() => controller.Update(new EditPostViewModel { PostId = 1, BlogId = _blogId, Nickname = _userName }));
-
-        }
     }
 }

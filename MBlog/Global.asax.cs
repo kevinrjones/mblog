@@ -63,6 +63,13 @@ namespace MBlog
             );
 
             routes.MapRoute(
+                "Feed",
+                "{nickname}/feed/{action}",
+                new { controller = "Feed", action = "rss" },
+                new { httpMethod = new HttpMethodConstraint("GET") }
+                );
+
+            routes.MapRoute(
                 "Admin-index",
                 "admin/index",
                 new { controller = "Admin", action = "Index"}

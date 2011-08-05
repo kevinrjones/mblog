@@ -37,7 +37,10 @@ namespace MBlogModel
 
         [Required, Column("comment_approval")]
         public bool ApproveComments { get; set; }
-        
+
+        [Required, Column("last_updated")]
+        public DateTime LastUpdated { get; set; }
+
         [Required]
         public string Nickname { get; set; }
 

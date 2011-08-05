@@ -1,0 +1,15 @@
+﻿@{ Layout = "~/Views/Shared/_Layout.cshtml"; }
+
+@RenderBody()
+
+@section PubHeaders
+{
+    @{
+        string atomurl = Url.Action("Atom", "Feed", new { Model.Nickname }, "http");
+        string rssurl = Url.Action("Rss", "Feed", new { Model.Nickname }, "http");
+    }
+
+    <link href="@atomurl" type="application/atom+xml" rel="alternate" title="ATOM Feed" />
+    <link href="@rssurl" type="application/rss+xml" rel="alternate" title="RSS Feed" />
+}
+

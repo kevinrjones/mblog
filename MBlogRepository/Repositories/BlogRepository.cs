@@ -1,4 +1,5 @@
-﻿using System.Data.Entity;
+﻿using System;
+using System.Data.Entity;
 using System.Linq;
 using MBlogModel;
 using MBlogRepository.Contexts;
@@ -19,6 +20,20 @@ namespace MBlogRepository.Repositories
             return (from b in Entities
                    where b.Nickname == nickname
                    select b).FirstOrDefault();
+        }
+
+        public void UpdateBlog(int blogId)
+        {
+            Blog blog = (from b in Entities
+                         where b.Id == blogId
+                         select b).FirstOrDefault();
+            
+            if (blog == null)
+            {
+                throw new MBlogException("blogId not valid");
+            }
+            blog.LastUpdated = DateTime.UtcNow;
+            Add(blog);
         }
     }
 }

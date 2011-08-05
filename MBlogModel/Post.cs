@@ -15,7 +15,7 @@ namespace MBlogModel
         public virtual string BlogPost { get; set; }
         [Required]
         public virtual DateTime Posted { get; set; }
-        public virtual DateTime? Edited { get; set; }
+        public virtual DateTime Edited { get; set; }
 
         [Column("blog_id")]
         public int BlogId { get; set; }
