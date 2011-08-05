@@ -21,7 +21,7 @@ namespace MBlog
         {
             routes.IgnoreRoute("favicon.ico");
             routes.IgnoreRoute("{resource}.axd/{*pathInfo}");
-            routes.IgnoreRoute("admin/elmah.axd/{*pathInfo}");
+            routes.IgnoreRoute("elmah.axd/{*pathInfo}");
 
             routes.MapRoute(
                 "Error",
