@@ -1,57 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
 using System.Linq;
 using System.ServiceModel.Syndication;
 using System.Text;
-using System.Web;
-using System.Web.Mvc;
 using System.Xml;
 
 namespace MBlog.ActionResults
 {
-    public class SyndicationActionResult : ActionResult
-    {
-        public SyndicationActionResult() { }
-        public SyndicationActionResult(SyndicationFeed feed, Func<SyndicationFeed, FeedData> produceFeedData)
-        {
-            _produceFeedData = produceFeedData;
-            Feed = feed;
-        }
-
-        private SyndicationFeed Feed { get; set; }
-        private Func<SyndicationFeed, FeedData> _produceFeedData = delegate { return null; };
-        public Func<SyndicationFeed, FeedData> ProduceFeedData
-        {
-            private get { return _produceFeedData; }
-            set { _produceFeedData = value; }
-        }
-
-        public override void ExecuteResult(ControllerContext context)
-        {
-            var response = context.HttpContext.Response;
-            var data = ProduceFeedData(Feed);
-            if (data != null)
-            {
-                response.ContentType = data.ContentType;
-                response.AppendHeader("Cache-Control", "private");
-                response.AppendHeader("Last-Modified", data.LastModifiedDate.ToString("r"));
-                response.AppendHeader("ETag", String.Format("\"{0}\"", data.ETag));
-                response.Output.WriteLine(data.Content);
-                response.StatusCode = 200;
-                response.StatusDescription = "OK";
-            }
-        }
-    }
-
-    public class FeedData
-    {
-        public string Key { get; set; }
-        public string ContentType { get; set; }
-        public string Content { get; set; }
-        public DateTime LastModifiedDate { get; set; }
-        public string ETag { get; set; }
-    }
-
     public static class SyndicationHelper
     {
         public static FeedData GetRssFeed(SyndicationFeed feed)
