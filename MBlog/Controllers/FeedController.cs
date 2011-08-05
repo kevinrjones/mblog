@@ -52,7 +52,9 @@ namespace MBlog.Controllers
             var items = new List<SyndicationItem>();
             foreach (var post in posts)
             {
-                url = Url.Action("Show", "Post", new {Nickname = nickname, year=post.Posted.Year, month=post.Posted.Month, day=post.Posted.Day, link=post.TitleLink}, "http");
+                //url = Url.Action("Show", "Post", new {Nickname = nickname, year=post.Posted.Year, month=post.Posted.Month, day=post.Posted.Day, link=post.TitleLink}, "http");
+
+                url = string.Format("{0}://{1}/{2}/{3}/{4}/{5}/{6}", HttpContext.Request.Url.Scheme, HttpContext.Request.Url.Authority, nickname, post.Posted.Year, post.Posted.Month, post.Posted.Day, post.TitleLink);
 
                 var item = new SyndicationItem(post.Title,
                                                post.BlogPost,
