@@ -7,8 +7,8 @@
 @section PubHeaders
 {
     @{
-        string atomurl = string.Format("{0}://{1}/{2}/feed/atom", Request.Url.Scheme, Request.Url.Authority, Model.Nickname);        
-        string rssurl = string.Format("{0}://{1}/{2}/feed", Request.Url.Scheme, Request.Url.Authority, Model.Nickname);
+        string atomurl = Url.Action("atom", "Feed", new { Model.Nickname });
+        string rssurl = Url.Action("Rss", "Feed", new { Model.Nickname });
     }
 
     <link href="@atomurl" type="application/atom+xml" rel="alternate" title="Atom Feed" />
