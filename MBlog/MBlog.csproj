@@ -200,7 +200,9 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ActionResults\FeedData.cs" />
     <Compile Include="ActionResults\RssActionResult.cs" />
+    <Compile Include="ActionResults\SyndicationHelper.cs" />
     <Compile Include="Controllers\AdminController.cs" />
     <Compile Include="Controllers\BaseController.cs" />
     <Compile Include="Controllers\BlogController.cs" />
