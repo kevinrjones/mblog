@@ -11,6 +11,7 @@ using MBlogRepository.Interfaces;
 
 namespace MBlog.Controllers
 {
+    
     public class FeedController : BaseController
     {
         private readonly IPostRepository _postRepository;
@@ -26,7 +27,7 @@ namespace MBlog.Controllers
         [HttpGet]
         public ActionResult Rss(string nickname)
         {
-            var feed = CreateSyndicationFeed(nickname);
+            var feed = CreateSyndicationFeed(nickname, "rss");
 
             return new SyndicationActionResult(feed, SyndicationHelper.GetRssFeed);
         }
@@ -34,11 +35,11 @@ namespace MBlog.Controllers
         [HttpGet]
         public ActionResult Atom(string nickname)
         {
-            var feed = CreateSyndicationFeed(nickname);
+            var feed = CreateSyndicationFeed(nickname, "atom");
             return new SyndicationActionResult(feed, SyndicationHelper.GetAtomFeed);
         }
 
-        private SyndicationFeed CreateSyndicationFeed(string nickname)
+        private SyndicationFeed CreateSyndicationFeed(string nickname, string feedType)
         {
             var posts = _postRepository.GetBlogPosts(nickname);
             var blog = BlogRepository.GetBlog(nickname);
@@ -51,6 +52,14 @@ namespace MBlog.Controllers
                                            blog.LastUpdated);
             feed.Authors.Add(new SyndicationPerson { Name = blog.User.Name });
 
+            if (feedType == "atom")
+            {
+                url += "/feed/atom";
+            }
+            else
+            {
+                url += "/feed/rss";
+            }
             feed.Links.Add(SyndicationLink.CreateSelfLink(new Uri(url)));
 
             var items = new List<SyndicationItem>();
