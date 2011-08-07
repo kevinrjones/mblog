@@ -68,7 +68,7 @@ namespace MBlog.Controllers
                 url = string.Format("{0}://{1}/{2}/{3}/{4}/{5}/{6}", HttpContext.Request.Url.Scheme, HttpContext.Request.Headers["HOST"], nickname, post.Posted.Year, post.Posted.Month, post.Posted.Day, post.TitleLink);
 
                 var item = new SyndicationItem(post.Title,
-                                               post.BlogPost,
+                                               new TextSyndicationContent(post.BlogPost, TextSyndicationContentKind.Html),
                                                new Uri(url),
                                                url,
                                                post.Edited);
