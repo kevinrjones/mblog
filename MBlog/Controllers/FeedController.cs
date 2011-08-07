@@ -49,6 +49,9 @@ namespace MBlog.Controllers
                                            new Uri(url),
                                            url,
                                            blog.LastUpdated);
+            feed.Authors.Add(new SyndicationPerson { Name = blog.User.Name });
+
+            feed.Links.Add(SyndicationLink.CreateSelfLink(new Uri(url)));
 
             var items = new List<SyndicationItem>();
             foreach (var post in posts)

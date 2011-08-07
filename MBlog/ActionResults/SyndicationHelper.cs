@@ -1,3 +1,4 @@
+using System.Collections.ObjectModel;
 using System.IO;
 using System.Linq;
 using System.ServiceModel.Syndication;
@@ -28,8 +29,8 @@ namespace MBlog.ActionResults
             {
                 var item = (from syndicationItem in feed.Items
                             orderby syndicationItem.PublishDate descending
-                            select syndicationItem).FirstOrDefault();
-
+                            select syndicationItem).FirstOrDefault();                               
+                
                 var xmlWriterSettings = new XmlWriterSettings { Encoding = new UTF8Encoding(false) };
 
                 var memoryStream = new MemoryStream();
@@ -43,7 +44,7 @@ namespace MBlog.ActionResults
                 var sr = new StreamReader(memoryStream);
                 feedData.Content = sr.ReadToEnd();
                 feedData.LastModifiedDate = item.PublishDate.DateTime;
-                //data.ETag = data.Content.GetHashCode().ToString();
+                feedData.ETag = feedData.Content.GetHashCode().ToString();
             }
             return feedData;
         }
