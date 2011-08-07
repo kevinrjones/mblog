@@ -2,7 +2,7 @@
 
 namespace MBlog.Models.Post
 {
-    public class PostsViewModel
+    public class PostsViewModel : BasePostViewModel
     {
         private List<PostViewModel> _posts = new List<PostViewModel>();
 
@@ -15,7 +15,6 @@ namespace MBlog.Models.Post
         public bool ShowComments { get; set; }
 
         public int BlogId { get; set; }
-        public string Nickname { get; set; }
 
         public void AddPosts(IList<MBlogModel.Post> posts)
         {
@@ -26,5 +25,10 @@ namespace MBlog.Models.Post
                 Posts.Add(pvm);
             }
         }
+    }
+
+    public class BasePostViewModel
+    {
+        public string Nickname { get; set; }
     }
 }

@@ -72,6 +72,11 @@ namespace MBlog.Controllers
                                                new Uri(url),
                                                url,
                                                post.Edited);
+                item.Title = new TextSyndicationContent(post.Title, TextSyndicationContentKind.Html);
+                item.Content = new TextSyndicationContent(post.BlogPost, TextSyndicationContentKind.Html);
+                item.Links.Add(SyndicationLink.CreateAlternateLink(new Uri(url)));
+                item.Id = url;
+                item.PublishDate = post.Edited;
                 items.Add(item);
             }
             feed.Items = items;

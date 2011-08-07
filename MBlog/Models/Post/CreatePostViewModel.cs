@@ -3,10 +3,9 @@ using HtmlAgilityPack;
 
 namespace MBlog.Models.Post
 {
-    public class CreatePostViewModel
+    public class CreatePostViewModel : BasePostViewModel
     {
         private string _post;
-        public string Nickname { get; set; }
         public int BlogId { get; set; }
         public string Title { get; set; }
 

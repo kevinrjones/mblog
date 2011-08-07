@@ -4,7 +4,7 @@ using MBlog.Models.Comment;
 
 namespace MBlog.Models.Post
 {
-    public class PostViewModel
+    public class PostViewModel : BasePostViewModel
     {
         private DateTime _datePosted;
 

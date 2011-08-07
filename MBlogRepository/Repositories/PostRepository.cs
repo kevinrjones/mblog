@@ -11,7 +11,7 @@ namespace MBlogRepository.Repositories
 {
     public class PostRepository : BaseEfRepository<Post>, IPostRepository
     {
-        private const int Count = 10;
+        private const int Count = 1000000;
 
         public PostRepository(string connectionString)
             : base(new PostDbContext(connectionString)) { }
@@ -151,8 +151,9 @@ namespace MBlogRepository.Repositories
             return Entities
                 .Include(p => p.Comments)
                 .Include(p => p.Blog.User)
-                .OrderByDescending(post => post.Posted)
-                .Take(Count);
+                .OrderByDescending(post => post.Posted);
+                // todo!
+                //.Take(Count);
         }
     }
 }
