@@ -22,6 +22,10 @@ namespace MBlog.Filters
             
             var nickname = handler.RequestContext.RouteData.Values["nickname"] as string;
             var blogId = handler.RequestContext.RouteData.Values["blogId"] as string;
+            if (blogId == null)
+            {
+                blogId = httpContext.Request["blogId"] as string;
+            }
             var controller = httpContext.Items["controller"] as BaseController;
 
             if(blogId == null || nickname == null || controller == null)
