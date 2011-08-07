@@ -7,48 +7,38 @@ namespace MBlog.ActionResults
 {
     public static class SyndicationHelper
     {
-        public static FeedData GetRssFeed(SyndicationFeed feed)
+        private delegate void WriteTo(XmlWriter writer);
+        public static FeedData GetRssFeed(this SyndicationFeed feed)
         {
-            var data = new FeedData { ContentType = "application/rss+xml" };
-            if (feed.Items.Count() > 0)
-            {
-                var dat = (from syndicationItem in feed.Items
-                           orderby syndicationItem.PublishDate descending
-                           select syndicationItem).FirstOrDefault();
-
-                var rssFormatter = new Rss20FeedFormatter(feed);
-                StringBuilder feedContent = new StringBuilder();
-                using (XmlWriter writer = XmlWriter.Create(feedContent))
-                {
-                    rssFormatter.WriteTo(writer);
-                }
-                data.Content = feedContent.ToString();
-                data.LastModifiedDate = dat.PublishDate.DateTime;
-                //data.ETag = data.Content.GetHashCode().ToString();
-            }
-            return data;
+            var rssFormatter = new Rss20FeedFormatter(feed);
+            return GetFeed(feed, "application/rss+xml", rssFormatter.WriteTo);
         }
 
         public static FeedData GetAtomFeed(SyndicationFeed feed)
         {
-            FeedData data = new FeedData { ContentType = "application/atom+xml" };
+            var atom10FeedFormatter = new Atom10FeedFormatter(feed);
+            return GetFeed(feed, "application/atom+xml", atom10FeedFormatter.WriteTo);
+        }
+
+        private static FeedData GetFeed(SyndicationFeed feed, string contentType, WriteTo writeTo)
+        {
+            var feedData = new FeedData { ContentType = contentType };
             if (feed.Items.Count() > 0)
             {
-                var dat = (from syndicationItem in feed.Items
-                           orderby syndicationItem.PublishDate descending
-                           select syndicationItem).FirstOrDefault();
+                var item = (from syndicationItem in feed.Items
+                            orderby syndicationItem.PublishDate descending
+                            select syndicationItem).FirstOrDefault();
 
-                var rssFormatter = new Atom10FeedFormatter(feed);
                 StringBuilder feedContent = new StringBuilder();
                 using (XmlWriter writer = XmlWriter.Create(feedContent))
                 {
-                    rssFormatter.WriteTo(writer);
+                    writeTo(writer);
                 }
-                data.Content = feedContent.ToString();
-                data.LastModifiedDate = dat.PublishDate.DateTime;
+                feedData.Content = feedContent.ToString();
+                feedData.LastModifiedDate = item.PublishDate.DateTime;
                 //data.ETag = data.Content.GetHashCode().ToString();
             }
-            return data;
+            return feedData;
         }
     }
 }

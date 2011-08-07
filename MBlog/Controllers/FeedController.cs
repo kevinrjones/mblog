@@ -42,12 +42,12 @@ namespace MBlog.Controllers
         {
             var posts = _postRepository.GetBlogPosts(nickname);
             var blog = BlogRepository.GetBlog(nickname);
-            string url = Url.Action("Index", "Post", new {nickname}, "http");
-            url = string.Format("{0}://{1}/{2}", HttpContext.Request.Url.Scheme, HttpContext.Request.Headers["HOST"], nickname);
+            
+            string url = string.Format("{0}://{1}/{2}", HttpContext.Request.Url.Scheme, HttpContext.Request.Headers["HOST"], nickname);
             var feed = new SyndicationFeed(blog.Title,
                                            blog.Description,
                                            new Uri(url),
-                                           blog.Nickname,
+                                           url,
                                            blog.LastUpdated);
 
             var items = new List<SyndicationItem>();
@@ -58,7 +58,7 @@ namespace MBlog.Controllers
                 var item = new SyndicationItem(post.Title,
                                                post.BlogPost,
                                                new Uri(url),
-                                               post.Id.ToString(),
+                                               url,
                                                post.Edited);
                 items.Add(item);
             }
