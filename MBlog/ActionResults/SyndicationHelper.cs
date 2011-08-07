@@ -1,3 +1,4 @@
+using System.IO;
 using System.Linq;
 using System.ServiceModel.Syndication;
 using System.Text;
@@ -29,12 +30,18 @@ namespace MBlog.ActionResults
                             orderby syndicationItem.PublishDate descending
                             select syndicationItem).FirstOrDefault();
 
-                StringBuilder feedContent = new StringBuilder();
-                using (XmlWriter writer = XmlWriter.Create(feedContent))
+                var xmlWriterSettings = new XmlWriterSettings { Encoding = new UTF8Encoding(false) };
+
+                var memoryStream = new MemoryStream();
+                
+                using (XmlWriter writer = XmlWriter.Create(memoryStream, xmlWriterSettings))
                 {
                     writeTo(writer);
                 }
-                feedData.Content = feedContent.ToString();
+
+                memoryStream.Position = 0;
+                var sr = new StreamReader(memoryStream);
+                feedData.Content = sr.ReadToEnd();
                 feedData.LastModifiedDate = item.PublishDate.DateTime;
                 //data.ETag = data.Content.GetHashCode().ToString();
             }
