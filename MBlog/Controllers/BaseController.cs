@@ -68,5 +68,10 @@ namespace MBlog.Controllers
                 logException = exception.InnerException;
             }
         }
+
+        protected bool IsLoggedInUser(UserViewModel user)
+        {
+            return (user != null && user.IsLoggedIn);
+        }
     }
 }
