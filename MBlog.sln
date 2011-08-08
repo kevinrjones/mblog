@@ -15,7 +15,6 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MBlogIntegrationTest", "MBl
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Deploy", "Deploy", "{66B9AA14-9D36-4828-BEE1-75FDA431C118}"
 	ProjectSection(SolutionItems) = preProject
-		Deploy\default.ps1 = Deploy\default.ps1
 		Deploy\deploy.ps1 = Deploy\deploy.ps1
 		Deploy\psake.ps1 = Deploy\psake.ps1
 		Deploy\psake.psm1 = Deploy\psake.psm1
