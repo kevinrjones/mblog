@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Collections.Specialized;
 using System.Web;
 using System.Web.Mvc;
 using System.Web.Routing;
@@ -47,6 +48,9 @@ namespace MBlogUnitTest.Filters
             _requestContext.Setup(r => r.RouteData).Returns(routeData);
 
             var filterContext = CreateFilterContext(routeData);
+            var httpRequest = new Mock<HttpRequestBase>();
+            _mockHttpContext.Setup(h => h.Request).Returns(httpRequest.Object);
+            
 
             var blogOwnerAttribute = new AuthorizeBlogOwnerAttribute();
             blogOwnerAttribute.OnAuthorization(filterContext);
@@ -106,6 +110,31 @@ namespace MBlogUnitTest.Filters
             blogOwnerAttribute.OnAuthorization(filterContext);
             Assert.That(filterContext.Result, Is.TypeOf<RedirectResult>());
         }
+
+        [Test]
+        public void GivenAFilter_BlogIdIsInRequestItems_ThenTheFilterReturnsTrue()
+        {
+            int blogId = 1;
+            var routeData = string.Format("~/{0}/update/25", Nickname).GetRouteData("POST");
+            _mockBlogRepository.Setup(r => r.GetBlog(Nickname)).Returns(new Blog { Id = blogId });
+            _requestContext.Setup(r => r.RouteData).Returns(routeData);
+
+            var filterContext = CreateFilterContext(routeData);
+            
+            var httpRequest = new Mock<HttpRequestBase>();
+            var qs = new NameValueCollection();
+            qs.Add("blogId",blogId.ToString());
+            httpRequest.Setup(h => h.Params).Returns(qs);
+            httpRequest.Setup(h => h.QueryString).Returns(qs);
+
+            var model = new UserViewModel { IsLoggedIn = true };
+            _mockHttpContext.Setup(h => h.User).Returns(model);
+            _mockHttpContext.Setup(h => h.Request).Returns(new FakeRequest());
+            var blogOwnerAttribute = new AuthorizeBlogOwnerAttribute();
+            blogOwnerAttribute.OnAuthorization(filterContext);
+            Assert.That(filterContext.Result, Is.Null);
+        }
+
 
         private AuthorizationContext CreateFilterContext(RouteData routeData)
         {

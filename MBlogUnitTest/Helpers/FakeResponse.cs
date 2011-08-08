@@ -1,4 +1,5 @@
-﻿using System.Web;
+﻿using System.Collections.Specialized;
+using System.Web;
 using Moq;
 
 namespace MBlogUnitTest.Helpers
@@ -23,6 +24,24 @@ namespace MBlogUnitTest.Helpers
             {
                 var mock = new Mock<HttpCachePolicyBase>();
                 return mock.Object;
+            }
+        }
+    }
+
+    public class FakeRequest : HttpRequestBase
+    {
+        readonly NameValueCollection _values = new NameValueCollection();
+
+        public FakeRequest()
+        {
+            _values.Add("blogId", "1");
+        }
+
+        public override string this[string key]
+        {
+            get
+            {
+                return _values[key];
             }
         }
     }
