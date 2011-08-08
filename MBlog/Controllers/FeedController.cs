@@ -45,22 +45,9 @@ namespace MBlog.Controllers
             var blog = BlogRepository.GetBlog(nickname);
             
             string url = string.Format("{0}://{1}/{2}", HttpContext.Request.Url.Scheme, HttpContext.Request.Headers["HOST"], nickname);
-            var feed = new SyndicationFeed();
-            feed.Title = new TextSyndicationContent(blog.Title);
-            feed.Description = new TextSyndicationContent(blog.Description);
-            feed.Links.Add(SyndicationLink.CreateAlternateLink(new Uri(url)));
-            feed.LastUpdatedTime = blog.LastUpdated;
-            if (feedType == "atom")
-            {                
-                feed.Authors.Add(new SyndicationPerson { Name = blog.User.Name });
-                feed.Id = url;
-                url += "/feed/atom";
-            }
-            else
-            {
-                url += "/feed/rss";                
-            }
-            feed.Links.Add(SyndicationLink.CreateSelfLink(new Uri(url)));
+            var feed = new SyndicationFeed(blog.Title, blog.Description, new Uri(url), url, blog.LastUpdated);
+            feed.Authors.Add(new SyndicationPerson { Name = blog.User.Name });
+            feed.Links.Add(SyndicationLink.CreateSelfLink(new Uri(url + "/feed/" + feedType)));
 
             var items = new List<SyndicationItem>();
             foreach (var post in posts)
@@ -70,11 +57,8 @@ namespace MBlog.Controllers
                 var item = new SyndicationItem();
                 item.Title = new TextSyndicationContent(post.Title, TextSyndicationContentKind.Html);
                 item.Content = new TextSyndicationContent(post.BlogPost, TextSyndicationContentKind.Html);
-                if (feedType == "atom")
-                {
-                    item.Links.Add(SyndicationLink.CreateAlternateLink(new Uri(url)));
-                    item.PublishDate = post.Edited;
-                }
+                item.Links.Add(SyndicationLink.CreateAlternateLink(new Uri(url)));
+                item.PublishDate = post.Edited;
                 item.Id = url;                
                 items.Add(item);
             }
