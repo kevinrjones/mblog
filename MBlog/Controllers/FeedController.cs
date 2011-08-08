@@ -50,10 +50,10 @@ namespace MBlog.Controllers
                                            new Uri(url),
                                            url,
                                            blog.LastUpdated);
-            feed.Authors.Add(new SyndicationPerson { Name = blog.User.Name });
 
             if (feedType == "atom")
             {
+                feed.Authors.Add(new SyndicationPerson { Name = blog.User.Name });
                 url += "/feed/atom";
             }
             else
@@ -67,16 +67,15 @@ namespace MBlog.Controllers
             {               
                 url = string.Format("{0}://{1}/{2}/{3}/{4}/{5}/{6}", HttpContext.Request.Url.Scheme, HttpContext.Request.Headers["HOST"], nickname, post.Posted.Year, post.Posted.Month, post.Posted.Day, post.TitleLink);
 
-                var item = new SyndicationItem(post.Title,
-                                               new TextSyndicationContent(post.BlogPost, TextSyndicationContentKind.Html),
-                                               new Uri(url),
-                                               url,
-                                               post.Edited);
+                var item = new SyndicationItem();
                 item.Title = new TextSyndicationContent(post.Title, TextSyndicationContentKind.Html);
                 item.Content = new TextSyndicationContent(post.BlogPost, TextSyndicationContentKind.Html);
-                item.Links.Add(SyndicationLink.CreateAlternateLink(new Uri(url)));
-                item.Id = url;
-                item.PublishDate = post.Edited;
+                if (feedType == "atom")
+                {
+                    item.Id = url;
+                    item.Links.Add(SyndicationLink.CreateAlternateLink(new Uri(url)));
+                    item.PublishDate = post.Edited;
+                }
                 items.Add(item);
             }
             feed.Items = items;
