@@ -55,8 +55,12 @@ namespace MBlog.Controllers
                 feed.Authors.Add(new SyndicationPerson { Name = blog.User.Name });
                 feed.Id = url;
                 url += "/feed/atom";
-                feed.Links.Add(SyndicationLink.CreateSelfLink(new Uri(url)));
             }
+            else
+            {
+                url += "/feed/rss";                
+            }
+            feed.Links.Add(SyndicationLink.CreateSelfLink(new Uri(url)));
 
             var items = new List<SyndicationItem>();
             foreach (var post in posts)
