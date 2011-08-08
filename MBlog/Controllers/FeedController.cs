@@ -45,15 +45,15 @@ namespace MBlog.Controllers
             var blog = BlogRepository.GetBlog(nickname);
             
             string url = string.Format("{0}://{1}/{2}", HttpContext.Request.Url.Scheme, HttpContext.Request.Headers["HOST"], nickname);
-            var feed = new SyndicationFeed(blog.Title,
-                                           blog.Description,
-                                           new Uri(url),
-                                           url,
-                                           blog.LastUpdated);
-
+            var feed = new SyndicationFeed();
+            feed.Title = new TextSyndicationContent(blog.Title);
+            feed.Description = new TextSyndicationContent(blog.Description);
+            feed.Links.Add(SyndicationLink.CreateAlternateLink(new Uri(url)));
+            feed.LastUpdatedTime = blog.LastUpdated;
             if (feedType == "atom")
-            {
+            {                
                 feed.Authors.Add(new SyndicationPerson { Name = blog.User.Name });
+                feed.Id = url;
                 url += "/feed/atom";
             }
             else
