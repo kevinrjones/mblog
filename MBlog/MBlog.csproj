@@ -194,6 +194,7 @@
     <Compile Include="Controllers\BlogController.cs" />
     <Compile Include="Controllers\CommentController.cs" />
     <Compile Include="Controllers\FeedController.cs" />
+    <Compile Include="Infrastructure\UnityFilterAttributeFilterProvider.cs" />
     <Compile Include="Models\Blog\EditBlogViewModel.cs" />
     <Compile Include="Filters\AuthorizeBlogOwnerAttribute.cs" />
     <Compile Include="Filters\AuthorizeLoggedInUserAttribute.cs" />

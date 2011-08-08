@@ -30,6 +30,7 @@ namespace MBlog.Filters
 
             if(blogId == null || nickname == null || controller == null)
             {
+                Logger.Error("Authorize failed: blogID: {0}, nickname: {1}, controller: {2}", blogId, nickname, controller);
                 return false;
             }
 
@@ -38,6 +39,7 @@ namespace MBlog.Filters
             
             if (!IsLoggedInUser(user) || !UserOwnsBlog(controller, nickname, id))
             {
+                Logger.Error("Authorize failed: blogID: {0}, nickname: {1}, user: {2}", blogId, nickname, user);
                 return false;
             }
             return true;

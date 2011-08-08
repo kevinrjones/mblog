@@ -79,5 +79,10 @@ namespace MBlog.Models.User
 
             return result != 0;
         }
+
+        public override string ToString()
+        {
+            return string.Format("Name: {0}, Id: {1}", Name, Id);
+        }
     }
 }

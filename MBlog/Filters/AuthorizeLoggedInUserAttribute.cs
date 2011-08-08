@@ -1,11 +1,21 @@
 using System.Web.Mvc;
+using Logging;
 using MBlog.Controllers;
 using MBlog.Models.User;
+using Microsoft.Practices.Unity;
 
 namespace MBlog.Filters
 {
     public class AuthorizeLoggedInUserAttribute : AuthorizeAttribute
     {
+        [Dependency]
+        public ILogger Logger { get; set; }
+
+        public AuthorizeLoggedInUserAttribute()
+        {
+            Logger = new NullLogger();
+        }
+
         protected override void HandleUnauthorizedRequest(AuthorizationContext filterContext)
         {
             filterContext.Result = new RedirectResult("~/user/login");

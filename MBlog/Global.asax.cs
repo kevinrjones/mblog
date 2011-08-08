@@ -1,4 +1,5 @@
 ﻿using System.Configuration;
+using System.Linq;
 using System.Web.Mvc;
 using System.Web.Routing;
 using Logging;
@@ -72,7 +73,7 @@ namespace MBlog
             routes.MapRoute(
                 "Admin-index",
                 "admin/index",
-                new { controller = "Admin", action = "Index"}
+                new { controller = "Admin", action = "Index" }
                 );
 
             routes.MapRoute(
@@ -148,6 +149,12 @@ namespace MBlog
             IUnityContainer container = GetUnityContainer();
             DependencyResolver.SetResolver(new UnityDependencyResolver(container));
             AreaRegistration.RegisterAllAreas();
+
+            var oldProvider = FilterProviders.Providers.Single(f => f is FilterAttributeFilterProvider);
+            FilterProviders.Providers.Remove(oldProvider);
+
+            var provider = new UnityFilterAttributeFilterProvider(container);
+            FilterProviders.Providers.Add(provider);
 
             RegisterGlobalFilters(GlobalFilters.Filters);
             RegisterRoutes(RouteTable.Routes);
