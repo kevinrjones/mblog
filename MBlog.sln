@@ -23,14 +23,14 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Deploy", "Deploy", "{66B9AA
 		Deploy\teamcity.ps1 = Deploy\teamcity.ps1
 	EndProjectSection
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Logging", "Logging\Logging.csproj", "{BF734CD4-7587-422F-BAE9-626051F1A382}"
-EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MBlogNlogService", "MBlogNlogService\MBlogNlogService.csproj", "{BCB33239-3B8F-4E53-A891-D18BECEBE7D1}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "EventLog", "EventLog", "{8C35E417-1BB6-4074-A874-C064C840F640}"
 	ProjectSection(SolutionItems) = preProject
 		EventLog\CreateEventLogSource.ps1 = EventLog\CreateEventLogSource.ps1
 	EndProjectSection
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Logging", "Logging\Logging.csproj", "{BF734CD4-7587-422F-BAE9-626051F1A382}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -75,18 +75,18 @@ Global
 		{E40CBEB2-C300-45DD-AC20-0E70E8CF68DD}.Release|Any CPU.Build.0 = Release|Any CPU
 		{E40CBEB2-C300-45DD-AC20-0E70E8CF68DD}.Staging|Any CPU.ActiveCfg = Release|Any CPU
 		{E40CBEB2-C300-45DD-AC20-0E70E8CF68DD}.Staging|Any CPU.Build.0 = Release|Any CPU
-		{BF734CD4-7587-422F-BAE9-626051F1A382}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{BF734CD4-7587-422F-BAE9-626051F1A382}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{BF734CD4-7587-422F-BAE9-626051F1A382}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{BF734CD4-7587-422F-BAE9-626051F1A382}.Release|Any CPU.Build.0 = Release|Any CPU
-		{BF734CD4-7587-422F-BAE9-626051F1A382}.Staging|Any CPU.ActiveCfg = Release|Any CPU
-		{BF734CD4-7587-422F-BAE9-626051F1A382}.Staging|Any CPU.Build.0 = Release|Any CPU
 		{BCB33239-3B8F-4E53-A891-D18BECEBE7D1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{BCB33239-3B8F-4E53-A891-D18BECEBE7D1}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{BCB33239-3B8F-4E53-A891-D18BECEBE7D1}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{BCB33239-3B8F-4E53-A891-D18BECEBE7D1}.Release|Any CPU.Build.0 = Release|Any CPU
 		{BCB33239-3B8F-4E53-A891-D18BECEBE7D1}.Staging|Any CPU.ActiveCfg = Release|Any CPU
 		{BCB33239-3B8F-4E53-A891-D18BECEBE7D1}.Staging|Any CPU.Build.0 = Release|Any CPU
+		{BF734CD4-7587-422F-BAE9-626051F1A382}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{BF734CD4-7587-422F-BAE9-626051F1A382}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{BF734CD4-7587-422F-BAE9-626051F1A382}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{BF734CD4-7587-422F-BAE9-626051F1A382}.Release|Any CPU.Build.0 = Release|Any CPU
+		{BF734CD4-7587-422F-BAE9-626051F1A382}.Staging|Any CPU.ActiveCfg = Release|Any CPU
+		{BF734CD4-7587-422F-BAE9-626051F1A382}.Staging|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

@@ -15,7 +15,7 @@ namespace MBlog.ActionResults
             Feed = feed;
         }
 
-        private SyndicationFeed Feed { get; set; }
+        public SyndicationFeed Feed { get; set; }
         private Func<SyndicationFeed, FeedData> _produceFeedData = delegate { return null; };
         public Func<SyndicationFeed, FeedData> ProduceFeedData
         {

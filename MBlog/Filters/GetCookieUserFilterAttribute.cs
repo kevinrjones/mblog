@@ -1,7 +1,11 @@
 ﻿using System;
+using System.Security.Cryptography;
+using System.Web;
 using System.Web.Mvc;
+using Elmah;
 using MBlog.Controllers;
 using MBlog.Infrastructure;
+using MBlog.Logging;
 using MBlog.Models.User;
 using MBlogModel;
 
@@ -12,7 +16,7 @@ namespace MBlog.Filters
         public static string UserCookie = "USER";
 
         public override void OnAuthorization(AuthorizationContext filterContext)
-        {            
+        {
             var controller = filterContext.Controller as BaseController;
             if (controller != null)
             {

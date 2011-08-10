@@ -8,6 +8,7 @@ using MBlogNlogService;
 using MBlogRepository.Interfaces;
 using MBlogRepository.Repositories;
 using Microsoft.Practices.Unity;
+using Rejuicer;
 
 namespace MBlog
 {
@@ -150,15 +151,28 @@ namespace MBlog
             DependencyResolver.SetResolver(new UnityDependencyResolver(container));
             AreaRegistration.RegisterAllAreas();
 
+            ConfigureRejuicer(); 
+
+            AddUnityFilterProvider(container);
+
+            RegisterGlobalFilters(GlobalFilters.Filters);
+            RegisterRoutes(RouteTable.Routes);
+            //RouteDebug.RouteDebugger.RewriteRoutesForTesting(RouteTable.Routes);
+        }
+
+        private static void AddUnityFilterProvider(IUnityContainer container)
+        {
             var oldProvider = FilterProviders.Providers.Single(f => f is FilterAttributeFilterProvider);
             FilterProviders.Providers.Remove(oldProvider);
 
             var provider = new UnityFilterAttributeFilterProvider(container);
             FilterProviders.Providers.Add(provider);
+        }
 
-            RegisterGlobalFilters(GlobalFilters.Filters);
-            RegisterRoutes(RouteTable.Routes);
-            //RouteDebug.RouteDebugger.RewriteRoutesForTesting(RouteTable.Routes);
+        private static void ConfigureRejuicer()
+        {
+            OnRequest.ForJs("~/Combined-{0}.js").Compact.FilesIn("~/Scripts/").Matching("*.js").Configure();
+            OnRequest.ForCss("~/Combined-{0}.css").Compact.FilesIn("~/Content/").Matching("*.css").Configure();
         }
 
         private IUnityContainer GetUnityContainer()
