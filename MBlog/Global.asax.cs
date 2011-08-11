@@ -170,9 +170,29 @@ namespace MBlog
         }
 
         private static void ConfigureRejuicer()
-        {
-            OnRequest.ForJs("~/Combined-{0}.js").Compact.FilesIn("~/Scripts/").Matching("*.js").Configure();
-            OnRequest.ForCss("~/Combined-{0}.css").Compact.FilesIn("~/Content/").Matching("*.css").Configure();
+        {            
+            //OnRequest.ForJs("~/Combined-{0}.js").Combine.FilesIn("~/Scripts/").Matching("*.js").Configure();
+            OnRequest.ForJs("~/Combined-{0}.js").Combine
+                .File("~/Scripts/jquery-1.6.2.js")
+                .File("~/Scripts/jquery.validate.js")
+                .File("~/Scripts/jquery.validate.unobtrusive.js")
+                .File("~/Scripts/jquery.unobtrusive-ajax.js")
+                .File("~/Scripts/shCore.js")
+                .File("~/Scripts/shBrushBash.js")
+                .File("~/Scripts/shBrushCss.js")
+                .File("~/Scripts/shBrushCSharp.js")
+                .File("~/Scripts/shBrushJScript.js")
+                .File("~/Scripts/shBrushPowerShell.js")
+                .File("~/Scripts/shBrushRuby.js")
+                .File("~/Scripts/shBrushSql.js")
+                .File("~/Scripts/shBrushXml.js")
+                .File("~/Scripts/modernizr-1.7.min.js")
+                .Configure();
+            OnRequest.ForCss("~/Combined-{0}.css").Compact
+                .File("~/Content/Site.css")
+                .File("~/Content/shCore.css")
+                .File("~/Content/shThemeRDark.css")
+                .Configure();
         }
 
         private IUnityContainer GetUnityContainer()

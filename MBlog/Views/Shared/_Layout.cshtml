@@ -5,7 +5,8 @@
     <title>@ViewBag.Title</title>
     @Rejuiced.CssFor("~/Combined-{0}.css")
     @Rejuiced.JsFor("~/Combined-{0}.js")
-    <link rel="shortcut icon" href=@Url.Content("~/favicon.ico")>    
+    <link href="@Url.Content("~/Content/main.less")" rel="stylesheet" type="text/css" />   
+    <link rel="shortcut icon" href="@Url.Content("~/favicon.ico")">    
     <script type="text/javascript">
         SyntaxHighlighter.defaults['toolbar'] = true;
         SyntaxHighlighter.all();
