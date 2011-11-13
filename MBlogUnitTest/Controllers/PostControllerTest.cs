@@ -189,7 +189,7 @@ namespace MBlogUnitTest.Controllers
             RedirectToRouteResult result = controller.Update(new EditPostViewModel { Nickname = _userName, BlogId = _blogId, PostId = 1 }) as RedirectToRouteResult;
 
             Assert.That(result, Is.Not.Null);
-            Assert.That(result.RouteValues["controller"], Is.EqualTo("Admin").IgnoreCase);
+            Assert.That(result.RouteValues["controller"], Is.EqualTo("Dashboard").IgnoreCase);
             Assert.That(result.RouteValues["action"], Is.EqualTo("index").IgnoreCase);
         }
 

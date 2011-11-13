@@ -18,7 +18,7 @@ namespace MBlog.Controllers
         public ActionResult New()
         {
             if (RedirectIfInvalidUser())
-                return RedirectToAction("login", "User");
+                return RedirectToAction("New", "Session");
 
             return View(new CreateBlogViewModel {IsCreate = true});
         }
@@ -28,7 +28,7 @@ namespace MBlog.Controllers
         public ActionResult Create(CreateBlogViewModel model)
         {
             if (RedirectIfInvalidUser())
-                return RedirectToAction("login", "User");
+                return RedirectToAction("New", "Session");
 
             if (!ModelState.IsValid)
             {
@@ -66,7 +66,7 @@ namespace MBlog.Controllers
             blog.Description = model.Description;
             blog.Title = model.Title;
             BlogRepository.Add(blog);
-            return RedirectToRoute(new {controller = "Admin", action = "Index"});
+            return RedirectToRoute(new { controller = "Dashboard", action = "Index" });
         }
 
         private ActionResult CreateBlog(CreateBlogViewModel model)
@@ -75,7 +75,7 @@ namespace MBlog.Controllers
             var blog = new Blog(model.Title, model.Description, model.ApproveComments, model.CommentsEnabled,
                                 model.Nickname, user.Id);
             BlogRepository.Create(blog);
-            return RedirectToRoute(new {controller = "Admin", action = "Index"});
+            return RedirectToRoute(new { controller = "Dashboard", action = "Index" });
         }
 
         private bool RedirectIfInvalidUser()

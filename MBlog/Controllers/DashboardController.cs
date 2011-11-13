@@ -9,11 +9,11 @@ using MBlogRepository.Interfaces;
 
 namespace MBlog.Controllers
 {
-    public class AdminController : BaseController
+    public class DashboardController : BaseController
     {
         private readonly IPostRepository _postRepository;
 
-        public AdminController(IUserRepository userRepository, IPostRepository postRepository,
+        public DashboardController(IUserRepository userRepository, IPostRepository postRepository,
                                IBlogRepository blogRepository)
             : base(userRepository, blogRepository)
         {

@@ -14,10 +14,10 @@ namespace MBlogUnitTest.Routing
         public void GivenACorrectRoutesCollection_WhenIAskForANickname_ThenIGetTheIndexView()
         {
             TestRoute("~/nickname", new
-                                     {
-                                         controller = "Post",
-                                         action = "Index"
-                                     },
+            {
+                controller = "Post",
+                action = "Index"
+            },
             "GET");
         }
 
@@ -33,6 +33,21 @@ namespace MBlogUnitTest.Routing
                 month="01",
                 day="02",
                 link = "post"
+            },
+            "GET");
+        }
+
+        [Test]
+        public void GivenACorrectRoutesCollection_WhenIAskToEdit_ThenIGetTheEditActionForTheBlogPost()
+        {
+            //http://localhost:7969/kevin/edit/1/25
+            TestRoute("~/nickname/edit/1/25", new
+            {
+                nickname = "nickname",
+                controller = "Post",
+                action = "Edit",
+                postId = "25",
+                blogId = "1",
             },
             "GET");
         }
@@ -60,30 +75,154 @@ namespace MBlogUnitTest.Routing
         }
 
         [Test]
-        public void GivenACorrectRoutesCollection_WhenIAskForAdmin_ThenIGetTheAdminControllerIndexView()
+        public void GivenACorrectRoutesCollection_WhenIAskForPostsIndex_ThenIGetTheAdminControllerIndexView()
         {
-            TestRoute("~/Admin/index", new
+            TestRoute("~/Admin/Posts/index", new
             {
-                controller = "Admin",
+                controller = "Posts",
                 action = "Index"
             },
             "GET");
         }
 
         [Test]
-        public void GivenACorrectRoutesCollection_WhenIAskToEdit_ThenIGetTheEditViewForTheBlogPost()
+        public void GivenACorrectRoutesCollection_WhenIAskForCommentsIndex_ThenIGetTheAdminControllerIndexView()
         {
-            //http://localhost:7969/kevin/edit/1/25
-            TestRoute("~/nickname/edit/1/25", new
+            TestRoute("~/Admin/Comments/index", new
             {
-                nickname = "nickname",
-                controller = "Post",
-                action = "Edit",
-                postId = "25",
-                blogId = "1",
+                controller = "Comments",
+                action = "Index"
             },
             "GET");
         }
+
+        [Test]
+        public void GivenACorrectRoutesCollection_WhenIAskForDashboard_ThenIGetTheAdminControllerIndexView()
+        {
+            TestRoute("~/Dashboard", new
+            {
+                controller = "Dashboard",
+                action = "Index"
+            },
+            "GET");
+        }
+
+
+        [Test]
+        public void GivenACorrectRoutesCollection_WhenIAskForTheNewUserForm_ThenIGetTheEditActionForTheNewUser()
+        {
+            TestRoute("~/user/new", new
+            {
+                controller = "User",
+                action = "New",
+            },
+            "GET");
+        }
+
+        [Test]
+        public void GivenACorrectRoutesCollection_WhenIAskToRegister_ThenIGetTheEditActionForTheNewUser()
+        {
+            TestRoute("~/user/create", new
+            {
+                controller = "User",
+                action = "Create",
+            },
+            "POST");
+        }
+
+        [Test]
+        public void GivenACorrectRoutesCollection_WhenIAskForToLogin_ThenIGetTheEditActionForLogin()
+        {
+            TestRoute("~/session/new", new
+            {
+                controller = "Session",
+                action = "New",
+            },
+            "GET");
+        }
+
+        [Test]
+        public void GivenACorrectRoutesCollection_WhenILogin_ThenIGetTheEditActionForTheLogin()
+        {
+            TestRoute("~/session/create", new
+            {
+                controller = "Session",
+                action = "Create",
+            },
+            "POST");
+        }
+
+        [Test]
+        public void GivenACorrectRoutesCollection_WhenIAskForToLogout_ThenIGetTheEditActionForLogout()
+        {
+            TestRoute("~/session/delete", new
+            {
+                controller = "Session",
+                action = "Delete",
+            },
+            "POST");
+        }
+
+        [Test]
+        public void GivenACorrectRoutesCollection_WhenIAskForANewBlog_ThenIGetTheEditActionForLogin()
+        {
+            TestRoute("~/blog/new", new
+            {
+                controller = "Blog",
+                action = "New",
+            },
+            "GET");
+        }
+
+        [Test]
+        public void GivenACorrectRoutesCollection_WhenICreatANewBlog_ThenIGetTheEditActionForTheLogin()
+        {
+            TestRoute("~/blog/create", new
+            {
+                controller = "Blog",
+                action = "Create"
+            },
+            "POST");
+        }
+
+        [Test]
+        public void GivenACorrectRoutesCollection_WhenIAskToEditABlog_ThenIGetTheEditActionForLogin()
+        {
+            TestRoute("~/nickname/blog/edit/1", new
+            {
+                controller = "Blog",
+                action = "Edit",
+                blogId = 1,
+                nickname = "nickname"
+            },
+            "GET");
+        }
+
+        [Test]
+        public void GivenACorrectRoutesCollection_WhenIUpdateABlog_ThenIGetTheUpdateActionForBlogs()
+        {
+            TestRoute("~/nickname/blog/update", new
+            {
+                controller = "Blog",
+                action = "Update",
+                nickname = "nickname"
+            },
+            "POST");
+        }
+
+        [Test]
+        public void GivenACorrectRoutesCollection_WhenIDeleteABlog_ThenIGetTheDeleteActionForBlogs()
+        {
+            TestRoute("~/nickname/blog/delete/1", new
+            {
+                controller = "Blog",
+                action = "Delete",
+                blogId = 1,
+                nickname = "nickname"
+            },
+            "POST");
+        }
+
 
 
         private void TestRoute(string url, object expectedValues, string httpMethod)

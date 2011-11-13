@@ -21,43 +21,17 @@ namespace MBlog.Controllers
         }
 
         [HttpGet]
-        public ActionResult Login()
+        public ActionResult New()
         {
             if (!HttpContext.User.Identity.IsAuthenticated)
             {
-                return View();
+                return View("Register");
             }
-            return RedirectToAction("index", "Admin");
+            return RedirectToAction("index", "Dashboard");
         }
 
         [HttpPost]
-        public ActionResult DoLogin(LoginUserViewModel userViewModel)
-        {
-            if (!ModelState.IsValid)
-            {
-                return View("Login");
-            }
-            User user = UserRepository.GetUser(userViewModel.Email);
-            if (user != null && user.MatchPassword(userViewModel.Password))
-            {
-                UpdateCookiesAndContext(user);
-                return RedirectToRoute(new {action = "Index", controller = "Admin"});
-            }
-            return View("Login");
-        }
-
-        [HttpGet]
-        public ActionResult Register()
-        {
-            if (!HttpContext.User.Identity.IsAuthenticated)
-            {
-                return View();
-            }
-            return RedirectToAction("index", "Admin");
-        }
-
-        [HttpPost]
-        public ActionResult DoRegister(UserViewModel userViewModel)
+        public ActionResult Create(UserViewModel userViewModel)
         {
             User user = UserRepository.GetUser(userViewModel.Email);
             if (!IsRegistrationValid(userViewModel, user))
@@ -68,7 +42,7 @@ namespace MBlog.Controllers
             user = new User(userViewModel.Name, userViewModel.Email, userViewModel.Password, false);
             UserRepository.Create(user);
             UpdateCookiesAndContext(user);
-            return RedirectToAction("index", "Admin");
+            return RedirectToAction("index", "Dashboard");
         }
 
         private bool IsRegistrationValid(UserViewModel userViewModel, User user)

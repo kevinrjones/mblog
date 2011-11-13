@@ -68,6 +68,13 @@ namespace MBlog.Controllers
             return UpdatePost(model);
         }
 
+        [HttpPost]
+        [AuthorizeBlogOwner]
+        public ActionResult Delete(EditPostViewModel model)
+        {
+            return RedirectToRoute(new { controller = "Dashboard", action = "Index" });
+        }
+
         public ActionResult Show(PostLinkViewModel postLinkViewModel)
         {
             var postsViewModel = new PostsViewModel{Nickname = postLinkViewModel.Nickname};
@@ -99,14 +106,14 @@ namespace MBlog.Controllers
                            };
             _postRepository.Create(post);
             BlogRepository.UpdateBlog(model.BlogId);
-            return RedirectToRoute(new {controller = "Admin", action = "Index"});
+            return RedirectToRoute(new { controller = "Dashboard", action = "Index" });
         }
 
         private ActionResult UpdatePost(EditPostViewModel model)
         {
             _postRepository.Update(model.PostId, model.Title, model.Post);
             BlogRepository.UpdateBlog(model.BlogId);
-            return RedirectToRoute(new { controller = "Admin", action = "Index" });
+            return RedirectToRoute(new { controller = "Dashboard", action = "Index" });
         }
 
         private ActionResult GetPosts(PostLinkViewModel model, IList<Post> posts, PostsViewModel postsViewModel)

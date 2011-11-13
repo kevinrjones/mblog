@@ -66,6 +66,7 @@
     <Compile Include="Controllers\BaseControllerTests.cs" />
     <Compile Include="Controllers\BlogControllerTest.cs" />
     <Compile Include="Controllers\CommentControllerTest.cs" />
+    <Compile Include="Controllers\SessionControllerTest.cs" />
     <Compile Include="Controllers\FeedControllerTest.cs" />
     <Compile Include="Controllers\HomeControllerTest.cs" />
     <Compile Include="Controllers\PostControllerTest.cs" />
@@ -76,6 +77,7 @@
     <Compile Include="Extensions\RouteExtensions.cs" />
     <Compile Include="Infrastructure\CookieEncryptionTest.cs" />
     <Compile Include="Logging\TestExceptionFormatter.cs" />
+    <Compile Include="Model\BlogTest.cs" />
     <Compile Include="Model\UserTest.cs" />
     <Compile Include="Model\PostTest.cs" />
     <Compile Include="Model\ValidatorTest.cs" />

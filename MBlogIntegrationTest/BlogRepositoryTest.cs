@@ -12,6 +12,15 @@ namespace MBlogIntegrationTest
     [TestFixture]
     public class BlogRepositoryTest
     {
+        private const int NumberOfPosts = 12;
+        private User _user1;
+        private User _user2;
+        private TransactionScope _transactionScope;
+        private string _nickname;
+        private BlogRepository _blogRepository;
+        private UserRepository _userRepository;
+        private Blog _blog;
+
         [SetUp]
         public void Setup()
         {
@@ -44,21 +53,6 @@ namespace MBlogIntegrationTest
             _blogRepository = new BlogRepository(ConfigurationManager.ConnectionStrings["testdb"].ConnectionString);
         }
 
-        [TearDown]
-        public void TearDown()
-        {
-            _transactionScope.Dispose();
-        }
-
-        private const int NumberOfPosts = 12;
-        private User _user1;
-        private User _user2;
-        private TransactionScope _transactionScope;
-        private string _nickname;
-        private BlogRepository _blogRepository;
-        private UserRepository _userRepository;
-        private Blog _blog;
-
         [Test]
         public void WhenIGetASpecificBlog_ThenIGetTheCorrectBlog()
         {
@@ -70,15 +64,11 @@ namespace MBlogIntegrationTest
             Assert.That(blog.Id, Is.EqualTo(_blog.Id));
         }
 
-        //[Test]
-        //public void WhenIGetABlog_ThenIGetTheBlogPosts()
-        //{
-        //    _userRepository.Create(_user1);
+        [TearDown]
+        public void TearDown()
+        {
+            _transactionScope.Dispose();
+        }
 
-        //    Blog blog = _blogRepository.GetBlog(_nickname);
-
-        //    Assert.That(blog, Is.Not.Null);
-        //    Assert.That(blog.Posts.Count, Is.EqualTo(NumberOfPosts));
-        //}
     }
 }

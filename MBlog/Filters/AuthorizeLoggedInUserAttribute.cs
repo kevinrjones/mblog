@@ -18,7 +18,7 @@ namespace MBlog.Filters
 
         protected override void HandleUnauthorizedRequest(AuthorizationContext filterContext)
         {
-            filterContext.Result = new RedirectResult("~/user/login");
+            filterContext.Result = new RedirectResult("~/session/new");
         }
 
         protected override bool AuthorizeCore(System.Web.HttpContextBase httpContext)

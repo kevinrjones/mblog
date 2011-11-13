@@ -37,11 +37,8 @@ namespace MBlogNlogService
                 {
                     throw;
                 }
-                else
-                {
-                    InternalLogger.Error("Error when writing to database {0}", new object[]{ex});
-                    throw;
-                }
+                InternalLogger.Error("Error when writing to database {0}", new object[]{ex});
+                throw;
             }
         }
 

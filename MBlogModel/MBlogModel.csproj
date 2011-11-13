@@ -119,9 +119,6 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Scripts\jquery-1.6.2-vsdoc.js" />
-    <Content Include="Scripts\jquery-1.6.2.js" />
-    <Content Include="Scripts\jquery-1.6.2.min.js" />
     <None Include="Database\db\migrate\20110614000000_mangage_comments_for_post.rb" />
     <None Include="Database\db\migrate\20110711000000_create_elmah_database.rb" />
     <None Include="Database\db\migrate\20110805000000_make_edited_not_null.rb" />

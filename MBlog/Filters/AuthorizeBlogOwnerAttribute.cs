@@ -30,7 +30,8 @@ namespace MBlog.Filters
 
             if(blogId == null || nickname == null || controller == null)
             {
-                Logger.Error("Authorize failed: blogID: {0}, nickname: {1}, controller: {2}", blogId, nickname, controller);
+                var controllerType = controller == null ? "" : controller.GetType().FullName;
+                Logger.Error("Authorize failed: blogID: {0}, nickname: {1}, controller: {2}", blogId, nickname, controllerType);
                 return false;
             }
 

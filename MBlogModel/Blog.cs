@@ -11,6 +11,7 @@ namespace MBlogModel
         public Blog()
         {
             Posts = new List<Post>();
+            LastUpdated = DateTime.Now;
         }
 
         public Blog(string title, string description, bool approveComments, bool commentsEnabled, string nickname, int userId) : this()

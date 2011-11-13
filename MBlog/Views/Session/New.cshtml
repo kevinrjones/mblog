@@ -6,7 +6,7 @@
     ViewBag.Title = Html.Encode(Login.Title);
 }
 <div style="margin-top: 30px">
-    @using (Html.BeginForm("DoLogin", "user", FormMethod.Post, new { @class = "form" }))
+    @using (Html.BeginForm("Create", "session", FormMethod.Post, new { @class = "form" }))
     {
         <fieldset>
             <legend>@Html.Encode(Login.Title)</legend>

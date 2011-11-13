@@ -3,7 +3,7 @@
 @model MBlog.Models.Admin.AdminUserViewModel
 @{
     ViewBag.Title = Html.Encode(Index.Dashboard);
-    Layout = "~/Views/Admin/_AdminLayout.cshtml";
+    Layout = "~/Views/Dashboard/_DashboardLayout.cshtml";
 }
 <section class="admin-dashboard">
     <section class="admin-main">
@@ -39,9 +39,9 @@
                     </div>
                     <div class="admin-blog-actions">
                         <span class="admin-link">@Html.ActionLink(Global.NewPost, "new", "Post", new { nickname = blog.Nickname, blogId = blog.BlogId }, null)</span>
-                        <span class="admin-link">@Html.ActionLink(Global.EditPosts, "listposts", "Admin", new { nickname = blog.Nickname, blogId = blog.BlogId }, null)</span>
-                        <span class="admin-link">@Html.ActionLink(Global.Comments, "listcomments", "Admin", new { nickname = blog.Nickname, blogId = blog.BlogId }, null)</span>
-                        <span class="admin-link"><a href="#">@Html.Encode(Index.Settings)</a></span>
+                        <span class="admin-link">@Html.ActionLink(Global.EditPosts, "index", "Posts", new { nickname = blog.Nickname, blogId = blog.BlogId }, null)</span>
+                        <span class="admin-link">@Html.ActionLink(Global.Comments, "index", "Comments", new { nickname = blog.Nickname, blogId = blog.BlogId }, null)</span>
+                        <span class="admin-link">@Html.ActionLink(Index.Settings, "Edit", "Blog", new { nickname = blog.Nickname, blogId = blog.BlogId }, null)</span>                        
                     </div>
                 </section>
             }

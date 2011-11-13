@@ -89,7 +89,7 @@ namespace MBlogUnitTest.Controllers
 
             RedirectToRouteResult result = _controller.Create(new CreateBlogViewModel()) as RedirectToRouteResult;
             Assert.That(result, Is.Not.Null);
-            Assert.That(result.RouteValues["controller"], Is.EqualTo("admin").IgnoreCase);
+            Assert.That(result.RouteValues["controller"], Is.EqualTo("dashboard").IgnoreCase);
             Assert.That(result.RouteValues["action"], Is.EqualTo("Index").IgnoreCase);
 
         }
@@ -119,7 +119,7 @@ namespace MBlogUnitTest.Controllers
             RedirectToRouteResult result = controller.Update(new CreateBlogViewModel { Nickname = nickname, Description = "desc", Title = "title"}) as RedirectToRouteResult;
 
             Assert.That(result, Is.Not.Null);
-            Assert.That(result.RouteValues["controller"], Is.EqualTo("Admin").IgnoreCase);
+            Assert.That(result.RouteValues["controller"], Is.EqualTo("Dashboard").IgnoreCase);
             Assert.That(result.RouteValues["action"], Is.EqualTo("index").IgnoreCase);
         }
 

@@ -22,8 +22,9 @@ namespace MBlog.Infrastructure
             {
                 return _container.Resolve(serviceType);
             }
-            catch
+            catch (Exception e)
             {
+                Console.WriteLine(e);
                 return null;
             }
         }

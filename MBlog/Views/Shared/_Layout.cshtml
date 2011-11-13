@@ -21,13 +21,13 @@
                     <ul class="headerList main-list">
                         @if (HttpContext.Current.User == null || !HttpContext.Current.User.Identity.IsAuthenticated)
                         {                    
-                            <li>@Html.ActionLink("register", "register", "user", null, null)</li>
-                            <li>@Html.ActionLink("login", "login", "user", null, null)</li>
+                            <li>@Html.ActionLink("register", "New", "user", null, null)</li>
+                            <li>@Html.ActionLink("login", "New", "Session", null, null)</li>
                         }
                         else
                         { 
-                            <li>@Html.ActionLink("admin", "Index", "admin", null, null)</li>
-                            <li>@Html.ActionLink("logout", "logout", "user", null, null)</li>
+                            <li>@Html.ActionLink("dashboard", "Index", "Dashboard", null, null)</li>
+                            <li>@Html.ActionLink("logout", "Delete", "session", null, null)</li>
                         }
                         <li><a href="#">about</a></li>
                         <li><a href="#">faq</a></li>

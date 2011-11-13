@@ -36,10 +36,10 @@ namespace MBlogUnitTest.Routing
         [Test]
         public void GivenACorrectRoutesCollection_WhenIAskToCreateAUrlForUserLogout_ThenIGetTheCorrectUrl()
         {
-            Assert.AreEqual("/user/logout", GetOutboundUrl(new
+            Assert.AreEqual("/session/delete", GetOutboundUrl(new
             {
-                controller = "User",
-                action = "logout"
+                controller = "Session",
+                action = "Delete"
             }));
         }
 

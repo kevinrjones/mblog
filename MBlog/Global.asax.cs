@@ -45,23 +45,58 @@ namespace MBlog
                 );
 
             routes.MapRoute(
-                "Blog-update",
-                "blog/update/{blogId}",
-                new { controller = "Blog", action = "Update", nickname = UrlParameter.Optional, blogId = UrlParameter.Optional, },
-                new { httpMethod = new HttpMethodConstraint("POST") }
-                );
-
-            routes.MapRoute(
                 "Blog-edit",
                 "{nickname}/blog/edit/{blogId}",
-                new { controller = "Blog", action = "Edit", nickname = UrlParameter.Optional, blogId = UrlParameter.Optional, },
+                new { controller = "Blog", action = "Edit", },
                 new { httpMethod = new HttpMethodConstraint("GET") }
                 );
 
             routes.MapRoute(
-                "Users",
-                "user/{action}",
-                new { controller = "User", action = "Index" }
+                "Blog-update",
+                "{nickname}/blog/update",
+                new { controller = "Blog", action = "Update",  },
+                new { httpMethod = new HttpMethodConstraint("POST") }
+                );
+
+            routes.MapRoute(
+                "Blog-delete",
+                "{nickname}/blog/delete/{blogId}",
+                new { controller = "Blog", action = "Delete" },
+                new { httpMethod = new HttpMethodConstraint("POST") }
+                );
+
+            routes.MapRoute(
+                "Users-new",
+                "user/new",
+                new { controller = "User", action = "New" },
+                new { httpMethod = new HttpMethodConstraint("GET") }
+            );
+
+            routes.MapRoute(
+                "Users-create",
+                "user/create",
+                new { controller = "User", action = "Create" },
+                new { httpMethod = new HttpMethodConstraint("POST") }
+            );
+
+            routes.MapRoute(
+                "Session-new",
+                "session/new",
+                new { controller = "Session", action = "New" },
+                new { httpMethod = new HttpMethodConstraint("GET") }
+            );
+
+            routes.MapRoute(
+                "Session-create",
+                "session/create",
+                new { controller = "Session", action = "Create" },
+                new { httpMethod = new HttpMethodConstraint("POST") }
+            );
+
+            routes.MapRoute(
+                "Session-delete",
+                "session/delete",
+                new { controller = "Session", action = "Delete" } 
             );
 
             routes.MapRoute(
@@ -72,16 +107,22 @@ namespace MBlog
                 );
 
             routes.MapRoute(
-                "Admin-index",
-                "admin/index",
-                new { controller = "Admin", action = "Index" }
+                "Dashboard-index",
+                "dashboard",
+                new { controller = "Dashboard", action = "Index" }
                 );
 
             routes.MapRoute(
-                "Admin",
-                "admin/{action}/{nickname}/{blogId}",
-                new { controller = "Admin", action = "Index", nickname = UrlParameter.Optional, blogId = UrlParameter.Optional, }
-                );
+                "Admin-posts",
+                "admin/posts/{action}/{nickname}/{blogId}",
+                new { controller = "Posts", action = "Index", nickname = UrlParameter.Optional, blogId = UrlParameter.Optional, }
+            );
+
+            routes.MapRoute(
+                "Admin-comments",
+                "admin/comments/{action}/{nickname}/{postId}/{blogId}",
+                new { controller = "Comments", action = "Index", nickname = UrlParameter.Optional, blogId = UrlParameter.Optional, postId = UrlParameter.Optional, }
+            );
 
             routes.MapRoute(
                 "comments",
@@ -156,8 +197,9 @@ namespace MBlog
             AddUnityFilterProvider(container);
 
             RegisterGlobalFilters(GlobalFilters.Filters);
-            RegisterRoutes(RouteTable.Routes);
-            //RouteDebug.RouteDebugger.RewriteRoutesForTesting(RouteTable.Routes);
+            RegisterRoutes(RouteTable.Routes);            
+            
+            
         }
 
         private static void AddUnityFilterProvider(IUnityContainer container)

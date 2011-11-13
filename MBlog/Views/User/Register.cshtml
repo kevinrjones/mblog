@@ -6,7 +6,7 @@
     ViewBag.Title = Html.Encode(Register.Title);
 }
 <div style="margin-top: 30px">
-    @using (Html.BeginForm("DoRegister", "user", FormMethod.Post, new { @class = "form" }))
+    @using (Html.BeginForm("Create", "user", FormMethod.Post, new { @class = "form" }))
     {
         @Html.ValidationSummary(true)
         <fieldset>

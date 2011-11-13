@@ -20,7 +20,7 @@ namespace MBlog.Controllers
 
         public ActionResult Index()
         {
-            Logger.Info("HomeController Index method called");
+            //Logger.Info("HomeController Index method called");
             var model = new HomePageViewModel();
 
             GetUsersAndBlogs(model);

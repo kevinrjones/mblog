@@ -6,7 +6,7 @@
         @ViewBag.Title
     </div>
     <div id="blog-form-body">
-        @using (Html.BeginForm((string)ViewBag.Action, "Blog", FormMethod.Post, new { }))
+        @using (Html.BeginForm((string)ViewBag.Action, "Blog", new{nickame=@Model.Nickname}, FormMethod.Post, new { }))
         {
             <div class="row">
                 <span class="label"> @Html.Encode(Edit.Title):</span> <span class="formw">@Html.TextBoxFor(m => m.Title, new{@class="maxwidth"})</span>
