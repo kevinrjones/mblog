@@ -1,5 +1,5 @@
 # for production
-# call like .\deploy.ps1 -properties @{Configuration="Release"; TargetDir="c:\inetpub\wwwroot\mblog"}
+# call like .\deploy.ps1 -properties @{Configuration="test"; DatabaseConfiguration="test"}
 
 properties {
     $BaseDir = Resolve-Path "..\"
@@ -8,11 +8,22 @@ properties {
     $OutputDir = "$BaseDir\Deploy\Package\"
     $OutputWebDir = "$OutputDir" + "_PublishedWebsites\MBlog"
     $MsDeploy="C:\Program Files\IIS\Microsoft Web Deploy V2\msdeploy.exe"
-    $TargetDir = "c:\inetpub\wwwroot\staging\"
+    $INetPubRoot = "c:\inetpub\wwwroot"
     $Configuration="Staging"    
-    $DataBaseEnvironment="staging"    
-    $Database="MBlogModel\Database"
+    $DatabaseConfiguration="staging"    
+    $Server = "."
+    $DatabaseUser = "IIS APPPool\ASP.Net v4.0"
+    $DatabaseRole = "db_owner"
 }
+
+$DatabaseDir="MBlogModel\Database"
+$ProjectName = "MBlog"
+
+$db = $ProjectName + "_" + $DatabaseConfiguration
+
+. .\Sql\CreateDatabase.ps1
+. .\Sql\DeleteDatabase.ps1
+. .\Sql\AddUser.ps1
 
 task default -depends Deploy
 
@@ -30,14 +41,35 @@ task Build -depends Clean {
     exec { msbuild $SolutionFile "/p:MvcBuildViews=False;OutDir=$OutputDir;UseWPP_CopyWebApplication=True;PipelineDependsOnBuild=False;Configuration=$Configuration" }
 }
 
+task CreateDatabase {
+     $db = $ProjectName + "_" + $DatabaseConfiguration
+     Create-Database $Server $db
+}
+
+task DeleteDatabase {
+     $db = $ProjectName + "_" + $DatabaseConfiguration
+     Delete-Database $Server $db
+}
+
+task RecreateDatabase -depends DeleteDatabase, AddDatabaseUser {
+}
+
+task AddDataBaseUser -depends CreateDatabase {
+     $db = $ProjectName + "_" + $DatabaseConfiguration
+     exec {Add-User $Server $db $DatabaseUser $DatabaseRole }
+}
+
 task DeployDatabase -depends Init {
     pushd
-    cd ..\$Database
-    rake RAILS_ENV=$DataBaseEnvironment 
+    cd ..\$DatabaseDir
+    exec {rake RAILS_ENV=$DatabaseConfiguration }
     popd
 } 
 
-task Deploy -depends Build, DeployDatabase {
+task Deploy -depends Build, CreateDatabase, AddDatabaseUser, DeployDatabase {
+    $TargetDir = $INetPubRoot + "\" +  $Configuration
     out-host -InputObject $TargetDir
     exec { &$MsDeploy "-verb:sync" "-source:contentPath=$OutputWebDir" "-dest:contentPath=$TargetDir" }
 }
+
+
