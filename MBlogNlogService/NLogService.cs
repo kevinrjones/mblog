@@ -6,7 +6,7 @@ namespace MBlogNlogService
 {
     public class NLogService : ILogger
     {
-        private static readonly Logger Logger = LogManager.GetCurrentClassLogger();
+        private static readonly Logger Logger = LogManager.GetLogger("NLogService");
 
         public void Trace(string message, params object[] args)
         {

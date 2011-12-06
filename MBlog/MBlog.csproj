@@ -14,7 +14,7 @@
     <AssemblyName>MBlog</AssemblyName>
     <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
     <MvcBuildViews>false</MvcBuildViews>
-    <UseIISExpress>true</UseIISExpress>
+    <UseIISExpress>false</UseIISExpress>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -110,8 +110,9 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\packages\elmah.corelibrary.1.2\lib\Elmah.dll</HintPath>
     </Reference>
-    <Reference Include="EntityFramework, Version=4.1.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
-      <HintPath>..\packages\EntityFramework.4.1.10715.0\lib\EntityFramework.dll</HintPath>
+    <Reference Include="EntityFramework, Version=4.2.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\EntityFramework.4.2.0.0\lib\net40\EntityFramework.dll</HintPath>
     </Reference>
     <Reference Include="Glimpse.Core">
       <HintPath>..\packages\Glimpse.0.84\lib\net40\Glimpse.Core.dll</HintPath>
@@ -213,7 +214,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="ActionResults\FeedData.cs" />
-    <Compile Include="ActionResults\RssActionResult.cs" />
+    <Compile Include="ActionResults\SyndicationActionResult.cs" />
     <Compile Include="ActionResults\SyndicationHelper.cs" />
     <Compile Include="Controllers\Admin\CommentsController.cs" />
     <Compile Include="Controllers\Admin\PostsController.cs" />
@@ -245,7 +246,7 @@
     <Compile Include="Models\Admin\AdminUserViewModel.cs" />
     <Compile Include="Models\Home\HomePagePostViewModel.cs" />
     <Compile Include="Models\Home\HomePageViewModel.cs" />
-    <Compile Include="Models\Post\CreatePostViewModel.cs" />
+    <Compile Include="Models\Post\BasePostViewModel.cs" />
     <Compile Include="Models\Post\PostLinkViewModel.cs" />
     <Compile Include="Models\Post\PostsViewModel.cs" />
     <Compile Include="Models\Post\PostViewModel.cs" />
@@ -664,7 +665,7 @@
           <AutoAssignPort>True</AutoAssignPort>
           <DevelopmentServerPort>7969</DevelopmentServerPort>
           <DevelopmentServerVPath>/</DevelopmentServerVPath>
-          <IISUrl>http://localhost:7969/</IISUrl>
+          <IISUrl>http://localhost/MBlog</IISUrl>
           <NTLMAuthentication>False</NTLMAuthentication>
           <UseCustomServer>False</UseCustomServer>
           <CustomServerUrl>

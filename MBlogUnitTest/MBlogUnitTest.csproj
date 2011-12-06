@@ -86,12 +86,17 @@
     <Compile Include="Controllers\SessionControllerTest.cs" />
     <Compile Include="Controllers\FeedControllerTest.cs" />
     <Compile Include="Controllers\HomeControllerTest.cs" />
-    <Compile Include="Controllers\PostControllerTest.cs" />
+    <Compile Include="Controllers\TestPostController.cs" />
     <Compile Include="Controllers\UserControllerTest.cs" />
     <Compile Include="Filters\AuthorizeBlogOwnerAttributeTest.cs" />
     <Compile Include="Filters\AuthorizeLoggedInUserAttributeTest.cs" />
+    <Compile Include="Filters\FakeController.cs" />
+    <Compile Include="Filters\FakeRequestWithInvalidUserId.cs" />
+    <Compile Include="Filters\FakeRequestWithValidUserId.cs" />
+    <Compile Include="Filters\FakeRequestWithValidUserIdButNoBlogs.cs" />
     <Compile Include="Filters\GetCookieUserFilterAttributeTest.cs" />
     <Compile Include="Extensions\RouteExtensions.cs" />
+    <Compile Include="Helpers\FakeRequest.cs" />
     <Compile Include="Infrastructure\CookieEncryptionTest.cs" />
     <Compile Include="Logging\TestExceptionFormatter.cs" />
     <Compile Include="Model\BlogTest.cs" />
@@ -104,7 +109,7 @@
     <Compile Include="Routing\OutboundRoutingTests.cs" />
     <Compile Include="ViewModel\AdminBlogViewModelTest.cs" />
     <Compile Include="ViewModel\AdminUserViewModelTest.cs" />
-    <Compile Include="ViewModel\CreatePostViewModelTest.cs" />
+    <Compile Include="ViewModel\EditPostViewModelTest.cs" />
     <Compile Include="ViewModel\HomePagePostViewModelTest.cs" />
     <Compile Include="ViewModel\PostsViewModelTest.cs" />
     <Compile Include="ViewModel\PostViewModelTest.cs" />

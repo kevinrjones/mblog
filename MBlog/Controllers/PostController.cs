@@ -39,7 +39,7 @@ namespace MBlog.Controllers
         [HttpPost]
         [ValidateInput(false)]
         [AuthorizeBlogOwner]
-        public ActionResult Create(CreatePostViewModel model)
+        public ActionResult Create(EditPostViewModel model)
         {
             if (!ModelState.IsValid)
             {
@@ -92,7 +92,7 @@ namespace MBlog.Controllers
             return GetPosts(postLinkViewModel, posts, postsViewModel);
         }
 
-        private ActionResult CreatePost(CreatePostViewModel model)
+        private ActionResult CreatePost(EditPostViewModel model)
         {
             var post = new Post
                            {

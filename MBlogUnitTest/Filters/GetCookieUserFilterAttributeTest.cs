@@ -1,11 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Web;
 using System.Web.Mvc;
 using System.Web.Routing;
 using MBlog.Controllers;
 using MBlog.Filters;
-using MBlog.Infrastructure;
 using MBlog.Models.User;
 using MBlogModel;
 using MBlogRepository.Interfaces;
@@ -142,54 +140,6 @@ namespace MBlogUnitTest.Filters
 
             Assert.That(userViewModel.Nicknames.Count, Is.EqualTo(0));
             Assert.That(userViewModel.IsBlogOwner(Nickname), Is.False);
-        }
-    }
-
-    class FakeController : Controller
-    { }
-
-    class FakeRequestWithValidUserIdButNoBlogs : HttpRequestBase
-    {
-        public override HttpCookieCollection Cookies
-        {
-            get
-            {
-                HttpCookieCollection collection = new HttpCookieCollection();
-                byte[] cipherText = "2".Encrypt();
-                string cookie = Convert.ToBase64String(cipherText);
-                collection.Add(new HttpCookie("USER", cookie));
-                return collection;
-            }
-        }
-    }
-
-    class FakeRequestWithValidUserId : HttpRequestBase
-    {
-        public override HttpCookieCollection Cookies
-        {
-            get
-            {
-                HttpCookieCollection collection = new HttpCookieCollection();
-                byte[] cipherText = "1".Encrypt();
-                string cookie = Convert.ToBase64String(cipherText);
-                collection.Add(new HttpCookie("USER", cookie));
-                return collection;
-            }
-        }
-    }
-
-    class FakeRequestWithInvalidUserId : HttpRequestBase
-    {
-        public override HttpCookieCollection Cookies
-        {
-            get
-            {
-                HttpCookieCollection collection = new HttpCookieCollection();
-                byte[] cipherText = "3".Encrypt();
-                string cookie = Convert.ToBase64String(cipherText);
-                collection.Add(new HttpCookie("USER", cookie));
-                return collection;
-            }
         }
     }
 }

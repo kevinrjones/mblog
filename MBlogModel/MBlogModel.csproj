@@ -65,8 +65,9 @@
     <CodeAnalysisIgnoreBuiltInRules>false</CodeAnalysisIgnoreBuiltInRules>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="EntityFramework, Version=4.1.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
-      <HintPath>..\packages\EntityFramework.4.1.10715.0\lib\EntityFramework.dll</HintPath>
+    <Reference Include="EntityFramework, Version=4.2.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\EntityFramework.4.2.0.0\lib\net40\EntityFramework.dll</HintPath>
     </Reference>
     <Reference Include="IronRuby, Version=1.1.3.0, Culture=neutral, PublicKeyToken=7f709c5b713576e1, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
@@ -131,6 +132,7 @@
     <None Include="Database\db\migrate\20110409000000_create_blacklist_database.rb" />
     <None Include="Database\db\migrate\20110520000000_make_comments_approvable.rb" />
     <None Include="Database\db\migrate\20110714000000_create_nlog_database.rb" />
+    <None Include="Database\db\migrate\20111106000000_create_images_database.rb" />
     <None Include="Database\deploy.cmd" />
     <None Include="Database\Rakefile" />
     <None Include="packages.config" />
