@@ -14,8 +14,8 @@ namespace MBlog.Controllers
 {
     public class SessionController : BaseController
     {
-        public SessionController(IUserRepository userRepository, IBlogRepository blogRepository)
-            : base(userRepository, blogRepository)
+        public SessionController(IUserRepository userRepository, IBlogRepository blogRepository, ILogger logger)
+            : base(logger, userRepository, blogRepository)
         {
         }
 

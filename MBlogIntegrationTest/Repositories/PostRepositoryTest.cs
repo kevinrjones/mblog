@@ -9,7 +9,7 @@ using MBlogModel;
 using MBlogRepository.Repositories;
 using NUnit.Framework;
 
-namespace MBlogIntegrationTest
+namespace MBlogIntegrationTest.Repositories
 {
     [TestFixture]
     public class PostRepositoryTest
@@ -94,7 +94,7 @@ namespace MBlogIntegrationTest
         }
 
         [Test]
-        public void GivenANewPost_WhenIAddThePostToTheDatabase_AndTheBlogDoesNotExist_ThenItIsAdded()
+        public void GivenANewPost_WhenIAddThePostToTheDatabase_AndTheBlogDoesNotExist_ThenThePostIsNotAdded()
         {
             _userRepository.Create(_user1);
             var post = new Post

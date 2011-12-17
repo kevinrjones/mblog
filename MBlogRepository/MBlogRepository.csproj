@@ -86,6 +86,9 @@
     <Compile Include="Contexts\NicknameBlacklistDbContext.cs" />
     <Compile Include="Repositories\BlacklistRepositoryBase.cs" />
     <Compile Include="Repositories\BlogRepository.cs" />
+    <Compile Include="Interfaces\IImageRepository.cs" />
+    <Compile Include="Contexts\ImageDbContext.cs" />
+    <Compile Include="Repositories\ImageRepository.cs" />
     <Compile Include="Repositories\NicknameBlacklistRepository.cs" />
     <Compile Include="Contexts\PostDbContext.cs" />
     <Compile Include="Repositories\PostRepository.cs" />

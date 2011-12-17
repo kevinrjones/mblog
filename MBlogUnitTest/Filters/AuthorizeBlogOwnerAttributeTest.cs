@@ -42,7 +42,7 @@ namespace MBlogUnitTest.Filters
         }
 
         [Test]
-        public void GivenAFilter_BlogIdIsEmpty_ThenTheFilterReturnsFalse()
+        public void GivenAFilter_WhenTheBlogIdIsEmpty_ThenTheFilterReturnsFalse()
         {
             var routeData = string.Format("~/{0}/edit/25", Nickname).GetRouteData("GET");
             _requestContext.Setup(r => r.RouteData).Returns(routeData);
@@ -150,7 +150,7 @@ namespace MBlogUnitTest.Filters
             var controllerContext =
                 new ControllerContext(_mockHttpContext.Object,
                                       routeData,
-                                      new BaseController(null, _blogRepository));
+                                      new BaseController(null, null, _blogRepository));
             return controllerContext;
         }
     }

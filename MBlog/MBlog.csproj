@@ -14,7 +14,7 @@
     <AssemblyName>MBlog</AssemblyName>
     <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
     <MvcBuildViews>false</MvcBuildViews>
-    <UseIISExpress>false</UseIISExpress>
+    <UseIISExpress>true</UseIISExpress>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -233,6 +233,7 @@
     <Compile Include="Controllers\CommentController.cs" />
     <Compile Include="Controllers\DashboardController.cs" />
     <Compile Include="Controllers\FeedController.cs" />
+    <Compile Include="Controllers\ImageController.cs" />
     <Compile Include="Controllers\SessionController.cs" />
     <Compile Include="Infrastructure\UnityFilterAttributeFilterProvider.cs" />
     <Compile Include="Models\Blog\EditBlogViewModel.cs" />
@@ -256,6 +257,7 @@
     <Compile Include="Models\Admin\AdminUserViewModel.cs" />
     <Compile Include="Models\Home\HomePagePostViewModel.cs" />
     <Compile Include="Models\Home\HomePageViewModel.cs" />
+    <Compile Include="Models\Image\NewImageViewModel.cs" />
     <Compile Include="Models\Post\BasePostViewModel.cs" />
     <Compile Include="Models\Post\PostLinkViewModel.cs" />
     <Compile Include="Models\Post\PostsViewModel.cs" />
@@ -297,6 +299,11 @@
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>Index.resx</DependentUpon>
+    </Compile>
+    <Compile Include="Resources\Image\New.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>New.resx</DependentUpon>
     </Compile>
     <Compile Include="Resources\Post\Edit.Designer.cs">
       <AutoGen>True</AutoGen>
@@ -595,6 +602,11 @@
       <LastGenOutput>Index.Designer.cs</LastGenOutput>
       <CustomToolNamespace>MBlog.Resources.Home</CustomToolNamespace>
     </EmbeddedResource>
+    <EmbeddedResource Include="Resources\Image\New.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <LastGenOutput>New.Designer.cs</LastGenOutput>
+      <CustomToolNamespace>MBlog.Resources.Image</CustomToolNamespace>
+    </EmbeddedResource>
     <EmbeddedResource Include="Resources\Post\Edit.resx">
       <Generator>PublicResXFileCodeGenerator</Generator>
       <LastGenOutput>Edit.Designer.cs</LastGenOutput>
@@ -660,6 +672,10 @@
       <DependentUpon>Web.config</DependentUpon>
     </Content>
   </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Image\New.cshtml" />
+  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v10.0\WebApplications\Microsoft.WebApplication.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
@@ -679,7 +695,7 @@
           <AutoAssignPort>True</AutoAssignPort>
           <DevelopmentServerPort>7969</DevelopmentServerPort>
           <DevelopmentServerVPath>/</DevelopmentServerVPath>
-          <IISUrl>http://localhost/MBlog</IISUrl>
+          <IISUrl>http://localhost:7969/</IISUrl>
           <NTLMAuthentication>False</NTLMAuthentication>
           <UseCustomServer>False</UseCustomServer>
           <CustomServerUrl>

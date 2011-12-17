@@ -33,7 +33,7 @@ namespace MBlogRepository.Repositories
                 throw new MBlogException("blogId not valid");
             }
             blog.LastUpdated = DateTime.UtcNow;
-            Add(blog);
+            Attach(blog);
         }
     }
 }

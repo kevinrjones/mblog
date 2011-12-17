@@ -81,11 +81,12 @@
     <Compile Include="Builder\BuildMeA.cs" />
     <Compile Include="Builder\CommentBuilder.cs" />
     <Compile Include="Builder\PostBuilder.cs" />
-    <Compile Include="BlogRepositoryTest.cs" />
-    <Compile Include="NicknameBlacklistRepositoryTest.cs" />
-    <Compile Include="PostRepositoryTest.cs" />
-    <Compile Include="UserNameBlacklistRepositoryTest.cs" />
-    <Compile Include="UserRepositoryTest.cs" />
+    <Compile Include="Repositories\BlogRepositoryTest.cs" />
+    <Compile Include="Repositories\ImageRepositoryTest.cs" />
+    <Compile Include="Repositories\NicknameBlacklistRepositoryTest.cs" />
+    <Compile Include="Repositories\PostRepositoryTest.cs" />
+    <Compile Include="Repositories\UserNameBlacklistRepositoryTest.cs" />
+    <Compile Include="Repositories\UserRepositoryTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Builder\UserBuilder.cs" />
   </ItemGroup>
@@ -112,6 +113,9 @@
       <Project>{6B41D66F-0003-45EC-9692-023F9FCA62E8}</Project>
       <Name>Repository</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Repositories\Images\image.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Web.Mvc;
+using Logging;
 using MBlog.Filters;
 using MBlog.Models.Post;
 using MBlogModel;
@@ -15,8 +16,8 @@ namespace MBlog.Controllers
         private readonly IPostRepository _postRepository;
 
         public PostController(IBlogRepository blogRepository, IPostRepository postRepository,
-                              IUserRepository userRepository)
-            : base(userRepository, blogRepository)
+                              IUserRepository userRepository, ILogger logger)
+            : base(logger, userRepository, blogRepository)
         {
             _postRepository = postRepository;
         }

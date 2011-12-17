@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Web;
 using System.Web.Mvc;
+using Logging;
 using MBlog.Filters;
 using MBlog.Infrastructure;
 using MBlog.Models.User;
@@ -14,8 +15,8 @@ namespace MBlog.Controllers
         private readonly IUsernameBlacklistRepository _usernameBlacklistRepository;
 
         public UserController(IUserRepository userRepository, IUsernameBlacklistRepository usernameBlacklistRepository,
-                              IBlogRepository blogRepository)
-            : base(userRepository, blogRepository)
+                              IBlogRepository blogRepository, ILogger logger)
+            : base(logger, userRepository, blogRepository)
         {
             _usernameBlacklistRepository = usernameBlacklistRepository;
         }

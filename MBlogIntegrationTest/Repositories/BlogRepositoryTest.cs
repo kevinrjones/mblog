@@ -7,7 +7,7 @@ using MBlogModel;
 using MBlogRepository.Repositories;
 using NUnit.Framework;
 
-namespace MBlogIntegrationTest
+namespace MBlogIntegrationTest.Repositories
 {
     [TestFixture]
     public class BlogRepositoryTest

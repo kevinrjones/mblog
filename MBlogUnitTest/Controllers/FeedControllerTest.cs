@@ -42,7 +42,7 @@ namespace MBlogUnitTest.Controllers
         [Test]
         public void GivenABlogWithNoPosts_WhenIGetAFeed_ThenIGetNoItemsInTheFeed()
         {
-            var controller = new FeedController(_mockBlogRepository.Object, _mockPostRepository.Object, null);
+            var controller = new FeedController(_mockBlogRepository.Object, _mockPostRepository.Object, null, null);
             SetControllerContext(controller);
             _mockBlogRepository.Setup(b => b.GetBlog(It.IsAny<string>())).Returns(new Blog {Description = "description", LastUpdated = new DateTime(), User = new User{Name = "name"}});
             _mockPostRepository.Setup(p => p.GetBlogPosts(It.IsAny<string>())).Returns(new List<Post>());
@@ -55,7 +55,7 @@ namespace MBlogUnitTest.Controllers
         [Test]
         public void GivenABlogWithOnePost_WhenIGetAFeed_ThenIGetOneItemInTheFeed()
         {
-            var controller = new FeedController(_mockBlogRepository.Object, _mockPostRepository.Object, null);
+            var controller = new FeedController(_mockBlogRepository.Object, _mockPostRepository.Object, null, null);
             SetControllerContext(controller);
             _mockBlogRepository.Setup(b => b.GetBlog(It.IsAny<string>())).Returns(new Blog { Description = "description", LastUpdated = new DateTime(), User = new User { Name = "name" } });
             _mockPostRepository.Setup(p => p.GetBlogPosts(It.IsAny<string>())).Returns(new List<Post>{new Post{Title = "title", BlogPost = "post"}});
@@ -67,7 +67,7 @@ namespace MBlogUnitTest.Controllers
         [Test]
         public void GivenABlogWithOnePost_WhenIGetAFeed_ThenITheFeedItemHasTheCorrectValues()
         {
-            var controller = new FeedController(_mockBlogRepository.Object, _mockPostRepository.Object, null);
+            var controller = new FeedController(_mockBlogRepository.Object, _mockPostRepository.Object, null, null);
             SetControllerContext(controller);
             _mockBlogRepository.Setup(b => b.GetBlog(It.IsAny<string>())).Returns(new Blog { Description = "description", LastUpdated = new DateTime(), User = new User { Name = "name" } });
             var post = new Post { Title = "title", BlogPost = "post" };

@@ -1,4 +1,5 @@
 ﻿using System.Web.Mvc;
+using Logging;
 using MBlog.Filters;
 using MBlog.Models.Blog;
 using MBlog.Models.User;
@@ -9,8 +10,8 @@ namespace MBlog.Controllers
 {
     public class BlogController : BaseController
     {
-        public BlogController(IUserRepository userRepository, IBlogRepository blogRepository)
-            : base(userRepository, blogRepository)
+        public BlogController(IUserRepository userRepository, IBlogRepository blogRepository, ILogger logger)
+            : base(logger, userRepository, blogRepository)
         {
         }
 
@@ -65,7 +66,7 @@ namespace MBlog.Controllers
             blog.CommentsEnabled = model.CommentsEnabled;
             blog.Description = model.Description;
             blog.Title = model.Title;
-            BlogRepository.Add(blog);
+            BlogRepository.Attach(blog);
             return RedirectToRoute(new { controller = "Dashboard", action = "Index" });
         }
 

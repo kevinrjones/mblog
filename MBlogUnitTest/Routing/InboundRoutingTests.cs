@@ -224,7 +224,57 @@ namespace MBlogUnitTest.Routing
         }
 
 
+        [Test]
+        public void GivenACorrectRoutesCollection_WhenICreateAnImage_ThenIGetTheCreateActionForCreatingImages()
+        {
+            TestRoute("~/nickname/image/create/1", new
+            {
+                controller = "Image",
+                action = "Create",
+                blogId = 1,
+                nickname = "nickname"
+            },
+            "POST");
+        }
 
+        [Test]
+        public void GivenACorrectRoutesCollection_WhenIShowAnImage_ThenIGetTheShowActionForShowingImages()
+        {
+            TestRoute("~/image/1", new
+            {
+                controller = "Image",
+                action = "show",
+                imageId = "1"
+            },
+            "GET");
+        }
+
+        [Test]
+        public void GivenACorrectRoutesCollection_WhenIUpdateAnImage_ThenIGetTheCreateActionForUpdatingImages()
+        {
+            TestRoute("~/nickname/image/update/1/2", new
+            {
+                controller = "Image",
+                action = "Update",
+                blogId = 1,
+                imageId = 2,
+                nickname = "nickname"
+            },
+            "POST");
+        }
+
+        [Test]
+        public void GivenACorrectRoutesCollection_WhenIAskForANewImage_ThenIGetTheCreateActionForNewImages()
+        {
+            TestRoute("~/nickname/image/new/1", new
+            {
+                controller = "Image",
+                action = "New",
+                blogId = 1,
+                nickname = "nickname"
+            },
+            "GET");
+        }
         private void TestRoute(string url, object expectedValues, string httpMethod)
         {
             RouteData routeData = url.GetRouteData(httpMethod);

@@ -7,7 +7,7 @@ namespace Repository
     {
         IQueryable<T> Entities { get; }
         T New();
-        void Add(T entity);
+        void Attach(T entity);
         void Create(T entity);
         void Delete(T entity);
         //void Save();

@@ -78,7 +78,7 @@ namespace MBlogRepository.Repositories
                 throw new MBlogException("postId not valid");
             }
             post.UpdatePost(title, entry);
-            Add(post);
+            Attach(post);
         }
 
         public IList<Post> GetBlogPosts(int year, int month, int day, string nickname, string link)

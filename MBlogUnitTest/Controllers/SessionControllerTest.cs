@@ -23,9 +23,9 @@ namespace MBlogUnitTest.Controllers
         [SetUp]
         public void Setup()
         {
-            _userRepository = new Mock<IUserRepository>();            
+            _userRepository = new Mock<IUserRepository>();
 
-            _sessionController = new SessionController(_userRepository.Object, null);
+            _sessionController = new SessionController(_userRepository.Object, null, null);
 
             SetControllerContext(_sessionController);
         }

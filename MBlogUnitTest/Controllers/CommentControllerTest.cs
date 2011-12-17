@@ -22,7 +22,7 @@ namespace MBlogUnitTest.Controllers
         public void SetUp()
         {
             _postUserRepository = new Mock<IPostRepository>();
-            _controller = new CommentController(_postUserRepository.Object, null, null);
+            _controller = new CommentController(_postUserRepository.Object, null, null, null);
             var headers = new FormCollection();
             headers.Add("Referer", _expectedRefererUrl);
             MockRequest.Setup(r => r.Headers).Returns(headers);

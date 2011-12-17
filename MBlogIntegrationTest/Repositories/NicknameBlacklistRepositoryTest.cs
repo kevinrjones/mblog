@@ -6,10 +6,10 @@ using MBlogModel;
 using MBlogRepository.Repositories;
 using NUnit.Framework;
 
-namespace MBlogIntegrationTest
+namespace MBlogIntegrationTest.Repositories
 {
     [TestFixture]
-    internal class UserNameBlacklistRepositoryTest
+    internal class NicknameBlacklistRepositoryTest
     {
         #region Setup/Teardown
 
@@ -20,7 +20,7 @@ namespace MBlogIntegrationTest
 
             _blackList = BuildMeA.Blacklist(_nickname);
             _blacklistRepository =
-                new UsernameBlacklistRepository(ConfigurationManager.ConnectionStrings["testdb"].ConnectionString);
+                new NicknameBlacklistRepository(ConfigurationManager.ConnectionStrings["testdb"].ConnectionString);
             _blacklistRepository.Create(_blackList);
         }
 
@@ -34,7 +34,7 @@ namespace MBlogIntegrationTest
 
         private TransactionScope _transactionScope;
         private Blacklist _blackList;
-        private UsernameBlacklistRepository _blacklistRepository;
+        private NicknameBlacklistRepository _blacklistRepository;
         private string _nickname = "kevin";
 
         [Test]
@@ -48,7 +48,7 @@ namespace MBlogIntegrationTest
         public void GivenABlacklist_WhenIAskForAllEntries_ThenIGetAllEntries()
         {
             List<Blacklist> blackList = _blacklistRepository.GetNames();
-            Assert.That(blackList.Count, Is.EqualTo(15));
+            Assert.That(blackList.Count, Is.EqualTo(142));
         }
 
         [Test]

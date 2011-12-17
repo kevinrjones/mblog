@@ -5,6 +5,7 @@ using System.ServiceModel.Syndication;
 using System.Web;
 using System.Web.Mvc;
 using System.Web.Routing;
+using Logging;
 using MBlog.ActionResults;
 using MBlogModel;
 using MBlogRepository.Interfaces;
@@ -17,8 +18,8 @@ namespace MBlog.Controllers
         private readonly IPostRepository _postRepository;
 
         public FeedController(IBlogRepository blogRepository, IPostRepository postRepository,
-                              IUserRepository userRepository)
-            : base(userRepository, blogRepository)
+                              IUserRepository userRepository, ILogger logger)
+            : base(logger, userRepository, blogRepository)
         {
             _postRepository = postRepository;
         }

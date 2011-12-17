@@ -48,7 +48,7 @@ namespace MBlogUnitTest.Controllers
         [Test]
         public void GivenAPostController_WhenICallItsIndexMethod_ThenItReturnsTheCorrectView()
         {
-            PostController controller = new PostController(_blogRepositoryMock, _postRepositoryMock, null);
+            PostController controller = new PostController(_blogRepositoryMock, _postRepositoryMock, null, null);
             ViewResult result = (ViewResult)controller.Index("");
 
             PostsViewModel model = (PostsViewModel)result.Model;
@@ -59,7 +59,7 @@ namespace MBlogUnitTest.Controllers
         [Test]
         public void GivenAPostController_WhenICallItsIndexMethod_ThenItReturnsTheCorrectNumberOfPosts()
         {
-            PostController controller = new PostController(_blogRepositoryMock, _postRepositoryMock, null);
+            PostController controller = new PostController(_blogRepositoryMock, _postRepositoryMock, null, null);
             ViewResult result = (ViewResult)controller.Index("");
 
             PostsViewModel model = (PostsViewModel)result.Model;
@@ -70,7 +70,7 @@ namespace MBlogUnitTest.Controllers
         [Test]
         public void GivenAPostController_WhenICallItsShowMethod_ThenItReturnsTheCorrectView()
         {
-            PostController controller = new PostController(_blogRepositoryMock, _postRepositoryMock, null);
+            PostController controller = new PostController(_blogRepositoryMock, _postRepositoryMock, null, null);
             ViewResult result = controller.Show(new PostLinkViewModel()) as ViewResult;
 
             Assert.That(result, Is.Not.Null);
@@ -83,7 +83,7 @@ namespace MBlogUnitTest.Controllers
 
             postRepositoryMock.Setup(r => r.GetBlogPosts(It.IsAny<int>(), It.IsAny<int>(), It.IsAny<int>(), It.IsAny<string>(), It.IsAny<string>()))
                 .Returns(new List<Post>{new Post{Title = "title"}});
-            PostController controller = new PostController(_blogRepositoryMock, postRepositoryMock.Object, null);
+            PostController controller = new PostController(_blogRepositoryMock, postRepositoryMock.Object, null, null);
             ViewResult result = controller.Show(new PostLinkViewModel{Year = 1, Month = 1, Day = 1, Link = "notempty"}) as ViewResult;
 
             Assert.That(result, Is.Not.Null);
@@ -92,7 +92,7 @@ namespace MBlogUnitTest.Controllers
         [Test]
         public void GivenAPostController_WhenICallItsShowMethod_ThenItReturnsTheCorrectModelInTheView()
         {
-            PostController controller = new PostController(_blogRepositoryMock, _postRepositoryMock, null);
+            PostController controller = new PostController(_blogRepositoryMock, _postRepositoryMock, null, null);
             ViewResult result = controller.Show(new PostLinkViewModel()) as ViewResult;
 
             Assert.That(result.Model, Is.AssignableTo<PostsViewModel>());
@@ -101,7 +101,7 @@ namespace MBlogUnitTest.Controllers
         [Test]
         public void GivenAPostController_WhenICallItsShowMethod_AndIPassAYear_ThenItReturnsTheCorrectPosts()
         {
-            PostController controller = new PostController(_blogRepositoryMock, _postRepositoryMock, null);
+            PostController controller = new PostController(_blogRepositoryMock, _postRepositoryMock, null, null);
             ViewResult result = controller.Show(new PostLinkViewModel { Year = 2010, Month = 0, Day = 0, Link = null }) as ViewResult;
             PostsViewModel model = (PostsViewModel)result.Model;
 
@@ -111,7 +111,7 @@ namespace MBlogUnitTest.Controllers
         [Test]
         public void GivenAPostController_WhenIGetItsPostsWithComments_ThenItReturnsTheApprovedComments()
         {
-            PostController controller = new PostController(_blogRepositoryMock, _postRepositoryMock, null);
+            PostController controller = new PostController(_blogRepositoryMock, _postRepositoryMock, null, null);
             ViewResult result = controller.Show(new PostLinkViewModel()) as ViewResult;
             PostsViewModel model = (PostsViewModel)result.Model;
 
@@ -122,7 +122,7 @@ namespace MBlogUnitTest.Controllers
         [Test]
         public void GivenAnErrorWhenAddingAComment_WhenIGetThePostWithTheComment_ThenTheViewDataIsUpdateWithTheError()
         {
-            PostController controller = new PostController(_blogRepositoryMock, _postRepositoryMock, null);
+            PostController controller = new PostController(_blogRepositoryMock, _postRepositoryMock, null, null);
             var tempData = new ModelStateDictionary();
             tempData.Add("key", new ModelState());
             controller.TempData["comment"] = tempData;
@@ -140,8 +140,8 @@ namespace MBlogUnitTest.Controllers
             _blogRepositoryMock = mockBlog.Object;
 
             MockHttpContext.SetupProperty(h => h.User);
-            
-            PostController controller = new PostController(_blogRepositoryMock, _postRepositoryMock, _userRepositoryMock);
+
+            PostController controller = new PostController(_blogRepositoryMock, _postRepositoryMock, _userRepositoryMock, null);
             var result = controller.New(_userName, _blogId) as ViewResult;
 
             Assert.That(result, Is.TypeOf<ViewResult>());            
@@ -150,7 +150,7 @@ namespace MBlogUnitTest.Controllers
         [Test]
         public void GivenAPostController_WhenICallItsCreateMethod_AndTheModelIsValid_ThenItReturnsTheCorrectView()
         {
-            PostController controller = new PostController(_blogRepositoryMock, _postRepositoryMock, _userRepositoryMock);
+            PostController controller = new PostController(_blogRepositoryMock, _postRepositoryMock, _userRepositoryMock, null);
             var result = controller.Create(new EditPostViewModel()) as RedirectToRouteResult;
 
             Assert.That(result, Is.Not.Null);
@@ -160,7 +160,7 @@ namespace MBlogUnitTest.Controllers
         [Test]
         public void GivenAPostController_WhenICallItsCreateMethod_AndTheModelIsInvalid_ThenItReturnsTheCorrectView()
         {
-            PostController controller = new PostController(_blogRepositoryMock, _postRepositoryMock, _userRepositoryMock);
+            PostController controller = new PostController(_blogRepositoryMock, _postRepositoryMock, _userRepositoryMock, null);
             controller.ModelState.AddModelError("Title", "Title error");
             var result = controller.Create(new EditPostViewModel());
 
@@ -172,7 +172,7 @@ namespace MBlogUnitTest.Controllers
         {
             var mockBlog = new Mock<IBlogRepository>();
             MockHttpContext.SetupProperty(h => h.User);
-            PostController controller = new PostController(mockBlog.Object, _postRepositoryMock, _userRepositoryMock);
+            PostController controller = new PostController(mockBlog.Object, _postRepositoryMock, _userRepositoryMock, null);
 
             var result = controller.Edit(_userName, _blogId, 1);
 
@@ -184,7 +184,7 @@ namespace MBlogUnitTest.Controllers
         {
             var mockBlog = new Mock<IBlogRepository>();
             mockBlog.Setup(b => b.GetBlog(_userName)).Returns(new Blog { Id = _blogId });
-            PostController controller = new PostController(mockBlog.Object, _postRepositoryMock, _userRepositoryMock);
+            PostController controller = new PostController(mockBlog.Object, _postRepositoryMock, _userRepositoryMock, null);
 
             RedirectToRouteResult result = controller.Update(new EditPostViewModel { Nickname = _userName, BlogId = _blogId, PostId = 1 }) as RedirectToRouteResult;
 
@@ -198,7 +198,7 @@ namespace MBlogUnitTest.Controllers
         {
             var mockBlog = new Mock<IBlogRepository>();
             mockBlog.Setup(b => b.GetBlog(_userName)).Returns(new Blog { Id = _blogId });
-            PostController controller = new PostController(mockBlog.Object, _postRepositoryMock, _userRepositoryMock);
+            PostController controller = new PostController(mockBlog.Object, _postRepositoryMock, _userRepositoryMock, null);
             controller.ModelState.AddModelError("Name", "Name error");
 
             ViewResult result = controller.Update(new EditPostViewModel { Nickname = _userName, BlogId = _blogId, PostId = 1 }) as ViewResult;

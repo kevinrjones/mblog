@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Web.Mvc;
+using Logging;
 using MBlog.Filters;
 using MBlog.Models.Admin;
 using MBlog.Models.Post;
@@ -14,8 +15,8 @@ namespace MBlog.Controllers
         private readonly IPostRepository _postRepository;
 
         public DashboardController(IUserRepository userRepository, IPostRepository postRepository,
-                               IBlogRepository blogRepository)
-            : base(userRepository, blogRepository)
+                               IBlogRepository blogRepository, ILogger logger)
+            : base(logger, userRepository, blogRepository)
         {
             _postRepository = postRepository;
         }

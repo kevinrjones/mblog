@@ -83,6 +83,7 @@
     <Compile Include="Controllers\BaseControllerTests.cs" />
     <Compile Include="Controllers\BlogControllerTest.cs" />
     <Compile Include="Controllers\CommentControllerTest.cs" />
+    <Compile Include="Controllers\ImageControllerTest.cs" />
     <Compile Include="Controllers\SessionControllerTest.cs" />
     <Compile Include="Controllers\FeedControllerTest.cs" />
     <Compile Include="Controllers\HomeControllerTest.cs" />

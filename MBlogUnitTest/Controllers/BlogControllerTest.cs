@@ -25,7 +25,7 @@ namespace MBlogUnitTest.Controllers
         {
             _blogRepository = new Mock<IBlogRepository>();
             _userRepository = new Mock<IUserRepository>();
-            _controller = new BlogController(_userRepository.Object, _blogRepository.Object);
+            _controller = new BlogController(_userRepository.Object, _blogRepository.Object, null);
         }
 
         [Test]
@@ -100,7 +100,7 @@ namespace MBlogUnitTest.Controllers
             string nickname = "nickname";
             _blogRepository.Setup(b => b.GetBlog(nickname)).Returns(new Blog("title", "description", true, true,
                                                                                nickname, 1));
-            var controller = new BlogController(_userRepository.Object, _blogRepository.Object);
+            var controller = new BlogController(_userRepository.Object, _blogRepository.Object, null);
 
             var result = controller.Edit(new CreateBlogViewModel{Nickname = nickname});
 
@@ -113,7 +113,7 @@ namespace MBlogUnitTest.Controllers
             string nickname = "nickname";
             _blogRepository.Setup(b => b.GetBlog(nickname)).Returns(new Blog("title", "description", true, true,
                                                                                nickname, 1));
-            var controller = new BlogController(_userRepository.Object, _blogRepository.Object);
+            var controller = new BlogController(_userRepository.Object, _blogRepository.Object, null);
 
 
             RedirectToRouteResult result = controller.Update(new CreateBlogViewModel { Nickname = nickname, Description = "desc", Title = "title"}) as RedirectToRouteResult;
@@ -129,7 +129,7 @@ namespace MBlogUnitTest.Controllers
             string nickname = "nickname";
             _blogRepository.Setup(b => b.GetBlog(nickname)).Returns(new Blog("title", "description", true, true,
                                                                                nickname, 1));
-            var controller = new BlogController(_userRepository.Object, _blogRepository.Object);
+            var controller = new BlogController(_userRepository.Object, _blogRepository.Object, null);
 
             controller.ModelState.AddModelError("Name", "Name error");
 

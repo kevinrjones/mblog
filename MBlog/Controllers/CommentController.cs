@@ -1,4 +1,5 @@
 ﻿using System.Web.Mvc;
+using Logging;
 using MBlog.Models.Comment;
 using MBlogRepository.Interfaces;
 
@@ -9,8 +10,8 @@ namespace MBlog.Controllers
         private readonly IPostRepository _postRepository;
 
         public CommentController(IPostRepository postRepository, IUserRepository userRepository,
-                                 IBlogRepository blogRepository)
-            : base(userRepository, blogRepository)
+                                 IBlogRepository blogRepository, ILogger logger)
+            : base(logger, userRepository, blogRepository)
         {
             _postRepository = postRepository;
         }

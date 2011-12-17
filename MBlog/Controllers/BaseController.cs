@@ -7,6 +7,7 @@ using MBlog.Filters;
 using MBlog.Models.Error;
 using MBlog.Models.User;
 using MBlogModel;
+using MBlogNlogService;
 using MBlogRepository.Interfaces;
 using MBlog.Logging;
 
@@ -26,11 +27,8 @@ namespace MBlog.Controllers
             BlogRepository = blogRepository;
         }
 
-        public BaseController(IUserRepository userRepository, IBlogRepository blogRepository) : this (null, userRepository, blogRepository)
-        {
-            UserRepository = userRepository;
-            BlogRepository = blogRepository;
-        }
+        //public BaseController(IUserRepository userRepository, IBlogRepository blogRepository) : this (new NLogService(), userRepository, blogRepository)
+        //{ }
 
         protected override void OnException(ExceptionContext filterContext)
         {

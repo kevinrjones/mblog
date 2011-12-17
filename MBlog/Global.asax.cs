@@ -54,7 +54,7 @@ namespace MBlog
             routes.MapRoute(
                 "Blog-update",
                 "{nickname}/blog/update",
-                new { controller = "Blog", action = "Update",  },
+                new { controller = "Blog", action = "Update", },
                 new { httpMethod = new HttpMethodConstraint("POST") }
                 );
 
@@ -96,7 +96,7 @@ namespace MBlog
             routes.MapRoute(
                 "Session-delete",
                 "session/delete",
-                new { controller = "Session", action = "Delete" } 
+                new { controller = "Session", action = "Delete" }
             );
 
             routes.MapRoute(
@@ -130,6 +130,47 @@ namespace MBlog
                 new { controller = "Comment", action = "Index" }
                 );
 
+            routes.MapRoute(
+                "Image-show",
+                "image/{urlPrefix}/{fileName}",
+                new { controller = "image", action = "Show"}                
+                );
+
+            routes.MapRoute(
+                "Image-create",
+                "{nickname}/image/create/{blogId}",
+                new { controller = "Image", action = "Create" },
+                new { httpMethod = new HttpMethodConstraint("POST") }
+                );
+
+            routes.MapRoute(
+                "Image-update",
+                "{nickname}/image/update/{blogId}/{imageId}",
+                new { controller = "Image", action = "Update", },
+                new { httpMethod = new HttpMethodConstraint("POST") }
+                );
+
+            routes.MapRoute(
+                "Image-new",
+                "{nickname}/image/new/{blogId}",
+                new { controller = "Image", action = "New" },
+                new { httpMethod = new HttpMethodConstraint("GET") }
+                );
+
+            //routes.MapRoute(
+            //    "Image-edit",
+            //    "{nickname}/image/edit/{blogId}/{imageId}",
+            //    new { controller = "Image", action = "Edit", },
+            //    new { httpMethod = new HttpMethodConstraint("GET") }
+            //    );
+
+            //routes.MapRoute(
+            //    "Image-delete",
+            //    "{nickname}/image/delete/{blogId}/{imageId}",
+            //    new { controller = "Image", action = "Delete" },
+            //    new { httpMethod = new HttpMethodConstraint("POST") }
+            //    );
+          
             routes.MapRoute(
                 "Posts-new",
                 "{nickname}/new/{blogId}",
@@ -165,11 +206,11 @@ namespace MBlog
                 );
 
             routes.MapRoute(
-                "Posts-show",
-                "{nickname}/{year}/{month}/{day}/{link}",
-                new { controller = "Post", action = "Show", year = UrlParameter.Optional, month = UrlParameter.Optional, day = UrlParameter.Optional, link = UrlParameter.Optional }
+               "Posts-show",
+               "{nickname}/{year}/{month}/{day}/{link}",
+               new { controller = "Post", action = "Show", year = UrlParameter.Optional, month = UrlParameter.Optional, day = UrlParameter.Optional, link = UrlParameter.Optional }
                 //,new { year = @"\d{4}", month = @"\d{2}", day = @"\d{2}" }
-                );
+               );
 
             routes.MapRoute(
                 "Default-Home",
@@ -192,14 +233,14 @@ namespace MBlog
             DependencyResolver.SetResolver(new UnityDependencyResolver(container));
             AreaRegistration.RegisterAllAreas();
 
-            ConfigureRejuicer(); 
+            ConfigureRejuicer();
 
             AddUnityFilterProvider(container);
 
             RegisterGlobalFilters(GlobalFilters.Filters);
-            RegisterRoutes(RouteTable.Routes);            
-            
-            
+            RegisterRoutes(RouteTable.Routes);
+
+
         }
 
         private static void AddUnityFilterProvider(IUnityContainer container)
@@ -212,7 +253,7 @@ namespace MBlog
         }
 
         private static void ConfigureRejuicer()
-        {            
+        {
             //OnRequest.ForJs("~/Combined-{0}.js").Combine.FilesIn("~/Scripts/").Matching("*.js").Configure();
             OnRequest.ForJs("~/Combined-{0}.js").Combine
                 .File("~/Scripts/jquery-1.6.2.js")
@@ -246,6 +287,7 @@ namespace MBlog
                 .RegisterType<IBlogRepository, BlogRepository>(ctor)
                 .RegisterType<IUsernameBlacklistRepository, UsernameBlacklistRepository>(ctor)
                 .RegisterType<INicknameBlacklistRepository, NicknameBlacklistRepository>(ctor)
+                .RegisterType<IImageRepository, ImageRepository>(ctor)
                 .RegisterType<ILogger, NLogService>()
                 ;
 
