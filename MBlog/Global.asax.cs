@@ -132,7 +132,7 @@ namespace MBlog
 
             routes.MapRoute(
                 "Image-show",
-                "image/{urlPrefix}/{fileName}",
+                "image/{year}/{month}/{day}/{fileName}",
                 new { controller = "image", action = "Show"}                
                 );
 

@@ -14,7 +14,8 @@
         {
             @Html.HiddenFor(m => m.Nickname)
             @Html.HiddenFor(m => m.BlogId)
-            @Html.TextBoxFor(m => m.Width)
+            <!-- todo: dropdown-->
+            @Html.TextBoxFor(m => m.Size)
             @Html.Hidden("imageId", "someId")
 
             <input type="file" name="file" id="file" />

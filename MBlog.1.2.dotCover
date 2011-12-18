@@ -7,13 +7,12 @@
       <Filter ModuleMask="*" ClassMask="*" FunctionMask="*" />
     </IncludeFilters>
     <ExcludeFilters>
-      <Filter ModuleMask="MBlogIntegrationTest" ClassMask="*" FunctionMask="*" />
-      <Filter ModuleMask="MBlogUnitTest" ClassMask="*" FunctionMask="*" />
       <Filter ModuleMask="*" ClassMask="Logging.NullLogger" FunctionMask="*" />
       <Filter ModuleMask="Repository" ClassMask="*" FunctionMask="*" />
-      <Filter ModuleMask="MBlogSpecs" ClassMask="*" FunctionMask="*" />
       <Filter ModuleMask="*" ClassMask="MBlog.Resources.*" FunctionMask="*" />
-      <Filter ModuleMask="*" ClassMask="MBlogModel.MBlogException" FunctionMask="*" />
+      <Filter ModuleMask="MBlogSpecs" ClassMask="*" FunctionMask="*" />
+      <Filter ModuleMask="MBlogUnitTest" ClassMask="*" FunctionMask="*" />
+      <Filter ModuleMask="MBlogIntegrationTest" ClassMask="*" FunctionMask="*" />
     </ExcludeFilters>
   </CoverageFilters>
 </Configuration>

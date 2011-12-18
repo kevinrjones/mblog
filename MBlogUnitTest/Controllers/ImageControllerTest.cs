@@ -25,7 +25,7 @@ namespace MBlogUnitTest.Controllers
         public void GivenAnImageController_WhenIUploadAnInvalidFile_ThenAnExceptioIsThrown()
         {
             ImageController controller = new ImageController(_imageRepository.Object, null, null, null);
-            Assert.Throws<MBlogException>(()=>controller.Create("nickname", 1, "title", "caption", "description", "alternate", "alignment", "size", null));
+            Assert.Throws<MBlogException>(()=>controller.Create("nickname", 1, "title", "caption", "description", "alternate", "alignment", (int) Image.ValidSizes.Medium, null));
         }
 
         [Test]
@@ -36,7 +36,7 @@ namespace MBlogUnitTest.Controllers
             fileBase.Setup(f => f.ContentLength).Returns(0);
 
             ImageController controller = new ImageController(_imageRepository.Object, null, null, null);
-            Assert.Throws<MBlogException>(() => controller.Create("nickname", 1, "title", "caption", "description", "alternate", "alignment", "size", fileBase.Object));
+            Assert.Throws<MBlogException>(() => controller.Create("nickname", 1, "title", "caption", "description", "alternate", "alignment", (int) Image.ValidSizes.Thumbnail, fileBase.Object));
         }
 
         [Test]
@@ -45,24 +45,31 @@ namespace MBlogUnitTest.Controllers
             byte[] fileBytes = new byte[]{1,2,3,4,5,6,7,8,9,0};
             
             int userId = 1001;
-            Mock<HttpPostedFileBase> fileBase = new Mock<HttpPostedFileBase>();
+            var fileBase = new Mock<HttpPostedFileBase>();
             fileBase.Setup(f => f.ContentLength).Returns(fileBytes.Length);
             fileBase.Setup(s => s.InputStream).Returns(new MemoryStream(fileBytes));
             fileBase.Setup(s => s.ContentType).Returns("contentType");
             const string fileName = "fileName";
             fileBase.Setup(s => s.FileName).Returns(fileName);
 
-            
-            _imageRepository.Setup(i => i.WriteImage(fileName, "title", "caption", "description", "alternate", "urlPrefix", userId, "contentType", "alignment", "size", fileBytes));
-            ImageController controller = new ImageController(_imageRepository.Object, null, null, null);
+            Image imageToWrite = new Image { FileName = fileName, Title = "title", Caption = "caption", 
+                Description = "description", Alternate = "alternate", UserId = userId,
+                                             MimeType = "contentType",
+                                             Alignment = "alignment",
+                                             Size = (int) Image.ValidSizes.Large,
+                                             ImageData = fileBytes
+            };
+            _imageRepository.Setup(i => i.WriteImage(imageToWrite));
+
+            var controller = new ImageController(_imageRepository.Object, null, null, null);
             
             SetControllerContext(controller);
             MockHttpContext.SetupProperty(h => h.User);
             controller.HttpContext.User = new UserViewModel { IsLoggedIn = true, Id = userId };
 
-            controller.Create("nickname", 1, "title", "caption", "description", "alternate", "alignment", "size", fileBase.Object);
+            controller.Create("nickname", 1, "title", "caption", "description", "alternate", "alignment", (int) Image.ValidSizes.Large, fileBase.Object);
 
-            _imageRepository.Verify(i => i.WriteImage(fileName, "title", "caption", "description", "alternate", "urlPrefix", userId, "contentType", "alignment", "size", fileBytes), Times.Once());
+            _imageRepository.Verify(i => i.WriteImage(It.IsAny<Image>()), Times.Once());
         }
 
         [Test]
@@ -80,7 +87,7 @@ namespace MBlogUnitTest.Controllers
             controller.HttpContext.User = new UserViewModel { IsLoggedIn = true, Id = 1 };
 
 
-            var result = controller.Create("nickname", 1, "title", "caption", "description", "alternate", "alignment", "size", fileBase.Object);
+            var result = controller.Create("nickname", 1, "title", "caption", "description", "alternate", "alignment", (int) Image.ValidSizes.Medium, fileBase.Object);
 
             Assert.That(result, Is.TypeOf<RedirectToRouteResult>());
         }

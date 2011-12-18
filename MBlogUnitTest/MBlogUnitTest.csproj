@@ -101,6 +101,7 @@
     <Compile Include="Infrastructure\CookieEncryptionTest.cs" />
     <Compile Include="Logging\TestExceptionFormatter.cs" />
     <Compile Include="Model\BlogTest.cs" />
+    <Compile Include="Model\ImageTest.cs" />
     <Compile Include="Model\UserTest.cs" />
     <Compile Include="Model\PostTest.cs" />
     <Compile Include="Model\ValidatorTest.cs" />

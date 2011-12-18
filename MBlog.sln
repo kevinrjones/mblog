@@ -34,6 +34,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Logging", "Logging\Logging.
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MBlogSpecs", "MBlogSpecs\MBlogSpecs.csproj", "{3364110A-5B6C-45AA-9BD7-00929FCEC2BA}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CollectionHelpers", "CollectionHelpers\CollectionHelpers.csproj", "{04D32333-E1C7-4A2F-9F0E-D672BD0EE8BB}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -114,6 +116,14 @@ Global
 		{3364110A-5B6C-45AA-9BD7-00929FCEC2BA}.Staging|Any CPU.Build.0 = Release|Any CPU
 		{3364110A-5B6C-45AA-9BD7-00929FCEC2BA}.Test|Any CPU.ActiveCfg = Test|Any CPU
 		{3364110A-5B6C-45AA-9BD7-00929FCEC2BA}.Test|Any CPU.Build.0 = Test|Any CPU
+		{04D32333-E1C7-4A2F-9F0E-D672BD0EE8BB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{04D32333-E1C7-4A2F-9F0E-D672BD0EE8BB}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{04D32333-E1C7-4A2F-9F0E-D672BD0EE8BB}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{04D32333-E1C7-4A2F-9F0E-D672BD0EE8BB}.Release|Any CPU.Build.0 = Release|Any CPU
+		{04D32333-E1C7-4A2F-9F0E-D672BD0EE8BB}.Staging|Any CPU.ActiveCfg = Release|Any CPU
+		{04D32333-E1C7-4A2F-9F0E-D672BD0EE8BB}.Staging|Any CPU.Build.0 = Release|Any CPU
+		{04D32333-E1C7-4A2F-9F0E-D672BD0EE8BB}.Test|Any CPU.ActiveCfg = Release|Any CPU
+		{04D32333-E1C7-4A2F-9F0E-D672BD0EE8BB}.Test|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

@@ -6,10 +6,12 @@ class CreateImagesDatabase < ActiveRecord::Migration
       t.string  :caption
       t.string  :description
       t.string  :alternate
-      t.string  :url_prefix,  :null => false
+      t.integer :year,  :null => false
+      t.integer :month,  :null => false
+      t.integer :day,  :null => false
       t.string  :mime_type,   :null => false
       t.string  :alignment,   :null => false
-      t.string  :size,        :null => false
+      t.integer  :size,        :null => false
       t.integer :user_id,     :null => false
       t.binary  :image,  :limit => 10000000, :null => false
     end    

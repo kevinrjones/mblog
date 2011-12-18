@@ -150,6 +150,12 @@
     <None Include="Database\db\migrate\20110612000000_add_foreign_keys.rb" />
     <Content Include="Database\db\scripts\insert.sql" />
   </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\CollectionHelpers\CollectionHelpers.csproj">
+      <Project>{04D32333-E1C7-4A2F-9F0E-D672BD0EE8BB}</Project>
+      <Name>CollectionHelpers</Name>
+    </ProjectReference>
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

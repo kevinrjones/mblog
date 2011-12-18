@@ -23,9 +23,9 @@ namespace MBlog.Controllers
         }
 
         [HttpGet]
-        public FileResult Show(string urlPrefix, string fileName)
+        public FileResult Show(int year, int month, int day, string fileName)
         {
-            _imageRepository.GetImage(urlPrefix, fileName);
+            _imageRepository.GetImage(year, month, day, fileName);
             return null;
         }
 
@@ -39,15 +39,18 @@ namespace MBlog.Controllers
 
         [HttpPost]
         [AuthorizeBlogOwner]
-        public ActionResult Create(string nickname, int blogId, string title, string caption, string description, string alternate, string alignment, string size, HttpPostedFileBase file)
+        public ActionResult Create(string nickname, int blogId, string title, string caption, string description, string alternate, string alignment, int size, HttpPostedFileBase file)
         {
             if (file != null && file.ContentLength > 0)
             {
                 UserViewModel user = (UserViewModel) HttpContext.User;
                 byte[] bytes = new byte[file.ContentLength];
                 file.InputStream.Read(bytes, 0, file.ContentLength);
-                                
-                _imageRepository.WriteImage(file.FileName, title, caption, description, alternate, "", user.Id, file.ContentType, alignment, size, bytes);
+
+                // todo: url?                
+                Image img = new Image (file.FileName, title, caption,  description, 
+                    alternate, user.Id, file.ContentType, alignment, size, bytes);
+                _imageRepository.WriteImage(img);
                 return RedirectToRoute("new");
             }
             throw new MBlogException("Invalid File");

@@ -21,31 +21,20 @@ namespace MBlogRepository.Repositories
                     select i).FirstOrDefault();
         }
 
-        public Image GetImage(string urlPrefix, string fileName)
+        public Image GetImage(int year, int month, int day, string fileName)
         {
             return (from i in Entities
-                    where i.UrlPrefix == urlPrefix 
+                    where i.Year == year
+                    && i.Month == month
+                    && i.Day == day
                     && i.FileName == fileName
                     select i).FirstOrDefault();
         }
 
-        public void WriteImage(string fileName, string title, string caption, string description, string alternate, 
-            string prefix, int userId, string mimeType, string alignment, string size, byte[] data)
+        public Image WriteImage(Image image)
         {
-            var image = new Image { 
-                FileName = fileName,
-                Title = title,
-                Caption = caption,
-                Description = description,
-                UserId = userId,                    
-                Alternate = alternate,
-                UrlPrefix = prefix,
-                MimeType = mimeType,
-                Alignment = alignment,
-                Size = size,
-                ImageData = data, 
-            };
             Create(image);
+            return image;
         }
     }
 }

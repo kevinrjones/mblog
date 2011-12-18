@@ -21,7 +21,7 @@ namespace MBlogIntegrationTest.Repositories
         private const string Image = "../../Repositories/Images/image.png";
         private byte[] _imageData;
         private User _user;
-
+        private FileStream _str;
         private TransactionScope _transactionScope;
         private UserRepository _userRepository;
 
@@ -30,10 +30,11 @@ namespace MBlogIntegrationTest.Repositories
         {
             _transactionScope = new TransactionScope();
             _imageRepository = new ImageRepository(ConfigurationManager.ConnectionStrings["testdb"].ConnectionString);
-            FileStream str = File.Open(Image, FileMode.Open);
+            
+            _str = File.Open(Image, FileMode.Open);
 
-            _imageData = new byte[str.Length];
-            str.Read(_imageData, 0, _imageData.Length);
+            _imageData = new byte[_str.Length];
+            _str.Read(_imageData, 0, _imageData.Length);
 
             _user = BuildMeA.User("email", "name", "password");
 
@@ -47,11 +48,17 @@ namespace MBlogIntegrationTest.Repositories
                 {
                     connection.Open();
                     cmd.CommandText =
-                        "INSERT INTO [images]([name],[mime_type],[width],[user_id],[image])VALUES(@name, @mimeType, @width, @userid, @image)";
-                    cmd.Parameters.AddWithValue("@name", "TestImage");
-                    cmd.Parameters.AddWithValue("@mimetype", "mime");
-                    cmd.Parameters.AddWithValue("@width", "width");
-                    cmd.Parameters.AddWithValue("@userid", _user.Id);
+                        "INSERT INTO [images]([title],[file_name], [year], [month], [day],[mime_type],[alignment],[size],[user_id],[image])" +
+                                      "VALUES(@title, @file_name,  @year,  @month,  @day, @mime_type, @alignment, @size, @user_id, @image)";
+                    cmd.Parameters.AddWithValue("@title", "TestImage");
+                    cmd.Parameters.AddWithValue("@file_name", "file_name");
+                    cmd.Parameters.AddWithValue("@year", 2012);
+                    cmd.Parameters.AddWithValue("@month", 12);
+                    cmd.Parameters.AddWithValue("@day", 18);
+                    cmd.Parameters.AddWithValue("@mime_type", "mime");
+                    cmd.Parameters.AddWithValue("@alignment", "align");
+                    cmd.Parameters.AddWithValue("@size", 1);
+                    cmd.Parameters.AddWithValue("@user_id", _user.Id);
                     cmd.Parameters.AddWithValue("@image", _imageData);
 
                     cmd.ExecuteNonQuery();
@@ -60,9 +67,19 @@ namespace MBlogIntegrationTest.Repositories
         }
 
         [Test]
-        public void WhenIAddAnImageToTheDataBase_ThenICanRetrieveTheImageByName()
+        public void WhenIAddAnImageToTheDatabase_ThenICanRetrieveTheImageByUrlAndFilename()
         {
-            Image retrievedImage = _imageRepository.GetImage("urlPrefix", "filename");
+            Image retrievedImage = _imageRepository.GetImage(2012, 12, 18, "file_name");
+            Assert.That(_imageData, Is.EquivalentTo(retrievedImage.ImageData));
+        }
+
+        [Test]
+        public void WhenIAddAnImageToTheDatabase_ThenICanRetrieveTheImageById()
+        {
+            Image img = _imageRepository.WriteImage(new Image{FileName = "file_name", Title = "title", Caption = "caption", 
+                Description = "description", Alternate = "alternate", UserId = _user.Id, 
+                MimeType = "mime", Alignment = "alignment", Size = (int) MBlogModel.Image.ValidSizes.Medium, ImageData = _imageData});
+            Image retrievedImage = _imageRepository.GetImage(img.Id);
             Assert.That(_imageData, Is.EquivalentTo(retrievedImage.ImageData));
         }
 
@@ -70,6 +87,7 @@ namespace MBlogIntegrationTest.Repositories
         public void TearDown()
         {
             _transactionScope.Dispose();
+            _str.Close();
         }
 
     }

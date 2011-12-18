@@ -240,11 +240,14 @@ namespace MBlogUnitTest.Routing
         [Test]
         public void GivenACorrectRoutesCollection_WhenIShowAnImage_ThenIGetTheShowActionForShowingImages()
         {
-            TestRoute("~/image/1", new
+            TestRoute("~/image/2011/12/18/filename", new
             {
                 controller = "Image",
                 action = "show",
-                imageId = "1"
+                year = 2011,
+                month = 12,
+                day = 18,
+                fileName = "filename",
             },
             "GET");
         }
