@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Configuration;
 using System.Transactions;
-using MBlogIntegrationTest.Builder;
+using MBlogBuilder;
 using MBlogModel;
 using MBlogRepository.Repositories;
 using NUnit.Framework;

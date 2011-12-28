@@ -4,7 +4,7 @@ using System.Configuration;
 using System.Data.Entity.Infrastructure;
 using System.Linq;
 using System.Transactions;
-using MBlogIntegrationTest.Builder;
+using MBlogBuilder;
 using MBlogModel;
 using MBlogRepository.Repositories;
 using NUnit.Framework;

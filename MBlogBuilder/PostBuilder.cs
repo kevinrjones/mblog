@@ -1,8 +1,8 @@
 ﻿using MBlogModel;
 
-namespace MBlogIntegrationTest.Builder
+namespace MBlogBuilder
 {
-    internal class PostBuilder : Builder<Post>
+    public class PostBuilder : Builder<Post>
     {
         public PostBuilder()
         {

@@ -1,0 +1,67 @@
+﻿@using MBlog.Resources.Image
+@model MBlog.Models.Image.NewMediaViewModel
+@{
+    ViewBag.Title = "Upload File";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<section id="blog-post-form">
+    <div id="blog-post-form-header">
+        @ViewBag.Title
+    </div>
+    <div id="image-form-body">
+        @using (Html.BeginForm("Create", "media", FormMethod.Post, new { enctype = "multipart/form-data" }))
+        {
+            @Html.HiddenFor(m => m.Nickname)
+            @Html.HiddenFor(m => m.BlogId)
+            @Html.Hidden("imageId", "someId")
+
+            <div>
+                <input type="file" name="file" id="file" />
+            </div>                    
+            <div class="row">
+                <span class="label">@Html.Encode("Caption"):</span>
+                <span class="formw">@Html.TextBoxFor(m => m.Caption, new { @class = "maxwidth" })</span>
+            </div>    
+            <div class="row">
+                <span class="label">@Html.Encode("Description"):</span>
+                <span class="formw">@Html.TextBoxFor(m => m.Description, new { @class = "maxwidth" })</span>
+            </div>    
+            <div class="row">
+                <span class="label">@Html.Encode("Alternate Text"):</span>
+                <span class="formw">@Html.TextBoxFor(m => m.Alternate, new { @class = "maxwidth" })</span>
+            </div>    
+
+            <div class="row">
+                <span class="label">
+                    @MvcHtmlString.Create("Alignment: ")
+                </span>
+                <span class="formw">
+                    <input type="radio" id="align-none" name="alignment" value="0" checked="checked" />
+                    None
+                    <input type="radio" id="align-left" name="alignment" value="1"  />
+                    Left
+                    <input type="radio" id="align-right" name="alignment" value="2" />
+                    Right
+                </span>
+            </div>    
+            <div class="row">
+                <span class="label">
+                    @MvcHtmlString.Create("Size: ")
+                </span>
+                <span class="formw">
+                    <input type="radio" id="size-thumbnail" name="size" value="0" />
+                    Thumbnail
+                    <input type="radio" id="size-small" name="size" value="1" />
+                    Small
+                    <input type="radio" id="size-medium" name="size" value="2" />
+                    Medium
+                    <input type="radio" id="size-large" name="size" value="3" checked="checked" />
+                    Large
+                </span>
+            </div>    
+            <div class="row">
+                <input type="submit" value="@Html.Encode(New.UploadImage)" />
+            </div>
+        }
+    </div>
+</section>

@@ -1,8 +1,8 @@
 using MBlogModel;
 
-namespace MBlogIntegrationTest.Builder
+namespace MBlogBuilder
 {
-    internal class BlacklistBuilder : Builder<Blacklist>
+    public class BlacklistBuilder : Builder<Blacklist>
     {
         public BlacklistBuilder()
         {

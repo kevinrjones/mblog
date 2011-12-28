@@ -64,6 +64,7 @@
       <HintPath>..\packages\NUnit.2.5.10.11092\lib\pnunit.framework.dll</HintPath>
     </Reference>
     <Reference Include="System" />
+    <Reference Include="System.Configuration" />
     <Reference Include="System.Core" />
     <Reference Include="System.Drawing" />
     <Reference Include="System.Xml.Linq" />
@@ -80,6 +81,12 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Media.feature.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Media.feature</DependentUpon>
+    </Compile>
+    <Compile Include="MBlogMediaStepDefinitions.cs" />
     <Compile Include="MBlogStepDefinition.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="User.feature.cs">
@@ -95,6 +102,10 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
+    <None Include="Media.feature">
+      <Generator>SpecFlowSingleFileGenerator</Generator>
+      <LastGenOutput>Media.feature.cs</LastGenOutput>
+    </None>
     <None Include="packages.config" />
     <None Include="User.feature">
       <Generator>SpecFlowSingleFileGenerator</Generator>
@@ -104,6 +115,27 @@
       <Generator>SpecFlowSingleFileGenerator</Generator>
       <LastGenOutput>ViewBlogs.feature.cs</LastGenOutput>
     </None>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\MBlogBuilder\MBlogBuilder.csproj">
+      <Project>{7EAB4CD7-118C-443C-9DD2-FA8D806E15C3}</Project>
+      <Name>MBlogBuilder</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\MBlogModel\MBlogModel.csproj">
+      <Project>{9D26D30F-3E4E-43B9-A93B-6E51AB34AC44}</Project>
+      <Name>MBlogModel</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\MBlogRepository\MBlogRepository.csproj">
+      <Project>{555BF169-88EA-4EF1-B532-D152AF974680}</Project>
+      <Name>MBlogRepository</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Repository\Repository.csproj">
+      <Project>{6B41D66F-0003-45EC-9692-023F9FCA62E8}</Project>
+      <Name>Repository</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Images\image.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

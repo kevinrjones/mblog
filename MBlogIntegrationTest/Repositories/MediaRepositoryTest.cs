@@ -7,7 +7,7 @@ using System.IO;
 using System.Linq;
 using System.Text;
 using System.Transactions;
-using MBlogIntegrationTest.Builder;
+using MBlogBuilder;
 using MBlogModel;
 using MBlogRepository.Repositories;
 using NUnit.Framework;
@@ -15,9 +15,9 @@ using NUnit.Framework;
 namespace MBlogIntegrationTest.Repositories
 {
     [TestFixture]
-    public class ImageRepositoryTest
+    public class MediaRepositoryTest
     {
-        private ImageRepository _imageRepository;
+        private MediaRepository _mediaRepository;
         private const string Image = "../../Repositories/Images/image.png";
         private byte[] _imageData;
         private User _user;
@@ -29,7 +29,7 @@ namespace MBlogIntegrationTest.Repositories
         public void Setup()
         {
             _transactionScope = new TransactionScope();
-            _imageRepository = new ImageRepository(ConfigurationManager.ConnectionStrings["testdb"].ConnectionString);
+            _mediaRepository = new MediaRepository(ConfigurationManager.ConnectionStrings["testdb"].ConnectionString);
             
             _str = File.Open(Image, FileMode.Open);
 
@@ -48,7 +48,8 @@ namespace MBlogIntegrationTest.Repositories
                 {
                     connection.Open();
                     cmd.CommandText =
-                        "INSERT INTO [images]([title],[file_name], [year], [month], [day],[mime_type],[alignment],[size],[user_id],[image])" +
+                        "INSERT INTO [images]([title],[file_name" +
+                        "], [year], [month], [day],[mime_type],[alignment],[size],[user_id],[image])" +
                                       "VALUES(@title, @file_name,  @year,  @month,  @day, @mime_type, @alignment, @size, @user_id, @image)";
                     cmd.Parameters.AddWithValue("@title", "TestImage");
                     cmd.Parameters.AddWithValue("@file_name", "file_name");
@@ -69,18 +70,18 @@ namespace MBlogIntegrationTest.Repositories
         [Test]
         public void WhenIAddAnImageToTheDatabase_ThenICanRetrieveTheImageByUrlAndFilename()
         {
-            Image retrievedImage = _imageRepository.GetImage(2012, 12, 18, "file_name");
-            Assert.That(_imageData, Is.EquivalentTo(retrievedImage.ImageData));
+            Media retrievedMedia = _mediaRepository.GetMedia(2012, 12, 18, "file_name");
+            Assert.That(_imageData, Is.EquivalentTo(retrievedMedia.ImageData));
         }
 
         [Test]
         public void WhenIAddAnImageToTheDatabase_ThenICanRetrieveTheImageById()
         {
-            Image img = _imageRepository.WriteImage(new Image{FileName = "file_name", Title = "title", Caption = "caption", 
+            Media img = _mediaRepository.WriteMedia(new Media{FileName = "file_name", Title = "title", Caption = "caption", 
                 Description = "description", Alternate = "alternate", UserId = _user.Id, 
-                MimeType = "mime", Alignment = "alignment", Size = (int) MBlogModel.Image.ValidSizes.Medium, ImageData = _imageData});
-            Image retrievedImage = _imageRepository.GetImage(img.Id);
-            Assert.That(_imageData, Is.EquivalentTo(retrievedImage.ImageData));
+                MimeType = "mime", Alignment = (int) MBlogModel.Media.ValidAllignments.None, Size = (int) MBlogModel.Media.ValidSizes.Medium, ImageData = _imageData});
+            Media retrievedMedia = _mediaRepository.GetMedia(img.Id);
+            Assert.That(_imageData, Is.EquivalentTo(retrievedMedia.ImageData));
         }
 
         [TearDown]

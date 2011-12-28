@@ -1,9 +1,9 @@
 ﻿using System.Collections.Generic;
 using MBlogModel;
 
-namespace MBlogIntegrationTest.Builder
+namespace MBlogBuilder
 {
-    internal class BlogBuilder : Builder<Blog>
+    public class BlogBuilder : Builder<Blog>
     {
         public BlogBuilder()
         {

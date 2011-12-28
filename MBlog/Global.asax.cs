@@ -131,43 +131,49 @@ namespace MBlog
                 );
 
             routes.MapRoute(
-                "Image-show",
+                "Media-show",
                 "image/{year}/{month}/{day}/{fileName}",
-                new { controller = "image", action = "Show"}                
+                new { controller = "image", action = "Show"}
                 );
 
             routes.MapRoute(
-                "Image-create",
+                "Media-index",
+                "image",
+                new { controller = "image", action = "Index" }
+                );
+
+            routes.MapRoute(
+                "Media-create",
                 "{nickname}/image/create/{blogId}",
-                new { controller = "Image", action = "Create" },
+                new { controller = "Media", action = "Create" },
                 new { httpMethod = new HttpMethodConstraint("POST") }
                 );
 
             routes.MapRoute(
-                "Image-update",
+                "Media-update",
                 "{nickname}/image/update/{blogId}/{imageId}",
-                new { controller = "Image", action = "Update", },
+                new { controller = "Media", action = "Update", },
                 new { httpMethod = new HttpMethodConstraint("POST") }
                 );
 
             routes.MapRoute(
-                "Image-new",
+                "Media-new",
                 "{nickname}/image/new/{blogId}",
-                new { controller = "Image", action = "New" },
+                new { controller = "Media", action = "New" },
                 new { httpMethod = new HttpMethodConstraint("GET") }
                 );
 
             //routes.MapRoute(
-            //    "Image-edit",
+            //    "Media-edit",
             //    "{nickname}/image/edit/{blogId}/{imageId}",
-            //    new { controller = "Image", action = "Edit", },
+            //    new { controller = "Media", action = "Edit", },
             //    new { httpMethod = new HttpMethodConstraint("GET") }
             //    );
 
             //routes.MapRoute(
-            //    "Image-delete",
+            //    "Media-delete",
             //    "{nickname}/image/delete/{blogId}/{imageId}",
-            //    new { controller = "Image", action = "Delete" },
+            //    new { controller = "Media", action = "Delete" },
             //    new { httpMethod = new HttpMethodConstraint("POST") }
             //    );
           
@@ -287,7 +293,7 @@ namespace MBlog
                 .RegisterType<IBlogRepository, BlogRepository>(ctor)
                 .RegisterType<IUsernameBlacklistRepository, UsernameBlacklistRepository>(ctor)
                 .RegisterType<INicknameBlacklistRepository, NicknameBlacklistRepository>(ctor)
-                .RegisterType<IImageRepository, ImageRepository>(ctor)
+                .RegisterType<IMediaRepository, MediaRepository>(ctor)
                 .RegisterType<ILogger, NLogService>()
                 ;
 

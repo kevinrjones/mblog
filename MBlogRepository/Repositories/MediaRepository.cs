@@ -7,23 +7,24 @@ using Repository;
 
 namespace MBlogRepository.Repositories
 {
-    public class ImageRepository : BaseEfRepository<Image>, IImageRepository
+    public class MediaRepository : BaseEfRepository<Media>, IMediaRepository
     {
-        public ImageRepository(string connectionString)
-            : base(new ImageDbContext(connectionString))
+        public MediaRepository(string connectionString)
+            : base(new MediaDbContext(connectionString))
         {
         }
 
-        public Image GetImage(int id)
+        public Media GetMedia(int id)
         {
             return (from i in Entities
                     where i.Id == id
                     select i).FirstOrDefault();
         }
 
-        public Image GetImage(int year, int month, int day, string fileName)
+        public Media GetMedia(int year, int month, int day, string fileName)
         {
-            return (from i in Entities
+            var images = Entities.ToList();
+            return (from i in images
                     where i.Year == year
                     && i.Month == month
                     && i.Day == day
@@ -31,10 +32,10 @@ namespace MBlogRepository.Repositories
                     select i).FirstOrDefault();
         }
 
-        public Image WriteImage(Image image)
+        public Media WriteMedia(Media media)
         {
-            Create(image);
-            return image;
+            Create(media);
+            return media;
         }
     }
 }

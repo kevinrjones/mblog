@@ -121,7 +121,7 @@
     <Compile Include="Blacklist.cs" />
     <Compile Include="Blog.cs" />
     <Compile Include="Comment.cs" />
-    <Compile Include="Image.cs" />
+    <Compile Include="Media.cs" />
     <Compile Include="MBlogException.cs" />
     <Compile Include="Post.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

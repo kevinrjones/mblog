@@ -12,34 +12,40 @@ using MBlogRepository.Interfaces;
 
 namespace MBlog.Controllers
 {
-    public class ImageController : BaseController
+    public class MediaController : BaseController
     {
-        private readonly IImageRepository _imageRepository;
+        private readonly IMediaRepository _mediaRepository;
 
-        public ImageController(IImageRepository imageRepository, IBlogRepository blogRepository, IUserRepository userRepository, ILogger logger)
+        public MediaController(IMediaRepository mediaRepository, IBlogRepository blogRepository, IUserRepository userRepository, ILogger logger)
             : base(logger, userRepository, blogRepository)
         {
-            _imageRepository = imageRepository;
+            _mediaRepository = mediaRepository;
+        }
+
+        [HttpGet]
+        public ActionResult Index()
+        {            
+            return RedirectToRoute("Default-Home");
         }
 
         [HttpGet]
         public FileResult Show(int year, int month, int day, string fileName)
         {
-            _imageRepository.GetImage(year, month, day, fileName);
-            return null;
+            Media img = _mediaRepository.GetMedia(year, month, day, fileName);
+            return new FileContentResult(img.ImageData, img.MimeType);
         }
 
         [HttpGet]
         [AuthorizeBlogOwner]
         public ActionResult New(string nickname, int blogId)
         {
-            return View(new NewImageViewModel{Nickname = nickname, BlogId = blogId});
+            return View(new NewMediaViewModel{Nickname = nickname, BlogId = blogId});
         }
 
 
         [HttpPost]
         [AuthorizeBlogOwner]
-        public ActionResult Create(string nickname, int blogId, string title, string caption, string description, string alternate, string alignment, int size, HttpPostedFileBase file)
+        public ActionResult Create(string title, string caption, string description, string alternate, int alignment, int size, HttpPostedFileBase file)
         {
             if (file != null && file.ContentLength > 0)
             {
@@ -48,9 +54,9 @@ namespace MBlog.Controllers
                 file.InputStream.Read(bytes, 0, file.ContentLength);
 
                 // todo: url?                
-                Image img = new Image (file.FileName, title, caption,  description, 
+                Media img = new Media (file.FileName, title, caption,  description, 
                     alternate, user.Id, file.ContentType, alignment, size, bytes);
-                _imageRepository.WriteImage(img);
+                _mediaRepository.WriteMedia(img);
                 return RedirectToRoute("new");
             }
             throw new MBlogException("Invalid File");

@@ -5,11 +5,12 @@ using CollectionHelpers;
 
 namespace MBlogModel
 {
-    public class Image
+    public class Media
     {
-        public enum ValidSizes  { Thumbnail, Medium, Large, Fullsize};
+        public enum ValidSizes { Thumbnail, Medium, Large, Fullsize };
+        public enum ValidAllignments { None, Left, Right };
 
-        public Image()
+        public Media()
         {
             var date = DateTime.Now;
             Year = date.Year;
@@ -17,9 +18,9 @@ namespace MBlogModel
             Day = date.Day;             
         }
 
-        public Image(string fileName, string title, string caption,
+        public Media(string fileName, string title, string caption,
                 string description , string alternate , int userId , 
-                string mimeType , string alignment , int size , byte[] imageData) : this()
+                string mimeType , int alignment , int size , byte[] imageData) : this()
         {
             FileName = fileName;
             Title = title;
@@ -48,8 +49,24 @@ namespace MBlogModel
 
         [Required, Column("mime_type")]
         public virtual string MimeType { get; set; }
+
+        private int _alignment;
         [Required]
-        public virtual string Alignment { get; set; }
+        public virtual int Alignment
+        {
+            get { return _alignment; }
+            set
+            {
+                if (Enum.IsDefined(typeof(ValidAllignments), value))
+                {
+                    _size = value;
+                }
+                else
+                {
+                    _alignment = (int)ValidAllignments.None;
+                }
+            }
+        }
 
         private int _size;
 
@@ -65,7 +82,7 @@ namespace MBlogModel
                 }
                 else
                 {
-                    _size = (int)ValidSizes.Medium;
+                    _size = (int)ValidSizes.Fullsize;
                 }
             }
         }
@@ -85,11 +102,11 @@ namespace MBlogModel
         {
             if (ReferenceEquals(null, obj)) return false;
             if (ReferenceEquals(this, obj)) return true;
-            if (obj.GetType() != typeof (Image)) return false;
-            return Equals((Image) obj);
+            if (obj.GetType() != typeof (Media)) return false;
+            return Equals((Media) obj);
         }
 
-        public bool Equals(Image other)
+        public bool Equals(Media other)
         {
             if (ReferenceEquals(null, other)) return false;
             if (ReferenceEquals(this, other)) return true;
@@ -123,7 +140,7 @@ namespace MBlogModel
                 result = (result * 397) ^ Month;
                 result = (result * 397) ^ Day;                
                 result = (result*397) ^ (MimeType != null ? MimeType.GetHashCode() : 0);
-                result = (result*397) ^ (Alignment != null ? Alignment.GetHashCode() : 0);
+                result = (result*397) ^ Alignment;
                 result = (result*397) ^ Size;
                 result = (result*397) ^ (ImageData != null ? ImageData.CollectionGetHashCode() : 0);
                 result = (result*397) ^ UserId;

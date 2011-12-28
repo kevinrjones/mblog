@@ -5,7 +5,7 @@ using System.Web;
 
 namespace MBlog.Models.Image
 {
-    public class NewImageViewModel
+    public class NewMediaViewModel
     {
         public int BlogId { get; set; }
         public string Nickname { get; set; }

@@ -1,8 +1,8 @@
 ﻿using System;
 
-namespace MBlogIntegrationTest.Builder
+namespace MBlogBuilder
 {
-    internal static class BuildMeA
+    public static class BuildMeA
     {
         public static UserBuilder User(string email, string name, string password)
         {

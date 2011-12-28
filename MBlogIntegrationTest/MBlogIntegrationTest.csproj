@@ -75,20 +75,13 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Builder\BlackListBuilder.cs" />
-    <Compile Include="Builder\BlogBuilder.cs" />
-    <Compile Include="Builder\Builder.cs" />
-    <Compile Include="Builder\BuildMeA.cs" />
-    <Compile Include="Builder\CommentBuilder.cs" />
-    <Compile Include="Builder\PostBuilder.cs" />
     <Compile Include="Repositories\BlogRepositoryTest.cs" />
-    <Compile Include="Repositories\ImageRepositoryTest.cs" />
+    <Compile Include="Repositories\MediaRepositoryTest.cs" />
     <Compile Include="Repositories\NicknameBlacklistRepositoryTest.cs" />
     <Compile Include="Repositories\PostRepositoryTest.cs" />
     <Compile Include="Repositories\UserNameBlacklistRepositoryTest.cs" />
     <Compile Include="Repositories\UserRepositoryTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Builder\UserBuilder.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config">
@@ -97,6 +90,10 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\MBlogBuilder\MBlogBuilder.csproj">
+      <Project>{7EAB4CD7-118C-443C-9DD2-FA8D806E15C3}</Project>
+      <Name>MBlogBuilder</Name>
+    </ProjectReference>
     <ProjectReference Include="..\MBlogModel\MBlogModel.csproj">
       <Project>{9D26D30F-3E4E-43B9-A93B-6E51AB34AC44}</Project>
       <Name>MBlogModel</Name>
@@ -117,6 +114,7 @@
   <ItemGroup>
     <Content Include="Repositories\Images\image.png" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

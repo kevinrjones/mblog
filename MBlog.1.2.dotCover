@@ -13,6 +13,8 @@
       <Filter ModuleMask="MBlogSpecs" ClassMask="*" FunctionMask="*" />
       <Filter ModuleMask="MBlogUnitTest" ClassMask="*" FunctionMask="*" />
       <Filter ModuleMask="MBlogIntegrationTest" ClassMask="*" FunctionMask="*" />
+      <Filter ModuleMask="CollectionHelpers" ClassMask="*" FunctionMask="*" />
+      <Filter ModuleMask="*" ClassMask="MBlogModel.MBlogException" FunctionMask="*" />
     </ExcludeFilters>
   </CoverageFilters>
 </Configuration>

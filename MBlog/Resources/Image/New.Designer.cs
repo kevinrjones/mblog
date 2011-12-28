@@ -39,7 +39,7 @@ namespace MBlog.Resources.Image {
         public static global::System.Resources.ResourceManager ResourceManager {
             get {
                 if (object.ReferenceEquals(resourceMan, null)) {
-                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("MBlog.Resources.Image.New", typeof(New).Assembly);
+                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("MBlog.Resources.Media.New", typeof(New).Assembly);
                     resourceMan = temp;
                 }
                 return resourceMan;
@@ -61,11 +61,11 @@ namespace MBlog.Resources.Image {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to New Image.
+        ///   Looks up a localized string similar to Upload Media.
         /// </summary>
-        public static string NewImage {
+        public static string UploadImage {
             get {
-                return ResourceManager.GetString("NewImage", resourceCulture);
+                return ResourceManager.GetString("UploadImage", resourceCulture);
             }
         }
     }

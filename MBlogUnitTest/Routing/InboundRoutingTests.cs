@@ -229,7 +229,7 @@ namespace MBlogUnitTest.Routing
         {
             TestRoute("~/nickname/image/create/1", new
             {
-                controller = "Image",
+                controller = "Media",
                 action = "Create",
                 blogId = 1,
                 nickname = "nickname"
@@ -242,7 +242,7 @@ namespace MBlogUnitTest.Routing
         {
             TestRoute("~/image/2011/12/18/filename", new
             {
-                controller = "Image",
+                controller = "Media",
                 action = "show",
                 year = 2011,
                 month = 12,
@@ -257,7 +257,7 @@ namespace MBlogUnitTest.Routing
         {
             TestRoute("~/nickname/image/update/1/2", new
             {
-                controller = "Image",
+                controller = "Media",
                 action = "Update",
                 blogId = 1,
                 imageId = 2,
@@ -271,7 +271,7 @@ namespace MBlogUnitTest.Routing
         {
             TestRoute("~/nickname/image/new/1", new
             {
-                controller = "Image",
+                controller = "Media",
                 action = "New",
                 blogId = 1,
                 nickname = "nickname"

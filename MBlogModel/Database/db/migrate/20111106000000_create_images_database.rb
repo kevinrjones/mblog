@@ -6,7 +6,7 @@ class CreateImagesDatabase < ActiveRecord::Migration
       t.string  :caption
       t.string  :description
       t.string  :alternate
-      t.integer :year,  :null => false
+      t.integer :year,   :null => false
       t.integer :month,  :null => false
       t.integer :day,  :null => false
       t.string  :mime_type,   :null => false

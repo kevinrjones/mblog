@@ -1,8 +1,8 @@
 ﻿using MBlogModel;
 
-namespace MBlogIntegrationTest.Builder
+namespace MBlogBuilder
 {
-    internal class CommentBuilder : Builder<Comment>
+    public class CommentBuilder : Builder<Comment>
     {
         public CommentBuilder()
         {
