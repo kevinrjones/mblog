@@ -132,47 +132,54 @@ namespace MBlog
 
             routes.MapRoute(
                 "Media-show",
-                "image/{year}/{month}/{day}/{fileName}",
-                new { controller = "image", action = "Show"}
+                "media/{year}/{month}/{day}/{fileName}",
+                new { controller = "media", action = "Show"}
                 );
 
             routes.MapRoute(
                 "Media-index",
-                "image",
-                new { controller = "image", action = "Index" }
+                "media",
+                new { controller = "media", action = "Index" }
                 );
 
             routes.MapRoute(
                 "Media-create",
-                "{nickname}/image/create/{blogId}",
+                "{nickname}/media/create/{blogId}",
                 new { controller = "Media", action = "Create" },
                 new { httpMethod = new HttpMethodConstraint("POST") }
                 );
 
             routes.MapRoute(
                 "Media-update",
-                "{nickname}/image/update/{blogId}/{imageId}",
+                "{nickname}/media/update/{blogId}/{mediaId}",
                 new { controller = "Media", action = "Update", },
                 new { httpMethod = new HttpMethodConstraint("POST") }
                 );
 
             routes.MapRoute(
                 "Media-new",
-                "{nickname}/image/new/{blogId}",
+                "{nickname}/media/new/{blogId}",
                 new { controller = "Media", action = "New" },
                 new { httpMethod = new HttpMethodConstraint("GET") }
                 );
 
+            routes.MapRoute(
+                "Media-upload",
+                "{nickname}/media/upload/{blogId}",
+                new { controller = "Media", action = "Upload" },
+                new { httpMethod = new HttpMethodConstraint("POST") }
+                );
+
             //routes.MapRoute(
             //    "Media-edit",
-            //    "{nickname}/image/edit/{blogId}/{imageId}",
+            //    "{nickname}/media/edit/{blogId}/{mediaId}",
             //    new { controller = "Media", action = "Edit", },
             //    new { httpMethod = new HttpMethodConstraint("GET") }
             //    );
 
             //routes.MapRoute(
             //    "Media-delete",
-            //    "{nickname}/image/delete/{blogId}/{imageId}",
+            //    "{nickname}/media/delete/{blogId}/{imageId}",
             //    new { controller = "Media", action = "Delete" },
             //    new { httpMethod = new HttpMethodConstraint("POST") }
             //    );

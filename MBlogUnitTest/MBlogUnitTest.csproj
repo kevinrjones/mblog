@@ -114,6 +114,7 @@
     <Compile Include="ViewModel\AdminUserViewModelTest.cs" />
     <Compile Include="ViewModel\EditPostViewModelTest.cs" />
     <Compile Include="ViewModel\HomePagePostViewModelTest.cs" />
+    <Compile Include="ViewModel\NewMediaViewModelTest.cs" />
     <Compile Include="ViewModel\PostsViewModelTest.cs" />
     <Compile Include="ViewModel\PostViewModelTest.cs" />
     <Compile Include="ViewModel\UserViewModelTest.cs" />

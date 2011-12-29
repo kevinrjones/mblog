@@ -257,8 +257,8 @@
     <Compile Include="Models\Admin\AdminUserViewModel.cs" />
     <Compile Include="Models\Home\HomePagePostViewModel.cs" />
     <Compile Include="Models\Home\HomePageViewModel.cs" />
-    <Compile Include="Models\Image\NewMediaViewModel.cs" />
-    <Compile Include="Models\Image\ShowMediaViewModel.cs" />
+    <Compile Include="Models\Media\NewMediaViewModel.cs" />
+    <Compile Include="Models\Media\ShowMediaViewModel.cs" />
     <Compile Include="Models\Post\BasePostViewModel.cs" />
     <Compile Include="Models\Post\PostLinkViewModel.cs" />
     <Compile Include="Models\Post\PostsViewModel.cs" />

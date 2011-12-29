@@ -1,6 +1,5 @@
 using System;
 using System.ComponentModel.DataAnnotations;
-using System.Text;
 using CollectionHelpers;
 
 namespace MBlogModel
@@ -31,8 +30,11 @@ namespace MBlogModel
             MimeType = mimeType;
             Alignment = alignment;
             Size = size;
-            ImageData = imageData;
+            MediumData = imageData;
         }
+
+        public Media(string fileName, int id, string contentType, byte[] bytes) : this(fileName, "", "", "", "", id, contentType, 0, 0, bytes)
+        {}
 
         public int Id { get; set; }
 
@@ -87,8 +89,8 @@ namespace MBlogModel
             }
         }
 
-        [Required, Column("image")]
-        public virtual byte[] ImageData { get; set; }
+        [Required, Column("medium")]
+        public virtual byte[] MediumData { get; set; }
         
 
         [Required, Column("user_id")]
@@ -121,7 +123,7 @@ namespace MBlogModel
                 && Equals(other.MimeType, MimeType) 
                 && Equals(other.Alignment, Alignment) 
                 && other.Size == Size
-                && other.ImageData.CollectionEquals(ImageData) 
+                && other.MediumData.CollectionEquals(MediumData) 
                 && other.UserId == UserId 
                 && Equals(other.User, User);
         }
@@ -142,7 +144,7 @@ namespace MBlogModel
                 result = (result*397) ^ (MimeType != null ? MimeType.GetHashCode() : 0);
                 result = (result*397) ^ Alignment;
                 result = (result*397) ^ Size;
-                result = (result*397) ^ (ImageData != null ? ImageData.CollectionGetHashCode() : 0);
+                result = (result*397) ^ (MediumData != null ? MediumData.CollectionGetHashCode() : 0);
                 result = (result*397) ^ UserId;
                 result = (result*397) ^ (User != null ? User.GetHashCode() : 0);
                 return result;

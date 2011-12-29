@@ -135,7 +135,7 @@
     <None Include="Database\db\migrate\20110409000000_create_blacklist_database.rb" />
     <None Include="Database\db\migrate\20110520000000_make_comments_approvable.rb" />
     <None Include="Database\db\migrate\20110714000000_create_nlog_database.rb" />
-    <None Include="Database\db\migrate\20111106000000_create_images_database.rb" />
+    <None Include="Database\db\migrate\20111106000000_create_media_database.rb" />
     <None Include="Database\deploy.cmd" />
     <None Include="Database\Rakefile" />
     <None Include="packages.config" />

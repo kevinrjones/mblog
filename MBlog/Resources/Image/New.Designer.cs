@@ -39,7 +39,7 @@ namespace MBlog.Resources.Image {
         public static global::System.Resources.ResourceManager ResourceManager {
             get {
                 if (object.ReferenceEquals(resourceMan, null)) {
-                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("MBlog.Resources.Media.New", typeof(New).Assembly);
+                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("MBlog.Resources.Image.New", typeof(New).Assembly);
                     resourceMan = temp;
                 }
                 return resourceMan;
@@ -57,6 +57,60 @@ namespace MBlog.Resources.Image {
             }
             set {
                 resourceCulture = value;
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Alignment.
+        /// </summary>
+        public static string Alignment {
+            get {
+                return ResourceManager.GetString("Alignment", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Alternate Text.
+        /// </summary>
+        public static string Alternate_Text {
+            get {
+                return ResourceManager.GetString("Alternate_Text", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Caption.
+        /// </summary>
+        public static string Caption {
+            get {
+                return ResourceManager.GetString("Caption", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to File extension is invalid.
+        /// </summary>
+        public static string InvalidFileExtension {
+            get {
+                return ResourceManager.GetString("InvalidFileExtension", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Invalid file name.
+        /// </summary>
+        public static string InvalidFileName {
+            get {
+                return ResourceManager.GetString("InvalidFileName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Size.
+        /// </summary>
+        public static string Size {
+            get {
+                return ResourceManager.GetString("Size", resourceCulture);
             }
         }
         

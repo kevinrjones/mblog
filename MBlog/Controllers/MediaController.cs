@@ -5,7 +5,7 @@ using System.Web;
 using System.Web.Mvc;
 using Logging;
 using MBlog.Filters;
-using MBlog.Models.Image;
+using MBlog.Models.Media;
 using MBlog.Models.User;
 using MBlogModel;
 using MBlogRepository.Interfaces;
@@ -24,7 +24,7 @@ namespace MBlog.Controllers
 
         [HttpGet]
         public ActionResult Index()
-        {            
+        {
             return RedirectToRoute("Default-Home");
         }
 
@@ -32,16 +32,38 @@ namespace MBlog.Controllers
         public FileResult Show(int year, int month, int day, string fileName)
         {
             Media img = _mediaRepository.GetMedia(year, month, day, fileName);
-            return new FileContentResult(img.ImageData, img.MimeType);
+            return new FileContentResult(img.MediumData, img.MimeType);
         }
 
         [HttpGet]
         [AuthorizeBlogOwner]
-        public ActionResult New(string nickname, int blogId)
+        public ActionResult New(NewMediaViewModel model)
         {
-            return View(new NewMediaViewModel{Nickname = nickname, BlogId = blogId});
+            return View(new NewMediaViewModel { Nickname = model.Nickname, BlogId = model.BlogId, File = model.File });
         }
 
+        [HttpPost]
+        [AuthorizeBlogOwner]
+        public ActionResult Upload(NewMediaViewModel model)
+        {
+            if (!ModelState.IsValid)
+                return View("new", model);
+
+            HttpPostedFileBase file = model.File;
+            if (file != null && file.ContentLength > 0)
+            {
+                UserViewModel user = (UserViewModel)HttpContext.User;
+                byte[] bytes = new byte[file.ContentLength];
+                file.InputStream.Read(bytes, 0, file.ContentLength);
+
+                // todo: url?                
+                Media img = new Media(file.FileName, user.Id, file.ContentType, bytes);
+                _mediaRepository.WriteMedia(img);
+                return RedirectToAction("new");
+            }
+
+            return RedirectToAction("new");
+        }
 
         [HttpPost]
         [AuthorizeBlogOwner]
@@ -49,12 +71,12 @@ namespace MBlog.Controllers
         {
             if (file != null && file.ContentLength > 0)
             {
-                UserViewModel user = (UserViewModel) HttpContext.User;
+                UserViewModel user = (UserViewModel)HttpContext.User;
                 byte[] bytes = new byte[file.ContentLength];
                 file.InputStream.Read(bytes, 0, file.ContentLength);
 
                 // todo: url?                
-                Media img = new Media (file.FileName, title, caption,  description, 
+                Media img = new Media(file.FileName, title, caption, description,
                     alternate, user.Id, file.ContentType, alignment, size, bytes);
                 _mediaRepository.WriteMedia(img);
                 return RedirectToRoute("new");

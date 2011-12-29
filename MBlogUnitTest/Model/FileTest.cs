@@ -21,10 +21,10 @@ namespace MBlogUnitTest.Model
         }
 
         [Test]
-        public void GivenAnInvalidSize_WhenICreateAnImage_ThenTheSizeIsSetToMedium()
+        public void GivenAnInvalidSize_WhenICreateAnImage_ThenTheSizeIsSetToFUllsize()
         {
             Media media = new Media("filename", "title", "caption", "description", "alternate", 1, "mime", (int) Media.ValidAllignments.None, 43, new byte[]{});
-            Assert.That(media.Size, Is.EqualTo((int) Media.ValidSizes.Medium));
+            Assert.That(media.Size, Is.EqualTo((int) Media.ValidSizes.Fullsize));
         }
     }
 }

@@ -223,11 +223,23 @@ namespace MBlogUnitTest.Routing
             "POST");
         }
 
+        [Test]
+        public void GivenACorrectRoutesCollection_WhenIUploadMedia_ThenIGetTheUploadActionForCreatingMedia()
+        {
+            TestRoute("~/nickname/media/upload/1", new
+            {
+                controller = "Media",
+                action = "Upload",
+                blogId = 1,
+                nickname = "nickname"
+            },
+            "POST");
+        }
 
         [Test]
-        public void GivenACorrectRoutesCollection_WhenICreateAnImage_ThenIGetTheCreateActionForCreatingImages()
+        public void GivenACorrectRoutesCollection_WhenICreateMedia_ThenIGetTheCreateActionForCreatingMedia()
         {
-            TestRoute("~/nickname/image/create/1", new
+            TestRoute("~/nickname/media/create/1", new
             {
                 controller = "Media",
                 action = "Create",
@@ -238,9 +250,9 @@ namespace MBlogUnitTest.Routing
         }
 
         [Test]
-        public void GivenACorrectRoutesCollection_WhenIShowAnImage_ThenIGetTheShowActionForShowingImages()
+        public void GivenACorrectRoutesCollection_WhenIShowAMedia_ThenIGetTheShowActionForShowingMedia()
         {
-            TestRoute("~/image/2011/12/18/filename", new
+            TestRoute("~/media/2011/12/18/filename", new
             {
                 controller = "Media",
                 action = "show",
@@ -253,23 +265,9 @@ namespace MBlogUnitTest.Routing
         }
 
         [Test]
-        public void GivenACorrectRoutesCollection_WhenIUpdateAnImage_ThenIGetTheCreateActionForUpdatingImages()
+        public void GivenACorrectRoutesCollection_WhenIAskForANewMedium_ThenIGetTheCreateActionForNewMedia()
         {
-            TestRoute("~/nickname/image/update/1/2", new
-            {
-                controller = "Media",
-                action = "Update",
-                blogId = 1,
-                imageId = 2,
-                nickname = "nickname"
-            },
-            "POST");
-        }
-
-        [Test]
-        public void GivenACorrectRoutesCollection_WhenIAskForANewImage_ThenIGetTheCreateActionForNewImages()
-        {
-            TestRoute("~/nickname/image/new/1", new
+            TestRoute("~/nickname/media/new/1", new
             {
                 controller = "Media",
                 action = "New",
