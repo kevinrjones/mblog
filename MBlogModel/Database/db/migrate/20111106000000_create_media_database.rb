@@ -6,14 +6,14 @@ class CreateMediaDatabase < ActiveRecord::Migration
       t.string  :caption
       t.string  :description
       t.string  :alternate
-      t.integer :year,   :null => false
-      t.integer :month,  :null => false
-      t.integer :day,  :null => false
+      t.integer :year,        :null => false
+      t.integer :month,       :null => false
+      t.integer :day,         :null => false
       t.string  :mime_type,   :null => false
       t.integer :alignment,   :null => false
-      t.integer  :size,        :null => false
+      t.integer  :size,       :null => false
       t.integer :user_id,     :null => false
-      t.binary  :medium,  :limit => 10000000, :null => false
+      t.binary  :bytes,       :limit => 10000000, :null => false
     end    
 
     execute "ALTER TABLE [dbo].[media]  WITH CHECK ADD  CONSTRAINT [FK_media_users] FOREIGN KEY([user_id]) REFERENCES [dbo].[users] ([id])"

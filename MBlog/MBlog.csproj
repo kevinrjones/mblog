@@ -233,6 +233,7 @@
     <Compile Include="Controllers\CommentController.cs" />
     <Compile Include="Controllers\DashboardController.cs" />
     <Compile Include="Controllers\FeedController.cs" />
+    <Compile Include="Models\Media\MediaCreateJsonResponse.cs" />
     <Compile Include="Controllers\MediaController.cs" />
     <Compile Include="Controllers\SessionController.cs" />
     <Compile Include="Infrastructure\UnityFilterAttributeFilterProvider.cs" />
@@ -345,6 +346,8 @@
   <ItemGroup>
     <Content Include="App_Readme\glimpse.mvc3.readme.txt" />
     <Content Include="App_Readme\glimpse.readme.txt" />
+    <Content Include="Content\fileuploader.css" />
+    <Content Include="Content\loading.gif" />
     <Content Include="Content\main.less" />
     <Content Include="Content\ie.css" />
     <Content Include="Content\main.css" />
@@ -430,9 +433,7 @@
     <Content Include="images\teamcity-thumb.png" />
     <Content Include="images\teamcity.png" />
     <Content Include="robots.txt" />
-    <Content Include="Scripts\jquery-1.6.2-vsdoc.js" />
-    <Content Include="Scripts\jquery-1.6.2.js" />
-    <Content Include="Scripts\jquery-1.6.2.min.js" />
+    <Content Include="Scripts\fileuploader.js" />
     <Content Include="Scripts\jquery-1.7.1-vsdoc.js" />
     <Content Include="Scripts\jquery-1.7.1.js" />
     <Content Include="Scripts\jquery-1.7.1.min.js" />

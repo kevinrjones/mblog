@@ -21,14 +21,13 @@ namespace MBlogRepository.Repositories
                     select i).FirstOrDefault();
         }
 
-        public Media GetMedia(int year, int month, int day, string fileName)
-        {
-            var images = Entities.ToList();
-            return (from i in images
+        public Media GetMedia(int year, int month, int day, string title)
+        {            
+            return (from i in Entities
                     where i.Year == year
                     && i.Month == month
                     && i.Day == day
-                    && i.FileName == fileName
+                    && i.Title == title
                     select i).FirstOrDefault();
         }
 

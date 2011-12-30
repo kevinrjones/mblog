@@ -1,5 +1,7 @@
 using System;
 using System.ComponentModel.DataAnnotations;
+using System.IO;
+using System.Linq;
 using CollectionHelpers;
 
 namespace MBlogModel
@@ -22,7 +24,14 @@ namespace MBlogModel
                 string mimeType , int alignment , int size , byte[] imageData) : this()
         {
             FileName = fileName;
-            Title = title;
+            if (!string.IsNullOrEmpty(title))
+            {
+                Title = title;
+            }
+            else
+            {
+                Title = FileName.Split('.').First();
+            }
             Caption = caption;
             Description = description;
             Alternate = alternate;
@@ -30,17 +39,20 @@ namespace MBlogModel
             MimeType = mimeType;
             Alignment = alignment;
             Size = size;
-            MediumData = imageData;
+            Data = imageData;
         }
 
-        public Media(string fileName, int id, string contentType, byte[] bytes) : this(fileName, "", "", "", "", id, contentType, 0, 0, bytes)
-        {}
-
+        public Media(string fileName, int id, string contentType, Stream inputStream, int contentLength)
+            : this(fileName, "", "", "", "", id, contentType, 0, 0, null)
+        {
+            Data = new byte[contentLength];
+            inputStream.Read(Data, 0, contentLength);
+        }
         public int Id { get; set; }
 
         [Required, Column("file_name")]
         public virtual string FileName { get; set; }
-        [Required]
+        [Required(AllowEmptyStrings = true)]
         public virtual string Title { get; set; }
         public virtual string Caption { get; set; }
         public virtual string Description { get; set; }
@@ -89,8 +101,8 @@ namespace MBlogModel
             }
         }
 
-        [Required, Column("medium")]
-        public virtual byte[] MediumData { get; set; }
+        [Required, Column("bytes")]
+        public virtual byte[] Data { get; set; }
         
 
         [Required, Column("user_id")]
@@ -98,6 +110,11 @@ namespace MBlogModel
 
 
         public virtual User User { get; set; }
+
+        public string Url
+        {
+            get { return string.Format("{0}/{1}/{2}/{3}", Year, Month, Day, FileName); }            
+        }
 
         // override object.Equals
         public override bool Equals(object obj)
@@ -123,7 +140,7 @@ namespace MBlogModel
                 && Equals(other.MimeType, MimeType) 
                 && Equals(other.Alignment, Alignment) 
                 && other.Size == Size
-                && other.MediumData.CollectionEquals(MediumData) 
+                && other.Data.CollectionEquals(Data) 
                 && other.UserId == UserId 
                 && Equals(other.User, User);
         }
@@ -144,7 +161,7 @@ namespace MBlogModel
                 result = (result*397) ^ (MimeType != null ? MimeType.GetHashCode() : 0);
                 result = (result*397) ^ Alignment;
                 result = (result*397) ^ Size;
-                result = (result*397) ^ (MediumData != null ? MediumData.CollectionGetHashCode() : 0);
+                result = (result*397) ^ (Data != null ? Data.CollectionGetHashCode() : 0);
                 result = (result*397) ^ UserId;
                 result = (result*397) ^ (User != null ? User.GetHashCode() : 0);
                 return result;

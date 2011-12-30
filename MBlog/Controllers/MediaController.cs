@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
@@ -32,7 +33,7 @@ namespace MBlog.Controllers
         public FileResult Show(int year, int month, int day, string fileName)
         {
             Media img = _mediaRepository.GetMedia(year, month, day, fileName);
-            return new FileContentResult(img.MediumData, img.MimeType);
+            return new FileContentResult(img.Data, img.MimeType);
         }
 
         [HttpGet]
@@ -44,45 +45,51 @@ namespace MBlog.Controllers
 
         [HttpPost]
         [AuthorizeBlogOwner]
-        public ActionResult Upload(NewMediaViewModel model)
+        public JsonResult Create(NewMediaViewModel model)
         {
-            if (!ModelState.IsValid)
-                return View("new", model);
+            int contentLength;
+            Stream inputStream;
+            string fileName;
 
-            HttpPostedFileBase file = model.File;
-            if (file != null && file.ContentLength > 0)
+            var result = new MediaCreateJsonResponse { success = false };
+            try
             {
-                UserViewModel user = (UserViewModel)HttpContext.User;
-                byte[] bytes = new byte[file.ContentLength];
-                file.InputStream.Read(bytes, 0, file.ContentLength);
+                if (model.File != null)
+                {
+                    contentLength = model.File.ContentLength;
+                    inputStream = model.File.InputStream;
+                    fileName = model.File.FileName;
+                }
+                else
+                {
+                    contentLength = HttpContext.Request.ContentLength;
+                    inputStream = HttpContext.Request.InputStream;
+                    fileName = model.QqFile;
+                }
 
-                // todo: url?                
-                Media img = new Media(file.FileName, user.Id, file.ContentType, bytes);
-                _mediaRepository.WriteMedia(img);
-                return RedirectToAction("new");
+                if (contentLength != 0)
+                {
+                    var media = new Media(fileName, model.BlogId, model.ContentType, inputStream, contentLength);
+                    _mediaRepository.WriteMedia(media);
+                    result = new MediaCreateJsonResponse { success = true, url = media.Url };
+                }
             }
-
-            return RedirectToAction("new");
+            catch (Exception e)
+            {
+                result.exception = e;
+                result.message = e.Message;
+            }
+            return Json(result);
         }
 
         [HttpPost]
         [AuthorizeBlogOwner]
-        public ActionResult Create(string title, string caption, string description, string alternate, int alignment, int size, HttpPostedFileBase file)
+        public ActionResult Update(NewMediaViewModel model)
         {
-            if (file != null && file.ContentLength > 0)
-            {
-                UserViewModel user = (UserViewModel)HttpContext.User;
-                byte[] bytes = new byte[file.ContentLength];
-                file.InputStream.Read(bytes, 0, file.ContentLength);
+            if (!ModelState.IsValid)
+                return View("new", model);
 
-                // todo: url?                
-                Media img = new Media(file.FileName, title, caption, description,
-                    alternate, user.Id, file.ContentType, alignment, size, bytes);
-                _mediaRepository.WriteMedia(img);
-                return RedirectToRoute("new");
-            }
-            throw new MBlogException("Invalid File");
+            return RedirectToAction("new");
         }
-
     }
 }

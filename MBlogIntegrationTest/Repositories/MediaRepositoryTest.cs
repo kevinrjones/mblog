@@ -71,7 +71,7 @@ namespace MBlogIntegrationTest.Repositories
         public void WhenIAddAMediumToTheDatabase_ThenICanRetrieveTheMediumByUrlAndFilename()
         {
             Media retrievedMedia = _mediaRepository.GetMedia(2012, 12, 18, "file_name");
-            Assert.That(_mediaData, Is.EquivalentTo(retrievedMedia.MediumData));
+            Assert.That(_mediaData, Is.EquivalentTo(retrievedMedia.Data));
         }
 
         [Test]
@@ -79,9 +79,9 @@ namespace MBlogIntegrationTest.Repositories
         {
             Media img = _mediaRepository.WriteMedia(new Media{FileName = "file_name", Title = "title", Caption = "caption", 
                 Description = "description", Alternate = "alternate", UserId = _user.Id, 
-                MimeType = "mime", Alignment = (int) MBlogModel.Media.ValidAllignments.None, Size = (int) MBlogModel.Media.ValidSizes.Medium, MediumData = _mediaData});
+                MimeType = "mime", Alignment = (int) MBlogModel.Media.ValidAllignments.None, Size = (int) MBlogModel.Media.ValidSizes.Medium, Data = _mediaData});
             Media retrievedMedia = _mediaRepository.GetMedia(img.Id);
-            Assert.That(_mediaData, Is.EquivalentTo(retrievedMedia.MediumData));
+            Assert.That(_mediaData, Is.EquivalentTo(retrievedMedia.Data));
         }
 
         [TearDown]

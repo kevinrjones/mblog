@@ -170,6 +170,13 @@ namespace MBlog
                 new { httpMethod = new HttpMethodConstraint("POST") }
                 );
 
+            routes.MapRoute(
+                "Media-save",
+                "{nickname}/media/save",
+                new { controller = "Media", action = "Save" },
+                new { httpMethod = new HttpMethodConstraint("POST") }
+                );
+
             //routes.MapRoute(
             //    "Media-edit",
             //    "{nickname}/media/edit/{blogId}/{mediaId}",
@@ -269,7 +276,7 @@ namespace MBlog
         {
             //OnRequest.ForJs("~/Combined-{0}.js").Combine.FilesIn("~/Scripts/").Matching("*.js").Configure();
             OnRequest.ForJs("~/Combined-{0}.js").Combine
-                .File("~/Scripts/jquery-1.6.2.js")
+                .File("~/Scripts/jquery-1.7.1.js")
                 .File("~/Scripts/jquery.validate.js")
                 .File("~/Scripts/jquery.validate.unobtrusive.js")
                 .File("~/Scripts/jquery.unobtrusive-ajax.js")
@@ -283,11 +290,13 @@ namespace MBlog
                 .File("~/Scripts/shBrushSql.js")
                 .File("~/Scripts/shBrushXml.js")
                 .File("~/Scripts/modernizr-1.7.min.js")
+                .File("~/Scripts/fileuploader.js")
                 .Configure();
             OnRequest.ForCss("~/Combined-{0}.css").Compact
                 .File("~/Content/Site.css")
                 .File("~/Content/shCore.css")
                 .File("~/Content/shThemeRDark.css")
+                .File("~/Content/fileuploader.css")
                 .Configure();
         }
 
