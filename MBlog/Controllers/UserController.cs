@@ -1,10 +1,13 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Web;
 using System.Web.Mvc;
 using Logging;
 using MBlog.Filters;
 using MBlog.Infrastructure;
 using MBlog.Models.User;
+using MBlogDomainInterfaces;
+using MBlogDomainInterfaces.ModelState;
 using MBlogModel;
 using MBlogRepository.Interfaces;
 
@@ -12,13 +15,11 @@ namespace MBlog.Controllers
 {
     public class UserController : BaseController
     {
-        private readonly IUsernameBlacklistRepository _usernameBlacklistRepository;
+        private readonly IUserDomain _userDomain;
 
-        public UserController(IUserRepository userRepository, IUsernameBlacklistRepository usernameBlacklistRepository,
-                              IBlogRepository blogRepository, ILogger logger)
-            : base(logger, userRepository, blogRepository)
+        public UserController(IUserDomain userDomain) : base(null, null, null)
         {
-            _usernameBlacklistRepository = usernameBlacklistRepository;
+            _userDomain = userDomain;
         }
 
         [HttpGet]
@@ -34,36 +35,24 @@ namespace MBlog.Controllers
         [HttpPost]
         public ActionResult Create(UserViewModel userViewModel)
         {
-            User user = UserRepository.GetUser(userViewModel.Email);
-            if (!IsRegistrationValid(userViewModel, user))
+            List<ErrorDetails> errorDetails;
+            if(!ModelState.IsValid)
             {
                 return View("Register");
             }
+            errorDetails = _userDomain.IsUserRegistrationValid(userViewModel.Name, userViewModel.Email);
+            if (errorDetails.Count != 0)
+            {
+                foreach (var errorDetail in errorDetails)
+                {
+                    ModelState.AddModelError(errorDetail.FieldName, errorDetail.Message);
+                }
+                return View("Register");
+            }
 
-            user = new User(userViewModel.Name, userViewModel.Email, userViewModel.Password, false);
-            UserRepository.Create(user);
+            User user = _userDomain.CreateUser(userViewModel.Name, userViewModel.Email, userViewModel.Password);
             UpdateCookiesAndContext(user);
             return RedirectToAction("index", "Dashboard");
-        }
-
-        private bool IsRegistrationValid(UserViewModel userViewModel, User user)
-        {
-            if (!ModelState.IsValid)
-            {
-                return false;
-            }
-            if (user != null)
-            {
-                ModelState.AddModelError("EMail", "EMail already exists in database");
-                return false;
-            }
-            Blacklist blacklist = _usernameBlacklistRepository.GetName(userViewModel.Name);
-            if (blacklist != null)
-            {
-                ModelState.AddModelError("Name", "That user name is reserved");
-                return false;
-            }
-            return true;
         }
 
         public ActionResult Logout()
