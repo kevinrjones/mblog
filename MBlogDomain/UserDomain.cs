@@ -1,7 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using Logging;
 using MBlogDomainInterfaces;
 using MBlogDomainInterfaces.ModelState;
@@ -25,32 +23,54 @@ namespace MBlogDomain
 
         public User GetUser(string email)
         {
-            return _userRepository.GetUser(email);
+            try
+            {
+                return _userRepository.GetUser(email);
+            }
+            catch (Exception e)
+            {
+                throw new MBlogException("Unable to retrieve user", e);
+            }
         }
 
         public User CreateUser(string name, string email, string password)
         {
-            User user = new User(name, email, password, false);
-            _userRepository.Create(user);
+            try
+            {
+                User user = new User(name, email, password, false);
+                _userRepository.Create(user);
 
-            return user;
+                return user;
+            }
+            catch (Exception e)
+            {
+                throw new MBlogException("Unable to create user", e);
+            }
         }
 
         public List<ErrorDetails> IsUserRegistrationValid(string name, string email)
         {
-            var errorDetails = new List<ErrorDetails>();
-            User user = GetUser(email);
-            if (user != null)
+            try
             {
-                errorDetails.Add(new ErrorDetails{FieldName = "EMail", Message = "EMail already exists in database"});
+                var errorDetails = new List<ErrorDetails>();
+                User user = GetUser(email);
+                if (user == null)
+                {
+                    errorDetails.Add(new ErrorDetails { FieldName = "EMail", Message = "EMail already exists in database" });
+                }
+
+                Blacklist blacklist = _usernameBlacklistRepository.GetName(name);
+                if (blacklist == null)
+                {
+                    errorDetails.Add(new ErrorDetails { FieldName = "Name", Message = "That user name is reserved" });
+                }
+                return errorDetails;
             }
-            
-            Blacklist blacklist = _usernameBlacklistRepository.GetName(name);
-            if (blacklist != null)
+            catch (Exception e)
             {
-                errorDetails.Add(new ErrorDetails{FieldName = "Name", Message = "That user name is reserved"});
+
+                throw new MBlogException("Unable to access repository", e);
             }
-            return errorDetails;
         }
     }
 }
