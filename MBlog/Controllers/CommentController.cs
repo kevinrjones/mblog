@@ -11,7 +11,7 @@ namespace MBlog.Controllers
         private IPostDomain _postDomain;
 
         public CommentController(IPostDomain postDomain, ILogger logger)
-            : base(logger, null, null)
+            : base(logger)
         {
             _postDomain = postDomain;
         }

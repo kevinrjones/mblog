@@ -14,7 +14,7 @@ namespace MBlog.Controllers
         private IUserDomain _userDomain;
 
         public HomeController(IPostDomain postDomain, IUserDomain userDomain, ILogger logger)
-            : base(logger, null, null)
+            : base(logger)
         {
             _postDomain = postDomain;
             _userDomain = userDomain;

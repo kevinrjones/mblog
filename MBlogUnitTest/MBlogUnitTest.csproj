@@ -130,6 +130,10 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\IoC\IoC.csproj">
+      <Project>{1B074CE2-5C46-4846-819B-22EB6BD8E04A}</Project>
+      <Name>IoC</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Logging\Logging.csproj">
       <Project>{BF734CD4-7587-422F-BAE9-626051F1A382}</Project>
       <Name>Logging</Name>

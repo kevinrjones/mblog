@@ -8,11 +8,16 @@ using MBlog.Infrastructure;
 using MBlog.Logging;
 using MBlog.Models.User;
 using MBlogModel;
+using MBlogRepository.Interfaces;
+using Microsoft.Practices.Unity;
 
 namespace MBlog.Filters
 {
     public class GetCookieUserFilterAttribute : AuthorizeAttribute
     {
+        [Dependency]
+        public IUserRepository UserRepository { get; set; }
+
         public static string UserCookie = "USER";
 
         public override void OnAuthorization(AuthorizationContext filterContext)
@@ -29,7 +34,7 @@ namespace MBlog.Filters
                     int id;
                     if (int.TryParse(plainText, out id))
                     {
-                        User user = controller.UserRepository.GetUserWithTheirBlogs(id);
+                        User user = UserRepository.GetUserWithTheirBlogs(id);
                         if (user != null)
                         {
                             userViewModel.Id = id;

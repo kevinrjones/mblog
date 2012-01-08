@@ -13,7 +13,7 @@ namespace MBlog.Controllers
         private readonly IBlogDomain _blogDomain;
 
         public BlogController(IBlogDomain blogDomain, ILogger logger)
-            : base(logger, null, null)
+            : base(logger)
         {
             _blogDomain = blogDomain;
         }

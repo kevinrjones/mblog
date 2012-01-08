@@ -17,7 +17,7 @@ namespace MBlog.Controllers
         private readonly IPostDomain _postDomain;
         private readonly IDashboardDomain _dashboardDomain;
 
-        public PostController(IPostDomain postDomain, IDashboardDomain dashboardDomain, ILogger logger) : base(logger, null, null)
+        public PostController(IPostDomain postDomain, IDashboardDomain dashboardDomain, ILogger logger) : base(logger)
         {
             _postDomain = postDomain;
             _dashboardDomain = dashboardDomain;

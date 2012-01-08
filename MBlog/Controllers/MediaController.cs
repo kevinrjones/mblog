@@ -18,7 +18,7 @@ namespace MBlog.Controllers
         private IMediaDomain _mediaDomain;
 
         public MediaController(IMediaDomain mediaDomain, ILogger logger)
-            : base(logger, null, null)
+            : base(logger)
         {
             _mediaDomain = mediaDomain;
         }

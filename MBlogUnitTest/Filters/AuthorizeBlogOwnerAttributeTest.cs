@@ -3,6 +3,7 @@ using System.Collections.Specialized;
 using System.Web;
 using System.Web.Mvc;
 using System.Web.Routing;
+using IoC;
 using MBlog.Controllers;
 using MBlog.Filters;
 using MBlog.Models.User;
@@ -23,6 +24,7 @@ namespace MBlogUnitTest.Filters
         private const string Nickname = "nickname";
         Mock<RequestContext> _requestContext;
         Mock<IBlogRepository> _mockBlogRepository;
+        private AuthorizeBlogOwnerAttribute _blogOwnerAttribute;
 
         [SetUp]
         public void SetUp()
@@ -39,6 +41,8 @@ namespace MBlogUnitTest.Filters
             _mockHttpContext.Setup(h => h.Response).Returns(new FakeResponse());
 
             _blogRepository = _mockBlogRepository.Object;
+            _blogOwnerAttribute = new AuthorizeBlogOwnerAttribute();
+            _blogOwnerAttribute.BlogRepository = _blogRepository;
         }
 
         [Test]
@@ -52,8 +56,7 @@ namespace MBlogUnitTest.Filters
             _mockHttpContext.Setup(h => h.Request).Returns(httpRequest.Object);
             
 
-            var blogOwnerAttribute = new AuthorizeBlogOwnerAttribute();
-            blogOwnerAttribute.OnAuthorization(filterContext);
+            _blogOwnerAttribute.OnAuthorization(filterContext);
             Assert.That(filterContext.Result, Is.TypeOf<RedirectResult>());
         }
 
@@ -70,8 +73,7 @@ namespace MBlogUnitTest.Filters
             var model = new UserViewModel{IsLoggedIn = true};
             _mockHttpContext.Setup(h => h.User).Returns(model);
 
-            var blogOwnerAttribute = new AuthorizeBlogOwnerAttribute();
-            blogOwnerAttribute.OnAuthorization(filterContext);
+            _blogOwnerAttribute.OnAuthorization(filterContext);
             Assert.That(filterContext.Result, Is.Null);
         }
 
@@ -88,8 +90,7 @@ namespace MBlogUnitTest.Filters
             var model = new UserViewModel { IsLoggedIn = false };
             _mockHttpContext.Setup(h => h.User).Returns(model);
 
-            var blogOwnerAttribute = new AuthorizeBlogOwnerAttribute();
-            blogOwnerAttribute.OnAuthorization(filterContext);
+            _blogOwnerAttribute.OnAuthorization(filterContext);
             Assert.That(filterContext.Result, Is.TypeOf<RedirectResult>());
         }
 
@@ -106,8 +107,7 @@ namespace MBlogUnitTest.Filters
             var model = new UserViewModel { IsLoggedIn = true };
             _mockHttpContext.Setup(h => h.User).Returns(model);
 
-            var blogOwnerAttribute = new AuthorizeBlogOwnerAttribute();
-            blogOwnerAttribute.OnAuthorization(filterContext);
+            _blogOwnerAttribute.OnAuthorization(filterContext);
             Assert.That(filterContext.Result, Is.TypeOf<RedirectResult>());
         }
 
@@ -130,8 +130,7 @@ namespace MBlogUnitTest.Filters
             var model = new UserViewModel { IsLoggedIn = true };
             _mockHttpContext.Setup(h => h.User).Returns(model);
             _mockHttpContext.Setup(h => h.Request).Returns(new FakeRequest());
-            var blogOwnerAttribute = new AuthorizeBlogOwnerAttribute();
-            blogOwnerAttribute.OnAuthorization(filterContext);
+            _blogOwnerAttribute.OnAuthorization(filterContext);
             Assert.That(filterContext.Result, Is.Null);
         }
 
@@ -146,11 +145,12 @@ namespace MBlogUnitTest.Filters
         }
 
         private ControllerContext CreateControllerContext(RouteData routeData)
-        {
+        {            
+
             var controllerContext =
                 new ControllerContext(_mockHttpContext.Object,
                                       routeData,
-                                      new BaseController(null, null, _blogRepository));
+                                      new BaseController(null));
             return controllerContext;
         }
     }

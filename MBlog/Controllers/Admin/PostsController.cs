@@ -17,7 +17,7 @@ namespace MBlog.Controllers.Admin
         private readonly IPostDomain _postDomain;
 
         public PostsController(IPostDomain postDomain, ILogger logger)
-            : base(logger, null, null)
+            : base(logger)
         {
             _postDomain = postDomain;
         }

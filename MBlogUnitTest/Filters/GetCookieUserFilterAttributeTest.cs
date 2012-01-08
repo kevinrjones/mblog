@@ -19,7 +19,7 @@ namespace MBlogUnitTest.Filters
         private IUserRepository _userRepository;
         Mock<HttpContextBase> _mockHttpContext;
         private const string Nickname = "nickname";
-
+        private GetCookieUserFilterAttribute _attribute;
         [SetUp]
         public void SetUp()
         {           
@@ -44,11 +44,11 @@ namespace MBlogUnitTest.Filters
 
             HttpContextBase httpContextBase = _mockHttpContext.Object;
 
-
+            // _userRepository
             ControllerContext controllerContext =
             new ControllerContext(httpContextBase,
                                   new RouteData(),
-                                  new BaseController(null, _userRepository, null));
+                                  new BaseController(null));
 
             var actionDescriptor = new Mock<ActionDescriptor>();
             actionDescriptor.SetupGet(x => x.ActionName).Returns("Action_With_SomeAttribute");
@@ -57,6 +57,8 @@ namespace MBlogUnitTest.Filters
                 new AuthorizationContext(controllerContext,
                                            actionDescriptor.Object);
 
+            _attribute = new GetCookieUserFilterAttribute();
+            _attribute.UserRepository = _userRepository;
         }
 
         [Test]
@@ -74,18 +76,14 @@ namespace MBlogUnitTest.Filters
                 new AuthorizationContext(controllerContext,
                                            actionDescriptor.Object);
 
-            GetCookieUserFilterAttribute attribute = new GetCookieUserFilterAttribute();
-
-            attribute.OnAuthorization(_actionExecutingContext);
+            _attribute.OnAuthorization(_actionExecutingContext);
         }
 
         [Test]
         public void GivenAFilter_WhenThereIsACookieInTheContext_AndTheUserIdIsValid_ThenALoggedUserIsReturnedInTheHttpContext()
         {
             _mockHttpContext.Setup(h => h.Request).Returns(new FakeRequestWithValidUserId());
-            GetCookieUserFilterAttribute attribute = new GetCookieUserFilterAttribute();
-
-            attribute.OnAuthorization(_actionExecutingContext);
+            _attribute.OnAuthorization(_actionExecutingContext);
 
             Assert.That(_mockHttpContext.Object.User, Is.Not.Null);
             Assert.That(_mockHttpContext.Object.User.Identity.IsAuthenticated, Is.True);
@@ -95,9 +93,8 @@ namespace MBlogUnitTest.Filters
         public void GivenAFilter_WhenThereIsACookieInTheContext_AndTheUserIdIsInValid_ThenNoLoggedInUserIsReturnedInTheHttpContext()
         {
             _mockHttpContext.Setup(h => h.Request).Returns(new FakeRequestWithInvalidUserId());
-            GetCookieUserFilterAttribute attribute = new GetCookieUserFilterAttribute();
 
-            attribute.OnAuthorization(_actionExecutingContext);
+            _attribute.OnAuthorization(_actionExecutingContext);
 
             Assert.That(_mockHttpContext.Object.User, Is.Not.Null);
             Assert.That(_mockHttpContext.Object.User.Identity.IsAuthenticated, Is.False);                
@@ -107,9 +104,8 @@ namespace MBlogUnitTest.Filters
         public void GivenAUserWithThatOwnsBlogs_WhenTheFilterExecutes_NicknamesAreAddedToTheUser()
         {
             _mockHttpContext.Setup(h => h.Request).Returns(new FakeRequestWithValidUserId());
-            GetCookieUserFilterAttribute attribute = new GetCookieUserFilterAttribute();
 
-            attribute.OnAuthorization(_actionExecutingContext);
+            _attribute.OnAuthorization(_actionExecutingContext);
             UserViewModel userViewModel = (UserViewModel) _mockHttpContext.Object.User;
             
             Assert.That(userViewModel.Nicknames.Count, Is.GreaterThan(0));
@@ -120,9 +116,9 @@ namespace MBlogUnitTest.Filters
         public void GetNoNicknamesWhenNotLoggedIn()
         {
             _mockHttpContext.Setup(h => h.Request).Returns(new FakeRequestWithInvalidUserId());
-            GetCookieUserFilterAttribute attribute = new GetCookieUserFilterAttribute();
+            
 
-            attribute.OnAuthorization(_actionExecutingContext);
+            _attribute.OnAuthorization(_actionExecutingContext);
             UserViewModel userViewModel = (UserViewModel)_mockHttpContext.Object.User;
 
             Assert.That(userViewModel.Nicknames.Count, Is.EqualTo(0));
@@ -133,9 +129,8 @@ namespace MBlogUnitTest.Filters
         public void GivenAUserWithThatOwnsNoBlogs_WhenTHeFilterExecutes_NoNicknamesAreAddedToTheUser()
         {
             _mockHttpContext.Setup(h => h.Request).Returns(new FakeRequestWithValidUserIdButNoBlogs());
-            GetCookieUserFilterAttribute attribute = new GetCookieUserFilterAttribute();
 
-            attribute.OnAuthorization(_actionExecutingContext);
+            _attribute.OnAuthorization(_actionExecutingContext);
             UserViewModel userViewModel = (UserViewModel)_mockHttpContext.Object.User;
 
             Assert.That(userViewModel.Nicknames.Count, Is.EqualTo(0));

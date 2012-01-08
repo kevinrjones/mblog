@@ -12,7 +12,7 @@ namespace MBlog.Controllers
         private readonly ISyndicationFeedDomain _syndicationFeedDomain;
 
         public FeedController(ISyndicationFeedDomain syndicationFeedDomain, ILogger logger)
-            : base(logger, null, null)
+            : base(logger)
         {
             _syndicationFeedDomain = syndicationFeedDomain;           
         }

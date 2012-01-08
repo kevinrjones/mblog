@@ -17,7 +17,7 @@ namespace MBlog.Controllers
         private readonly IUserDomain _userDomain;
 
         public DashboardController(IPostDomain postDomain, IUserDomain userDomain, ILogger logger)
-            : base(logger, null, null)
+            : base(logger)
         {
             _postDomain = postDomain;
             _userDomain = userDomain;

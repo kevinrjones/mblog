@@ -18,7 +18,7 @@ namespace MBlog.Controllers
         private readonly IUserDomain _userDomain;
 
         public UserController(IUserDomain userDomain, ILogger logger)
-            : base(logger, null, null)
+            : base(logger)
         {
             _userDomain = userDomain;
         }

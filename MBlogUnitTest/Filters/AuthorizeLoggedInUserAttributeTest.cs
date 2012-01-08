@@ -77,7 +77,7 @@ namespace MBlogUnitTest.Filters
             var controllerContext =
                 new ControllerContext(_mockHttpContext.Object,
                                       routeData,
-                                      new BaseController(null, null, null));
+                                      new BaseController(null));
             return controllerContext;
         }
     }
