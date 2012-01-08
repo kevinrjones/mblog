@@ -17,18 +17,11 @@ namespace MBlog.Controllers
     public class BaseController : Controller
     {
         protected ILogger Logger { get; set; }
-        protected internal IUserRepository UserRepository { get; set; }
-        protected internal IBlogRepository BlogRepository { get; set; }
 
-        public BaseController(ILogger logger, IUserRepository userRepository, IBlogRepository blogRepository)
+        public BaseController(ILogger logger)
         {
             Logger = logger;
-            UserRepository = userRepository;
-            BlogRepository = blogRepository;
         }
-
-        //public BaseController(IUserRepository userRepository, IBlogRepository blogRepository) : this (new NLogService(), userRepository, blogRepository)
-        //{ }
 
         protected override void OnException(ExceptionContext filterContext)
         {
@@ -41,7 +34,7 @@ namespace MBlog.Controllers
                 Exception ex = filterContext.Exception ?? new Exception("No further information exists.");
                 LogExceptionToElmah(ex);
                 filterContext.ExceptionHandled = true;
-                if ((ex.GetType() != typeof (HttpRequestValidationException)))
+                if ((ex.GetType() != typeof(HttpRequestValidationException)))
                 {
                     var data = new ErrorViewData
                                    {

@@ -79,7 +79,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Controllers\AdminControllerTest.cs" />
+    <Compile Include="Controllers\Admin\PostsControllerTest.cs" />
+    <Compile Include="Controllers\DashboardControllerTest.cs" />
     <Compile Include="Controllers\BaseControllerTests.cs" />
     <Compile Include="Controllers\BlogControllerTest.cs" />
     <Compile Include="Controllers\CommentControllerTest.cs" />
@@ -89,6 +90,11 @@
     <Compile Include="Controllers\HomeControllerTest.cs" />
     <Compile Include="Controllers\TestPostController.cs" />
     <Compile Include="Controllers\UserControllerTest.cs" />
+    <Compile Include="Domain\BlogDomainTest.cs" />
+    <Compile Include="Domain\DashboardDomainTest.cs" />
+    <Compile Include="Domain\PostDomainTest.cs" />
+    <Compile Include="Domain\SyndicationFeedDomainTest.cs" />
+    <Compile Include="Domain\UserDomainTest.cs" />
     <Compile Include="Filters\AuthorizeBlogOwnerAttributeTest.cs" />
     <Compile Include="Filters\AuthorizeLoggedInUserAttributeTest.cs" />
     <Compile Include="Filters\FakeController.cs" />
@@ -124,9 +130,21 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\IoC\IoC.csproj">
+      <Project>{1B074CE2-5C46-4846-819B-22EB6BD8E04A}</Project>
+      <Name>IoC</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Logging\Logging.csproj">
       <Project>{BF734CD4-7587-422F-BAE9-626051F1A382}</Project>
       <Name>Logging</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\MBlogDomainInterfaces\MBlogDomainInterfaces.csproj">
+      <Project>{35F6ACAF-F2EC-4FC5-974C-BDE9C3FE38D4}</Project>
+      <Name>MBlogDomainInterfaces</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\MBlogDomain\MBlogDomain.csproj">
+      <Project>{6EEE1ECE-69AC-4F6D-8EDE-6536B721AA97}</Project>
+      <Name>MBlogDomain</Name>
     </ProjectReference>
     <ProjectReference Include="..\MBlogModel\MBlogModel.csproj">
       <Project>{9D26D30F-3E4E-43B9-A93B-6E51AB34AC44}</Project>

@@ -61,6 +61,10 @@ namespace MBlogRepository.Repositories
         public Post AddComment(int id, string name, string comment)
         {
             Post post = GetBlogPost(id);
+            if(post == null)
+            {
+                throw new MBlogException("Unable to find post");
+            }
             if (!post.CommentsEnabled)
             {
                 throw new MBlogException("Comments are disabled for this post");

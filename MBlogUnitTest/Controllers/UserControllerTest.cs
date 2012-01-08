@@ -1,9 +1,12 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Web;
 using System.Web.Mvc;
 using MBlog.Controllers;
 using MBlog.Filters;
 using MBlog.Models.User;
+using MBlogDomainInterfaces;
+using MBlogDomainInterfaces.ModelState;
 using MBlogModel;
 using MBlogRepository.Interfaces;
 using Moq;
@@ -15,16 +18,12 @@ namespace MBlogUnitTest.Controllers
     class UserControllerTest : BaseControllerTests
     {
         UserController _controller;
-        private Mock<IUserRepository> _userRepository;
-        private Mock<IUsernameBlacklistRepository> _usernameBlacklistRepository;
-
+        private Mock<IUserDomain> _userDomain;
         [SetUp]
         public void Setup()
         {
-            _userRepository = new Mock<IUserRepository>();
-            _usernameBlacklistRepository = new Mock<IUsernameBlacklistRepository>();
-
-            _controller = new UserController(_userRepository.Object, _usernameBlacklistRepository.Object, null, null);
+            _userDomain = new Mock<IUserDomain>();
+            _controller = new UserController(_userDomain.Object, null);
 
             SetControllerContext(_controller);
         }
@@ -58,8 +57,7 @@ namespace MBlogUnitTest.Controllers
         {
             string email = "foo@bar.com";
             UserViewModel userViewModel = new UserViewModel { Email = email};
-            User user = new User("", email, "", false);
-            _userRepository.Setup(u => u.GetUser(email)).Returns(user);
+            _userDomain.Setup(u => u.IsUserRegistrationValid(It.IsAny<string>(), email)).Returns(new List<ErrorDetails> { new ErrorDetails { FieldName = "EMail", Message = "EMail already exists in database" } });
 
             ViewResult result = _controller.Create(userViewModel) as ViewResult;
 
@@ -75,7 +73,7 @@ namespace MBlogUnitTest.Controllers
             string name = "name";
             UserViewModel userViewModel = new UserViewModel { Name = name };
 
-            _usernameBlacklistRepository.Setup(u => u.GetName(name)).Returns(new Blacklist());
+            _userDomain.Setup(u => u.IsUserRegistrationValid(name, It.IsAny<string>())).Returns(new List<ErrorDetails> { new ErrorDetails { FieldName = "Name", Message = "That user name is reserved" } });
 
             ViewResult result = _controller.Create(userViewModel) as ViewResult;
 
@@ -89,7 +87,6 @@ namespace MBlogUnitTest.Controllers
         public void GivenAnInvalidUser_WhenIRegister_ThenIGetRedirectedToTheRegistrationPage()
         {
             _controller.ModelState.AddModelError("EMail", "Email error");
-
             ViewResult result = _controller.Create(new UserViewModel()) as ViewResult;
 
             Assert.That(result, Is.Not.Null);
@@ -99,6 +96,9 @@ namespace MBlogUnitTest.Controllers
         [Test]
         public void GivenAValidUser_WhenIRegister_AndTheRegistrationIsSuccesful_ThenIGetRedirectedToTheAdminPage()
         {
+            _userDomain.Setup(u => u.IsUserRegistrationValid(It.IsAny<string>(), It.IsAny<string>())).Returns(new List<ErrorDetails>());
+            _userDomain.Setup(u => u.CreateUser(It.IsAny<string>(), It.IsAny<string>(), It.IsAny<string>())).Returns(
+                new User());
             RedirectToRouteResult result = _controller.Create(new UserViewModel()) as RedirectToRouteResult;
 
             Assert.That(result, Is.Not.Null);

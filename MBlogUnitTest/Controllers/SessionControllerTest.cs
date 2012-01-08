@@ -7,6 +7,7 @@ using MBlog.Filters;
 using MBlog.Infrastructure;
 using MBlog.Models;
 using MBlog.Models.User;
+using MBlogDomainInterfaces;
 using MBlogModel;
 using MBlogRepository.Interfaces;
 using Moq;
@@ -18,14 +19,14 @@ namespace MBlogUnitTest.Controllers
     class SessionControllerTest : BaseControllerTests
     {
         SessionController _sessionController;
-        private Mock<IUserRepository> _userRepository;        
+        private Mock<IUserDomain> _userDomain;        
 
         [SetUp]
         public void Setup()
         {
-            _userRepository = new Mock<IUserRepository>();
+            _userDomain = new Mock<IUserDomain>();
 
-            _sessionController = new SessionController(_userRepository.Object, null, null);
+            _sessionController = new SessionController(_userDomain.Object, null);
 
             SetControllerContext(_sessionController);
         }
@@ -65,7 +66,7 @@ namespace MBlogUnitTest.Controllers
         [Test]
         public void GivenANonMatchingPassword_WhenILogin_ThenIGetRedirectedToTheRegistrationPage()
         {
-            _userRepository.Setup(u => u.GetUser("email@mail.com")).Returns(new User { Password = "foo" });
+            _userDomain.Setup(u => u.GetUser("email@mail.com")).Returns(new User { Password = "foo" });
             ViewResult result = _sessionController.Create(new LoginUserViewModel { Email = "email@mail.com", Password = "password" }) as ViewResult;
 
             Assert.That(result, Is.Not.Null);
@@ -76,7 +77,7 @@ namespace MBlogUnitTest.Controllers
         public void GivenAMatchingPassword_WhenILogin_ThenIGetRedirectedToTheAdminPage()
         {
             string password = "password";
-            _userRepository.Setup(u => u.GetUser("email@mail.com")).Returns(new User { Password = password });
+            _userDomain.Setup(u => u.GetUser("email@mail.com")).Returns(new User { Password = password });
             RedirectToRouteResult result = _sessionController.Create(new LoginUserViewModel { Email = "email@mail.com", Password = password }) as RedirectToRouteResult;
 
             Assert.That(result, Is.Not.Null);
@@ -98,7 +99,7 @@ namespace MBlogUnitTest.Controllers
         {
             string email = "email";
             User user = new User("", email, "", false);
-            _userRepository.Setup(u => u.GetUser(email)).Returns(user);
+            _userDomain.Setup(u => u.GetUser(email)).Returns(user);
 
             RedirectToRouteResult result = _sessionController.Create(new LoginUserViewModel { Email = email }) as RedirectToRouteResult;
 
@@ -112,7 +113,7 @@ namespace MBlogUnitTest.Controllers
         {
             string email = "email";
             User user = new User("", email, "", false);
-            _userRepository.Setup(u => u.GetUser(email)).Returns(user);
+            _userDomain.Setup(u => u.GetUser(email)).Returns(user);
 
             MockHttpContext.SetupProperty(h => h.User);
 
@@ -128,7 +129,7 @@ namespace MBlogUnitTest.Controllers
             string email = "email";
             User user = new User("", email, "", false) { Id = 1 };
 
-            _userRepository.Setup(u => u.GetUser(email)).Returns(user);
+            _userDomain.Setup(u => u.GetUser(email)).Returns(user);
 
             MockHttpContext.SetupProperty(h => h.User);
 
@@ -149,7 +150,7 @@ namespace MBlogUnitTest.Controllers
         {
             string email = "email";
             User user = new User("", email, "", false);
-            _userRepository.Setup(u => u.GetUser(email)).Returns(user);
+            _userDomain.Setup(u => u.GetUser(email)).Returns(user);
 
             MockHttpContext.SetupProperty(h => h.User);
 
@@ -166,7 +167,7 @@ namespace MBlogUnitTest.Controllers
             string email = "email";
             User user = new User("", email, "", false);
 
-            _userRepository.Setup(u => u.GetUser(email)).Returns(user);
+            _userDomain.Setup(u => u.GetUser(email)).Returns(user);
 
             ViewResult result = _sessionController.Create(new LoginUserViewModel()) as ViewResult;
             Assert.That(result, Is.Not.Null);

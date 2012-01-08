@@ -2,8 +2,11 @@
 using System.Linq;
 using System.Web.Mvc;
 using System.Web.Routing;
+using IoC;
 using Logging;
 using MBlog.Infrastructure;
+using MBlogDomain;
+using MBlogDomainInterfaces;
 using MBlogNlogService;
 using MBlogRepository.Interfaces;
 using MBlogRepository.Repositories;
@@ -303,13 +306,19 @@ namespace MBlog
         private IUnityContainer GetUnityContainer()
         {
             InjectionConstructor ctor = new InjectionConstructor(ConfigurationManager.ConnectionStrings["mblog"].ConnectionString);
-            IUnityContainer container = new UnityContainer()
-                .RegisterType<IUserRepository, UserRepository>(ctor)
+            IUnityContainer container = Container.Instance.UnityContainer;
+            container.RegisterType<IUserRepository, UserRepository>(ctor)
                 .RegisterType<IPostRepository, PostRepository>(ctor)
                 .RegisterType<IBlogRepository, BlogRepository>(ctor)
                 .RegisterType<IUsernameBlacklistRepository, UsernameBlacklistRepository>(ctor)
                 .RegisterType<INicknameBlacklistRepository, NicknameBlacklistRepository>(ctor)
                 .RegisterType<IMediaRepository, MediaRepository>(ctor)
+                .RegisterType<IUserDomain, UserDomain>()
+                .RegisterType<IBlogDomain, BlogDomain>()
+                .RegisterType<IDashboardDomain, DashboardDomain>()
+                .RegisterType<IMediaDomain, MediaDomain>()
+                .RegisterType<IPostDomain, PostDomain>()
+                .RegisterType<ISyndicationFeedDomain, SyndicationFeedDomain>()
                 .RegisterType<ILogger, NLogService>()
                 ;
 

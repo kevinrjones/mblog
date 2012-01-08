@@ -535,7 +535,7 @@ namespace MBlogIntegrationTest.Repositories
         }
 
         [Test]
-        public void GivenThereIsAPostWherCommentsAreDisabled_WhenIAddAComment_TheCommentIGetAnException()
+        public void GivenThereIsAPostWhereCommentsAreDisabled_WhenIAddAComment_TheCommentIGetAnException()
         {
             _userRepository.Create(_user2);
             Assert.Throws<MBlogException>(() => _postRepository.AddComment(_post2.Id, "CommentName", "Comment Text"));
@@ -548,6 +548,13 @@ namespace MBlogIntegrationTest.Repositories
             Post post = _postRepository.AddComment(_post1.Id, "CommentName", "Comment Text");
 
             Assert.That(post.Comments.Count, Is.EqualTo(1));
+        }
+
+        [Test]
+        public void GivenThereIsNoPost_WhenIAddAComment_ThenAnMBlogExceptionIsThrown()
+        {
+            _userRepository.Create(_user1);
+            Assert.Throws<MBlogException>(() => _postRepository.AddComment(2222, "CommentName", "Comment Text"));
         }
 
         [Test]

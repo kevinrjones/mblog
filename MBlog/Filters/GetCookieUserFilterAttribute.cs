@@ -2,17 +2,20 @@
 using System.Security.Cryptography;
 using System.Web;
 using System.Web.Mvc;
-using Elmah;
 using MBlog.Controllers;
 using MBlog.Infrastructure;
-using MBlog.Logging;
 using MBlog.Models.User;
+using MBlogDomainInterfaces;
 using MBlogModel;
+using Microsoft.Practices.Unity;
 
 namespace MBlog.Filters
 {
     public class GetCookieUserFilterAttribute : AuthorizeAttribute
     {
+        [Dependency]
+        public IUserDomain UserDomain { get; set; }
+
         public static string UserCookie = "USER";
 
         public override void OnAuthorization(AuthorizationContext filterContext)
@@ -29,7 +32,7 @@ namespace MBlog.Filters
                     int id;
                     if (int.TryParse(plainText, out id))
                     {
-                        User user = controller.UserRepository.GetUserWithTheirBlogs(id);
+                        User user = UserDomain.GetUserWithTheirBlogs(id);
                         if (user != null)
                         {
                             userViewModel.Id = id;

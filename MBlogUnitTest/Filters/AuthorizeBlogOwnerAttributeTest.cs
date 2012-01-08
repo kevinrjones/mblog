@@ -3,9 +3,11 @@ using System.Collections.Specialized;
 using System.Web;
 using System.Web.Mvc;
 using System.Web.Routing;
+using IoC;
 using MBlog.Controllers;
 using MBlog.Filters;
 using MBlog.Models.User;
+using MBlogDomainInterfaces;
 using MBlogModel;
 using MBlogRepository.Interfaces;
 using MBlogUnitTest.Extensions;
@@ -18,16 +20,17 @@ namespace MBlogUnitTest.Filters
     [TestFixture]
     public class AuthorizeBlogOwnerAttributeTest
     {
-        private IBlogRepository _blogRepository;
+        private IBlogDomain _blogDomain;
         private Mock<HttpContextBase> _mockHttpContext;
         private const string Nickname = "nickname";
         Mock<RequestContext> _requestContext;
-        Mock<IBlogRepository> _mockBlogRepository;
+        Mock<IBlogDomain> _mockBlogDomain;
+        private AuthorizeBlogOwnerAttribute _blogOwnerAttribute;
 
         [SetUp]
         public void SetUp()
         {
-            _mockBlogRepository = new Mock<IBlogRepository>();
+            _mockBlogDomain = new Mock<IBlogDomain>();
 
             _mockHttpContext = new Mock<HttpContextBase>();
             _requestContext = new Mock<RequestContext>();
@@ -38,7 +41,9 @@ namespace MBlogUnitTest.Filters
 
             _mockHttpContext.Setup(h => h.Response).Returns(new FakeResponse());
 
-            _blogRepository = _mockBlogRepository.Object;
+            _blogDomain = _mockBlogDomain.Object;
+            _blogOwnerAttribute = new AuthorizeBlogOwnerAttribute();
+            _blogOwnerAttribute.BlogDomain = _blogDomain;
         }
 
         [Test]
@@ -52,8 +57,7 @@ namespace MBlogUnitTest.Filters
             _mockHttpContext.Setup(h => h.Request).Returns(httpRequest.Object);
             
 
-            var blogOwnerAttribute = new AuthorizeBlogOwnerAttribute();
-            blogOwnerAttribute.OnAuthorization(filterContext);
+            _blogOwnerAttribute.OnAuthorization(filterContext);
             Assert.That(filterContext.Result, Is.TypeOf<RedirectResult>());
         }
 
@@ -62,7 +66,7 @@ namespace MBlogUnitTest.Filters
         {
             const int blogId = 1;
             var routeData = string.Format("~/{0}/edit/{1}/25", Nickname, blogId).GetRouteData("GET");
-            _mockBlogRepository.Setup(r => r.GetBlog(Nickname)).Returns(new Blog{Id = blogId});
+            _mockBlogDomain.Setup(r => r.GetBlog(Nickname)).Returns(new Blog{Id = blogId});
             _requestContext.Setup(r => r.RouteData).Returns(routeData);
 
             var filterContext = CreateFilterContext(routeData);
@@ -70,8 +74,7 @@ namespace MBlogUnitTest.Filters
             var model = new UserViewModel{IsLoggedIn = true};
             _mockHttpContext.Setup(h => h.User).Returns(model);
 
-            var blogOwnerAttribute = new AuthorizeBlogOwnerAttribute();
-            blogOwnerAttribute.OnAuthorization(filterContext);
+            _blogOwnerAttribute.OnAuthorization(filterContext);
             Assert.That(filterContext.Result, Is.Null);
         }
 
@@ -80,7 +83,7 @@ namespace MBlogUnitTest.Filters
         {
             const int blogId = 1;
             var routeData = string.Format("~/{0}/edit/{1}/25", Nickname, blogId).GetRouteData("GET");
-            _mockBlogRepository.Setup(r => r.GetBlog(Nickname)).Returns(new Blog { Id = blogId });
+            _mockBlogDomain.Setup(r => r.GetBlog(Nickname)).Returns(new Blog { Id = blogId });
             _requestContext.Setup(r => r.RouteData).Returns(routeData);
 
             var filterContext = CreateFilterContext(routeData);
@@ -88,8 +91,7 @@ namespace MBlogUnitTest.Filters
             var model = new UserViewModel { IsLoggedIn = false };
             _mockHttpContext.Setup(h => h.User).Returns(model);
 
-            var blogOwnerAttribute = new AuthorizeBlogOwnerAttribute();
-            blogOwnerAttribute.OnAuthorization(filterContext);
+            _blogOwnerAttribute.OnAuthorization(filterContext);
             Assert.That(filterContext.Result, Is.TypeOf<RedirectResult>());
         }
 
@@ -98,7 +100,7 @@ namespace MBlogUnitTest.Filters
         {
             const int blogId = 1;
             var routeData = string.Format("~/{0}/edit/{1}/25", "wrong-nickname", blogId).GetRouteData("GET");
-            _mockBlogRepository.Setup(r => r.GetBlog(Nickname)).Returns(new Blog { Id = blogId });
+            _mockBlogDomain.Setup(r => r.GetBlog(Nickname)).Returns(new Blog { Id = blogId });
             _requestContext.Setup(r => r.RouteData).Returns(routeData);
 
             var filterContext = CreateFilterContext(routeData);
@@ -106,8 +108,7 @@ namespace MBlogUnitTest.Filters
             var model = new UserViewModel { IsLoggedIn = true };
             _mockHttpContext.Setup(h => h.User).Returns(model);
 
-            var blogOwnerAttribute = new AuthorizeBlogOwnerAttribute();
-            blogOwnerAttribute.OnAuthorization(filterContext);
+            _blogOwnerAttribute.OnAuthorization(filterContext);
             Assert.That(filterContext.Result, Is.TypeOf<RedirectResult>());
         }
 
@@ -116,7 +117,7 @@ namespace MBlogUnitTest.Filters
         {
             int blogId = 1;
             var routeData = string.Format("~/{0}/update/25", Nickname).GetRouteData("POST");
-            _mockBlogRepository.Setup(r => r.GetBlog(Nickname)).Returns(new Blog { Id = blogId });
+            _mockBlogDomain.Setup(r => r.GetBlog(Nickname)).Returns(new Blog { Id = blogId });
             _requestContext.Setup(r => r.RouteData).Returns(routeData);
 
             var filterContext = CreateFilterContext(routeData);
@@ -130,8 +131,7 @@ namespace MBlogUnitTest.Filters
             var model = new UserViewModel { IsLoggedIn = true };
             _mockHttpContext.Setup(h => h.User).Returns(model);
             _mockHttpContext.Setup(h => h.Request).Returns(new FakeRequest());
-            var blogOwnerAttribute = new AuthorizeBlogOwnerAttribute();
-            blogOwnerAttribute.OnAuthorization(filterContext);
+            _blogOwnerAttribute.OnAuthorization(filterContext);
             Assert.That(filterContext.Result, Is.Null);
         }
 
@@ -146,11 +146,12 @@ namespace MBlogUnitTest.Filters
         }
 
         private ControllerContext CreateControllerContext(RouteData routeData)
-        {
+        {            
+
             var controllerContext =
                 new ControllerContext(_mockHttpContext.Object,
                                       routeData,
-                                      new BaseController(null, null, _blogRepository));
+                                      new BaseController(null));
             return controllerContext;
         }
     }

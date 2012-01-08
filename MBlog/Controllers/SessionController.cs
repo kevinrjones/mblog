@@ -7,6 +7,7 @@ using Logging;
 using MBlog.Filters;
 using MBlog.Infrastructure;
 using MBlog.Models.User;
+using MBlogDomainInterfaces;
 using MBlogModel;
 using MBlogRepository.Interfaces;
 
@@ -14,9 +15,11 @@ namespace MBlog.Controllers
 {
     public class SessionController : BaseController
     {
-        public SessionController(IUserRepository userRepository, IBlogRepository blogRepository, ILogger logger)
-            : base(logger, userRepository, blogRepository)
+        private readonly IUserDomain _userDomain;
+
+        public SessionController(IUserDomain userDomain, ILogger logger) : base(logger)
         {
+            _userDomain = userDomain;
         }
 
         [HttpGet]
@@ -36,7 +39,7 @@ namespace MBlog.Controllers
             {
                 return View("New");
             }
-            User user = UserRepository.GetUser(userViewModel.Email);
+            User user = _userDomain.GetUser(userViewModel.Email);
             if (user != null && user.MatchPassword(userViewModel.Password))
             {
                 UpdateCookiesAndContext(user);

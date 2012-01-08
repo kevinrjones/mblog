@@ -6,6 +6,18 @@ namespace MBlog.Models.Post
     {
         private List<PostViewModel> _posts = new List<PostViewModel>();
 
+        public PostsViewModel()
+        {
+            
+        }
+
+        public PostsViewModel(int blogId, string nickname, IList<MBlogModel.Post> posts)
+        {
+            BlogId = blogId;
+            Nickname = nickname;
+            AddPosts(posts);
+        }
+
         public List<PostViewModel> Posts
         {
             get { return _posts; }
