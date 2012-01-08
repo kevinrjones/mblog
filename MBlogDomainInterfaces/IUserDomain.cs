@@ -9,5 +9,7 @@ namespace MBlogDomainInterfaces
         User GetUser(string email);
         User CreateUser(string name, string email, string password);
         List<ErrorDetails> IsUserRegistrationValid(string name, string email);
+        User GetUserWithTheirBlogs(int id);
+        IEnumerable<User> GetUsersWithTheirBlogs();
     }
 }

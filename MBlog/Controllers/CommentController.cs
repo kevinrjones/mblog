@@ -1,26 +1,26 @@
 ﻿using System.Web.Mvc;
 using Logging;
 using MBlog.Models.Comment;
+using MBlogDomainInterfaces;
 using MBlogRepository.Interfaces;
 
 namespace MBlog.Controllers
 {
     public class CommentController : BaseController
     {
-        private readonly IPostRepository _postRepository;
+        private IPostDomain _postDomain;
 
-        public CommentController(IPostRepository postRepository, IUserRepository userRepository,
-                                 IBlogRepository blogRepository, ILogger logger)
-            : base(logger, userRepository, blogRepository)
+        public CommentController(IPostDomain postDomain, ILogger logger)
+            : base(logger, null, null)
         {
-            _postRepository = postRepository;
+            _postDomain = postDomain;
         }
 
         public ActionResult Create(AddCommentViewModel commentViewModel)
         {
             if (ModelState.IsValid)
             {
-                _postRepository.AddComment(commentViewModel.PostId, commentViewModel.Name, commentViewModel.Comment);
+                _postDomain.AddComment(commentViewModel.PostId, commentViewModel.Name, commentViewModel.Comment);
             }
             else
             {

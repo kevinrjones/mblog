@@ -7,27 +7,27 @@ using Logging;
 using MBlog.Filters;
 using MBlog.Models.Admin;
 using MBlog.Models.Post;
+using MBlogDomainInterfaces;
 using MBlogRepository.Interfaces;
 
 namespace MBlog.Controllers.Admin
 {
-    public class PostsController  : BaseController
+    public class PostsController : BaseController
     {
-        private readonly IPostRepository _postRepository;
+        private readonly IPostDomain _postDomain;
 
-        public PostsController(IUserRepository userRepository, IPostRepository postRepository,
-                               IBlogRepository blogRepository, ILogger logger)
-            : base(logger, userRepository, blogRepository)
+        public PostsController(IPostDomain postDomain, ILogger logger)
+            : base(logger, null, null)
         {
-            _postRepository = postRepository;
+            _postDomain = postDomain;
         }
-        //
-        // GET: /Posts/
+
+
 
         [AuthorizeBlogOwner]
         public ActionResult Index(AdminBlogViewModel model)
         {
-            var posts = _postRepository.GetOrderedBlogPosts(model.BlogId);
+            var posts = _postDomain.GetOrderedBlogPosts(model.BlogId);
             var postsViewModel = new PostsViewModel { BlogId = model.BlogId, Nickname = model.Nickname };
             postsViewModel.AddPosts(posts);
             return View(postsViewModel);

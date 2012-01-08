@@ -6,6 +6,7 @@ using System.Web.Mvc;
 using MBlog.Controllers;
 using MBlog.Models.Blog;
 using MBlog.Models.User;
+using MBlogDomainInterfaces;
 using MBlogModel;
 using MBlogRepository.Interfaces;
 using Moq;
@@ -16,16 +17,14 @@ namespace MBlogUnitTest.Controllers
     [TestFixture]
     public class BlogControllerTest : BaseControllerTests
     {
-        private Mock<IBlogRepository> _blogRepository;
-        private Mock<IUserRepository> _userRepository;
+        private Mock<IBlogDomain> _blogDomain;
         private BlogController _controller;
 
         [SetUp]
         public void SetUp()
         {
-            _blogRepository = new Mock<IBlogRepository>();
-            _userRepository = new Mock<IUserRepository>();
-            _controller = new BlogController(_userRepository.Object, _blogRepository.Object, null);
+            _blogDomain = new Mock<IBlogDomain>();
+            _controller = new BlogController(_blogDomain.Object, null);
         }
 
         [Test]
@@ -98,9 +97,8 @@ namespace MBlogUnitTest.Controllers
         public void GivenALoggedInUser_WhenITryAndEditABlog_ThenIGetTheCorrectView()
         {
             string nickname = "nickname";
-            _blogRepository.Setup(b => b.GetBlog(nickname)).Returns(new Blog("title", "description", true, true,
-                                                                               nickname, 1));
-            var controller = new BlogController(_userRepository.Object, _blogRepository.Object, null);
+            _blogDomain.Setup(b => b.GetBlog(It.IsAny<string>())).Returns(new Blog("title", "description", true, true, nickname, 1));
+            var controller = new BlogController(_blogDomain.Object, null);
 
             var result = controller.Edit(new CreateBlogViewModel{Nickname = nickname});
 
@@ -111,9 +109,7 @@ namespace MBlogUnitTest.Controllers
         public void GivenAValidModel_WhenITryAndUpdateABlog_ThenIGetTheCorrectView()
         {
             string nickname = "nickname";
-            _blogRepository.Setup(b => b.GetBlog(nickname)).Returns(new Blog("title", "description", true, true,
-                                                                               nickname, 1));
-            var controller = new BlogController(_userRepository.Object, _blogRepository.Object, null);
+            var controller = new BlogController(_blogDomain.Object, null);
 
 
             RedirectToRouteResult result = controller.Update(new CreateBlogViewModel { Nickname = nickname, Description = "desc", Title = "title"}) as RedirectToRouteResult;
@@ -126,10 +122,7 @@ namespace MBlogUnitTest.Controllers
         [Test]
         public void GivenAnInvalidModel_WhenITryAndUpdateABlog_ThenIHaveToReEditTheBlogData()
         {
-            string nickname = "nickname";
-            _blogRepository.Setup(b => b.GetBlog(nickname)).Returns(new Blog("title", "description", true, true,
-                                                                               nickname, 1));
-            var controller = new BlogController(_userRepository.Object, _blogRepository.Object, null);
+            var controller = new BlogController(_blogDomain.Object, null);
 
             controller.ModelState.AddModelError("Name", "Name error");
 

@@ -4,6 +4,7 @@ using System.Web.Mvc;
 using MBlog.Controllers;
 using MBlog.Models.Media;
 using MBlog.Models.User;
+using MBlogDomainInterfaces;
 using MBlogModel;
 using MBlogRepository.Interfaces;
 using Moq;
@@ -14,18 +15,18 @@ namespace MBlogUnitTest.Controllers
     [TestFixture]
     class MediaControllerTest : BaseControllerTests
     {
-        private Mock<IMediaRepository> _mediaRepository;
+        private Mock<IMediaDomain> _mediaDomain;
 
         [SetUp]
         public void Setup()
         {
-            _mediaRepository = new Mock<IMediaRepository>();
+            _mediaDomain = new Mock<IMediaDomain>();
         }
 
         [Test]
         public void GivenAMediaController_WhenIUploadAnInvalidFile_ThenAnExceptioIsThrown()
         {
-            MediaController controller = new MediaController(_mediaRepository.Object, null, null, null);
+            MediaController controller = new MediaController(_mediaDomain.Object, null);
             Assert.Throws<MBlogException>(()=>controller.Create("title", "caption", "description", "alternate", (int) Media.ValidAllignments.Left, (int) Media.ValidSizes.Medium, null));
         }
 
@@ -36,7 +37,7 @@ namespace MBlogUnitTest.Controllers
             Mock<HttpPostedFileBase> fileBase = new Mock<HttpPostedFileBase>();
             fileBase.Setup(f => f.ContentLength).Returns(0);
 
-            MediaController controller = new MediaController(_mediaRepository.Object, null, null, null);
+            MediaController controller = new MediaController(_mediaDomain.Object, null);
             Assert.Throws<MBlogException>(() => controller.Create("title", "caption", "description", "alternate", (int) Media.ValidAllignments.Right, (int) Media.ValidSizes.Thumbnail, fileBase.Object));
         }
 
@@ -53,16 +54,7 @@ namespace MBlogUnitTest.Controllers
             const string fileName = "fileName";
             fileBase.Setup(s => s.FileName).Returns(fileName);
 
-            Media mediaToWrite = new Media { FileName = fileName, Title = "title", Caption = "caption", 
-                Description = "description", Alternate = "alternate", UserId = userId,
-                                             MimeType = "contentType",
-                                             Alignment = (int) Media.ValidAllignments.None,
-                                             Size = (int) Media.ValidSizes.Large,
-                                             MediumData = fileBytes
-            };
-            _mediaRepository.Setup(i => i.WriteMedia(mediaToWrite));
-
-            var controller = new MediaController(_mediaRepository.Object, null, null, null);
+            var controller = new MediaController(_mediaDomain.Object, null);
             
             SetControllerContext(controller);
             MockHttpContext.SetupProperty(h => h.User);
@@ -70,7 +62,7 @@ namespace MBlogUnitTest.Controllers
 
             controller.Create("title", "caption", "description", "alternate", (int) Media.ValidAllignments.Left, (int) Media.ValidSizes.Large, fileBase.Object);
 
-            _mediaRepository.Verify(i => i.WriteMedia(It.IsAny<Media>()), Times.Once());
+            _mediaDomain.Verify(i => i.WriteMedia(fileName, "title", "caption", "description", "alternate", userId, "contentType", (int) Media.ValidAllignments.Left, (int) Media.ValidSizes.Large, It.IsAny<Stream>(), It.IsAny<int>()), Times.Once());
         }
 
         [Test]
@@ -81,7 +73,7 @@ namespace MBlogUnitTest.Controllers
             fileBase.Setup(f => f.ContentLength).Returns(fileBytes.Length);
             fileBase.Setup(s => s.InputStream).Returns(new MemoryStream(fileBytes));
 
-            MediaController controller = new MediaController(_mediaRepository.Object, null, null, null);
+            MediaController controller = new MediaController(_mediaDomain.Object, null);
 
             SetControllerContext(controller);
             MockHttpContext.SetupProperty(h => h.User);
@@ -98,7 +90,7 @@ namespace MBlogUnitTest.Controllers
         {
             MockHttpContext.SetupProperty(h => h.User);
 
-            MediaController controller = new MediaController(_mediaRepository.Object, null, null, null);
+            MediaController controller = new MediaController(_mediaDomain.Object, null);
 
             var result = controller.New(new NewMediaViewModel{Nickname = "nickname", BlogId = 1});
             Assert.That(result, Is.TypeOf<ViewResult>());
@@ -107,7 +99,7 @@ namespace MBlogUnitTest.Controllers
         [Test]
         public void WhenUploadIsCalled_AndTheModelStateIsInvalid_ThenTheNewViewIsReturned()
         {
-            MediaController controller = new MediaController(_mediaRepository.Object, null, null, null);
+            MediaController controller = new MediaController(_mediaDomain.Object, null);
             NewMediaViewModel model = new NewMediaViewModel();
             controller.ViewData.ModelState.AddModelError("Key", "ErrorMessage"); 
             ViewResult result = (ViewResult)controller.Upload(model);
@@ -128,22 +120,7 @@ namespace MBlogUnitTest.Controllers
             const string fileName = "fileName";
             fileBase.Setup(s => s.FileName).Returns(fileName);
 
-            Media mediaToWrite = new Media
-            {
-                FileName = fileName,
-                Title = "",
-                Caption = "",
-                Description = "",
-                Alternate = "",
-                UserId = userId,
-                MimeType = "contentType",
-                Alignment = 0,
-                Size = 0,
-                MediumData = fileBytes
-            };
-            _mediaRepository.Setup(i => i.WriteMedia(mediaToWrite));
-
-            var controller = new MediaController(_mediaRepository.Object, null, null, null);
+            var controller = new MediaController(_mediaDomain.Object, null);
 
             SetControllerContext(controller);
             MockHttpContext.SetupProperty(h => h.User);
@@ -153,7 +130,7 @@ namespace MBlogUnitTest.Controllers
                 Alignment = (int)Media.ValidAllignments.Left, Size = (int)Media.ValidSizes.Large, File = fileBase.Object };
             controller.Upload(model);
 
-            _mediaRepository.Verify(i => i.WriteMedia(mediaToWrite), Times.Once());
+            _mediaDomain.Verify(i => i.WriteMedia(fileName, userId, "contentType", It.IsAny<Stream>(), It.IsAny<int>()), Times.Once());
         }
     }
 }

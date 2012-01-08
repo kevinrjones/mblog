@@ -3,16 +3,19 @@ using Logging;
 using MBlog.Filters;
 using MBlog.Models.Blog;
 using MBlog.Models.User;
+using MBlogDomainInterfaces;
 using MBlogModel;
-using MBlogRepository.Interfaces;
 
 namespace MBlog.Controllers
 {
     public class BlogController : BaseController
     {
-        public BlogController(IUserRepository userRepository, IBlogRepository blogRepository, ILogger logger)
-            : base(logger, userRepository, blogRepository)
+        private readonly IBlogDomain _blogDomain;
+
+        public BlogController(IBlogDomain blogDomain, ILogger logger)
+            : base(logger, null, null)
         {
+            _blogDomain = blogDomain;
         }
 
         [HttpGet]
@@ -35,14 +38,17 @@ namespace MBlog.Controllers
             {
                 return View("New", model);
             }
-            return CreateBlog(model);
+            var user = HttpContext.User as UserViewModel;
+            _blogDomain.CreateBlog(model.Title, model.Description, model.ApproveComments, model.CommentsEnabled,
+                                   model.Nickname, user.Id);
+            return RedirectToRoute(new { controller = "Dashboard", action = "Index" });
         }
 
         [HttpGet]
         [AuthorizeBlogOwner]
         public ActionResult Edit(CreateBlogViewModel model)
         {
-            Blog blog = BlogRepository.GetBlog(model.Nickname);
+            Blog blog = _blogDomain.GetBlog(model.Nickname);
             var modelOut = new CreateBlogViewModel(blog);
             return View(modelOut);
         }
@@ -55,27 +61,8 @@ namespace MBlog.Controllers
             {
                 return View("Edit", model);
             }
-            return UpdateBlog(model);
-        }
-
-        private ActionResult UpdateBlog(CreateBlogViewModel model)
-        {
-            Blog blog = BlogRepository.GetBlog(model.Nickname);
-
-            blog.ApproveComments = model.ApproveComments;
-            blog.CommentsEnabled = model.CommentsEnabled;
-            blog.Description = model.Description;
-            blog.Title = model.Title;
-            BlogRepository.Attach(blog);
-            return RedirectToRoute(new { controller = "Dashboard", action = "Index" });
-        }
-
-        private ActionResult CreateBlog(CreateBlogViewModel model)
-        {
-            var user = HttpContext.User as UserViewModel;
-            var blog = new Blog(model.Title, model.Description, model.ApproveComments, model.CommentsEnabled,
-                                model.Nickname, user.Id);
-            BlogRepository.Create(blog);
+            _blogDomain.UpdateBlog(model.Nickname, model.ApproveComments, model.CommentsEnabled, model.Description,
+                                   model.Title);
             return RedirectToRoute(new { controller = "Dashboard", action = "Index" });
         }
 

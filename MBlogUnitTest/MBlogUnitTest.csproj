@@ -79,7 +79,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Controllers\AdminControllerTest.cs" />
+    <Compile Include="Controllers\Admin\PostsControllerTest.cs" />
+    <Compile Include="Controllers\DashboardControllerTest.cs" />
     <Compile Include="Controllers\BaseControllerTests.cs" />
     <Compile Include="Controllers\BlogControllerTest.cs" />
     <Compile Include="Controllers\CommentControllerTest.cs" />
@@ -89,6 +90,10 @@
     <Compile Include="Controllers\HomeControllerTest.cs" />
     <Compile Include="Controllers\TestPostController.cs" />
     <Compile Include="Controllers\UserControllerTest.cs" />
+    <Compile Include="Domain\BlogDomainTest.cs" />
+    <Compile Include="Domain\DashboardDomainTest.cs" />
+    <Compile Include="Domain\PostDomainTest.cs" />
+    <Compile Include="Domain\SyndicationFeedDomainTest.cs" />
     <Compile Include="Domain\UserDomainTest.cs" />
     <Compile Include="Filters\AuthorizeBlogOwnerAttributeTest.cs" />
     <Compile Include="Filters\AuthorizeLoggedInUserAttributeTest.cs" />

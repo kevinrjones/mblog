@@ -5,6 +5,7 @@ using System.Web.Mvc;
 using Logging;
 using MBlog.Filters;
 using MBlog.Models.Post;
+using MBlogDomainInterfaces;
 using MBlogModel;
 using MBlogRepository.Interfaces;
 
@@ -13,19 +14,19 @@ namespace MBlog.Controllers
     // todo: get all comments and hide them
     public class PostController : BaseController
     {
-        private readonly IPostRepository _postRepository;
+        private readonly IPostDomain _postDomain;
+        private readonly IDashboardDomain _dashboardDomain;
 
-        public PostController(IBlogRepository blogRepository, IPostRepository postRepository,
-                              IUserRepository userRepository, ILogger logger)
-            : base(logger, userRepository, blogRepository)
+        public PostController(IPostDomain postDomain, IDashboardDomain dashboardDomain, ILogger logger) : base(logger, null, null)
         {
-            _postRepository = postRepository;
+            _postDomain = postDomain;
+            _dashboardDomain = dashboardDomain;
         }
 
         public ActionResult Index(string nickname)
         {
             var postsViewModel = new PostsViewModel{Nickname = nickname};
-            IList<Post> posts = _postRepository.GetBlogPosts(nickname);
+            IList<Post> posts = _postDomain.GetBlogPosts(nickname);
             postsViewModel.AddPosts(posts);
             return View(postsViewModel);
         }
@@ -53,7 +54,7 @@ namespace MBlog.Controllers
         [AuthorizeBlogOwner]
         public ActionResult Edit(string nickname, int blogId, int postId)
         {
-            Post post = _postRepository.GetBlogPost(postId);
+            Post post = _postDomain.GetBlogPost(postId);
             return View(new EditPostViewModel {BlogId = blogId, PostId = postId, Title = post.Title, Post = post.BlogPost});
         }
 
@@ -73,13 +74,14 @@ namespace MBlog.Controllers
         [AuthorizeBlogOwner]
         public ActionResult Delete(EditPostViewModel model)
         {
+            // todo: delete posts
             return RedirectToRoute(new { controller = "Dashboard", action = "Index" });
         }
 
         public ActionResult Show(PostLinkViewModel postLinkViewModel)
         {
             var postsViewModel = new PostsViewModel{Nickname = postLinkViewModel.Nickname};
-            IList<Post> posts = _postRepository.GetBlogPosts(postLinkViewModel.Year, postLinkViewModel.Month,
+            IList<Post> posts = _postDomain.GetBlogPosts(postLinkViewModel.Year, postLinkViewModel.Month,
                                                                  postLinkViewModel.Day, postLinkViewModel.Nickname,
                                                                  postLinkViewModel.Link);
 
@@ -105,15 +107,13 @@ namespace MBlog.Controllers
                                CommentsEnabled = true,
                                //todo: get this from the admin
                            };
-            _postRepository.Create(post);
-            BlogRepository.UpdateBlog(model.BlogId);
+            _dashboardDomain.CreatePost(post, model.BlogId);
             return RedirectToRoute(new { controller = "Dashboard", action = "Index" });
         }
 
         private ActionResult UpdatePost(EditPostViewModel model)
         {
-            _postRepository.Update(model.PostId, model.Title, model.Post);
-            BlogRepository.UpdateBlog(model.BlogId);
+            _dashboardDomain.Update(model.PostId, model.Title, model.Post, model.BlogId);
             return RedirectToRoute(new { controller = "Dashboard", action = "Index" });
         }
 

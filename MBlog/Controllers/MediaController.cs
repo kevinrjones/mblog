@@ -7,6 +7,7 @@ using Logging;
 using MBlog.Filters;
 using MBlog.Models.Media;
 using MBlog.Models.User;
+using MBlogDomainInterfaces;
 using MBlogModel;
 using MBlogRepository.Interfaces;
 
@@ -14,12 +15,12 @@ namespace MBlog.Controllers
 {
     public class MediaController : BaseController
     {
-        private readonly IMediaRepository _mediaRepository;
+        private IMediaDomain _mediaDomain;
 
-        public MediaController(IMediaRepository mediaRepository, IBlogRepository blogRepository, IUserRepository userRepository, ILogger logger)
-            : base(logger, userRepository, blogRepository)
+        public MediaController(IMediaDomain mediaDomain, ILogger logger)
+            : base(logger, null, null)
         {
-            _mediaRepository = mediaRepository;
+            _mediaDomain = mediaDomain;
         }
 
         [HttpGet]
@@ -31,7 +32,7 @@ namespace MBlog.Controllers
         [HttpGet]
         public FileResult Show(int year, int month, int day, string fileName)
         {
-            Media img = _mediaRepository.GetMedia(year, month, day, fileName);
+            Media img = _mediaDomain.GetMedia(year, month, day, fileName);
             return new FileContentResult(img.MediumData, img.MimeType);
         }
 
@@ -52,13 +53,9 @@ namespace MBlog.Controllers
             HttpPostedFileBase file = model.File;
             if (file != null && file.ContentLength > 0)
             {
-                UserViewModel user = (UserViewModel)HttpContext.User;
-                byte[] bytes = new byte[file.ContentLength];
-                file.InputStream.Read(bytes, 0, file.ContentLength);
+                var user = (UserViewModel)HttpContext.User;
 
-                // todo: url?                
-                Media img = new Media(file.FileName, user.Id, file.ContentType, bytes);
-                _mediaRepository.WriteMedia(img);
+                _mediaDomain.WriteMedia(file.FileName, user.Id, file.ContentType, file.InputStream, file.ContentLength);
                 return RedirectToAction("new");
             }
 
@@ -71,14 +68,10 @@ namespace MBlog.Controllers
         {
             if (file != null && file.ContentLength > 0)
             {
-                UserViewModel user = (UserViewModel)HttpContext.User;
-                byte[] bytes = new byte[file.ContentLength];
-                file.InputStream.Read(bytes, 0, file.ContentLength);
+                var user = (UserViewModel)HttpContext.User;
 
-                // todo: url?                
-                Media img = new Media(file.FileName, title, caption, description,
-                    alternate, user.Id, file.ContentType, alignment, size, bytes);
-                _mediaRepository.WriteMedia(img);
+                _mediaDomain.WriteMedia(file.FileName, title, caption, description,
+                    alternate, user.Id, file.ContentType, alignment, size, file.InputStream, file.ContentLength);
                 return RedirectToRoute("new");
             }
             throw new MBlogException("Invalid File");

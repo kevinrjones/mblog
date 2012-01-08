@@ -33,6 +33,8 @@
   <ItemGroup>
     <Reference Include="System" />
     <Reference Include="System.Core" />
+    <Reference Include="System.ServiceModel" />
+    <Reference Include="System.ServiceModel.Web" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -40,7 +42,12 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="BlogDomain.cs" />
+    <Compile Include="DashboardDomain.cs" />
+    <Compile Include="MediaDomain.cs" />
+    <Compile Include="PostDomain.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="SyndicationFeedDomain.cs" />
     <Compile Include="UserDomain.cs" />
   </ItemGroup>
   <ItemGroup>

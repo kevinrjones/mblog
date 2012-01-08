@@ -27,9 +27,6 @@ namespace MBlog.Controllers
             BlogRepository = blogRepository;
         }
 
-        //public BaseController(IUserRepository userRepository, IBlogRepository blogRepository) : this (new NLogService(), userRepository, blogRepository)
-        //{ }
-
         protected override void OnException(ExceptionContext filterContext)
         {
             // Bail if we can't do anything; app will crash.

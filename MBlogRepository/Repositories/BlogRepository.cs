@@ -22,7 +22,7 @@ namespace MBlogRepository.Repositories
                    select b).FirstOrDefault();
         }
 
-        public void UpdateBlog(int blogId)
+        public void ChangeBlogLastupdateDate(int blogId)
         {
             Blog blog = (from b in Entities
                          where b.Id == blogId

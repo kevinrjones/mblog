@@ -5,6 +5,7 @@ using MBlog.Filters;
 using MBlog.Models.Admin;
 using MBlog.Models.Post;
 using MBlog.Models.User;
+using MBlogDomainInterfaces;
 using MBlogModel;
 using MBlogRepository.Interfaces;
 
@@ -12,32 +13,32 @@ namespace MBlog.Controllers
 {
     public class DashboardController : BaseController
     {
-        private readonly IPostRepository _postRepository;
+        private IPostDomain _postDomain;
+        private readonly IUserDomain _userDomain;
 
-        public DashboardController(IUserRepository userRepository, IPostRepository postRepository,
-                               IBlogRepository blogRepository, ILogger logger)
-            : base(logger, userRepository, blogRepository)
+        public DashboardController(IPostDomain postDomain, IUserDomain userDomain, ILogger logger)
+            : base(logger, null, null)
         {
-            _postRepository = postRepository;
+            _postDomain = postDomain;
+            _userDomain = userDomain;
         }
 
         [AuthorizeLoggedInUser]
         public ActionResult Index()
         {
-            var user = HttpContext.User as UserViewModel;
+            var userViewModel = HttpContext.User as UserViewModel;
 
-            User users = UserRepository.GetUserWithTheirBlogs(user.Id);
-            var adminUserViewModel = new AdminUserViewModel {Name = user.Name, UserId = user.Id};
-            adminUserViewModel.AddBlogs(users.Blogs);
+            User user = _userDomain.GetUserWithTheirBlogs(userViewModel.Id);
+
+            var adminUserViewModel = new AdminUserViewModel(userViewModel.Name, userViewModel.Id, user.Blogs);
             return View(adminUserViewModel);
         }
 
         [AuthorizeBlogOwner]
         public ActionResult ListPosts(AdminBlogViewModel model)
         {
-            var posts = _postRepository.GetOrderedBlogPosts(model.BlogId);
-            var postsViewModel = new PostsViewModel {BlogId = model.BlogId, Nickname = model.Nickname};
-            postsViewModel.AddPosts(posts);
+            IList<Post> posts = _postDomain.GetOrderedBlogPosts(model.BlogId);
+            var postsViewModel = new PostsViewModel (model.BlogId, model.Nickname, posts);
             return View(postsViewModel);
         }
     }

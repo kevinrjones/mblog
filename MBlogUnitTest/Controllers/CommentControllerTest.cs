@@ -5,6 +5,7 @@ using System.Text;
 using System.Web.Mvc;
 using MBlog.Controllers;
 using MBlog.Models.Comment;
+using MBlogDomainInterfaces;
 using MBlogRepository.Interfaces;
 using Moq;
 using NUnit.Framework;
@@ -14,15 +15,15 @@ namespace MBlogUnitTest.Controllers
     [TestFixture]
     public class CommentControllerTest : BaseControllerTests
     {
-        private Mock<IPostRepository> _postUserRepository;
+        private Mock<IPostDomain> _postDomain;
         private CommentController _controller;
         private string _expectedRefererUrl = "value";
 
         [SetUp]
         public void SetUp()
         {
-            _postUserRepository = new Mock<IPostRepository>();
-            _controller = new CommentController(_postUserRepository.Object, null, null, null);
+            _postDomain = new Mock<IPostDomain>();
+            _controller = new CommentController(_postDomain.Object, null);
             var headers = new FormCollection();
             headers.Add("Referer", _expectedRefererUrl);
             MockRequest.Setup(r => r.Headers).Returns(headers);
@@ -36,9 +37,8 @@ namespace MBlogUnitTest.Controllers
             string name = "Name";
             string comment = "Comment";
 
-            _postUserRepository.Setup(p => p.AddComment(1, name, comment)).Verifiable();
             _controller.Create(new AddCommentViewModel(1, true){Name = name, Comment = comment});
-            _postUserRepository.Verify(p => p.AddComment(1, name, comment));
+            _postDomain.Verify(p => p.AddComment(1, name, comment));
         }
 
         [Test]
@@ -47,7 +47,6 @@ namespace MBlogUnitTest.Controllers
             string name = "Name";
             string comment = "Comment";
 
-            _postUserRepository.Setup(p => p.AddComment(1, name, comment)).Verifiable();
             _controller.ModelState.AddModelError("Name", "Name error");
             _controller.Create(new AddCommentViewModel(1, true) { Name = name, Comment = comment });
             Assert.That(_controller.TempData, Is.Not.Null);
@@ -60,10 +59,9 @@ namespace MBlogUnitTest.Controllers
             string name = "Name";
             string comment = "Comment";
 
-            _postUserRepository.Setup(p => p.AddComment(1, name, comment)).Verifiable();
             RedirectResult result = (RedirectResult) _controller.Create(new AddCommentViewModel(1, true) { Name = name, Comment = comment });
             Assert.That(result.Url, Is.EqualTo(_expectedRefererUrl));
-                
+            _postDomain.Verify(p => p.AddComment(1, name, comment));                
         }
     }
 }

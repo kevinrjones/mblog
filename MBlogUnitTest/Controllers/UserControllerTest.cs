@@ -18,16 +18,12 @@ namespace MBlogUnitTest.Controllers
     class UserControllerTest : BaseControllerTests
     {
         UserController _controller;
-        //private Mock<IUserRepository> _userRepository;
-        //private Mock<IUsernameBlacklistRepository> _usernameBlacklistRepository;
         private Mock<IUserDomain> _userDomain;
         [SetUp]
         public void Setup()
         {
-            //_userRepository = new Mock<IUserRepository>();
-            //_usernameBlacklistRepository = new Mock<IUsernameBlacklistRepository>();
             _userDomain = new Mock<IUserDomain>();
-            _controller = new UserController(_userDomain.Object);
+            _controller = new UserController(_userDomain.Object, null);
 
             SetControllerContext(_controller);
         }

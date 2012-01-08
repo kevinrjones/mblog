@@ -54,13 +54,13 @@ namespace MBlogDomain
             {
                 var errorDetails = new List<ErrorDetails>();
                 User user = GetUser(email);
-                if (user == null)
+                if (user != null)
                 {
                     errorDetails.Add(new ErrorDetails { FieldName = "EMail", Message = "EMail already exists in database" });
                 }
 
                 Blacklist blacklist = _usernameBlacklistRepository.GetName(name);
-                if (blacklist == null)
+                if (blacklist != null)
                 {
                     errorDetails.Add(new ErrorDetails { FieldName = "Name", Message = "That user name is reserved" });
                 }
@@ -70,6 +70,30 @@ namespace MBlogDomain
             {
 
                 throw new MBlogException("Unable to access repository", e);
+            }
+        }
+
+        public User GetUserWithTheirBlogs(int id)
+        {
+            try
+            {
+                return _userRepository.GetUserWithTheirBlogs(id);
+            }
+            catch (Exception e)
+            {
+                throw new MBlogException("Unable to retrieve user and blogs", e);
+            }            
+        }
+
+        public IEnumerable<User> GetUsersWithTheirBlogs()
+        {
+            try
+            {
+                return _userRepository.GetUsersWithTheirBlogs();
+            }
+            catch (Exception e)
+            {
+                throw new MBlogException("Unable to retrieve users and blogs", e);
             }
         }
     }

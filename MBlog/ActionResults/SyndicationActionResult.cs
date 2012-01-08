@@ -6,32 +6,24 @@ namespace MBlog.ActionResults
 {
     public class SyndicationActionResult : ActionResult
     {
-//        public SyndicationActionResult() { }
-        public SyndicationActionResult(SyndicationFeed feed, Func<SyndicationFeed, FeedData> produceFeedData)
-        {
-            _produceFeedData = produceFeedData;
-            Feed = feed;
-        }
+        public FeedData FeedData { get; set; }
 
-        public SyndicationFeed Feed { get; set; }
-        private Func<SyndicationFeed, FeedData> _produceFeedData = delegate { return null; };
-        public Func<SyndicationFeed, FeedData> ProduceFeedData
+        public SyndicationActionResult(FeedData feedData)
         {
-            private get { return _produceFeedData; }
-            set { _produceFeedData = value; }
+            FeedData = feedData;
         }
 
         public override void ExecuteResult(ControllerContext context)
         {
             var response = context.HttpContext.Response;
-            var data = ProduceFeedData(Feed);
-            if (data != null)
+            
+            if (FeedData != null)
             {
-                response.ContentType = data.ContentType;
+                response.ContentType = FeedData.ContentType;
                 response.AppendHeader("Cache-Control", "private");
-                response.AppendHeader("Last-Modified", data.LastModifiedDate.ToString("r"));
-                response.AppendHeader("ETag", String.Format("\"{0}\"", data.ETag));
-                response.Output.WriteLine(data.Content);
+                response.AppendHeader("Last-Modified", FeedData.LastModifiedDate.ToString("r"));
+                response.AppendHeader("ETag", String.Format("\"{0}\"", FeedData.ETag));
+                response.Output.WriteLine(FeedData.Content);
                 response.StatusCode = 200;
                 response.StatusDescription = "OK";
             }

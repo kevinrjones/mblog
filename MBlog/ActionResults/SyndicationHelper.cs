@@ -16,7 +16,7 @@ namespace MBlog.ActionResults
             return GetFeed(feed, "application/rss+xml", rssFormatter.WriteTo);
         }
 
-        public static FeedData GetAtomFeed(SyndicationFeed feed)
+        public static FeedData GetAtomFeed(this SyndicationFeed feed)
         {
             var atom10FeedFormatter = new Atom10FeedFormatter(feed);
             return GetFeed(feed, "application/atom+xml", atom10FeedFormatter.WriteTo);
@@ -25,7 +25,7 @@ namespace MBlog.ActionResults
         private static FeedData GetFeed(SyndicationFeed feed, string contentType, WriteTo writeTo)
         {
             var feedData = new FeedData { ContentType = contentType };
-            if (feed.Items.Count() > 0)
+            if (feed.Items.Any())
             {
                 var item = (from syndicationItem in feed.Items
                             orderby syndicationItem.PublishDate descending

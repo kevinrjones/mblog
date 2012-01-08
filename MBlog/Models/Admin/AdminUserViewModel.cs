@@ -5,8 +5,24 @@ namespace MBlog.Models.Admin
     public class AdminUserViewModel
     {
         private List<AdminBlogViewModel> _blogs = new List<AdminBlogViewModel>();
+
+        public AdminUserViewModel()
+        {
+            
+        }
+
+
+        public AdminUserViewModel(string name, int userId, ICollection<MBlogModel.Blog> blogs) : this()
+        {
+            Name = name;
+            UserId = userId;
+            AddBlogs(blogs);
+        }
+
         public int UserId { get; set; }
         public string Name { get; set; }
+
+
 
         public List<AdminBlogViewModel> Blogs
         {
@@ -14,7 +30,7 @@ namespace MBlog.Models.Admin
             set { _blogs = value; }
         }
 
-        public void AddBlogs(ICollection<MBlogModel.Blog> blogs)
+        private void AddBlogs(ICollection<MBlogModel.Blog> blogs)
         {
             foreach (MBlogModel.Blog blog in blogs)
             {
