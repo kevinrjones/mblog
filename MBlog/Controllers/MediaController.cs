@@ -69,12 +69,10 @@ namespace MBlog.Controllers
                     fileName = model.QqFile;
                 }
 
-                _mediaDomain.WriteMedia(file.FileName, user.Id, file.ContentType, file.InputStream, file.ContentLength);
                 if (contentLength != 0)
                 {
-                    var media = new Media(fileName, model.BlogId, model.ContentType, inputStream, contentLength);
-                    _mediaRepository.WriteMedia(media);
-                    result = new MediaCreateJsonResponse { success = true, url = media.Url };
+                    var url = _mediaDomain.WriteMedia(fileName, user.Id, model.ContentType, inputStream, contentLength);
+                    result = new MediaCreateJsonResponse { success = true, url = url };
                 }
             }
             catch (Exception e)
@@ -91,12 +89,14 @@ namespace MBlog.Controllers
         {
             if (!ModelState.IsValid)
                 return View("new", model);
+
+            var file = model.File;
             if (file != null && file.ContentLength > 0)
             {
                 var user = (UserViewModel)HttpContext.User;
 
-                _mediaDomain.WriteMedia(file.FileName, title, caption, description,
-                    alternate, user.Id, file.ContentType, alignment, size, file.InputStream, file.ContentLength);
+                _mediaDomain.WriteMedia(file.FileName, model.Title, model.Caption, model.Description,
+                    model.Alternate, user.Id, file.ContentType, model.Alignment, model.Size, file.InputStream, file.ContentLength);
                 return RedirectToRoute("new");
             }
             throw new MBlogException("Invalid File");

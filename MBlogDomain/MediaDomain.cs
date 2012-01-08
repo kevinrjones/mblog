@@ -30,14 +30,15 @@ namespace MBlogDomain
             }
         }
 
-        public void WriteMedia(string fileName, int userId, string contentType, Stream inputStream, int contentLength)
+        public string WriteMedia(string fileName, int userId, string contentType, Stream inputStream, int contentLength)
         {
-            var bytes = ReadBytes(inputStream, contentLength);
+            string url = "";
 
-            var img = new Media(fileName, userId, contentType, bytes);
+            var img = new Media(fileName, userId, contentType, inputStream, contentLength);
             try
             {
                 _mediaRepository.WriteMedia(img);
+                return url;
             }
             catch (Exception e)
             {
