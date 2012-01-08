@@ -33,6 +33,19 @@ namespace MBlogDomain
             }
         }
 
+        public User GetUser(int id)
+        {
+            try
+            {
+                return _userRepository.GetUser(id);
+            }
+            catch (Exception e)
+            {
+                throw new MBlogException("Unable to retrieve user", e);
+            }
+            
+        }
+
         public User CreateUser(string name, string email, string password)
         {
             try
