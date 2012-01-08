@@ -4,7 +4,6 @@ using MBlog.Controllers;
 using MBlog.Models.User;
 using MBlogDomainInterfaces;
 using MBlogModel;
-using MBlogRepository.Interfaces;
 using Microsoft.Practices.Unity;
 
 namespace MBlog.Filters

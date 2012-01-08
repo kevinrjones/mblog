@@ -23,8 +23,8 @@ namespace MBlogUnitTest.Filters
         private GetCookieUserFilterAttribute _attribute;
         [SetUp]
         public void SetUp()
-        {           
-            List<Blog> blogs = new List<Blog> { new Blog { Nickname = Nickname } };
+        {
+            var blogs = new List<Blog> { new Blog { Nickname = Nickname } };
 
             var user = new User("Name", "EMail", "Password", false);
             user.Blogs = blogs;
@@ -46,8 +46,7 @@ namespace MBlogUnitTest.Filters
             HttpContextBase httpContextBase = _mockHttpContext.Object;
 
             // _userRepository
-            ControllerContext controllerContext =
-            new ControllerContext(httpContextBase,
+            var controllerContext = new ControllerContext(httpContextBase,
                                   new RouteData(),
                                   new BaseController(null));
 
@@ -98,7 +97,7 @@ namespace MBlogUnitTest.Filters
             _attribute.OnAuthorization(_actionExecutingContext);
 
             Assert.That(_mockHttpContext.Object.User, Is.Not.Null);
-            Assert.That(_mockHttpContext.Object.User.Identity.IsAuthenticated, Is.False);                
+            Assert.That(_mockHttpContext.Object.User.Identity.IsAuthenticated, Is.False);
         }
 
         [Test]
@@ -107,8 +106,8 @@ namespace MBlogUnitTest.Filters
             _mockHttpContext.Setup(h => h.Request).Returns(new FakeRequestWithValidUserId());
 
             _attribute.OnAuthorization(_actionExecutingContext);
-            UserViewModel userViewModel = (UserViewModel) _mockHttpContext.Object.User;
-            
+            UserViewModel userViewModel = (UserViewModel)_mockHttpContext.Object.User;
+
             Assert.That(userViewModel.Nicknames.Count, Is.GreaterThan(0));
             Assert.That(userViewModel.IsBlogOwner(Nickname), Is.True);
         }
@@ -117,7 +116,7 @@ namespace MBlogUnitTest.Filters
         public void GetNoNicknamesWhenNotLoggedIn()
         {
             _mockHttpContext.Setup(h => h.Request).Returns(new FakeRequestWithInvalidUserId());
-            
+
 
             _attribute.OnAuthorization(_actionExecutingContext);
             UserViewModel userViewModel = (UserViewModel)_mockHttpContext.Object.User;

@@ -2,14 +2,11 @@
 using System.Security.Cryptography;
 using System.Web;
 using System.Web.Mvc;
-using Elmah;
 using MBlog.Controllers;
 using MBlog.Infrastructure;
-using MBlog.Logging;
 using MBlog.Models.User;
 using MBlogDomainInterfaces;
 using MBlogModel;
-using MBlogRepository.Interfaces;
 using Microsoft.Practices.Unity;
 
 namespace MBlog.Filters
