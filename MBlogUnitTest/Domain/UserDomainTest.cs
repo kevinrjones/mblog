@@ -35,7 +35,7 @@ namespace MBlogUnitTest.Domain
         }
 
         [Test]
-        public void GivenAnInvalidEmail_WhenAUserIsRequested_ThenTheUserIsReturned()
+        public void GivenAnInvalidEmail_WhenAUserIsRequested_ThenNoUserIsReturned()
         {
             _userRepository.Setup(u => u.GetUser(_email)).Returns(new User());
             User user = _userDomain.GetUser(_email);
@@ -48,6 +48,22 @@ namespace MBlogUnitTest.Domain
         {
             _userRepository.Setup(u => u.GetUser(It.IsAny<string>())).Throws<Exception>();
             Assert.Throws<MBlogException>(() => _userDomain.GetUser(It.IsAny<string>()));
+        }
+
+        [Test]
+        public void GivenAValidId_WhenAUserIsRequested_ThenTheUserIsReturned()
+        {
+            _userRepository.Setup(u => u.GetUser(1)).Returns(new User { Email = _email });
+            User user = _userDomain.GetUser(1);
+            Assert.That(user, Is.Not.Null);
+            Assert.That(user.Email, Is.EqualTo(_email));
+        }
+
+        [Test]
+        public void GivenAnId_WhenTheRepositoryThrowsAnException_ThenAnMBlogExceptionIsReThrown()
+        {
+            _userRepository.Setup(u => u.GetUser(It.IsAny<int>())).Throws<Exception>();
+            Assert.Throws<MBlogException>(() => _userDomain.GetUser(It.IsAny<int>()));
         }
 
         [Test]
