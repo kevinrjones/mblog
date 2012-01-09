@@ -71,8 +71,19 @@ namespace MBlog.Controllers
 
                 if (contentLength != 0)
                 {
-                    var url = _mediaDomain.WriteMedia(fileName, user.Id, model.ContentType, inputStream, contentLength);
-                    result = new MediaCreateJsonResponse { success = true, url = url };
+                    string url = string.Empty;
+                    var success = true;
+                    string message = "Created successfully";
+                    try
+                    {
+                        url = _mediaDomain.WriteMedia(fileName, user.Id, model.ContentType, inputStream, contentLength);
+                    }
+                    catch (MBlogInsertItemException e)
+                    {
+                        success = false;
+                        message = e.Message;
+                    }
+                    result = new MediaCreateJsonResponse { success = success, url = url, message = message };
                 }
             }
             catch (Exception e)

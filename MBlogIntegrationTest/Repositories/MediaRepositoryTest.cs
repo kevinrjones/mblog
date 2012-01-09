@@ -21,7 +21,7 @@ namespace MBlogIntegrationTest.Repositories
         private const string Media = "../../Repositories/Media/image.png";
         private byte[] _mediaData;
         private User _user;
-        private FileStream _str;
+        private FileStream _fileStream;
         private TransactionScope _transactionScope;
         private UserRepository _userRepository;
 
@@ -31,10 +31,10 @@ namespace MBlogIntegrationTest.Repositories
             _transactionScope = new TransactionScope();
             _mediaRepository = new MediaRepository(ConfigurationManager.ConnectionStrings["testdb"].ConnectionString);
             
-            _str = File.Open(Media, FileMode.Open);
+            _fileStream = File.Open(Media, FileMode.Open);
 
-            _mediaData = new byte[_str.Length];
-            _str.Read(_mediaData, 0, _mediaData.Length);
+            _mediaData = new byte[_fileStream.Length];
+            _fileStream.Read(_mediaData, 0, _mediaData.Length);
 
             _user = BuildMeA.User("email", "name", "password");
 
@@ -49,8 +49,8 @@ namespace MBlogIntegrationTest.Repositories
                     connection.Open();
                     cmd.CommandText =
                         "INSERT INTO [Media]([title],[file_name" +
-                        "], [year], [month], [day],[mime_type],[alignment],[size],[user_id],[medium])" +
-                                      "VALUES(@title, @file_name,  @year,  @month,  @day, @mime_type, @alignment, @size, @user_id, @media)";
+                        "], [year], [month], [day],[mime_type],[alignment],[size],[user_id],[bytes])" +
+                                      "VALUES(@title, @file_name,  @year,  @month,  @day, @mime_type, @alignment, @size, @user_id, @bytes)";
                     cmd.Parameters.AddWithValue("@title", "TestImage");
                     cmd.Parameters.AddWithValue("@file_name", "file_name");
                     cmd.Parameters.AddWithValue("@year", 2012);
@@ -60,7 +60,7 @@ namespace MBlogIntegrationTest.Repositories
                     cmd.Parameters.AddWithValue("@alignment", 1);
                     cmd.Parameters.AddWithValue("@size", 1);
                     cmd.Parameters.AddWithValue("@user_id", _user.Id);
-                    cmd.Parameters.AddWithValue("@media", _mediaData);
+                    cmd.Parameters.AddWithValue("@bytes", _mediaData);
 
                     cmd.ExecuteNonQuery();
                 }
@@ -70,7 +70,7 @@ namespace MBlogIntegrationTest.Repositories
         [Test]
         public void WhenIAddAMediumToTheDatabase_ThenICanRetrieveTheMediumByUrlAndFilename()
         {
-            Media retrievedMedia = _mediaRepository.GetMedia(2012, 12, 18, "file_name");
+            Media retrievedMedia = _mediaRepository.GetMedia(2012, 12, 18, "TestImage");
             Assert.That(_mediaData, Is.EquivalentTo(retrievedMedia.Data));
         }
 
@@ -88,7 +88,7 @@ namespace MBlogIntegrationTest.Repositories
         public void TearDown()
         {
             _transactionScope.Dispose();
-            _str.Close();
+            _fileStream.Close();
         }
 
     }

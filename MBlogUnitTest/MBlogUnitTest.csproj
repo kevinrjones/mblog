@@ -96,6 +96,7 @@
     <Compile Include="Controllers\UserControllerTest.cs" />
     <Compile Include="Domain\BlogDomainTest.cs" />
     <Compile Include="Domain\DashboardDomainTest.cs" />
+    <Compile Include="Domain\MediaDomainTest.cs" />
     <Compile Include="Domain\PostDomainTest.cs" />
     <Compile Include="Domain\SyndicationFeedDomainTest.cs" />
     <Compile Include="Domain\UserDomainTest.cs" />

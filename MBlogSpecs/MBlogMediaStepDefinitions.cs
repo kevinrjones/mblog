@@ -40,19 +40,19 @@ namespace MBlogSpecs
                 {
                     connection.Open();
                     cmd.CommandText =
-                        "INSERT INTO [images]([title],[file_name" +
-                        "], [year], [month], [day],[mime_type],[alignment],[size],[user_id],[image])" +
-                                      "VALUES(@title, @file_name,  @year,  @month,  @day, @mime_type, @alignment, @size, @user_id, @image)";
+                        "INSERT INTO [Media]([title],[file_name" +
+                        "], [year], [month], [day],[mime_type],[alignment],[size],[user_id],[bytes])" +
+                                      "VALUES(@title, @file_name,  @year,  @month,  @day, @mime_type, @alignment, @size, @user_id, @bytes)";
                     cmd.Parameters.AddWithValue("@title", "TestImage");
                     cmd.Parameters.AddWithValue("@file_name", "file_name");
                     cmd.Parameters.AddWithValue("@year", 2012);
                     cmd.Parameters.AddWithValue("@month", 12);
                     cmd.Parameters.AddWithValue("@day", 18);
                     cmd.Parameters.AddWithValue("@mime_type", "mime");
-                    cmd.Parameters.AddWithValue("@alignment", "align");
+                    cmd.Parameters.AddWithValue("@alignment", 1);
                     cmd.Parameters.AddWithValue("@size", 1);
                     cmd.Parameters.AddWithValue("@user_id", user.Id);
-                    cmd.Parameters.AddWithValue("@image", _imageData);
+                    cmd.Parameters.AddWithValue("@bytes", _imageData);
 
                     cmd.ExecuteNonQuery();
                 }
@@ -67,7 +67,8 @@ namespace MBlogSpecs
                 using (SqlCommand cmd = connection.CreateCommand())
                 {
                     connection.Open();
-                    cmd.CommandText = "delete all";
+                    cmd.CommandText = "delete media; delete users; ";
+                    cmd.ExecuteNonQuery();
                 }
             }
         }
@@ -75,10 +76,10 @@ namespace MBlogSpecs
         [Given(@"An image in the database")]
         public void GivenAnImageInTheDatabase()
         {
-            RemoteWebDriver driver = new RemoteWebDriver(new Uri("http://localhost/mblog_test/image/2011/12/12/test.jpg"), DesiredCapabilities.HtmlUnitWithJavaScript());
+            //RemoteWebDriver driver = new RemoteWebDriver(new Uri("http://localhost/mblog_test/media/2011/12/12/test.jpg"), DesiredCapabilities.HtmlUnitWithJavaScript());
 
             // Find the text input element by its name
-            driver.Navigate();
+            //driver.Navigate();
 
             // Enter something to search for
             // IWebElement element = driver.FindElement(By.Id(""));

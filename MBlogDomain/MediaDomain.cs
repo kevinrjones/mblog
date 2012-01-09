@@ -32,13 +32,21 @@ namespace MBlogDomain
 
         public string WriteMedia(string fileName, int userId, string contentType, Stream inputStream, int contentLength)
         {
-            string url = "";
-
-            var img = new Media(fileName, userId, contentType, inputStream, contentLength);
+            var mediaToCreate = new Media(fileName, userId, contentType, inputStream, contentLength);
             try
             {
-                _mediaRepository.WriteMedia(img);
-                return url;
+                var media = _mediaRepository.GetMedia(mediaToCreate.Year, mediaToCreate.Month, mediaToCreate.Day, mediaToCreate.FileName);
+                if (media != null)
+                {
+                    _mediaRepository.WriteMedia(mediaToCreate);
+                    return string.Format("{0}/{1}/{2}/{3}", mediaToCreate.Year, mediaToCreate.Month, mediaToCreate.Day,
+                                         mediaToCreate.FileName);
+                }
+                throw new MBlogInsertItemException("Unable to add item. This item already exists in the database");
+            }
+            catch (MBlogInsertItemException)
+            {
+                throw;
             }
             catch (Exception e)
             {
@@ -51,10 +59,10 @@ namespace MBlogDomain
             var bytes = ReadBytes(inputStream, contentLength);
 
             // todo: url?                
-            var img = new Media(fileName, caption, caption, description, alternate, id, contentType, alignment, size, bytes);
+            var media = new Media(fileName, title, caption, description, alternate, id, contentType, alignment, size, bytes);
             try
             {
-                _mediaRepository.WriteMedia(img);
+                _mediaRepository.WriteMedia(media);
             }
             catch (Exception e)
             {
