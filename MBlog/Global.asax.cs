@@ -4,6 +4,7 @@ using System.Web.Mvc;
 using System.Web.Routing;
 using IoC;
 using Logging;
+using MBlog.Controllers;
 using MBlog.Infrastructure;
 using MBlogDomain;
 using MBlogDomainInterfaces;
@@ -135,7 +136,7 @@ namespace MBlog
 
             routes.MapRoute(
                 "Media-show",
-                "media/{year}/{month}/{day}/{fileName}",
+                "media/{year}/{month}/{day}/{title}",
                 new { controller = "media", action = "Show"}
                 );
 
@@ -303,26 +304,48 @@ namespace MBlog
                 .Configure();
         }
 
+        //private IUnityContainer GetUnityContainer()
+        //{
+        //    InjectionConstructor ctor = new InjectionConstructor(ConfigurationManager.ConnectionStrings["mblog"].ConnectionString);
+        //    IUnityContainer container = new UnityContainer()
+        //        .RegisterType<IUserRepository, UserRepository>(ctor)
+        //        .RegisterType<IPostRepository, PostRepository>(ctor)
+        //        .RegisterType<IBlogRepository, BlogRepository>(ctor)
+        //        .RegisterType<IUsernameBlacklistRepository, UsernameBlacklistRepository>(ctor)
+        //        .RegisterType<INicknameBlacklistRepository, NicknameBlacklistRepository>(ctor)
+        //        .RegisterType<IMediaRepository, MediaRepository>(ctor)
+        //        .RegisterType<IUserDomain, UserDomain>()
+        //        .RegisterType<IBlogDomain, BlogDomain>()
+        //        .RegisterType<IDashboardDomain, DashboardDomain>()
+        //        .RegisterType<IMediaDomain, MediaDomain>()
+        //        .RegisterType<IPostDomain, PostDomain>()
+        //        .RegisterType<ISyndicationFeedDomain, SyndicationFeedDomain>()
+        //        .RegisterType<ILogger, NLogService>()
+        //        ;
+
+        //    return container;
+        //}
+
         private IUnityContainer GetUnityContainer()
         {
             InjectionConstructor ctor = new InjectionConstructor(ConfigurationManager.ConnectionStrings["mblog"].ConnectionString);
-            IUnityContainer container = Container.Instance.UnityContainer;
+            Container container = Container.Instance;
             container.RegisterType<IUserRepository, UserRepository>(ctor)
                 .RegisterType<IPostRepository, PostRepository>(ctor)
                 .RegisterType<IBlogRepository, BlogRepository>(ctor)
                 .RegisterType<IUsernameBlacklistRepository, UsernameBlacklistRepository>(ctor)
                 .RegisterType<INicknameBlacklistRepository, NicknameBlacklistRepository>(ctor)
                 .RegisterType<IMediaRepository, MediaRepository>(ctor)
-                .RegisterType<IUserDomain, UserDomain>()
                 .RegisterType<IBlogDomain, BlogDomain>()
                 .RegisterType<IDashboardDomain, DashboardDomain>()
                 .RegisterType<IMediaDomain, MediaDomain>()
                 .RegisterType<IPostDomain, PostDomain>()
                 .RegisterType<ISyndicationFeedDomain, SyndicationFeedDomain>()
+                .RegisterType<IUserDomain, UserDomain>()
                 .RegisterType<ILogger, NLogService>()
                 ;
 
-            return container;
+            return Container.Instance.UnityContainer;
         }
     }
 }

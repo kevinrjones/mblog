@@ -31,10 +31,17 @@ namespace MBlog.Controllers
         }
 
         [HttpGet]
-        public FileResult Show(int year, int month, int day, string fileName)
+        public ActionResult Show(int year, int month, int day, string title)
         {
-            Media img = _mediaDomain.GetMedia(year, month, day, fileName);
-            return new FileContentResult(img.Data, img.MimeType);
+            try
+            {
+                Media img = _mediaDomain.GetMedia(year, month, day, title);
+                return new FileContentResult(img.Data, img.MimeType);
+            }
+            catch (MBlogMediaNotFoundException)
+            {
+                return new HttpNotFoundResult("Unable to load requested media");
+            }
         }
 
         [HttpGet]

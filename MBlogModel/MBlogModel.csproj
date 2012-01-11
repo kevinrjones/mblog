@@ -122,6 +122,7 @@
     <Compile Include="Blog.cs" />
     <Compile Include="Comment.cs" />
     <Compile Include="MBlogInsertItemException.cs" />
+    <Compile Include="MBlogMediaNotFoundException.cs" />
     <Compile Include="Media.cs" />
     <Compile Include="MBlogException.cs" />
     <Compile Include="Post.cs" />

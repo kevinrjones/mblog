@@ -18,11 +18,20 @@ namespace MBlogDomain
             _mediaRepository = mediaRepository;
         }
 
-        public Media GetMedia(int year, int month, int day, string fileName)
+        public Media GetMedia(int year, int month, int day, string title)
         {
+            Media media = null;
             try
             {
-                return _mediaRepository.GetMedia(year, month, day, fileName);
+                if((media = _mediaRepository.GetMedia(year, month, day, title)) != null)
+                {
+                    return media;
+                }
+                throw new MBlogMediaNotFoundException();
+            }
+            catch (MBlogMediaNotFoundException)
+            {
+                throw;
             }
             catch (Exception e)
             {
@@ -36,7 +45,7 @@ namespace MBlogDomain
             try
             {
                 var media = _mediaRepository.GetMedia(mediaToCreate.Year, mediaToCreate.Month, mediaToCreate.Day, mediaToCreate.FileName);
-                if (media != null)
+                if (media == null)
                 {
                     _mediaRepository.WriteMedia(mediaToCreate);
                     return string.Format("{0}/{1}/{2}/{3}", mediaToCreate.Year, mediaToCreate.Month, mediaToCreate.Day,

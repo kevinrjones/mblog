@@ -17,5 +17,5 @@ task :environment do
   ActiveSupport::LogSubscriber.colorize_logging=false
   @environment = ENV["RAILS_ENV"] || "development"
   ActiveRecord::Base.establish_connection(@config[@environment])
-  ActiveRecord::Base.logger = Logger.new(File.open(@logger, 'a'))
+  ActiveRecord::Base.logger = Logger.new(File.open(@logger, 'w'))
 end

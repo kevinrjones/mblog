@@ -76,10 +76,10 @@ namespace MBlogSpecs
         [Given(@"An image in the database")]
         public void GivenAnImageInTheDatabase()
         {
-            //RemoteWebDriver driver = new RemoteWebDriver(new Uri("http://localhost/mblog_test/media/2011/12/12/test.jpg"), DesiredCapabilities.HtmlUnitWithJavaScript());
+            var driver = new RemoteWebDriver(new Uri("http://localhost/mblog_test/media/2011/12/12/TestImage"), DesiredCapabilities.HtmlUnitWithJavaScript());
 
             // Find the text input element by its name
-            //driver.Navigate();
+            driver.Navigate();
 
             // Enter something to search for
             // IWebElement element = driver.FindElement(By.Id(""));

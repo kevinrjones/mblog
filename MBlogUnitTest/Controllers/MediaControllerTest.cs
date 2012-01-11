@@ -26,6 +26,27 @@ namespace MBlogUnitTest.Controllers
         }
 
         [Test]
+        public void GivenAMediaController_WhenMediaIsRetrievedSuccesfully_ThenAFileResultIsReturned()
+        {
+            _mediaDomain.Setup(m => m.GetMedia(It.IsAny<int>(), It.IsAny<int>(), It.IsAny<int>(), It.IsAny<string>())).
+                Returns(new Media{Data = new byte[]{}, MimeType = "mimetype"});
+            var controller = new MediaController(_mediaDomain.Object, null);
+            FileResult result = controller.Show(It.IsAny<int>(), It.IsAny<int>(), It.IsAny<int>(), It.IsAny<string>()) as FileResult;
+            
+            Assert.That(result, Is.Not.Null);
+        }
+
+        [Test]
+        public void GivenAMediaController_WhenMediaCannotBeRetrieved_ThenAHttpNotFoundResultIsReturned()
+        {
+            _mediaDomain.Setup(m => m.GetMedia(It.IsAny<int>(), It.IsAny<int>(), It.IsAny<int>(), It.IsAny<string>())).Throws<MBlogMediaNotFoundException>();
+            var controller = new MediaController(_mediaDomain.Object, null);
+            HttpNotFoundResult result = controller.Show(It.IsAny<int>(), It.IsAny<int>(), It.IsAny<int>(), It.IsAny<string>()) as HttpNotFoundResult;
+
+            Assert.That(result, Is.Not.Null);
+        }
+
+        [Test]
         public void GivenAMediaController_WhenIUploadAnInvalidFile_ThenAFalseSuccessCodeIsSet()
         {
             var controller = new MediaController(_mediaDomain.Object, null);

@@ -23,7 +23,6 @@ namespace MBlogUnitTest.Domain
         {
             _mediaRepository = new Mock<IMediaRepository>();
             mediaDomain = new MediaDomain(_mediaRepository.Object);
-            DateTime now = DateTime.Now;
         }
 
         [Test]
@@ -35,6 +34,14 @@ namespace MBlogUnitTest.Domain
                     new Media { FileName = Filename, Year = now.Year, Month = now.Month, Day = now.Day });
             var media = mediaDomain.GetMedia(It.IsAny<int>(), It.IsAny<int>(), It.IsAny<int>(), It.IsAny<string>());
             Assert.That(media, Is.Not.Null);
+        }
+
+        [Test]
+        public void WhenNonExistingMediaIsRequested_ThenAnExceptionIsThrown()
+        {            
+            _mediaRepository.Setup(
+                m => m.GetMedia(It.IsAny<int>(), It.IsAny<int>(), It.IsAny<int>(), It.IsAny<string>())).Returns((Media) null);
+            Assert.Throws<MBlogMediaNotFoundException>(() => mediaDomain.GetMedia(It.IsAny<int>(), It.IsAny<int>(), It.IsAny<int>(), It.IsAny<string>()));            
         }
 
         [Test]
@@ -51,9 +58,8 @@ namespace MBlogUnitTest.Domain
         {
             DateTime now = DateTime.Now;
             _mediaRepository.Setup(
-                m => m.GetMedia(It.IsAny<int>(), It.IsAny<int>(), It.IsAny<int>(), It.IsAny<string>())).Returns(
-                    new Media { FileName = Filename, Year = now.Year, Month = now.Month, Day = now.Day });
-            Mock<Stream> stream = new Mock<Stream>();
+                m => m.GetMedia(It.IsAny<int>(), It.IsAny<int>(), It.IsAny<int>(), It.IsAny<string>())).Returns((Media) null);
+            var stream = new Mock<Stream>();
 
             var url = mediaDomain.WriteMedia(Filename, It.IsAny<int>(), It.IsAny<string>(), stream.Object, It.IsAny<int>());
 
@@ -63,7 +69,7 @@ namespace MBlogUnitTest.Domain
         [Test]
         public void WhenMediaIsCreated_AndTheDataBaseIsNotAvailable_ThenAnMBlogExceptionIsThrown()
         {
-            _mediaRepository.Setup(m => m.WriteMedia(It.IsAny<Media>())).Throws<Exception>();
+            _mediaRepository.Setup(m => m.GetMedia(It.IsAny<int>(),It.IsAny<int>(),It.IsAny<int>(),It.IsAny<string>())).Throws<Exception>();
             Mock<Stream> stream = new Mock<Stream>();
 
             Assert.Throws<MBlogException>(() => mediaDomain.WriteMedia(Filename, It.IsAny<int>(), It.IsAny<string>(), stream.Object, It.IsAny<int>()));

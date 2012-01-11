@@ -42,7 +42,7 @@ namespace IoC
 
         public Container RegisterType<TFrom, TTo>(params InjectionMember[] injectionMembers) where TTo : TFrom
         {
-            RegisterType(typeof(TFrom), typeof(TTo), injectionMembers);
+            _unityContainer.RegisterType<TFrom, TTo>(injectionMembers);
             return this;
         }
 
