@@ -32,19 +32,19 @@ namespace UploadImages
                     {
                         connection.Open();
                         cmd.CommandText =
-                            "INSERT INTO [images]([title],[file_name]," +
-                            "[year], [month], [day],[mime_type],[alignment],[size],[user_id],[image])" +
-                            "VALUES(@title, @file_name,  @year,  @month,  @day, @mime_type, @alignment, @size, @user_id, @image)";
+                            "INSERT INTO [media]([title],[file_name]," +
+                            "[year], [month], [day],[mime_type],[alignment],[size],[user_id],[bytes])" +
+                            "VALUES(@title, @file_name,  @year,  @month,  @day, @mime_type, @alignment, @size, @user_id, @bytes)";
                         cmd.Parameters.AddWithValue("@title", image.Key);
                         cmd.Parameters.AddWithValue("@file_name", image.Key);
                         cmd.Parameters.AddWithValue("@year", 2012);
                         cmd.Parameters.AddWithValue("@month", 12);
                         cmd.Parameters.AddWithValue("@day", 18);
                         cmd.Parameters.AddWithValue("@mime_type", "image/png");
-                        cmd.Parameters.AddWithValue("@alignment", "centre");
+                        cmd.Parameters.AddWithValue("@alignment", 1);
                         cmd.Parameters.AddWithValue("@size", 2);
                         cmd.Parameters.AddWithValue("@user_id", 1);
-                        cmd.Parameters.AddWithValue("@image", imageData);
+                        cmd.Parameters.AddWithValue("@bytes", imageData);
 
                         cmd.ExecuteNonQuery();
                     }

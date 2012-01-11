@@ -14,6 +14,10 @@
       <Filter ModuleMask="MBlogSpecs" ClassMask="*" FunctionMask="*" />
       <Filter ModuleMask="*" ClassMask="MBlog.Resources.*" FunctionMask="*" />
       <Filter ModuleMask="*" ClassMask="MBlogModel.MBlogException" FunctionMask="*" />
+      <Filter ModuleMask="*" ClassMask="MBlogModel.MBlogItemException" FunctionMask="*" />
+      <Filter ModuleMask="*" ClassMask="MBlogModel.MBlogMediaNotFoundException" FunctionMask="*" />
+      <Filter ModuleMask="CollectionHelpers" ClassMask="*" FunctionMask="*" />
+      <Filter ModuleMask="*" ClassMask="MvcApplication" FunctionMask="*" />
     </ExcludeFilters>
   </CoverageFilters>
 </Configuration>

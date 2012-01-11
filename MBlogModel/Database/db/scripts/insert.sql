@@ -1,54 +1,58 @@
-﻿INSERT INTO [$(DATABASE)].[dbo].[users]
+﻿INSERT INTO [$(Database)].[dbo].[users]
 		([name],[email],[hashed_password],[salt], [is_site_admin])
 		VALUES
 		('Kevin Jones', 'kevin@requiredattribute.com', '/lU2Uf4Dq//bEoM6rBDnDwmUg6FFvkJjpVh22XOqR14=' ,'MwAAADgAAAA3AAAANQAAADMAAAAyAAAANQAAADMAAABTAAAAeQAAAHMAAAB0AAAAZQAAAG0AAAAuAAAAUgAAAGEAAABuAAAAZAAAAG8AAABtAAAA', 'true')
 
-INSERT INTO [$(DATABASE)].[dbo].[blogs]
+INSERT INTO [$(Database)].[dbo].[blogs]
 		([title],[description],[nickname],[user_id])
 		VALUES
 		('Wish I Knew Now', 'The blog of this site', 'kevin', 1 )
 
-INSERT INTO [$(DATABASE)].[dbo].[users_blogs]
+INSERT INTO [$(Database)].[dbo].[users_blogs]
 		([user_id],[blog_id])
 		VALUES
 		(1, 1)
 
 
-INSERT INTO [$(DATABASE)].[dbo].[posts]
+INSERT INTO [$(Database)].[dbo].[posts]
 		([title]
 		,[blogPost]
 		,[posted]
+		,[edited]
 		,[blog_id])
      VALUES
   ('Why this Blog?'
    ,'Several things came together at the same time. I wanted to start blogging again. My current blog engine is written in Java (Blojsom) and though very good, I don''t really do Java anymore so wanted to move off it. I did a presentation at <a href="www.devweek.com">DevWeek</a> last week and it seem to go down pretty well.  I need to spend more time with MVC.    <p>Given all that it seemed to make sense for me to put that together into a simple blog engine. And it is simple   <p>Multi user: not yet - but I will design it that way</p>    <p>Fancy editors: not yet, but they will be planned in</p>    <p>Extensible: let''s not get too far ahead of ourselves</p>    <p>Javascript/Ajax: yep, this is part of the plan</p>    <p>Wiki markup, plain text markup: all part of the future</p></p>    <p>   I''m going to use MVC (3 as of the writing) and EF 4.1. I''m going to start code first, not because I think we should    be building databases this way but becasue I havn''t used it before.    I want to use one of the NoSQL databases, because a) I''ve never used them and b) it seems like a natural fit    for a document centric system (we''ll see)    I want to use the publish and deploy tools in VS 2010, partly to see if they are any good and also because I haven''t    used them before (I can see a theme here)    I''m probably going to put this up on github and open source it, not because I think other people will use it but yes,     and because I haven''t done that before!    </p>'
-  ,'2011-03-27 12:00:00', 1)
+  ,'2011-03-27 12:00:00','2011-03-27 12:00:00', 1)
 
 
-INSERT INTO [$(DATABASE)].[dbo].[posts]
+INSERT INTO [$(Database)].[dbo].[posts]
 		([title]
 		,[blogPost]
 		,[posted]
+		,[edited]
 		,[blog_id])
      VALUES
   ('Up and running'
    ,'<p>So the first aim is to get this up and running on a local instance of SQL Server If you can see this then that must have worked!</p><p>This (I hope) will have been deployed with a deploy script and when I know how to do that I''ll write about it here!</p>'
-  ,'2011-03-27 13:00:00', 1)
+  ,'2011-03-27 13:00:00', '2011-03-27 12:00:00',1)
 
-INSERT INTO [$(DATABASE)].[dbo].[posts]
+INSERT INTO [$(Database)].[dbo].[posts]
 		([title]
 		,[blogPost]
 		,[posted]
+		,[edited]
 		,[blog_id])
      VALUES
   ('Up and running (well almost)'
-   ,'<p>I''m adding a ''code'' widget to the site to format code appropriately. Now, I don''t even have a layout/CSS started yet <img src="images/InitialBlog.png" style="width: 100%"></src> but as this is going to be mostly about coding then layout of code is important. I''m going to use ''Syntax Highlighter'' !!! which is on http://alexgorbatchev.com/SyntaxHighlighter/</p>'
-  ,'2011-03-27 14:00:00', 1)
+   ,'<p>I''m adding a ''code'' widget to the site to format code appropriately. Now, I don''t even have a layout/CSS started yet <img src="media/2012/12/18/InitialBlog" style="width: 100%"></src> but as this is going to be mostly about coding then layout of code is important. I''m going to use ''Syntax Highlighter'' !!! which is on http://alexgorbatchev.com/SyntaxHighlighter/</p>'
+  ,'2011-03-27 14:00:00', '2011-03-27 12:00:00',1)
 
-INSERT INTO [$(DATABASE)].[dbo].[posts]
+INSERT INTO [$(Database)].[dbo].[posts]
 		([title]
 		,[blogPost]
 		,[posted]
+		,[edited]
 		,[blog_id])
      VALUES
   ('Isn''t this exciting'
@@ -66,23 +70,25 @@ INSERT INTO [$(DATABASE)].[dbo].[posts]
         public DateTime? Edited { get; set; }
     }</pre>
 <p>What happens when entity framework tries to create a database from this is (roughly) this. It takes the Id property as the primary key (convention over configuration) All the other fields it also uses convention for, which I override with the attributes. So the reference types get created as nullable (the <pre>[Required]</pre> makes them non nullable. The strings get given a max length of 128, the <pre>[MaxLength]</pre> attribute overrides that. Making the Edited property a <pre>Nullable<DateTime></pre> makes that nullable. And off we go!</p>'
-  ,'2011-03-27 15:00:00', 1)
+  ,'2011-03-27 15:00:00', '2011-03-27 12:00:00',1)
 
-INSERT INTO [$(DATABASE)].[dbo].[posts]
+INSERT INTO [$(Database)].[dbo].[posts]
 		([title]
 		,[blogPost]
 		,[posted]
+		,[edited]
 		,[blog_id])
      VALUES
   ('Walking Skeleton'
    ,'<p>So the ''walking skeleton'' is in place. What is a ''Walking Skeleton'', it''s the bare bones of an application that you need in place to help you move forward. If I was writing this using a pure TDD then I would have started with a test project, written a test for a <span class="inline-code">Post</span> class, then written the class (even though this class is anaemic). Then added a test project for my controller, written some tests and then started the controller. But come on, this is boring. Not just that, it''s counter productive. As developers we want to see forward progress, hence the walking skeleton. There''s a great description <a href="http://alistair.cockburn.us/Walking+skeleton">here</a>.</p><p>Next step is testing and thinking about multi-user before I add an editor.</p>'
-  ,'2011-03-30 21:32:00', 1)
+  ,'2011-03-30 21:32:00', '2011-03-27 12:00:00',1)
 
 
-INSERT INTO [$(DATABASE)].[dbo].[posts]
+INSERT INTO [$(Database)].[dbo].[posts]
 		([title]
 		,[blogPost]
 		,[posted]
+		,[edited]
 		,[blog_id])
      VALUES
   ('Migrations'
@@ -137,12 +143,13 @@ that runs the migrations, this is similar to the Rails Rake script but simpler.
 <p>
 I still have issues with data, I need to be able to backup and restore the database across versions and across environments. I have a staging environment and I will need to bring data back from my production environment to there. That needs to be added to the todo list.
 </p>'
-  ,'2011-03-31 07:44:00', 1)
+  ,'2011-03-31 07:44:00', '2011-03-27 12:00:00',1)
 
-INSERT INTO [$(DATABASE)].[dbo].[posts]
+INSERT INTO [$(Database)].[dbo].[posts]
 		([title]
 		,[blogPost]
 		,[posted]
+		,[edited]
 		,[blog_id])
      VALUES
   ('To Do list?'
@@ -155,24 +162,26 @@ INSERT INTO [$(DATABASE)].[dbo].[posts]
    <li>Per-blog theming</li>
    <li>database management and migrations over and above AvtiveRecord</li>
    </ul>'
-  ,'2011-03-31 07:53:00', 1)
+  ,'2011-03-31 07:53:00', '2011-03-27 12:00:00',1)
 
-INSERT INTO [$(DATABASE)].[dbo].[posts]
+INSERT INTO [$(Database)].[dbo].[posts]
 		([title]
 		,[blogPost]
 		,[posted]
+		,[edited]
 		,[blog_id])
      VALUES
   ('Gotta Love JetBrains'
-   ,'<p>I''ve just installed dotCover, TeamCity and YouTrack and it was trivially easy. Have CI builds running off GitHub and the output looks like this <img src="/images/teamcity.png" style="width:100%"/></p>'
-  ,'2011-03-31 18:47:00', 1)
+   ,'<p>I''ve just installed dotCover, TeamCity and YouTrack and it was trivially easy. Have CI builds running off GitHub and the output looks like this <img src="media/2012/12/18/teamcity" style="width:100%"/></p>'
+  ,'2011-03-31 18:47:00', '2011-03-27 12:00:00',1)
 
   
 
-INSERT INTO [$(DATABASE)].[dbo].[posts]
+INSERT INTO [$(Database)].[dbo].[posts]
 		([title]
 		,[blogPost]
 		,[posted]
+		,[edited]
 		,[blog_id])
      VALUES
   ('First steps to a multi user blog?'
@@ -331,12 +340,13 @@ FROM ( SELECT
 ORDER BY [Project1].[Posted] DESC'',N''@p__linq__0 nvarchar(4000)'',@p__linq__0=N''kevin''
 </pre>
 Which is more or less what you would expect!'
-  ,'2011-04-03 20:10:00', 1)
+  ,'2011-04-03 20:10:00', '2011-03-27 12:00:00',1)
 
-INSERT INTO [$(DATABASE)].[dbo].[posts]
+INSERT INTO [$(Database)].[dbo].[posts]
 		([title]
 		,[blogPost]
 		,[posted]
+		,[edited]
 		,[blog_id])
      VALUES
   ('Use of the repository pattern'
@@ -469,12 +479,13 @@ This relies on the underlying abstraction being able to return something that I 
 I use these interfaces in the controllers. These are injected using an IoC container, more on that later.
 </p>
 '
-  ,'2011-04-06 20:02:00', 1)
+  ,'2011-04-06 20:02:00', '2011-03-27 12:00:00',1)
 
-INSERT INTO [$(DATABASE)].[dbo].[posts]
+INSERT INTO [$(Database)].[dbo].[posts]
 		([title]
 		,[blogPost]
 		,[posted]
+		,[edited]
 		,[blog_id])
      VALUES
   ('Installing the development environment'
@@ -498,21 +509,22 @@ These steps require the dev kit is installed.
 You also need to install an ODBC soucre. Depending on whether you are using a 32bit or 64 bit version of Windows you''re going to need to run either c:\windows\sysWOW64\odbcad32.exe or c:\windows\system32\odbcad32.exe. Create a system DSN called MBlog using the SQLServer ODBC driver.
 </p>
 <p>
-After all that you can create the database (mblog_development) then cd to the MBlogModel\Database directory and run
+After all that you can create the database ($(Database)) then cd to the MBlogModel\Database directory and run
 <pre class="brush :bash">
 rake
 </pre>
 this should create the tables for the blog. We''re now up and running
 </p>'
-  ,'2011-04-11 20:00:00', 1)
+  ,'2011-04-11 20:00:00', '2011-04-11 20:00:00',1)
 
-INSERT INTO [$(DATABASE)].[dbo].[posts]
+INSERT INTO [$(Database)].[dbo].[posts]
 		([title]
 		,[blogPost]
 		,[posted]
+		,[edited]
 		,[blog_id])
      VALUES
   ('Repository Save/Update as a Smell'
    ,'<p>Very interesting <a href="http://codebetter.com/iancooper/2011/04/12/repository-saveupdate-is-a-smell/">post</a>. And you know what I agree with him. 
    I''m changing my repositories to match</p>'
-  ,'2011-04-19 08:00:00', 1)
+  ,'2011-04-19 08:00:00', '2011-03-27 12:00:00',1)

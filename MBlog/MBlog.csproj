@@ -226,7 +226,6 @@
     <Compile Include="ActionResults\FeedData.cs" />
     <Compile Include="ActionResults\SyndicationActionResult.cs" />
     <Compile Include="ActionResults\SyndicationHelper.cs" />
-    <Compile Include="App_Start\Rejuicer.cs" />
     <Compile Include="Controllers\Admin\CommentsController.cs" />
     <Compile Include="Controllers\Admin\PostsController.cs" />
     <Compile Include="Controllers\BaseController.cs" />
