@@ -295,6 +295,7 @@ namespace MBlog
                 .File("~/Scripts/shBrushXml.js")
                 .File("~/Scripts/modernizr-1.7.min.js")
                 .File("~/Scripts/fileuploader.js")
+                .File("~/Scripts/mblog.js")
                 .Configure();
             OnRequest.ForCss("~/Combined-{0}.css").Compact
                 .File("~/Content/Site.css")
@@ -304,48 +305,27 @@ namespace MBlog
                 .Configure();
         }
 
-        //private IUnityContainer GetUnityContainer()
-        //{
-        //    InjectionConstructor ctor = new InjectionConstructor(ConfigurationManager.ConnectionStrings["mblog"].ConnectionString);
-        //    IUnityContainer container = new UnityContainer()
-        //        .RegisterType<IUserRepository, UserRepository>(ctor)
-        //        .RegisterType<IPostRepository, PostRepository>(ctor)
-        //        .RegisterType<IBlogRepository, BlogRepository>(ctor)
-        //        .RegisterType<IUsernameBlacklistRepository, UsernameBlacklistRepository>(ctor)
-        //        .RegisterType<INicknameBlacklistRepository, NicknameBlacklistRepository>(ctor)
-        //        .RegisterType<IMediaRepository, MediaRepository>(ctor)
-        //        .RegisterType<IUserDomain, UserDomain>()
-        //        .RegisterType<IBlogDomain, BlogDomain>()
-        //        .RegisterType<IDashboardDomain, DashboardDomain>()
-        //        .RegisterType<IMediaDomain, MediaDomain>()
-        //        .RegisterType<IPostDomain, PostDomain>()
-        //        .RegisterType<ISyndicationFeedDomain, SyndicationFeedDomain>()
-        //        .RegisterType<ILogger, NLogService>()
-        //        ;
-
-        //    return container;
-        //}
-
         private IUnityContainer GetUnityContainer()
         {
             InjectionConstructor ctor = new InjectionConstructor(ConfigurationManager.ConnectionStrings["mblog"].ConnectionString);
-            Container container = Container.Instance;
-            container.RegisterType<IUserRepository, UserRepository>(ctor)
+            IUnityContainer container = new UnityContainer()
+                .RegisterType<IUserRepository, UserRepository>(ctor)
                 .RegisterType<IPostRepository, PostRepository>(ctor)
                 .RegisterType<IBlogRepository, BlogRepository>(ctor)
                 .RegisterType<IUsernameBlacklistRepository, UsernameBlacklistRepository>(ctor)
                 .RegisterType<INicknameBlacklistRepository, NicknameBlacklistRepository>(ctor)
                 .RegisterType<IMediaRepository, MediaRepository>(ctor)
+                .RegisterType<IUserDomain, UserDomain>()
                 .RegisterType<IBlogDomain, BlogDomain>()
                 .RegisterType<IDashboardDomain, DashboardDomain>()
                 .RegisterType<IMediaDomain, MediaDomain>()
                 .RegisterType<IPostDomain, PostDomain>()
                 .RegisterType<ISyndicationFeedDomain, SyndicationFeedDomain>()
-                .RegisterType<IUserDomain, UserDomain>()
                 .RegisterType<ILogger, NLogService>()
                 ;
 
-            return Container.Instance.UnityContainer;
+            return container;
         }
+
     }
 }

@@ -433,6 +433,7 @@
     <Content Include="images\teamcity-thumb.png" />
     <Content Include="images\teamcity.png" />
     <Content Include="robots.txt" />
+    <Content Include="Scripts\mblog-dashboard.js" />
     <Content Include="Scripts\fileuploader.js" />
     <Content Include="Scripts\jquery-1.7.1-vsdoc.js" />
     <Content Include="Scripts\jquery-1.7.1.js" />
