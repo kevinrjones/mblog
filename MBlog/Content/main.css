@@ -1,131 +1,446 @@
-﻿* { padding: 0; margin: 0; }
-a { text-decoration: none; }
-body { font-family: arial, helvetica, sans-serif; background-color: #cccccc; }
-.wrapper { height: 100%; }
-.main-list { padding: 10px 20px 10px 0; float: right; }
-h2.page-header { padding: 20px 0 0 10px; }
-.header { background-color: #eeeeee; overflow: auto; width: 100%; }
-header { background-color: #eeeeee; overflow: auto; width: 100%; display: block; }
-.mainbody { margin: 0em auto; width: 65%; background-color: #ffffff; }
-.footer { }
+﻿* {
+  padding: 0;
+  margin: 0;
+}
+a {
+  text-decoration: none;
+}
+body {
+  font-family: arial, helvetica, sans-serif;
+  background-color: #cccccc;
+}
+.wrapper {
+  height: 100%;
+}
+.main-list {
+  padding: 18px 36px 18px 0;
+  float: right;
+}
+h2.page-header {
+  padding: 36px 0 0 12px;
+}
+.header {
+  background-color: #eeeeee;
+  overflow: auto;
+  width: 100%;
+}
+header {
+  background-color: #eeeeee;
+  overflow: auto;
+  width: 100%;
+  display: block;
+}
+.mainbody {
+  margin: 0em auto;
+  width: 65%;
+  background-color: white;
+}
+#_createList {
+  margin-left: .5em;
+}
+ul.headerList li {
+  display: inline;
+}
+ul.headerList li a {
+  text-decoration: none;
+  background: #1d6896 none repeat scroll 0 0;
+  color: white;
+  padding: 0.35em 0.75em;
+}
+.mainheader {
+  font-size: 36px;
+}
+.question-title {
+  border-bottom: 1px solid black;
+  padding-bottom: 5px;
+  font-size: 24px;
+  font-weight: bold;
+}
+.question-text {
+  padding: 10px;
+  font-size: 12px;
+}
+.newItem {
+  font-size: 11pt;
+  padding: 14pt 0 14pt 5pt;
+}
+.form {
+  font-size: 12px;
+}
+.form-label {
+  width: 75px;
+  display: inline-block;
+}
+.form-row {
+  min-height: 30px;
+  padding-top: 10px;
+}
+fieldset {
+  border: 1px solid #a5c3d5;
+  padding: 0 1.4em 1.4em 1.4em;
+  margin: 0 0 18px 0;
+}
+legend {
+  font-size: 12px;
+  font-weight: bold;
+  padding: 0 10px 0 10px;
+}
+.blog-post {
+  margin: 4.5px 0 31.5px 10px;
+  clear: both;
+}
+.blog-header-section {
+  margin: 9px 0 9px 0;
+  padding: 0 0 10px 0;
+  border-bottom: 1px solid black;
+}
+.blog-title {
+  font-size: 18px;
+  display: inline-block;
+}
+.blog-date-posted {
+  float: right;
+  color: gray;
+  font-size: 9px;
+  margin: 0 0 0 10px;
+}
+.blog-entry {
+  line-height: 18px;
+}
+.blog-entry ol {
+  padding-left: 20px;
+}
+.blog-entry ul {
+  padding-left: 20px;
+}
+.blog-entry p {
+  margin-bottom: 10px;
+}
+.blog-inner-body {
+  width: 75%;
+  float: left;
+  padding: 10px 0 10px 10px;
+}
+.blog-main-body {
+  background-color: White;
+  overflow: auto;
+  width: 100%;
+}
+.blog-side-bar {
+  float: right;
+  width: 20%;
+}
+.blog-comments {
+  padding: 10px 0 0 5px;
+}
+.blog-comment {
+  background-color: #eeeeee;
+  padding: 5px 5px 10px 5px;
+}
+.blog-comment-header {
+  font-weight: bold;
+}
+.blog-comment-body {
+  padding: 10px 0 0 0;
+}
+.blog-post-body {
+  padding: 10px 0 0 0;
+}
+.comment-help {
+  font-size: 12px;
+  padding: 5px 0 5px 10px;
+  margin: 0 0 18px 10px;
+  background-color: black;
+  color: white;
+}
+#blog-comment-form {
+  padding: 10px 0 0 10px;
+  width: 90%;
+}
+#blog-comment-form-header {
+  font-size: 24px;
+  padding: 5px 0 15px 0px;
+}
+#blog-comment-form-body {
+  padding: 0px 0 0px 10px;
+}
+.post-help {
+  font-size: 12px;
+  padding: 5px 0 5px 10px;
+  margin: 0 0 18px 10px;
+  background-color: black;
+  color: white;
+}
+#blog-post-form {
+  padding: 10px 0 0 10px;
+  width: 90%;
+}
+#blog-post-form-header {
+  font-size: 24px;
+  padding: 5px 0 15px 0px;
+}
+#blog-post-form-body {
+  padding: 0px 0 0px 10px;
+}
+#blog-form {
+  padding: 10px 0 0 10px;
+  width: 90%;
+}
+#blog-form-header {
+  font-size: 24px;
+  padding: 5px 0 15px 0px;
+}
+#blog-form-body {
+  padding: 0px 0 0px 10px;
+  width: 500px;
+  margin: 0px auto;
+}
+.maxwidth {
+  width: 100%;
+}
+div.row {
+  clear: both;
+  padding-top: 5px;
+}
+div span.label {
+  float: left;
+  width: 120px;
+  text-align: right;
+}
+div span.formw {
+  float: right;
+  width: 370px;
+  text-align: left;
+}
+#Comment {
+  width: 100%;
+}
+.inline-code {
+  font-family: Consolas, Courier, "Courier New", monospace;
+  font-weight: bold;
+}
+code {
+  font-family: Consolas, Courier, "Courier New", monospace;
+  font-weight: bold;
+}
+.blog-list {
+  list-style-image: none;
+  list-style-position: outside;
+  list-style-type: none;
+}
+.home-page {
+  margin: 0 0 0 20px;
+}
+.home-page-content {
+  margin: 0 auto;
+  width: 65%;
+  float: left;
+}
+.home-page-list {
+  list-style-image: none;
+  list-style-position: outside;
+  list-style-type: none;
+}
+.home-page-list li {
+  font-size: 12px;
+}
+.home-page-blog-post {
+  margin: 4.5px 0 49.5px 10px;
+}
+.home-page-blog-header-section {
+  margin-bottom: 18px;
+  border-bottom: 1px solid black;
+}
+.home-page-blog-title {
+  font-size: 12px;
+  display: inline-block;
+}
+.home-page-sub-title {
+  padding-left: 10px;
+  padding-bottom: 10px;
+}
+.home-page-header {
+  margin: 18px 0 0 0;
+}
+.home-page-sidebar {
+  margin: 0 auto;
+  width: 30%;
+  float: right;
+}
+.admin-dashboard {
+  overflow: auto;
+  font-size: 15px;
+}
+.admin-title {
+  margin: 9px 0 9px 0;
+}
+.admin-title h2 {
+  color: #655545;
+}
+.admin-main {
+  margin: 0 auto;
+  width: 90%;
+}
+.admin-user {
+  height: 36px;
+}
+.admin-user-links {
+  float: left;
+  width: 35%;
+  margin: 9px 5px 9px 0;
+}
+.admin-blog-list {
+  float: left;
+  margin-left: 5px;
+}
+.admin-blog-name {
+  text-align: left;
+  padding: 10px 0;
+}
+#admin {
+  background: #a5c3d5;
+  float: left;
+  width: 35%;
+  height: 36px;
+  margin-right: 5px;
+}
+#admin h4 {
+  padding: 9px 0 0 9px;
+}
+#admin-user-name {
+  background: #a5c3d5;
+  float: left;
+  width: 35%;
+  height: 36px;
+  margin-right: 5px;
+}
+#admin-user-name h4 {
+  padding: 9px 0 0 9px;
+}
+#admin-user-manage {
+  background: #a5c3d5;
+  float: left;
+  width: 35%;
+  height: 36px;
+  margin-right: 5px;
+}
+#admin-user-manage h4 {
+  padding: 9px 0 0 9px;
+}
+#admin-manageblogs-title {
+  text-align: left;
+}
+.admin-link {
+  text-align: right;
+  display: inline-block;
+  padding: 0 9px 0 0;
+}
+.admin-header-links {
+  float: right;
+}
+.admin-blog-actions {
+  padding: 10px 0;
+}
+.list-items {
+  font-size: 12px;
+  border: #a5c3d5 4px solid;
+  border-radius: 10px;
+  margin: 9px 10px;
+  padding: 0 10px 0 0;
+}
+.list-items table {
+  width: 100%;
+}
+.list-items table tr td {
+  padding: 10px 0 5px 5px;
+  line-height: 19px;
+  border-bottom: 1px solid #cccccc;
+}
+.list-items table tr td.post-title {
+  width: 100%;
+  padding-left: 20px;
+}
+.list-items-comment-count {
+  float: right;
+}
+#media-form-body {
+  padding: 0px 0 0px 10px;
+  width: 670px;
+  margin: 0px auto;
+}
+#media-form-body div.row {
+  clear: both;
+  padding-top: 5px;
+}
+#media-form-body div span.label {
+  float: left;
+  width: 120px;
+  text-align: right;
+}
+#media-form-body div span.formw {
+  float: right;
+  width: 520px;
+  text-align: left;
+}
+.media-upload {
+  padding: 0 0 20px 0;
+}
+.media-details {
+  display: none;
+}
+img.img-thumbnail {
+  width: 15%;
+}
+img.img-medium {
+  width: 50%;
+}
+img.img-large {
+  width: 75%;
+}
+img.img-fullsize {
+  width: 100%;
+}
+img.img-align-right {
+  float: right;
+  margin: 0 0 15px 15px;
+}
+img.img-align-left {
+  float: left;
+  margin: 0 15px 15px 0;
+}
 
-#_createList { margin-left: .5em; }
-ul.headerList li { display: inline; }
-ul.headerList li a { text-decoration: none; background: #1D6896 none repeat scroll 0 0; color: #FFFFFF; padding: 0.35em 0.75em; }
+.media-80x60 { 
+	max-width: 80px;
+	max-height: 60px;
+}
 
-.lists li { font-size: 14pt; padding: 14pt 0 14pt 5pt; }
-.lists li.list-even { background: rgba(0, 102, 204, 0.05); border: 1px solid #EAF0F5; }
-.lists li.list-odd { background-color: #FFFFFF; border: 1px solid #FFFFFF; }
-.lists li.list-item-selected { border: 1px solid red !important; }
-
-.lists li a { text-decoration: none; margin: 0 0 0 .2em; }
-
-.lists h2 { font-size: 20pt; }
-.list-complete { font-size: 10pt; padding-left: 10pt; }
-.mainheader { font-size: 32pt; }
-
-.question-title { border-bottom: 1px solid black; padding-bottom: 5px; font-size: 20pt; font-weight: bold; }
-.question-text { padding: 10px; font-size: 14pt; }
-
-.newItem { font-size: 11pt; padding: 14pt 0 14pt 5pt; }
-
-.form { font-size: 15px; }
-.form-label { width: 75px; display: inline-block; }
-.form-row { min-height: 30px; padding-top: 10px; }
-
-fieldset { border: 1px solid #ccc; padding: 0 1.4em 1.4em 1.4em; margin: 0 0 1.5em 0; }
-
-legend { font-size: 1.2em; font-weight: bold; padding: 0 10px 0 10px; }
-
-.blog-post { margin: 5px 0 40px 10px; }
-.blog-header-section { margin: 0 0 5px 0; padding: 0 0 10px 0; border-bottom: 1px solid black; }
-.blog-title { font-size: 16pt; display: inline-block; }
-.blog-date-posted { float: right; color: gray; font-size: 8pt; margin: 0 0 0 10px; }
-.blog-entry { line-height: 20px; }
-.blog-entry ul { padding-left: 20px; }
-.blog-inner-body { width: 75%; float: left; padding: 10px 0 10px 10px; }
-.blog-main-body { background-color: White; overflow: auto; width: 100%; }
-.blog-side-bar { float: right; width: 20%; }
-.blog-comments { padding: 10px 0 0 5px; }
-.blog-comment { background-color: #eeeeee; padding: 5px 5px 10px 5px; }
-.blog-comment-header { font-weight: bold; }
-.blog-comment-body { padding: 10px 0 0 0; }
-.blog-post-body { padding: 10px 0 0 0; }
-.comment-help { font-size: 12px; padding: 5px 0 5px 10px; margin: 0 0 10px 10px; background-color: black; color: White; }
-#blog-comment-form { padding: 10px 0 0 10px; width: 90%; }
-#blog-comment-form-header { font-size: 20pt; padding: 5px 0 15px 0px; }
-#blog-comment-form-body { padding: 0px 0 0px 10px; }
-
-.post-help { font-size: 12px; padding: 5px 0 5px 10px; margin: 0 0 10px 10px; background-color: black; color: White; }
-#blog-post-form { padding: 10px 0 0 10px; width: 90%; }
-#blog-post-form-header { font-size: 20pt; padding: 5px 0 15px 0px; }
-#blog-post-form-body { padding: 0px 0 0px 10px; }
-#blog-form { padding: 10px 0 0 10px; width: 90%; }
-#blog-form-header { font-size: 20pt; padding: 5px 0 15px 0px; }
-#blog-form-body { padding: 0px 0 0px 10px; width: 500px; margin: 0px auto; }
-.maxwidth { width: 100%; }
-
-div.row { clear: both; padding-top: 5px; }
-div.row span.label { float: left; width: 120px; text-align: right; }
-div.row span.formw { float: right; width: 370px; text-align: left; }
-
-#Comment { width: 100%; }
-.inline-code { font-family: Consolas, Courier New, Courier; font-weight: bold; font-size: larger; }
-.blog-list { list-style-image: none; list-style-position: outside; list-style-type: none; }
-.home-page { margin: 0 0 0 20px; }
-.home-page-content { margin: 0em auto; width: 65%; float: left; }
-.home-page-list { list-style-image: none; list-style-position: outside; list-style-type: none; }
-.home-page-list li { font-size: 10pt; }
-.home-page-blog-post { margin: 5px 0 40px 10px; }
-.home-page-blog-header-section { margin-bottom: 5px; border-bottom: 1px solid black; }
-.home-page-blog-title { font-size: 12pt; display: inline-block; }
-.home-page-sub-title { padding-left: 10px; padding-bottom: 10px; }
-.home-page-header { margin: 20px 0 0 0; }
-.home-page-sidebar { margin: 0em auto; width: 30%; float: right; }
-
-.admin-dashboard { overflow: auto; font-size: 11pt; }
-.admin-title { margin: 10px 0 10px 0; }
-.admin-title h2 { color: #655545; }
-.admin-main { margin: 0em auto; width: 90%; }
-.admin-user { height: 30px; }
-.admin-manage { }
-.admin-user-links { float: left; width: 35%; margin: 10px 5px 0 0; }
-.admin-blog-list { float: left; margin-left: 5px; }
-.admin-blog-name { text-align: left; padding: 10px 0; }
-.admin-blog-details { }
-#admin-user-name { background: #A5C3D5; float: left; width: 35%; height: 30px; margin-right: 5px; }
-#admin-user-name h4 { padding: 5px 0 0 10px; }
-#admin-user-manage { background: #A5C3D5; float: left; width: 60%; height: 30px; margin-left: 5px; }
-#admin-user-manage h4 { padding: 5px 0 0 10px; }
-#admin-manageblogs-title { text-align: left; }
-.admin-link { text-align: right; display: inline-block; padding: 0 5px 0 0; }
-.admin-header-links { float: right; }
-.admin-blog-actions { padding: 10px 0; }
-
-
-.list-posts { font-size: 120%; border: #A5C3D5 4px solid; border-radius: 10px; margin: 10px 10px; padding: 0 10px 0 0; }
-.list-posts table { width: 100%; }
-.list-posts table tr td { padding: 10px 0 5px 5px;line-height: 19px; border-bottom: 1px solid #CCCCCC;}
-.list-posts table tr td.post-title { width: 100%; padding-left: 20px;}
-.list-posts-comment-count { float: right; }
+.listmedia-title {
+  width: 400px;
+}
+.listmedia-description {
+  width: 300px;
+}
+#file-uploader .qq-upload-drop-area {
+  display: block !important;
+  margin-left: 180px;
+  width: 95%;
+}
 /* Styles for validation helpers
------------------------------------------------------------*/
-.field-validation-error { color: #ff0000; }
 
-.field-validation-valid { display: none; }
-
-.input-validation-error { border: 1px solid #ff0000; background-color: #ffeeee; }
-
-.validation-summary-errors { font-weight: bold; color: #ff0000; }
-
-.validation-summary-valid { display: none; }
-
-/* #339966 */
-/* #EAF0F5 */
-/* rgba(0, 102, 204 0.05) */
-
-/* old styles */
-/*.main-bar { height: 90px; background-color: rgba(0, 102, 204, 0.05); margin-top: -30px; }
-.main-bar-inner { padding-top: 20px; padding-left: 20px; font-size: 10pt; }
-.main-bar-inner .legend { float: left; }
-.main-bar-inner .nav-buttons { float: left; padding-left: 20px; }*/
+-----------------------------------------------------------*/.field-validation-error {
+  color: #ff0000;
+}
+.field-validation-valid {
+  display: none;
+}
+.input-validation-error {
+  border: 1px solid #ff0000;
+  background-color: #ffeeee;
+}
+.validation-summary-errors {
+  font-weight: bold;
+  color: #ff0000;
+}
+.validation-summary-valid {
+  display: none;
+}

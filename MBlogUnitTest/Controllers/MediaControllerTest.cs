@@ -121,7 +121,7 @@ namespace MBlogUnitTest.Controllers
 
             MediaController controller = new MediaController(_mediaDomain.Object, null);
 
-            var result = controller.New(new NewMediaViewModel { Nickname = "nickname", BlogId = 1 });
+            var result = controller.New(new NewMediaViewModel { Nickname = "nickname"});
             Assert.That(result, Is.TypeOf<ViewResult>());
         }
 

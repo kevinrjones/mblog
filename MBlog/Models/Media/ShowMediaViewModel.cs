@@ -1,4 +1,6 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
 
 namespace MBlog.Models.Media
 {
@@ -28,23 +30,42 @@ namespace MBlog.Models.Media
             ClassString += _alignLookup[media.Alignment];
 
             Title = media.Title;
+            ContentType = media.MimeType;
             Caption = media.Caption;
             Description = media.Description;
             Alternate = media.Alternate;
             Year = media.Year;
             Month = media.Month;
             Day = media.Day;
+            Url = media.Url;
         }
 
         // create styles from data passed in
         public string ClassString { get; set; }
 
         public string Title { get; set; }
+        public string ContentType { get; set; }
         public string Caption { get; set; }
         public string Description { get; set; }
         public string Alternate { get; set; }
         public int Year { get; set; }
         public int Month { get; set; }
         public int Day { get; set; }
+        public string Url { get; set; }
+        public string DisplayDate { get { return new DateTime(Year, Month, Day).ToShortDateString(); } }
+        public int Id { get; set; }
+        public string Extension {
+            get
+            {
+                if (!string.IsNullOrEmpty(FileName) && FileName.Contains("."))
+                {
+                    return FileName.Split('.').Last().ToUpper();
+                }
+                return "Unknown File Type";
+            }
+        }
+        public string Author { get; set; }
+
+        public string FileName { get; set; }
     }
 }

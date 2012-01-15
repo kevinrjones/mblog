@@ -226,35 +226,34 @@ namespace MBlogUnitTest.Routing
         [Test]
         public void GivenACorrectRoutesCollection_WhenIUploadMedia_ThenIGetTheUploadActionForCreatingMedia()
         {
-            TestRoute("~/nickname/media/upload/1", new
+            TestRoute("~/nickname/media/upload", new
             {
                 controller = "Media",
                 action = "Upload",
-                blogId = 1,
                 nickname = "nickname"
             },
             "POST");
         }
 
         [Test]
-        public void GivenACorrectRoutesCollection_WhenICreateMedia_ThenIGetTheCreateActionForCreatingMedia()
+        public void GivenACorrectRoutesCollection_WhenICreateMedia_ThenIGetTheCreateActionForMedia()
         {
-            TestRoute("~/nickname/media/create/1", new
+            TestRoute("~/nickname/media/create", new
             {
                 controller = "Media",
                 action = "Create",
-                blogId = 1,
                 nickname = "nickname"
             },
             "POST");
         }
 
         [Test]
-        public void GivenACorrectRoutesCollection_WhenIShowAMedia_ThenIGetTheShowActionForShowingMedia()
+        public void GivenACorrectRoutesCollection_WhenIShowAMedia_ThenIGetTheShowActionForMedia()
         {
-            TestRoute("~/media/2011/12/18/filename", new
+            TestRoute("~/nickname/media/2011/12/18/filename", new
             {
                 controller = "Media",
+                nickname = "nickname",
                 action = "show",
                 year = 2011,
                 month = 12,
@@ -265,17 +264,29 @@ namespace MBlogUnitTest.Routing
         }
 
         [Test]
-        public void GivenACorrectRoutesCollection_WhenIAskForANewMedium_ThenIGetTheCreateActionForNewMedia()
+        public void GivenACorrectRoutesCollection_WhenIAskForANewMedium_ThenIGetTheCreateActionForMedia()
         {
-            TestRoute("~/nickname/media/new/1", new
+            TestRoute("~/nickname/media/new", new
             {
                 controller = "Media",
                 action = "New",
-                blogId = 1,
                 nickname = "nickname"
             },
             "GET");
         }
+
+        [Test]
+        public void GivenACorrectRoutesCollection_WhenIAskForAListOfMedia_ThenIGetTheIndexActionForMedia()
+        {
+            TestRoute("~/nickname/media", new
+            {
+                controller = "Media",
+                action = "Index",
+                nickname = "nickname"
+            },
+            "GET");
+        }
+
         private void TestRoute(string url, object expectedValues, string httpMethod)
         {
             RouteData routeData = url.GetRouteData(httpMethod);

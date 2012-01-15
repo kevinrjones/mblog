@@ -16,7 +16,7 @@ namespace MBlog.Controllers
 {
     public class MediaController : BaseController
     {
-        private IMediaDomain _mediaDomain;
+        private readonly IMediaDomain _mediaDomain;
 
         public MediaController(IMediaDomain mediaDomain, ILogger logger)
             : base(logger)
@@ -25,9 +25,22 @@ namespace MBlog.Controllers
         }
 
         [HttpGet]
-        public ActionResult Index()
+        [AuthorizeLoggedInUser]
+        public ActionResult Index(string nickname)
         {
-            return RedirectToRoute("Default-Home");
+            var user = HttpContext.User as UserViewModel;
+            var media = _mediaDomain.GetMedia(1, 10, user.Id);
+            var mediaVM = new List<ShowMediaViewModel>();
+            int count = 0;
+            foreach (var medium in media)
+            {
+                ShowMediaViewModel model = new ShowMediaViewModel(medium);
+                model.FileName = medium.FileName;
+                model.Id = count++;
+                model.Author = nickname;
+                mediaVM.Add(model);
+            }
+            return View(mediaVM);
         }
 
         [HttpGet]
@@ -45,24 +58,23 @@ namespace MBlog.Controllers
         }
 
         [HttpGet]
-        [AuthorizeBlogOwner]
+        [AuthorizeLoggedInUser]
         public ActionResult New(NewMediaViewModel model)
         {
-            return View(new NewMediaViewModel { Nickname = model.Nickname, BlogId = model.BlogId, File = model.File });
+            return View(new NewMediaViewModel { Nickname = model.Nickname, File = model.File });
         }
 
         [HttpPost]
-        [AuthorizeBlogOwner]
+        [AuthorizeLoggedInUser]
         public JsonResult Create(NewMediaViewModel model)
         {
-            int contentLength;
-            Stream inputStream;
-            string fileName;
-
             var result = new MediaCreateJsonResponse { success = false };
             try
             {
                 var user = (UserViewModel)HttpContext.User;
+                int contentLength;
+                Stream inputStream;
+                string fileName;
                 if (model.File != null)
                 {
                     contentLength = model.File.ContentLength;

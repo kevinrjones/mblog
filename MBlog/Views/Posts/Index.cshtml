@@ -6,7 +6,7 @@
     ViewBag.Title = Html.Encode(Index.ListPosts);
     Layout = "~/Views/Admin/_AdminLayout.cshtml";
 }
-<section class="list-posts">
+<section class="list-items">
     <table>
         @foreach (var postViewModel in Model.Posts)
         {
@@ -21,7 +21,7 @@
                     @MvcHtmlString.Create(postViewModel.Title) 
                     @if (postViewModel.CommentCount != 0)
                     {
-                        <span class="list-posts-comment-count">
+                        <span class="list-items-comment-count">
                         @Html.ActionLink("(" + postViewModel.CommentCount + " " + Global.Comments + ")", "Index", "Comments", new { nickname = Model.Nickname, postId = postViewModel.Id, blogId = Model.BlogId }, null)
                         </span>
                     }

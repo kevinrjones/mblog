@@ -113,7 +113,7 @@ namespace MBlogModel
 
         public string Url
         {
-            get { return string.Format("{0}/{1}/{2}/{3}", Year, Month, Day, FileName); }            
+            get { return string.Format("{0}/{1}/{2}/{3}", Year, Month, Day, Title); }            
         }
 
         // override object.Equals

@@ -136,40 +136,40 @@ namespace MBlog
 
             routes.MapRoute(
                 "Media-show",
-                "media/{year}/{month}/{day}/{title}",
+                "{nickname}/media/{year}/{month}/{day}/{title}",
                 new { controller = "media", action = "Show"}
                 );
 
             routes.MapRoute(
                 "Media-index",
-                "media",
+                "{nickname}/media",
                 new { controller = "media", action = "Index" }
                 );
 
             routes.MapRoute(
                 "Media-create",
-                "{nickname}/media/create/{blogId}",
+                "{nickname}/media/create",
                 new { controller = "Media", action = "Create" },
                 new { httpMethod = new HttpMethodConstraint("POST") }
                 );
 
             routes.MapRoute(
                 "Media-update",
-                "{nickname}/media/update/{blogId}/{mediaId}",
+                "{nickname}/media/update/{mediaId}",
                 new { controller = "Media", action = "Update", },
                 new { httpMethod = new HttpMethodConstraint("POST") }
                 );
 
             routes.MapRoute(
                 "Media-new",
-                "{nickname}/media/new/{blogId}",
+                "{nickname}/media/new",
                 new { controller = "Media", action = "New" },
                 new { httpMethod = new HttpMethodConstraint("GET") }
                 );
 
             routes.MapRoute(
                 "Media-upload",
-                "{nickname}/media/upload/{blogId}",
+                "{nickname}/media/upload",
                 new { controller = "Media", action = "Upload" },
                 new { httpMethod = new HttpMethodConstraint("POST") }
                 );

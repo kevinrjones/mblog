@@ -45,7 +45,7 @@ INSERT INTO [$(Database)].[dbo].[posts]
 		,[blog_id])
      VALUES
   ('Up and running (well almost)'
-   ,'<p>I''m adding a ''code'' widget to the site to format code appropriately. Now, I don''t even have a layout/CSS started yet <img src="media/2012/12/18/InitialBlog" style="width: 100%"></src> but as this is going to be mostly about coding then layout of code is important. I''m going to use ''Syntax Highlighter'' !!! which is on http://alexgorbatchev.com/SyntaxHighlighter/</p>'
+   ,'<p>I''m adding a ''code'' widget to the site to format code appropriately. Now, I don''t even have a layout/CSS started yet <img src="kevin/media/2011/12/18/InitialBlog" style="width: 100%"></src> but as this is going to be mostly about coding then layout of code is important. I''m going to use ''Syntax Highlighter'' !!! which is on http://alexgorbatchev.com/SyntaxHighlighter/</p>'
   ,'2011-03-27 14:00:00', '2011-03-27 12:00:00',1)
 
 INSERT INTO [$(Database)].[dbo].[posts]
@@ -172,7 +172,7 @@ INSERT INTO [$(Database)].[dbo].[posts]
 		,[blog_id])
      VALUES
   ('Gotta Love JetBrains'
-   ,'<p>I''ve just installed dotCover, TeamCity and YouTrack and it was trivially easy. Have CI builds running off GitHub and the output looks like this <img src="media/2012/12/18/teamcity" style="width:100%"/></p>'
+   ,'<p>I''ve just installed dotCover, TeamCity and YouTrack and it was trivially easy. Have CI builds running off GitHub and the output looks like this <img src="kevin/media/2011/12/18/teamcity" style="width:100%"/></p>'
   ,'2011-03-31 18:47:00', '2011-03-27 12:00:00',1)
 
   

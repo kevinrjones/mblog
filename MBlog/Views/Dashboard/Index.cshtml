@@ -7,26 +7,29 @@
 }
 <section class="admin-dashboard">
     <section class="admin-main">
-    <section class="admin-title">
-        <h2>
-            Dashboard</h2>
-    </section>
+        <section class="admin-title">
+            <h2>
+                Dashboard</h2>
+        </section>
         <section class="admin-user">
             <div id="admin-user-name">
                 <h4>@Model.Name</h4>
             </div>
             <div id="admin-user-manage">
                 <h4>
-                    <span id="admin-manageblogs-title">@Html.Encode(Index.ManageBlogs) (@Model.Blogs.Count Total)</span>
-                    <span class="admin-link admin-header-links">@Html.ActionLink(Html.Encode(Index.CreateBlog), "new", "Blog", null, null)</span>
+                    <span id="admin-manageblogs-title">@Html.Encode(Index.ManageBlogs) (@Model.Blogs.Count
+                        Total)</span> <span class="admin-link admin-header-links">@Html.ActionLink(Html.Encode(Index.CreateBlog), "new", "Blog", null, null)</span>
                 </h4>
             </div>
         </section>
         <div style="clear: both">
         </div>
         <section class="admin-user-links">
-        Profile
-    </section>
+            Profile
+            <div class="admin-blog-actions">
+                <span class="admin-link">@Html.ActionLink(Index.ListMedia, "index", "Media", new { nickname = Model.Blogs[0].Nickname }, null)</span>
+            </div>
+        </section>
         <section class="admin-blog-list">
             @foreach (var blog in Model.Blogs)
             {
@@ -41,7 +44,7 @@
                         <span class="admin-link">@Html.ActionLink(Global.NewPost, "new", "Post", new { nickname = blog.Nickname, blogId = blog.BlogId }, null)</span>
                         <span class="admin-link">@Html.ActionLink(Global.EditPosts, "index", "Posts", new { nickname = blog.Nickname, blogId = blog.BlogId }, null)</span>
                         <span class="admin-link">@Html.ActionLink(Global.Comments, "index", "Comments", new { nickname = blog.Nickname, blogId = blog.BlogId }, null)</span>
-                        <span class="admin-link">@Html.ActionLink(Index.Settings, "Edit", "Blog", new { nickname = blog.Nickname, blogId = blog.BlogId }, null)</span>                        
+                        <span class="admin-link">@Html.ActionLink(Index.Settings, "Edit", "Blog", new { nickname = blog.Nickname, blogId = blog.BlogId }, null)</span>
                     </div>
                 </section>
             }

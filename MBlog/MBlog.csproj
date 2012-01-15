@@ -302,7 +302,7 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Index.resx</DependentUpon>
     </Compile>
-    <Compile Include="Resources\Image\New.Designer.cs">
+    <Compile Include="Resources\Media\New.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>New.resx</DependentUpon>
@@ -616,7 +616,7 @@
       <LastGenOutput>Index.Designer.cs</LastGenOutput>
       <CustomToolNamespace>MBlog.Resources.Home</CustomToolNamespace>
     </EmbeddedResource>
-    <EmbeddedResource Include="Resources\Image\New.resx">
+    <EmbeddedResource Include="Resources\Media\New.resx">
       <Generator>PublicResXFileCodeGenerator</Generator>
       <LastGenOutput>New.Designer.cs</LastGenOutput>
       <CustomToolNamespace>MBlog.Resources.Image</CustomToolNamespace>
@@ -689,6 +689,9 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Views\Media\New.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Media\Index.cshtml" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v10.0\WebApplications\Microsoft.WebApplication.targets" />

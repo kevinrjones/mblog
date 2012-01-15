@@ -40,7 +40,7 @@
         <div class="media-upload">            
             <div id="file-uploader">
                 <noscript>          
-                    @using (Html.BeginForm("Upload", "media", FormMethod.Post, new { enctype = "multipart/form-data" }))
+                    @using (Html.BeginForm("Create", "media", FormMethod.Post, new { enctype = "multipart/form-data" }))
                     {
                         @Html.HiddenFor(m => m.Nickname)
                         @Html.HiddenFor(m => m.BlogId)
@@ -55,7 +55,7 @@
             <div id="upload-error-text"></div>
         </div>
         <div class="media-details">
-            @using (Html.BeginForm("Create", "media", FormMethod.Post))
+            @using (Html.BeginForm("Update", "media", FormMethod.Post))
             {
                 <div class="row">
                     <span class="label">@New.Caption:</span> <span class="formw">@Html.TextBoxFor(m => m.Caption, new { @class = "maxwidth" })</span>

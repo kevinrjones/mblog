@@ -1,0 +1,59 @@
+﻿@model System.Collections.Generic.IEnumerable<MBlog.Models.Media.ShowMediaViewModel>
+@{
+    ViewBag.Title = "List Media";
+    Layout = "~/Views/Dashboard/_DashboardLayout.cshtml";
+}
+<h2>
+    List Media</h2>
+<section class="list-items">
+    <table class="list-media">
+        <tr>
+            <th class="listmedia-checkbox first">
+                @Html.CheckBox("fileall")
+            </th>
+            <th class="listmedia-item">
+            </th>
+            <th class="listmedia-details">
+                File
+            </th>
+            <th class="listmedia-author">
+                Author
+            </th>
+            <th class="listmedia-date last">
+                Date
+            </th>
+        </tr>
+        @foreach (var media in Model)
+        {
+            
+            <tr>
+                <td class="listmedia-checkbox">
+                    @Html.CheckBox("file" + media.Id)
+                </td>
+                <td class="listmedia-item">
+                    @if (media.ContentType.StartsWith("image"))
+                    {            
+                        <a href="#">
+                            <img src="@Html.Encode(media.Url)" alt="@Html.Encode(media.Alternate)" class="media-80x60" height="53" width="80"/>
+                        </a>
+                    }
+                </td>
+                <td class="listmedia-details">
+                    <a href="#">@media.Title</a>
+                    <p>@Html.Encode(media.Extension)</p>
+                    <div class="row-actions">
+                        <span class="edit"><a href="#">Edit</a> | </span>
+                        <span class="delete"><a href="#">Delete</a> | </span>
+                        <span class="view"><a rel="permalink" title="View “@Html.Encode(media.Title)”" href="#">View</a></span>
+                    </div>
+                </td>
+                <td class="listmedia-author">
+                    @media.Author
+                </td>
+                <td class="listmedia-date">
+                    @media.DisplayDate
+                </td>
+            </tr>
+        }
+    </table>
+</section>

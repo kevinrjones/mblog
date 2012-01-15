@@ -141,4 +141,7 @@
   <data name="ListPosts" xml:space="preserve">
     <value>List Posts</value>
   </data>
+  <data name="ListMedia" xml:space="preserve">
+    <value>List Images</value>
+  </data>
 </root>

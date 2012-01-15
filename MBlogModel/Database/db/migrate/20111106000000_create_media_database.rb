@@ -11,7 +11,7 @@ class CreateMediaDatabase < ActiveRecord::Migration
       t.integer :day,         :null => false
       t.string  :mime_type,   :null => false
       t.integer :alignment,   :null => false
-      t.integer  :size,       :null => false
+      t.integer :size,        :null => false
       t.integer :user_id,     :null => false
       t.binary  :bytes,       :limit => 10000000, :null => false
     end    

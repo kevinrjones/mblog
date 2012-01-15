@@ -18,6 +18,7 @@ namespace UploadImages
 
             foreach (var image in images)
             {
+                string fileName = image.Key + "." + image.Value.Split('.').Last();
                 FileStream str = File.Open(image.Value, FileMode.Open);
 
                 byte[] imageData = new byte[str.Length];
@@ -36,9 +37,9 @@ namespace UploadImages
                             "[year], [month], [day],[mime_type],[alignment],[size],[user_id],[bytes])" +
                             "VALUES(@title, @file_name,  @year,  @month,  @day, @mime_type, @alignment, @size, @user_id, @bytes)";
                         cmd.Parameters.AddWithValue("@title", image.Key);
-                        cmd.Parameters.AddWithValue("@file_name", image.Key);
+                        cmd.Parameters.AddWithValue("@file_name", fileName);
                         cmd.Parameters.AddWithValue("@year", 2012);
-                        cmd.Parameters.AddWithValue("@month", 12);
+                        cmd.Parameters.AddWithValue("@month", 11);
                         cmd.Parameters.AddWithValue("@day", 18);
                         cmd.Parameters.AddWithValue("@mime_type", "image/png");
                         cmd.Parameters.AddWithValue("@alignment", 1);
@@ -47,6 +48,7 @@ namespace UploadImages
                         cmd.Parameters.AddWithValue("@bytes", imageData);
 
                         cmd.ExecuteNonQuery();
+                        Console.WriteLine("Added image: {0}, {1}", fileName, image.Key);
                     }
                 }
             }

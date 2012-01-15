@@ -39,6 +39,11 @@ namespace MBlogDomain
             }
         }
 
+        public IEnumerable<Media> GetMedia(int pageNumber, int pageItems, int userId)
+        {
+            return _mediaRepository.GetMedia(pageNumber, pageItems, userId);
+        }
+
         public string WriteMedia(string fileName, int userId, string contentType, Stream inputStream, int contentLength)
         {
             var mediaToCreate = new Media(fileName, userId, contentType, inputStream, contentLength);

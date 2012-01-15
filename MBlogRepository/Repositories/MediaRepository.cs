@@ -22,13 +22,23 @@ namespace MBlogRepository.Repositories
         }
 
         public Media GetMedia(int year, int month, int day, string title)
-        {            
+        {
             return (from i in Entities
                     where i.Year == year
                     && i.Month == month
                     && i.Day == day
                     && i.Title == title
                     select i).FirstOrDefault();
+        }
+
+        public IEnumerable<Media> GetMedia(int pageNumber, int pageSize, int userId)
+        {
+            return Entities
+                .Where(e => e.UserId == userId)
+                .OrderBy(e => e.Id)
+                .Skip((pageNumber - 1) * pageSize)
+                .Take(pageSize)
+                .ToList();
         }
 
         public Media WriteMedia(Media media)
