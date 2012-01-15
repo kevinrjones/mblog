@@ -346,11 +346,6 @@
   <ItemGroup>
     <Content Include="App_Readme\glimpse.mvc3.readme.txt" />
     <Content Include="App_Readme\glimpse.readme.txt" />
-    <Content Include="Content\admin.css">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>admin.less</DependentUpon>
-    </Content>
     <Content Include="Content\fileuploader.css" />
     <Content Include="Content\loading.gif" />
     <Content Include="Content\main.less" />
@@ -690,10 +685,8 @@
     <Content Include="Views\Media\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Content\admin.less">
-      <Generator>LessGenerator</Generator>
-      <LastGenOutput>admin.css</LastGenOutput>
-    </None>
+    <None Include="Content\colors.less" />
+    <None Include="Content\dashboard.less" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v10.0\WebApplications\Microsoft.WebApplication.targets" />

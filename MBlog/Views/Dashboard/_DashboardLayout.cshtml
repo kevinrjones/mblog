@@ -1,3 +1,9 @@
 ﻿@{ Layout = "~/Views/Shared/_Layout.cshtml"; }
 
 @RenderBody()
+
+@section DashboardHeaders
+{
+    <link href="@Url.Content("~/Content/dashboard.less")" rel="stylesheet" type="text/css" />   
+}
+
