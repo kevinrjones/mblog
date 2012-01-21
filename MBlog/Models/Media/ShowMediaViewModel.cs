@@ -38,6 +38,7 @@ namespace MBlog.Models.Media
             Month = media.Month;
             Day = media.Day;
             Url = media.Url;
+            UserId = media.UserId;
         }
 
         // create styles from data passed in
@@ -54,6 +55,7 @@ namespace MBlog.Models.Media
         public string Url { get; set; }
         public string DisplayDate { get { return new DateTime(Year, Month, Day).ToShortDateString(); } }
         public int Id { get; set; }
+        public int UserId { get; set; }
         public string Extension {
             get
             {

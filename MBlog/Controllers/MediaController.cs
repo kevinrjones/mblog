@@ -31,12 +31,12 @@ namespace MBlog.Controllers
             var user = HttpContext.User as UserViewModel;
             var media = _mediaDomain.GetMedia(1, 10, user.Id);
             var mediaVM = new List<ShowMediaViewModel>();
-            int count = 0;
+
             foreach (var medium in media)
             {
                 ShowMediaViewModel model = new ShowMediaViewModel(medium);
                 model.FileName = medium.FileName;
-                model.Id = count++;
+                model.Id = medium.Id;
                 model.Author = nickname;
                 mediaVM.Add(model);
             }
@@ -114,7 +114,7 @@ namespace MBlog.Controllers
         }
 
         [HttpPost]
-        [AuthorizeBlogOwner]
+        [AuthorizeLoggedInUser]
         public ActionResult Update(NewMediaViewModel model)
         {
             if (!ModelState.IsValid)
@@ -131,5 +131,16 @@ namespace MBlog.Controllers
             }
             throw new MBlogException("Invalid File");
         }
+
+        [HttpGet]
+        [AuthorizeLoggedInUser]
+        public ActionResult Edit(string nickname, int mediaId)
+        {
+            var user = (UserViewModel)HttpContext.User;
+            var media = _mediaDomain.GetMedia(mediaId, user.Id);
+            return View(new ShowMediaViewModel(media));
+        }
+
+
     }
 }

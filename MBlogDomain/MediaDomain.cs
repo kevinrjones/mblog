@@ -84,6 +84,19 @@ namespace MBlogDomain
             }
         }
 
+        public Media GetMedia(int mediaId, int userId)
+        {
+            var medium = _mediaRepository.GetMedia(mediaId);
+            if(medium == null)
+            {
+                throw new MBlogMediaNotFoundException();
+            }
+            if (medium.UserId == userId)
+                return medium;
+
+            throw new MBlogMediaNotFoundException("The requested media does not belong to the user");
+        }
+
         private static byte[] ReadBytes(Stream inputStream, int contentLength)
         {
             byte[] bytes = new byte[contentLength];

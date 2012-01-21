@@ -13,5 +13,6 @@ namespace MBlogDomainInterfaces
         IEnumerable<Media> GetMedia(int pageNumber, int pageItems, int userId);
         string WriteMedia(string fileName, int userId, string contentType, Stream inputStream, int contentLength);
         void WriteMedia(string fileName, string title, string caption, string description, string alternate, int id, string contentType, int alignment, int size, Stream inputStream, int contentLength);
+        Media GetMedia(int mediaId, int userId);
     }
 }

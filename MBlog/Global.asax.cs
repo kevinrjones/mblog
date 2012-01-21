@@ -181,12 +181,12 @@ namespace MBlog
                 new { httpMethod = new HttpMethodConstraint("POST") }
                 );
 
-            //routes.MapRoute(
-            //    "Media-edit",
-            //    "{nickname}/media/edit/{blogId}/{mediaId}",
-            //    new { controller = "Media", action = "Edit", },
-            //    new { httpMethod = new HttpMethodConstraint("GET") }
-            //    );
+            routes.MapRoute(
+                "Media-edit",
+                "{nickname}/media/edit/{mediaId}",
+                new { controller = "Media", action = "Edit", },
+                new { httpMethod = new HttpMethodConstraint("GET") }
+                );
 
             //routes.MapRoute(
             //    "Media-delete",
