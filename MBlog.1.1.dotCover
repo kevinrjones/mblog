@@ -18,6 +18,13 @@
       <Filter ModuleMask="*" ClassMask="MBlogModel.MBlogMediaNotFoundException" FunctionMask="*" />
       <Filter ModuleMask="CollectionHelpers" ClassMask="*" FunctionMask="*" />
       <Filter ModuleMask="*" ClassMask="MvcApplication" FunctionMask="*" />
+      <Filter ModuleMask="*" ClassMask="MBlogModel.MBlogInsertItemException" FunctionMask="*" />
+      <Filter ModuleMask="*" ClassMask=" MBlog.Controllers.BaseController" FunctionMask="OnException" />
+      <Filter ModuleMask="*" ClassMask=" MBlog.Controllers.BaseController" FunctionMask="LogExceptionToElmah" />
+      <Filter ModuleMask="*" ClassMask="MBlog.Infrastructure.UnityDependencyResolver" FunctionMask="*" />
+      <Filter ModuleMask="*" ClassMask="MBlog.Infrastructure.UnityFilterAttributeFilterProvider" FunctionMask="*" />
+      <Filter ModuleMask="*" ClassMask="MBlog.Logging.WebMessageInformation" FunctionMask="*" />
+      <Filter ModuleMask="*" ClassMask="MBlog.MvcApplication" FunctionMask="*" />
     </ExcludeFilters>
   </CoverageFilters>
 </Configuration>

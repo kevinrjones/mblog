@@ -1,11 +1,30 @@
-﻿@using Rejuicer
+@*<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width" />
+    <title>@ViewBag.Title</title>
+    <link href="@System.Web.Optimization.BundleTable.Bundles.ResolveBundleUrl("~/Content/css")" rel="stylesheet" type="text/css" />
+    <link href="@System.Web.Optimization.BundleTable.Bundles.ResolveBundleUrl("~/Content/themes/base/css")" rel="stylesheet" type="text/css" />
+    <script src="@System.Web.Optimization.BundleTable.Bundles.ResolveBundleUrl("~/Scripts/js")"></script>
+</head>
+<body>
+    @RenderBody()
+</body>
+</html>
+
+*@
+
+@using Rejuicer
 <!DOCTYPE html>
 <html class="no-js">
 <head>
     <title>@ViewBag.Title</title>
     @Rejuiced.CssFor("~/Combined-{0}.css")
     @Rejuiced.JsFor("~/Combined-{0}.js")
+    <link href='http://fonts.googleapis.com/css?family=Ropa+Sans|Asap|Quicksand' rel='stylesheet' type='text/css'>
     <link href="@Url.Content("~/Content/main.less")" rel="stylesheet" type="text/css" />   
+    <link href="@Url.Content("~/Content/media.less")" rel="stylesheet" type="text/css" />   
     <link rel="shortcut icon" href="@Url.Content("~/favicon.ico")">    
     <script type="text/javascript">
         SyntaxHighlighter.defaults['toolbar'] = true;
@@ -38,6 +57,10 @@
             <div class="blog-main-body">
                 @RenderBody()
             </div>
+            <div class="blog-sidebar">
+                @Html.Encode("Sidebar")
+            </div>
+            <div class="clear-both"></div>
         </div>
     </div>
 </body>

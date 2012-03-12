@@ -250,7 +250,7 @@ namespace MBlogUnitTest.Routing
         [Test]
         public void GivenACorrectRoutesCollection_WhenIShowAMedia_ThenIGetTheShowActionForMedia()
         {
-            TestRoute("~/nickname/media/2011/12/18/filename", new
+            TestRoute("~/nickname/media/2011/12/18/linkkey", new
             {
                 controller = "Media",
                 nickname = "nickname",
@@ -258,7 +258,7 @@ namespace MBlogUnitTest.Routing
                 year = 2011,
                 month = 12,
                 day = 18,
-                title = "filename",
+                linkkey = "linkkey",
             },
             "GET");
         }

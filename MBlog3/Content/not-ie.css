@@ -1,0 +1,22 @@
+﻿
+	
+ul.headerList li a {
+border-bottom-left-radius:1em;
+border-bottom-right-radius:1em;
+border-top-left-radius:1em;
+border-top-right-radius:1em;
+
+-moz-background-clip:border; 
+-moz-background-inline-policy:continuous;
+-moz-background-origin:padding-box;
+-moz-border-radius-bottomleft:1em;
+-moz-border-radius-bottomright:1em;
+-moz-border-radius-topleft:1em;
+-moz-border-radius-topright:1em;
+
+-webkit-border-radius-bottomleft:1em;
+-webkit-border-radius-bottomright:1em;
+-webkit-border-radius-topleft:1em;
+-webkit-border-radius-topright:1em;
+}
+

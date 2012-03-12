@@ -88,5 +88,18 @@ namespace MBlogDomain
                 throw new MBlogException("Unable to retrieve posts", e);
             }
         }
+
+        public void Delete(int postId)
+        {
+            try
+            {
+                Post post = _postRepository.GetBlogPost(postId);
+                _postRepository.Delete(post);
+            }
+            catch (Exception e)
+            {
+                throw new MBlogException("Unable to retrieve posts", e);
+            }
+        }
     }
 }

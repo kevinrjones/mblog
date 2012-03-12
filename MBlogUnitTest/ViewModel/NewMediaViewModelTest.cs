@@ -33,5 +33,50 @@ namespace MBlogUnitTest.ViewModel
             var model = new NewMediaViewModel();
             Assert.IsFalse(model.IsAllowed("txt"));
         }
+
+        [Test]
+        public void GivenAQQFile_ThenTheCorrectMimeTypeIsReturned()
+        {
+            var model = new NewMediaViewModel {QqFile = "name.jpg"};
+            Assert.That(model.ContentType, Is.EqualTo("image/jpeg"));
+        }
+
+        [Test]
+        public void GivenAValidQqFileExtension_ThenTheModelIsValid()
+        {
+            var model = new NewMediaViewModel {QqFile = "name.jpg"};
+            Assert.That(model.Validate(null).Count(), Is.EqualTo(0));
+        }
+
+        [Test]
+        public void GivenAValidFileExtension_ThenTheModelIsValid()
+        {
+            var model = new NewMediaViewModel { File = new TestHttpPostedFileBase("foo.jpg") };
+            Assert.That(model.Validate(null).Count(), Is.EqualTo(0));
+        }
+
+        [Test]
+        public void GivenAInvalidFileExtension_ThenTheModelIsInvalid()
+        {
+            var model = new NewMediaViewModel { File = new TestHttpPostedFileBase("foo.bar") };
+            Assert.That(model.Validate(null).Count(), Is.EqualTo(1));
+        }
+    }
+
+    public class TestHttpPostedFileBase : HttpPostedFileBase
+    {
+        private string _fileName;
+        public TestHttpPostedFileBase(string fileName)
+        {
+            _fileName = fileName;
+        }
+
+        public override string FileName
+        {
+            get
+            {
+                return _fileName;
+            }
+        }
     }
 }

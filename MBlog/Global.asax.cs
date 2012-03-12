@@ -1,10 +1,9 @@
 ﻿using System.Configuration;
 using System.Linq;
+using System.Web.Http;
 using System.Web.Mvc;
 using System.Web.Routing;
-using IoC;
 using Logging;
-using MBlog.Controllers;
 using MBlog.Infrastructure;
 using MBlogDomain;
 using MBlogDomainInterfaces;
@@ -29,230 +28,217 @@ namespace MBlog
             routes.IgnoreRoute("{resource}.axd/{*pathInfo}");
 
             routes.MapRoute(
-                "Error",
-                "Error",
-                new { controller = "Error", action = "Index" }
+                name: "Error",
+                url: "Error",
+                defaults: new { controller = "Error", action = "Index" }
+                );
+
+            routes.MapRoute(
+                name: "Blog-new",
+                url: "blog/new",
+                defaults: new { controller = "Blog", action = "New" },
+                constraints: new { httpMethod = new HttpMethodConstraint("GET") }
+                );
+
+            routes.MapRoute(
+                name: "Blog-create",
+                url: "blog/create",
+                defaults: new { controller = "Blog", action = "Create" },
+                constraints: new { httpMethod = new HttpMethodConstraint("POST") }
+                );
+
+            routes.MapRoute(
+                name: "Blog-edit",
+                url: "{nickname}/blog/edit/{blogId}",
+                defaults: new { controller = "Blog", action = "Edit", },
+                constraints: new { httpMethod = new HttpMethodConstraint("GET") }
+                );
+
+            routes.MapRoute(
+                name: "Blog-update",
+                url: "{nickname}/blog/update",
+                defaults: new { controller = "Blog", action = "Update", },
+                constraints: new { httpMethod = new HttpMethodConstraint("POST") }
+                );
+
+            routes.MapRoute(
+                name: "Blog-delete",
+                url: "{nickname}/blog/delete/{blogId}",
+                defaults: new { controller = "Blog", action = "Delete" },
+                constraints: new { httpMethod = new HttpMethodConstraint("POST") }
+                );
+
+            routes.MapRoute(
+                name: "Users-new",
+                url: "user/new",
+                defaults: new { controller = "User", action = "New" },
+                constraints: new { httpMethod = new HttpMethodConstraint("GET") }
             );
 
             routes.MapRoute(
-                "Blog-new",
-                "blog/new",
-                new { controller = "Blog", action = "New" },
-                new { httpMethod = new HttpMethodConstraint("GET") }
-                );
-
-            routes.MapRoute(
-                "Blog-create",
-                "blog/create",
-                new { controller = "Blog", action = "Create" },
-                new { httpMethod = new HttpMethodConstraint("POST") }
-                );
-
-            routes.MapRoute(
-                "Blog-edit",
-                "{nickname}/blog/edit/{blogId}",
-                new { controller = "Blog", action = "Edit", },
-                new { httpMethod = new HttpMethodConstraint("GET") }
-                );
-
-            routes.MapRoute(
-                "Blog-update",
-                "{nickname}/blog/update",
-                new { controller = "Blog", action = "Update", },
-                new { httpMethod = new HttpMethodConstraint("POST") }
-                );
-
-            routes.MapRoute(
-                "Blog-delete",
-                "{nickname}/blog/delete/{blogId}",
-                new { controller = "Blog", action = "Delete" },
-                new { httpMethod = new HttpMethodConstraint("POST") }
-                );
-
-            routes.MapRoute(
-                "Users-new",
-                "user/new",
-                new { controller = "User", action = "New" },
-                new { httpMethod = new HttpMethodConstraint("GET") }
+                name: "Users-create",
+                url: "user/create",
+                defaults: new { controller = "User", action = "Create" },
+                constraints: new { httpMethod = new HttpMethodConstraint("POST") }
             );
 
             routes.MapRoute(
-                "Users-create",
-                "user/create",
-                new { controller = "User", action = "Create" },
-                new { httpMethod = new HttpMethodConstraint("POST") }
+                name: "Session-new",
+                url: "session/new",
+                defaults: new { controller = "Session", action = "New" },
+                constraints: new { httpMethod = new HttpMethodConstraint("GET") }
             );
 
             routes.MapRoute(
-                "Session-new",
-                "session/new",
-                new { controller = "Session", action = "New" },
-                new { httpMethod = new HttpMethodConstraint("GET") }
+                name: "Session-create",
+                url: "session/create",
+                defaults: new { controller = "Session", action = "Create" },
+                constraints: new { httpMethod = new HttpMethodConstraint("POST") }
             );
 
             routes.MapRoute(
-                "Session-create",
-                "session/create",
-                new { controller = "Session", action = "Create" },
-                new { httpMethod = new HttpMethodConstraint("POST") }
+                name: "Session-delete",
+                url: "session/delete",
+                defaults: new { controller = "Session", action = "Delete" }
             );
 
             routes.MapRoute(
-                "Session-delete",
-                "session/delete",
-                new { controller = "Session", action = "Delete" }
+                name: "Feed",
+                url: "{nickname}/feed/{action}",
+                defaults: new { controller = "Feed", action = "rss" },
+                constraints: new { httpMethod = new HttpMethodConstraint("GET") }
+                );
+
+            routes.MapRoute(
+                name: "Dashboard-index",
+                url: "dashboard",
+               defaults: new { controller = "Dashboard", action = "Index" }
+                );
+
+            routes.MapRoute(
+                name: "Admin-posts",
+                url: "admin/posts/{action}/{nickname}/{blogId}",
+                defaults: new { controller = "Posts", action = "Index", nickname = UrlParameter.Optional, blogId = UrlParameter.Optional, }
             );
 
             routes.MapRoute(
-                "Feed",
-                "{nickname}/feed/{action}",
-                new { controller = "Feed", action = "rss" },
-                new { httpMethod = new HttpMethodConstraint("GET") }
-                );
-
-            routes.MapRoute(
-                "Dashboard-index",
-                "dashboard",
-                new { controller = "Dashboard", action = "Index" }
-                );
-
-            routes.MapRoute(
-                "Admin-posts",
-                "admin/posts/{action}/{nickname}/{blogId}",
-                new { controller = "Posts", action = "Index", nickname = UrlParameter.Optional, blogId = UrlParameter.Optional, }
+                name: "Admin-comments",
+                url: "admin/comments/{action}/{nickname}/{postId}/{blogId}",
+               defaults: new { controller = "Comments", action = "Index", nickname = UrlParameter.Optional, blogId = UrlParameter.Optional, postId = UrlParameter.Optional, }
             );
 
             routes.MapRoute(
-                "Admin-comments",
-                "admin/comments/{action}/{nickname}/{postId}/{blogId}",
-                new { controller = "Comments", action = "Index", nickname = UrlParameter.Optional, blogId = UrlParameter.Optional, postId = UrlParameter.Optional, }
-            );
-
-            routes.MapRoute(
-                "comments",
-                "{nickname}/comment/{action}",
-                new { controller = "Comment", action = "Index" }
+                name: "comments",
+                url: "{nickname}/comment/{action}",
+                defaults: new { controller = "Comment", action = "Index" }
                 );
 
             routes.MapRoute(
-                "Media-show",
-                "{nickname}/media/{year}/{month}/{day}/{title}",
-                new { controller = "media", action = "Show"}
+                name: "Media-show",
+                url: "{nickname}/media/{year}/{month}/{day}/{linkkey}",
+               defaults: new { controller = "media", action = "Show" }
                 );
 
             routes.MapRoute(
-                "Media-index",
-                "{nickname}/media",
-                new { controller = "media", action = "Index" }
+                name: "Media-index",
+                url: "{nickname}/media",
+                defaults: new { controller = "media", action = "Index" }
                 );
 
             routes.MapRoute(
-                "Media-create",
-                "{nickname}/media/create",
-                new { controller = "Media", action = "Create" },
-                new { httpMethod = new HttpMethodConstraint("POST") }
+                name: "Media-create",
+                url: "{nickname}/media/create",
+                defaults: new { controller = "Media", action = "Create" },
+                constraints: new { httpMethod = new HttpMethodConstraint("POST") }
                 );
 
             routes.MapRoute(
-                "Media-update",
-                "{nickname}/media/update/{mediaId}",
-                new { controller = "Media", action = "Update", },
-                new { httpMethod = new HttpMethodConstraint("POST") }
+                name: "Media-update",
+                url: "{nickname}/media/update/{mediaId}",
+                defaults: new { controller = "Media", action = "Update", },
+                constraints: new { httpMethod = new HttpMethodConstraint("POST") }
                 );
 
             routes.MapRoute(
-                "Media-new",
-                "{nickname}/media/new",
-                new { controller = "Media", action = "New" },
-                new { httpMethod = new HttpMethodConstraint("GET") }
+                name: "Media-new",
+                url: "{nickname}/media/new",
+                defaults: new { controller = "Media", action = "New" },
+                constraints: new { httpMethod = new HttpMethodConstraint("GET") }
                 );
 
             routes.MapRoute(
-                "Media-upload",
-                "{nickname}/media/upload",
-                new { controller = "Media", action = "Upload" },
-                new { httpMethod = new HttpMethodConstraint("POST") }
+                name: "Media-upload",
+                url: "{nickname}/media/upload",
+                defaults: new { controller = "Media", action = "Upload" },
+                constraints: new { httpMethod = new HttpMethodConstraint("POST") }
                 );
 
             routes.MapRoute(
-                "Media-save",
-                "{nickname}/media/save",
-                new { controller = "Media", action = "Save" },
-                new { httpMethod = new HttpMethodConstraint("POST") }
+                name: "Media-save",
+                url: "{nickname}/media/save",
+                defaults: new { controller = "Media", action = "Save" },
+                constraints: new { httpMethod = new HttpMethodConstraint("POST") }
                 );
 
             routes.MapRoute(
-                "Media-edit",
-                "{nickname}/media/edit/{mediaId}",
-                new { controller = "Media", action = "Edit", },
-                new { httpMethod = new HttpMethodConstraint("GET") }
-                );
-
-            //routes.MapRoute(
-            //    "Media-delete",
-            //    "{nickname}/media/delete/{blogId}/{imageId}",
-            //    new { controller = "Media", action = "Delete" },
-            //    new { httpMethod = new HttpMethodConstraint("POST") }
-            //    );
-          
-            routes.MapRoute(
-                "Posts-new",
-                "{nickname}/new/{blogId}",
-                new { controller = "Post", action = "New" },
-                new { httpMethod = new HttpMethodConstraint("GET") }
+                name: "Media-edit",
+                url: "{nickname}/media/edit/{mediaId}",
+                defaults: new { controller = "Media", action = "Edit", },
+                constraints: new { httpMethod = new HttpMethodConstraint("GET") }
                 );
 
             routes.MapRoute(
-                "Posts-create",
-                "{nickname}/create",
-                new { controller = "Post", action = "Create" },
-                new { httpMethod = new HttpMethodConstraint("POST") }
+                name: "Posts-new",
+                url: "{nickname}/new/{blogId}",
+               defaults: new { controller = "Post", action = "New" },
+                constraints: new { httpMethod = new HttpMethodConstraint("GET") }
                 );
 
             routes.MapRoute(
-                "Posts-update",
-                "{nickname}/update",
-                new { controller = "Post", action = "Update" },
-                new { httpMethod = new HttpMethodConstraint("POST") }
+                name: "Posts-create",
+                url: "{nickname}/create",
+                defaults: new { controller = "Post", action = "Create" },
+                constraints: new { httpMethod = new HttpMethodConstraint("POST") }
                 );
 
             routes.MapRoute(
-                "Posts-edit",
-                "{nickname}/edit/{blogId}/{postId}",
-                new { controller = "Post", action = "Edit" },
-                new { httpMethod = new HttpMethodConstraint("GET") }
+                name: "Posts-update",
+                url: "{nickname}/update",
+                defaults: new { controller = "Post", action = "Update" },
+                constraints: new { httpMethod = new HttpMethodConstraint("POST") }
                 );
 
             routes.MapRoute(
-                "Posts-index",
-                "{nickname}",
-                new { controller = "Post", action = "Index" }
+                name: "Posts-edit",
+                url: "{nickname}/edit/{blogId}/{postId}",
+                defaults: new { controller = "Post", action = "Edit" },
+                constraints: new { httpMethod = new HttpMethodConstraint("GET") }
                 );
 
             routes.MapRoute(
-               "Posts-show",
-               "{nickname}/{year}/{month}/{day}/{link}",
-               new { controller = "Post", action = "Show", year = UrlParameter.Optional, month = UrlParameter.Optional, day = UrlParameter.Optional, link = UrlParameter.Optional }
+                name: "Posts-index",
+                url: "{nickname}",
+                defaults: new { controller = "Post", action = "Index" }
+                );
+
+            routes.MapRoute(
+               name: "Posts-show",
+               url: "{nickname}/{year}/{month}/{day}/{link}",
+               defaults: new { controller = "Post", action = "Show", year = UrlParameter.Optional, month = UrlParameter.Optional, day = UrlParameter.Optional, link = UrlParameter.Optional }
                 //,new { year = @"\d{4}", month = @"\d{2}", day = @"\d{2}" }
                );
 
             routes.MapRoute(
-                "Default-Home",
-                "",
-                new { controller = "Home", action = "Index" }
+               name: "Default-Home",
+               url: "",
+               defaults: new { controller = "Home", action = "Index" }
             );
-
-
         }
-
-        //protected void Application_Error()
-        //{
-        //    var error = Server.GetLastError();
-        //    // todo: log
-        //}
 
         protected void Application_Start()
         {
+            AreaRegistration.RegisterAllAreas();
+
             IUnityContainer container = GetUnityContainer();
             DependencyResolver.SetResolver(new UnityDependencyResolver(container));
             AreaRegistration.RegisterAllAreas();
@@ -264,7 +250,7 @@ namespace MBlog
             RegisterGlobalFilters(GlobalFilters.Filters);
             RegisterRoutes(RouteTable.Routes);
 
-
+//            BundleTable.Bundles.RegisterTemplateBundles();
         }
 
         private static void AddUnityFilterProvider(IUnityContainer container)
@@ -278,7 +264,6 @@ namespace MBlog
 
         private static void ConfigureRejuicer()
         {
-            //OnRequest.ForJs("~/Combined-{0}.js").Combine.FilesIn("~/Scripts/").Matching("*.js").Configure();
             OnRequest.ForJs("~/Combined-{0}.js").Combine
                 .File("~/Scripts/jquery-1.7.1.js")
                 .File("~/Scripts/jquery.validate.js")
@@ -298,7 +283,6 @@ namespace MBlog
                 .File("~/Scripts/mblog.js")
                 .Configure();
             OnRequest.ForCss("~/Combined-{0}.css").Compact
-                .File("~/Content/Site.css")
                 .File("~/Content/shCore.css")
                 .File("~/Content/shThemeRDark.css")
                 .File("~/Content/fileuploader.css")

@@ -16,12 +16,13 @@ namespace MBlogModel
             var date = DateTime.Now;
             Year = date.Year;
             Month = date.Month;
-            Day = date.Day;             
+            Day = date.Day;
         }
 
         public Media(string fileName, string title, string caption,
-                string description , string alternate , int userId , 
-                string mimeType , int alignment , int size , byte[] imageData) : this()
+                string description, string alternate, int userId,
+                string mimeType, int alignment, int size, byte[] imageData)
+            : this()
         {
             FileName = fileName;
             if (!string.IsNullOrEmpty(title))
@@ -32,6 +33,7 @@ namespace MBlogModel
             {
                 Title = FileName.Split('.').First();
             }
+            LinkKey = Title.Replace(" ", "");
             Caption = caption;
             Description = description;
             Alternate = alternate;
@@ -73,7 +75,7 @@ namespace MBlogModel
             {
                 if (Enum.IsDefined(typeof(ValidAllignments), value))
                 {
-                    _size = value;
+                    _alignment = value;
                 }
                 else
                 {
@@ -103,17 +105,19 @@ namespace MBlogModel
 
         [Required, Column("bytes")]
         public virtual byte[] Data { get; set; }
-        
+
 
         [Required, Column("user_id")]
         public virtual int UserId { get; set; }
 
+        [Required, Column("link_key")]
+        public string LinkKey { get; set; }
 
         public virtual User User { get; set; }
 
         public string Url
         {
-            get { return string.Format("{0}/{1}/{2}/{3}", Year, Month, Day, Title); }            
+            get { return string.Format("{0}/{1}/{2}/{3}", Year, Month, Day, LinkKey); }
         }
 
         // override object.Equals
@@ -121,51 +125,20 @@ namespace MBlogModel
         {
             if (ReferenceEquals(null, obj)) return false;
             if (ReferenceEquals(this, obj)) return true;
-            if (obj.GetType() != typeof (Media)) return false;
-            return Equals((Media) obj);
+            if (obj.GetType() != typeof(Media)) return false;
+            return Equals((Media)obj);
         }
 
         public bool Equals(Media other)
         {
             if (ReferenceEquals(null, other)) return false;
             if (ReferenceEquals(this, other)) return true;
-            return other.Id == Id && Equals(other.FileName, FileName) 
-                && Equals(other.Title, Title) 
-                && Equals(other.Caption, Caption) 
-                && Equals(other.Description, Description) 
-                && Equals(other.Alternate, Alternate)
-                && other.Year == Year
-                && other.Month == Month
-                && other.Day == Day
-                && Equals(other.MimeType, MimeType) 
-                && Equals(other.Alignment, Alignment) 
-                && other.Size == Size
-                && other.Data.CollectionEquals(Data) 
-                && other.UserId == UserId 
-                && Equals(other.User, User);
+            return other.Id == Id;
         }
 
         public override int GetHashCode()
         {
-            unchecked
-            {
-                int result = Id;
-                result = (result*397) ^ (FileName != null ? FileName.GetHashCode() : 0);
-                result = (result*397) ^ (Title != null ? Title.GetHashCode() : 0);
-                result = (result*397) ^ (Caption != null ? Caption.GetHashCode() : 0);
-                result = (result*397) ^ (Description != null ? Description.GetHashCode() : 0);
-                result = (result*397) ^ (Alternate != null ? Alternate.GetHashCode() : 0);
-                result = (result * 397) ^ Year;
-                result = (result * 397) ^ Month;
-                result = (result * 397) ^ Day;                
-                result = (result*397) ^ (MimeType != null ? MimeType.GetHashCode() : 0);
-                result = (result*397) ^ Alignment;
-                result = (result*397) ^ Size;
-                result = (result*397) ^ (Data != null ? Data.CollectionGetHashCode() : 0);
-                result = (result*397) ^ UserId;
-                result = (result*397) ^ (User != null ? User.GetHashCode() : 0);
-                return result;
-            }
+            return Id;
         }
     }
 }

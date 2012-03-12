@@ -32,7 +32,7 @@ namespace MBlogUnitTest.ViewModel
         [Test]
         public void GivenAUserViewModel_WhenITheUSerIsLoggedIn_ThenTheyAreAuthenticated()
         {
-            UserViewModel viewModel = new UserViewModel {IsLoggedIn = true};
+            UserViewModel viewModel = new UserViewModel { IsLoggedIn = true };
 
             Assert.That(viewModel.IsAuthenticated, Is.True);
         }
@@ -58,7 +58,7 @@ namespace MBlogUnitTest.ViewModel
         [Test]
         public void GivenAUserVIewModel_WhenThePassWordAndRepeatPasswrodAreTheSame_ThenItIsValid()
         {
-            UserViewModel viewModel = new UserViewModel {Name = "Name", Email = "EMail"};
+            UserViewModel viewModel = new UserViewModel { Name = "Name", Email = "EMail" };
             viewModel.Password = "Password";
             viewModel.RepeatPassword = "Password";
             ValidationContext ctx = new ValidationContext(viewModel, null, null);
@@ -84,7 +84,7 @@ namespace MBlogUnitTest.ViewModel
         [Test]
         public void GivenAUserVIewModel_WhenTheNameIsMissing_ThenItIsNotValid()
         {
-            UserViewModel viewModel = new UserViewModel { Email = "EMail"};
+            UserViewModel viewModel = new UserViewModel { Email = "EMail" };
             ValidationContext ctx = new ValidationContext(viewModel, null, null);
             List<ValidationResult> validationResults = new List<ValidationResult>();
             bool isValid = Validator.TryValidateObject(viewModel, ctx, validationResults);
@@ -103,15 +103,11 @@ namespace MBlogUnitTest.ViewModel
             Assert.That(isValid, Is.False);
         }
 
-        // todo: move both test to UserViewMOdel tests
         [Test]
-        public void GivenALoggedInUser_WhenThenBrowseToABlog_AndTheyAreNotTheOwner_ThenTheirIsOwnerFlagIsFalse()
+        public void GivenANameAndAnId_ThenTheStringIsCorrectlyFormatted()
         {
-        }
-
-        [Test]
-        public void GivenALoggedInUser_WhenThenBrowseToABlog_AndTheyAreTheOwner_ThenTheirIsOwnerFlagIsTrue()
-        {
+            UserViewModel viewModel = new UserViewModel { Name = "Fred", Id = 1 };
+            Assert.That(viewModel.ToString(), Is.EqualTo("Name: Fred, Id: 1"));
         }
 
     }

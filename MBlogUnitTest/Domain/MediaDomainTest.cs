@@ -124,6 +124,73 @@ namespace MBlogUnitTest.Domain
             Assert.Throws<MBlogInsertItemException>(() => mediaDomain.WriteMedia(Filename, It.IsAny<int>(), It.IsAny<string>(), stream.Object, It.IsAny<int>()));
         }
 
+        [Test]
+        public void GivenARequestForLessThanAPageOfMedia_AndItIsTheFirstPage_ThenTheMediaAreReturned()
+        {
+            _mediaRepository.Setup(m => m.GetMedia(1, 1, 1)).Returns(new List<Media> {new Media()});
+            mediaDomain.GetMedia(1, 1, 1);
+            _mediaRepository.Verify(m=>m.GetMedia(1,1,1));
+        }
+
+        [Test]
+        public void WhenExistingMediaIsRequested_AndItIsOwnedByAUser_AndTheDataBaseIsNotAvailable_ThenAnMBlogExceptionIsThrown()
+        {
+            _mediaRepository.Setup(m => m.GetMedia(It.IsAny<int>())).Throws<Exception>();
+            Assert.Throws<MBlogException>(() => mediaDomain.GetMedia(It.IsAny<int>(), It.IsAny<int>()));
+        }
+
+        [Test]
+        public void WhenMediaIsRequested_AndItIsOwnedByAUser_AndItDoesnotExist_ThenAnMBlogMediaNotFoundExceptionIsThrown()
+        {
+            _mediaRepository.Setup(m => m.GetMedia(It.IsAny<int>())).Returns((Media) null);
+            Assert.Throws<MBlogMediaNotFoundException>(() => mediaDomain.GetMedia(It.IsAny<int>(), It.IsAny<int>()));
+        }
+
+        [Test]
+        public void WhenMediaIsRequested_AndItIsOwnedByAUser_AndItDoesnotBelongToTheUser_ThenAnMBlogMediaNotFoundExceptionIsThrown()
+        {
+            _mediaRepository.Setup(m => m.GetMedia(It.IsAny<int>())).Returns(new Media{UserId = 1});
+            Assert.Throws<MBlogMediaNotFoundException>(() => mediaDomain.GetMedia(It.IsAny<int>(), 2));
+        }
+
+        [Test]
+        public void WhenMediaIsRequested_AndItIsOwnedByAUser_ThenTheMediaIsReturned()
+        {
+            _mediaRepository.Setup(m => m.GetMedia(It.IsAny<int>())).Returns(new Media { UserId = 1 });
+            var media = mediaDomain.GetMedia(It.IsAny<int>(), 1);
+            Assert.That(media, Is.Not.Null);
+        }
+
+        [Test]
+        public void WhenMediaIsUpdated_AndTheDatabaseIsNotAvailable_ThenAnMBlogExceptionIsThrown()
+        {
+            _mediaRepository.Setup(m => m.GetMedia(It.IsAny<int>())).Throws<Exception>();
+            Assert.Throws<MBlogException>(() => mediaDomain.UpdateMediaDetails(It.IsAny<int>(), It.IsAny<string>(), It.IsAny<string>(), It.IsAny<string>(), It.IsAny<string>(), It.IsAny<int>()));
+        }
+
+        [Test]
+        public void WhenMediaIsUpdated_AndTheUserIsValid_AndTheDatabaseIsNotAvailable_ThenAnMBlogExceptionIsThrown()
+        {
+            _mediaRepository.Setup(m => m.GetMedia(It.IsAny<int>())).Returns(new Media{UserId = 1});
+            _mediaRepository.Setup(m => m.UpdateMedia(It.IsAny<Media>())).Throws<Exception>();
+            Assert.Throws<MBlogException>(() => mediaDomain.UpdateMediaDetails(It.IsAny<int>(), It.IsAny<string>(), It.IsAny<string>(), It.IsAny<string>(), It.IsAny<string>(), 1));
+        }
+
+        [Test]
+        public void WhenMediaIsUpdated_AndItDoesnotBelongToTheUser_ThenAnMBlogExceptionIsThrown()
+        {
+            _mediaRepository.Setup(m => m.GetMedia(It.IsAny<int>())).Returns(new Media { UserId = 1 });
+            Assert.Throws<MBlogException>(() => mediaDomain.UpdateMediaDetails(It.IsAny<int>(), It.IsAny<string>(), It.IsAny<string>(), It.IsAny<string>(), It.IsAny<string>(), 2));
+        }
+
+
+        [Test]
+        public void WhenMediaIsUpdated_AndItBelongsToTheUser_ThenItIsUpdated()
+        {
+            _mediaRepository.Setup(m => m.GetMedia(It.IsAny<int>())).Returns(new Media { UserId = 1 });
+            mediaDomain.UpdateMediaDetails(It.IsAny<int>(), It.IsAny<string>() , It.IsAny<string>(), It.IsAny<string>(), It.IsAny<string>(), 1);
+            Assert.True(true, "No exceptions thrown");
+        }
 
     }
 }

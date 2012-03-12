@@ -93,6 +93,31 @@ namespace MBlogUnitTest.Controllers
         }
 
         [Test]
+        public void GivenAMediaController_WhenIUploadAValidFileUsingHttpContext_ThenTheFileIsWrittenToTheDatabase()
+        {
+            //Assert.Fail("Write the test");
+            byte[] fileBytes = new byte[] { 1, 2, 3, 4, 5, 6, 7, 8, 9, 0 };
+
+            int userId = 1001;
+            var fileBase = new Mock<HttpPostedFileBase>();
+            fileBase.Setup(f => f.ContentLength).Returns(fileBytes.Length);
+            fileBase.Setup(s => s.InputStream).Returns(new MemoryStream(fileBytes));
+            fileBase.Setup(s => s.ContentType).Returns("contentType");
+            const string fileName = "fileName";
+            fileBase.Setup(s => s.FileName).Returns(fileName);
+
+            var controller = new MediaController(_mediaDomain.Object, null);
+
+            SetControllerContext(controller);
+            MockHttpContext.SetupProperty(h => h.User);
+            controller.HttpContext.User = new UserViewModel { IsLoggedIn = true, Id = userId };
+
+            controller.Create(new NewMediaViewModel { Title = "title", Caption = "caption", Description = "description", Alternate = "alternate", Alignment = (int)Media.ValidAllignments.Left, Size = (int)Media.ValidSizes.Medium, File = fileBase.Object });
+
+            _mediaDomain.Verify(i => i.WriteMedia(fileName, userId, "contentType", It.IsAny<Stream>(), It.IsAny<int>()), Times.Once());
+        }
+
+        [Test]
         public void GivenAMediaController_WhenIUploadAValidFile_ThenASuccessCodeIsSet()
         {
             byte[] fileBytes = new byte[] { 1, 2, 3, 4, 5, 6, 7, 8, 9, 0 };
@@ -129,7 +154,7 @@ namespace MBlogUnitTest.Controllers
         public void WhenUpdateIsCalled_AndTheModelStateIsInvalid_ThenTheNewViewIsReturned()
         {
             MediaController controller = new MediaController(_mediaDomain.Object, null);
-            NewMediaViewModel model = new NewMediaViewModel();
+            var model = new UpdateMediaViewModel();
             controller.ViewData.ModelState.AddModelError("Key", "ErrorMessage");
             ViewResult result = (ViewResult)controller.Update(model);
             Assert.That(result, Is.Not.Null);
@@ -155,19 +180,17 @@ namespace MBlogUnitTest.Controllers
             MockHttpContext.SetupProperty(h => h.User);
             controller.HttpContext.User = new UserViewModel { IsLoggedIn = true, Id = userId };
 
-            NewMediaViewModel model = new NewMediaViewModel
+            var model = new UpdateMediaViewModel
             {
+                Id = 1,
                 Title = "title",
                 Caption = "caption",
                 Description = "description",
                 Alternate = "alternate",
-                Alignment = (int)Media.ValidAllignments.Left,
-                Size = (int)Media.ValidSizes.Large,
-                File = fileBase.Object
             };
             controller.Update(model);
 
-            _mediaDomain.Verify(i => i.WriteMedia(fileName, "title", "caption", "description", "alternate", userId, "contentType", (int)Media.ValidAllignments.Left, (int)Media.ValidSizes.Large, It.IsAny<Stream>(), It.IsAny<int>()), Times.Once());
+            _mediaDomain.Verify(i => i.UpdateMediaDetails(1, "title", "caption", "description", "alternate", 1001), Times.Once());
         }
 
         [Test]
@@ -175,7 +198,7 @@ namespace MBlogUnitTest.Controllers
         {
             byte[] fileBytes = new byte[] { 1, 2, 3, 4, 5, 6, 7, 8, 9, 0 };
             string fileName = "foo.jpg";
-            Mock<HttpPostedFileBase> fileBase = new Mock<HttpPostedFileBase>();
+            var fileBase = new Mock<HttpPostedFileBase>();
             fileBase.Setup(f => f.ContentLength).Returns(fileBytes.Length);
             fileBase.Setup(s => s.InputStream).Returns(new MemoryStream(fileBytes));
             fileBase.Setup(s => s.FileName).Returns(fileName);

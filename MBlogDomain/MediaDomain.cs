@@ -18,12 +18,12 @@ namespace MBlogDomain
             _mediaRepository = mediaRepository;
         }
 
-        public Media GetMedia(int year, int month, int day, string title)
+        public Media GetMedia(int year, int month, int day, string linkKey)
         {
             Media media = null;
             try
             {
-                if((media = _mediaRepository.GetMedia(year, month, day, title)) != null)
+                if ((media = _mediaRepository.GetMedia(year, month, day, linkKey)) != null)
                 {
                     return media;
                 }
@@ -68,12 +68,12 @@ namespace MBlogDomain
             }
         }
 
-        public void WriteMedia(string fileName, string title, string caption, string description, string alternate, int id, string contentType, int alignment, int size, Stream inputStream, int contentLength)
+        public void WriteMedia(string fileName, string title, string caption, string description, string alternate, int userId, string contentType, int alignment, int size, Stream inputStream, int contentLength)
         {
             var bytes = ReadBytes(inputStream, contentLength);
 
             // todo: url?                
-            var media = new Media(fileName, title, caption, description, alternate, id, contentType, alignment, size, bytes);
+            var media = new Media(fileName, title, caption, description, alternate, userId, contentType, alignment, size, bytes);
             try
             {
                 _mediaRepository.WriteMedia(media);
@@ -84,10 +84,48 @@ namespace MBlogDomain
             }
         }
 
+        public Media UpdateMediaDetails(int mediaId, string title, string caption, string description, string alternate, int userId)
+        {
+            Media medium;
+            try
+            {
+                medium = _mediaRepository.GetMedia(mediaId);
+            }
+            catch (Exception)
+            {
+                throw new MBlogException("Unable to find media");
+            }
+            if (medium.UserId != userId)
+                throw new MBlogException("Unable to update medium. This user does not have permission");
+            medium.Title = title;
+            medium.Caption = caption;
+            medium.Description = description;
+            medium.Alternate = alternate;
+
+            try
+            {
+                _mediaRepository.UpdateMedia(medium);
+            }
+            catch (Exception e)
+            {
+                throw new MBlogException("Could not update media", e);
+            }
+            return medium;
+        }
+
         public Media GetMedia(int mediaId, int userId)
         {
-            var medium = _mediaRepository.GetMedia(mediaId);
-            if(medium == null)
+            Media medium;
+            try
+            {
+                medium = _mediaRepository.GetMedia(mediaId);
+            }
+            catch (Exception)
+            {                
+                throw new MBlogException("Unable to find media");
+            }
+
+            if (medium == null)
             {
                 throw new MBlogMediaNotFoundException();
             }

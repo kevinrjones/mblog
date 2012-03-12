@@ -67,6 +67,8 @@ namespace MBlogUnitTest.Filters
             RouteData routeData = "~/kevin/edit/25/1".GetRouteData("GET");
             var actionDescriptor = new Mock<ActionDescriptor>();
             actionDescriptor.SetupGet(x => x.ActionName).Returns("Action_With_SomeAttribute");
+            actionDescriptor.SetupGet(x => x.ControllerDescriptor).Returns(
+                new ReflectedControllerDescriptor(typeof(BaseController)));
             var controllerContext = CreateControllerContext(routeData);
             return new AuthorizationContext(controllerContext,
                                             actionDescriptor.Object);

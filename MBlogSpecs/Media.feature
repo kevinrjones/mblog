@@ -4,6 +4,7 @@
 	I want to be able to see images
 
 @image
+@ignore
 Scenario: View an image
 	Given An image in the database
 	When I view a correct image URL

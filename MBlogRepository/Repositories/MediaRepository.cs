@@ -21,23 +21,23 @@ namespace MBlogRepository.Repositories
                     select i).FirstOrDefault();
         }
 
-        public Media GetMedia(int year, int month, int day, string title)
+        public Media GetMedia(int year, int month, int day, string linkKey)
         {
             return (from i in Entities
                     where i.Year == year
                     && i.Month == month
                     && i.Day == day
-                    && i.Title == title
+                    && i.LinkKey == linkKey
                     select i).FirstOrDefault();
         }
 
-        public IEnumerable<Media> GetMedia(int pageNumber, int pageSize, int userId)
+        public IEnumerable<Media> GetMedia(int pageNumber, int numberOfItems, int userId)
         {
             return Entities
                 .Where(e => e.UserId == userId)
                 .OrderBy(e => e.Id)
-                .Skip((pageNumber - 1) * pageSize)
-                .Take(pageSize)
+                .Skip((pageNumber - 1) * numberOfItems)
+                .Take(numberOfItems)
                 .ToList();
         }
 
@@ -45,6 +45,11 @@ namespace MBlogRepository.Repositories
         {
             Create(media);
             return media;
+        }
+
+        public void UpdateMedia(Media media)
+        {
+            Attach(media);
         }
     }
 }

@@ -1,0 +1,10 @@
+﻿@using MBlog.Models.Post
+@model EditPostViewModel
+
+@{
+    ViewBag.Title = "Unable To Delete Posts";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Unable To Delete Posts</h2>
+@Html.ActionLink("Continue", "Index", "Posts")

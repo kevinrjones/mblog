@@ -2,7 +2,7 @@ using System;
 
 namespace MBlog.Models.Media
 {
-    class MediaCreateJsonResponse
+    public class MediaCreateJsonResponse
     {
         public bool success;
         public Exception exception;

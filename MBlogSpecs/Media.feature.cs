@@ -20,7 +20,7 @@ namespace MBlogSpecs
     [System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
     [NUnit.Framework.TestFixtureAttribute()]
     [NUnit.Framework.DescriptionAttribute("Images")]
-    public partial class MediaFeature
+    public partial class ImagesFeature
     {
         
         private static TechTalk.SpecFlow.ITestRunner testRunner;
@@ -67,17 +67,19 @@ namespace MBlogSpecs
         [NUnit.Framework.TestAttribute()]
         [NUnit.Framework.DescriptionAttribute("View an image")]
         [NUnit.Framework.CategoryAttribute("image")]
+        [NUnit.Framework.IgnoreAttribute()]
         public virtual void ViewAnImage()
         {
             TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("View an image", new string[] {
-                        "image"});
-#line 7
-this.ScenarioSetup(scenarioInfo);
+                        "image",
+                        "ignore"});
 #line 8
- testRunner.Given("An image in the database");
+this.ScenarioSetup(scenarioInfo);
 #line 9
- testRunner.When("I view a correct image URL");
+ testRunner.Given("An image in the database");
 #line 10
+ testRunner.When("I view a correct image URL");
+#line 11
  testRunner.Then("the result should be the image in the browser");
 #line hidden
             this.ScenarioCleanup();

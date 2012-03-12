@@ -39,6 +39,21 @@ namespace MBlogUnitTest.Domain
         }
 
         [Test]
+        public void GivenABlogId_WhenIAskForOrderedBlogPosts_ThenThePostsAreReturned()
+        {
+            _postRepository.Setup(p => p.GetOrderedBlogPosts(1)).Returns(new List<Post> { new Post() });
+            var posts = _postDomain.GetOrderedBlogPosts(1);
+            Assert.That(posts.Count, Is.EqualTo(1));
+        }
+
+        [Test]
+        public void GivenABlogId_WhenIAskForOrderedBlogPosts_AndTheDatabaseIsNotAvailable_ThenAnMBlogExceptionIsThrown()
+        {
+            _postRepository.Setup(p => p.GetOrderedBlogPosts(It.IsAny<int>())).Throws<Exception>();
+            Assert.Throws<MBlogException>(() => _postDomain.GetOrderedBlogPosts(1));
+        }
+
+        [Test]
         public void GivenAValidNickname_WhenThePostsAreRetrieved_ThenAllThePostsAreReturned()
         {
             _postRepository.Setup(p => p.GetBlogPosts("nickname")).Returns(new List<Post> {new Post()});
@@ -89,6 +104,20 @@ namespace MBlogUnitTest.Domain
             _postRepository.Setup(p => p.GetBlogPost(It.IsAny<int>())).Returns(new Post{Id = 1});
             var posts = _postDomain.GetBlogPost(It.IsAny<int>());
             Assert.That(posts.Id, Is.EqualTo(1));
+        }
+
+        [Test]
+        public void GivenValidData_WhenAPostIsDeleted_AndTheDatabaseIsNotAvailable_ThenAnMBlogExceptionIsThrown()
+        {
+            _postRepository.Setup(p => p.Delete(It.IsAny<Post>())).Throws<Exception>();
+            Assert.Throws<MBlogException>(() => _postDomain.Delete(It.IsAny<int>()));
+        }
+
+        [Test]
+        public void GivenValidData_WhenAPostIsDeleted_ThenThatPostIsReturned()
+        {            
+            _postDomain.Delete(It.IsAny<int>());
+            _postRepository.Verify(p => p.Delete(It.IsAny<Post>()), Times.Once());
         }
 
         [Test]

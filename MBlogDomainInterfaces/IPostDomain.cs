@@ -15,5 +15,6 @@ namespace MBlogDomainInterfaces
         IList<Post> GetOrderedBlogPosts(int blogId);
         IList<Post> GetBlogPosts(string nickname);
         IList<Post> GetBlogPosts(int year, int month, int day, string nickname, string link);
+        void Delete(int postId);
     }
 }

@@ -1,14 +1,10 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Configuration;
 using System.Data.SqlClient;
 using System.IO;
-using System.Linq;
-using System.Text;
 using MBlogBuilder;
 using MBlogModel;
 using MBlogRepository.Repositories;
-using OpenQA.Selenium;
 using OpenQA.Selenium.Remote;
 using TechTalk.SpecFlow;
 

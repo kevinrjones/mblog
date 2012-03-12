@@ -1,0 +1,39 @@
+﻿@using MBlog.Models.Post
+@using MBlog.Resources.Admin
+@using MBlog.Resources.General
+@model PostsViewModel
+@{
+    ViewBag.Title = Html.Encode(Index.ListPosts);
+    Layout = "~/Views/Dashboard/_DashboardLayout.cshtml";
+}
+<section class="list-items">
+    <table>
+        @foreach (var postViewModel in Model.Posts)
+        {
+            <tr>
+                <td>
+                    @Html.ActionLink(Global.View, "Show", "Post", new { nickname = Model.Nickname, link = postViewModel.Link, year = postViewModel.YearPosted, month = postViewModel.MonthPosted, day = postViewModel.DayPosted }, null)
+                </td>
+                <td>
+                    @Html.ActionLink(Global.Edit, "edit", "Post", new { nickname = Model.Nickname, postId = postViewModel.Id, blogId = Model.BlogId }, null)
+                </td>
+                <td class="post-title">
+                    @MvcHtmlString.Create(postViewModel.Title) 
+                    @if (postViewModel.CommentCount != 0)
+                    {
+                        <span class="list-items-comment-count"><a href="#">(@postViewModel.CommentCount @Global.Comments)</a> </span>
+                    }
+                </td>
+                <td>                
+                    @postViewModel.DatePosted.ToShortDateString()
+                </td>
+                <td>
+                    name
+                </td>
+                <td>
+                    @Html.ActionLink(Global.Delete, "delete", "Post", new { nickname = Model.Nickname, postId = postViewModel.Id, blogId = Model.BlogId }, null)
+                </td>
+            </tr>
+        }
+    </table>
+</section>

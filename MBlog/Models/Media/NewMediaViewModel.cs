@@ -29,7 +29,7 @@ namespace MBlog.Models.Media
         [Required]
         public HttpPostedFileBase File { get; set; }
 
-        internal bool IsAllowed(string extension)
+        public bool IsAllowed(string extension)
         {
             var s = (from a in _validExtensions.Keys
                      where a == extension
@@ -38,7 +38,7 @@ namespace MBlog.Models.Media
             return s != null;
         }
 
-        internal string GetExtension(string fileName)
+        public string GetExtension(string fileName)
         {
             return fileName.Split('.').Last();
         }
@@ -67,7 +67,15 @@ namespace MBlog.Models.Media
 
         public IEnumerable<ValidationResult> Validate(ValidationContext validationContext)
         {
-            string ext = GetExtension(File.FileName);
+            string ext;
+            if (File != null)
+            {
+                ext = GetExtension(File.FileName);
+            }
+            else
+            {
+                ext = GetExtension(QqFile);
+            }
             if (!IsAllowed(ext))
                 yield return new ValidationResult("Files with this extension not allowed", new[] { "File" });
         }

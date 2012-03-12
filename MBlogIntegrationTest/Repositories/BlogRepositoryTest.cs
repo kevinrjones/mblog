@@ -64,6 +64,35 @@ namespace MBlogIntegrationTest.Repositories
             Assert.That(blog.Id, Is.EqualTo(_blog.Id));
         }
 
+        [Test]
+        public void WhenTheLastUpdateDateIsChanged_ThenTheNewValueIsRecorded()
+        {
+            _userRepository.Create(_user1);
+
+            Blog blog = _blogRepository.GetBlog(_nickname);
+            var createdDateTime = blog.LastUpdated;
+
+            _blogRepository.ChangeBlogLastupdateDate(blog.Id);
+
+            var newTime = _blogRepository.GetBlog(blog.Nickname).LastUpdated;
+
+            Assert.That(createdDateTime.Ticks, Is.Not.EqualTo(newTime.Ticks));
+
+        }
+
+        [Test]
+        public void WhenTheLastUpdateDateIsChanged_AndTheBlogDoesNotExist_ThenAnExceptionIsThrown()
+        {
+            _userRepository.Create(_user1);
+
+            Blog blog = _blogRepository.GetBlog(_nickname);
+            
+
+            Assert.Throws<MBlogException>(() => _blogRepository.ChangeBlogLastupdateDate(blog.Id + 1001));
+
+
+        }
+
         [TearDown]
         public void TearDown()
         {
