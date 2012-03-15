@@ -10,7 +10,6 @@ using MBlogModel;
 using MBlogRepository.Interfaces;
 using Moq;
 using NUnit.Framework;
-using Newtonsoft.Json;
 
 namespace MBlogUnitTest.Controllers
 {
@@ -188,9 +187,13 @@ namespace MBlogUnitTest.Controllers
                 Description = "description",
                 Alternate = "alternate",
             };
-            controller.Update(model);
+            
+            _mediaDomain.Setup(i => i.UpdateMediaDetails(1, "title", "caption", "description", "alternate", 1001)).
+                Returns(new Media { Size = (int)Media.ValidSizes.Fullsize, Alignment = (int)Media.ValidAllignments.Left, Caption = "caption"});
 
-            _mediaDomain.Verify(i => i.UpdateMediaDetails(1, "title", "caption", "description", "alternate", 1001), Times.Once());
+            ViewResult result = (ViewResult) controller.Update(model);
+            ShowMediaViewModel smvmodel = (ShowMediaViewModel) result.Model;
+            Assert.That(smvmodel.Caption, Is.EqualTo("caption"));
         }
 
         [Test]

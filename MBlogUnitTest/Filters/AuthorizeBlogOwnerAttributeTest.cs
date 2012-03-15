@@ -3,7 +3,6 @@ using System.Collections.Specialized;
 using System.Web;
 using System.Web.Mvc;
 using System.Web.Routing;
-using IoC;
 using MBlog.Controllers;
 using MBlog.Filters;
 using MBlog.Models.User;

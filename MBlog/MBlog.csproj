@@ -18,7 +18,7 @@
     <FileUpgradeFlags>
     </FileUpgradeFlags>
     <OldToolsVersion>4.0</OldToolsVersion>
-    <UseIISExpress>false</UseIISExpress>
+    <UseIISExpress>true</UseIISExpress>
     <IISExpressSSLPort />
     <IISExpressAnonymousAuthentication />
     <IISExpressWindowsAuthentication />
@@ -57,10 +57,6 @@
     <Reference Include="Elmah">
       <HintPath>..\packages\elmah.corelibrary.1.2.1\lib\Elmah.dll</HintPath>
     </Reference>
-    <Reference Include="EntityFramework, Version=4.3.1.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\packages\EntityFramework.4.3.1\lib\net40\EntityFramework.dll</HintPath>
-    </Reference>
     <Reference Include="Glimpse.Core">
       <HintPath>..\packages\Glimpse.0.87\lib\net40\Glimpse.Core.dll</HintPath>
     </Reference>
@@ -91,83 +87,22 @@
       <HintPath>..\packages\Rejuicer.1.2.8\lib\40\Rejuicer.dll</HintPath>
     </Reference>
     <Reference Include="System" />
-    <Reference Include="System.Data" />
-    <Reference Include="System.Data.Entity" />
-    <Reference Include="System.Drawing" />
-    <Reference Include="System.Json, Version=4.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
-      <Private>True</Private>
-      <HintPath>..\packages\System.Json.4.0.20126.16343\lib\net40\System.Json.dll</HintPath>
-    </Reference>
-    <Reference Include="System.Net.Http">
-      <Private>True</Private>
-      <HintPath>..\packages\System.Net.Http.2.0.20126.16343\lib\net40\System.Net.Http.dll</HintPath>
-    </Reference>
-    <Reference Include="System.Net.Http.Formatting, Version=4.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
-      <Private>True</Private>
-      <HintPath>..\packages\System.Net.Http.Formatting.4.0.20126.16343\lib\net40\System.Net.Http.Formatting.dll</HintPath>
-    </Reference>
-    <Reference Include="System.Net.Http.WebRequest">
-      <Private>True</Private>
-      <HintPath>..\packages\System.Net.Http.2.0.20126.16343\lib\net40\System.Net.Http.WebRequest.dll</HintPath>
-    </Reference>
     <Reference Include="System.ServiceModel" />
-    <Reference Include="System.Web.DynamicData" />
-    <Reference Include="System.Web.Entity" />
-    <Reference Include="System.Web.ApplicationServices" />
     <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Core" />
-    <Reference Include="System.Data.DataSetExtensions" />
-    <Reference Include="System.Web.Helpers, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
-      <Private>True</Private>
-      <HintPath>..\packages\AspNetWebPages.Core.2.0.20126.16343\lib\net40\System.Web.Helpers.dll</HintPath>
-    </Reference>
-    <Reference Include="System.Web.Http, Version=4.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
-      <Private>True</Private>
-      <HintPath>..\packages\AspNetWebApi.Core.4.0.20126.16343\lib\net40\System.Web.Http.dll</HintPath>
-    </Reference>
-    <Reference Include="System.Web.Http.Common, Version=4.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
-      <Private>True</Private>
-      <HintPath>..\packages\System.Web.Http.Common.4.0.20126.16343\lib\net40\System.Web.Http.Common.dll</HintPath>
-    </Reference>
-    <Reference Include="System.Web.Http.WebHost, Version=4.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
-      <Private>True</Private>
-      <HintPath>..\packages\AspNetWebApi.4.0.20126.16343\lib\net40\System.Web.Http.WebHost.dll</HintPath>
-    </Reference>
     <Reference Include="System.Web.Mvc, Version=4.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <Private>True</Private>
       <HintPath>..\packages\AspNetMvc.4.0.20126.16343\lib\net40\System.Web.Mvc.dll</HintPath>
-    </Reference>
-    <Reference Include="System.Web.Optimization">
-      <HintPath>..\packages\Microsoft.Web.Optimization.1.0.0-beta\lib\net40\System.Web.Optimization.dll</HintPath>
-    </Reference>
-    <Reference Include="System.Web.Providers">
-      <HintPath>..\packages\System.Web.Providers.Core.1.0\lib\net40\System.Web.Providers.dll</HintPath>
-    </Reference>
-    <Reference Include="System.Web.Razor, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
-      <Private>True</Private>
-      <HintPath>..\packages\AspNetRazor.Core.2.0.20126.16343\lib\net40\System.Web.Razor.dll</HintPath>
     </Reference>
     <Reference Include="System.Web.WebPages, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <Private>True</Private>
       <HintPath>..\packages\AspNetWebPages.Core.2.0.20126.16343\lib\net40\System.Web.WebPages.dll</HintPath>
     </Reference>
-    <Reference Include="System.Web.WebPages.Deployment, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
-      <Private>True</Private>
-      <HintPath>..\packages\AspNetWebPages.Core.2.0.20126.16343\lib\net40\System.Web.WebPages.Deployment.dll</HintPath>
-    </Reference>
-    <Reference Include="System.Web.WebPages.Razor, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
-      <Private>True</Private>
-      <HintPath>..\packages\AspNetWebPages.Core.2.0.20126.16343\lib\net40\System.Web.WebPages.Razor.dll</HintPath>
-    </Reference>
-    <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Web" />
-    <Reference Include="System.Web.Extensions" />
     <Reference Include="System.Web.Abstractions" />
     <Reference Include="System.Web.Routing" />
     <Reference Include="System.Xml" />
     <Reference Include="System.Configuration" />
-    <Reference Include="System.Web.Services" />
-    <Reference Include="System.EnterpriseServices" />
     <Reference Include="WebActivator">
       <HintPath>..\packages\WebActivator.1.5\lib\net40\WebActivator.dll</HintPath>
     </Reference>
@@ -345,6 +280,11 @@
     <Content Include="images\InitialBlogThumbNail.png" />
     <Content Include="images\teamcity-thumb.png" />
     <Content Include="images\teamcity.png" />
+    <Content Include="Properties\PublishProfiles\Debug.pubxml.user" />
+    <Content Include="Properties\PublishProfiles\Live.pubxml.user" />
+    <Content Include="Properties\PublishProfiles\Staging.pubxml.user" />
+    <Content Include="Properties\PublishProfiles\Test.pubxml.user" />
+    <Content Include="Properties\PublishProfiles\Web-Staging.pubxml.user" />
     <Content Include="Scripts\fileuploader.js" />
     <Content Include="Scripts\jquery-1.6.2-vsdoc.js" />
     <Content Include="Scripts\jquery-1.6.2.js" />
@@ -595,6 +535,11 @@
     <Content Include="Web.Test.config">
       <DependentUpon>Web.config</DependentUpon>
     </Content>
+    <None Include="Properties\PublishProfiles\Debug.pubxml" />
+    <None Include="Properties\PublishProfiles\Live.pubxml" />
+    <None Include="Properties\PublishProfiles\Staging.pubxml" />
+    <None Include="Properties\PublishProfiles\Test.pubxml" />
+    <None Include="Properties\PublishProfiles\Web-Staging.pubxml" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
@@ -642,7 +587,7 @@
           <AutoAssignPort>True</AutoAssignPort>
           <DevelopmentServerPort>2336</DevelopmentServerPort>
           <DevelopmentServerVPath>/</DevelopmentServerVPath>
-          <IISUrl>http://localhost/MBlog</IISUrl>
+          <IISUrl>http://localhost:2336/</IISUrl>
           <NTLMAuthentication>False</NTLMAuthentication>
           <UseCustomServer>False</UseCustomServer>
           <CustomServerUrl>
