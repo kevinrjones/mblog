@@ -89,6 +89,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="InitializeDatabase.cs" />
     <Compile Include="Media.feature.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -117,6 +118,7 @@
     <None Include="packages.config">
       <SubType>Designer</SubType>
     </None>
+    <None Include="SetupAcceptanceTest.ps1" />
     <None Include="User.feature">
       <Generator>SpecFlowSingleFileGenerator</Generator>
       <LastGenOutput>User.feature.cs</LastGenOutput>
@@ -146,6 +148,7 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Images\image.png" />
+    <Content Include="insert.sql" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

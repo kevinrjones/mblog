@@ -1,7 +1,4 @@
-﻿:setvar Database mblog_development
-:setvar directory C:\home\kevinj\projects\MBlog\MBlogModel\Database\db\scripts\Images
-
-truncate table [$(Database)].[dbo].[media]
+﻿truncate table [$(Database)].[dbo].[media]
 delete from [$(Database)].[dbo].[posts]
 delete from [$(Database)].[dbo].[blogs]
 delete from [$(Database)].[dbo].[users]

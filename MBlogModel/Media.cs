@@ -33,7 +33,6 @@ namespace MBlogModel
             {
                 Title = FileName.Split('.').First();
             }
-            LinkKey = Title.Replace(" ", "");
             Caption = caption;
             Description = description;
             Alternate = alternate;
@@ -54,8 +53,20 @@ namespace MBlogModel
 
         [Required, Column("file_name")]
         public virtual string FileName { get; set; }
+
+        private string _title;
+
         [Required(AllowEmptyStrings = true)]
-        public virtual string Title { get; set; }
+        public virtual string Title
+        {
+            get { return _title; }
+            set
+            {
+                _title = value;
+                LinkKey = _title.Replace(" ", "");
+            }
+        }
+
         public virtual string Caption { get; set; }
         public virtual string Description { get; set; }
         public virtual string Alternate { get; set; }

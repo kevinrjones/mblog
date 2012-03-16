@@ -4,8 +4,7 @@
 	I want to be able to see images
 
 @image
-@ignore
 Scenario: View an image
-	Given An image in the database
-	When I view a correct image URL
-	Then the result should be the image in the browser
+	Given That I navigate to a blog post that contains an image
+	When I view the blog post
+	Then the image should be visible

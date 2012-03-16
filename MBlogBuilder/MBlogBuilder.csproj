@@ -63,6 +63,7 @@
     <Compile Include="Builder.cs" />
     <Compile Include="BuildMeA.cs" />
     <Compile Include="CommentBuilder.cs" />
+    <Compile Include="MediaBuilder.cs" />
     <Compile Include="PostBuilder.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="UserBuilder.cs" />

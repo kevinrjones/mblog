@@ -12,6 +12,13 @@ test:
   database: mblog_test
   host: .
 
+acceptance:
+  adapter: sqlserver
+  mode: odbc
+  dsn: mblog
+  database: mblog_acceptancetest
+  host: .
+
 staging:
   adapter: sqlserver
   mode: odbc
