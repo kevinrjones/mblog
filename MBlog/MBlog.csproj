@@ -280,6 +280,7 @@
     <Content Include="images\InitialBlogThumbNail.png" />
     <Content Include="images\teamcity-thumb.png" />
     <Content Include="images\teamcity.png" />
+    <Content Include="Properties\PublishProfiles\Acceptance.pubxml.user" />
     <Content Include="Properties\PublishProfiles\Debug.pubxml.user" />
     <Content Include="Properties\PublishProfiles\Live.pubxml.user" />
     <Content Include="Properties\PublishProfiles\Staging.pubxml.user" />
@@ -524,9 +525,9 @@
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
-    <None Include="Content\colors.less" />
-    <None Include="Content\dashboard.less" />
-    <None Include="Content\form.less" />
+    <Content Include="Content\colors.less" />
+    <Content Include="Content\dashboard.less" />
+    <Content Include="Content\form.less" />
     <Content Include="Content\main.less" />
     <Content Include="Content\media.less" />
     <Content Include="Web.Staging.config">
@@ -535,11 +536,15 @@
     <Content Include="Web.Test.config">
       <DependentUpon>Web.config</DependentUpon>
     </Content>
+    <None Include="Properties\PublishProfiles\Acceptance.pubxml" />
     <None Include="Properties\PublishProfiles\Debug.pubxml" />
     <None Include="Properties\PublishProfiles\Live.pubxml" />
     <None Include="Properties\PublishProfiles\Staging.pubxml" />
     <None Include="Properties\PublishProfiles\Test.pubxml" />
     <None Include="Properties\PublishProfiles\Web-Staging.pubxml" />
+    <Content Include="Web.Acceptance.config">
+      <DependentUpon>Web.config</DependentUpon>
+    </Content>
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
@@ -566,6 +571,15 @@
     <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
     <Prefer32Bit>false</Prefer32Bit>
     <DeployIisAppPath>Default Web Site/MBlog_test</DeployIisAppPath>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Acceptance|AnyCPU'">
+    <OutputPath>bin\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <Optimize>true</Optimize>
+    <DebugType>pdbonly</DebugType>
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
   </PropertyGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <Import Project="$(VSToolsPath)\WebApplications\Microsoft.WebApplication.targets" Condition="'$(VSToolsPath)' != ''" />
