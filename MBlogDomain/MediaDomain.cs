@@ -72,7 +72,7 @@ namespace MBlogDomain
         {
             var bytes = ReadBytes(inputStream, contentLength);
 
-            // todo: url?                
+            // todo: url?
             var media = new Media(fileName, title, caption, description, alternate, userId, contentType, alignment, size, bytes);
             try
             {

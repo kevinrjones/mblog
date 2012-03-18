@@ -25,7 +25,7 @@ namespace MBlogIntegrationTest.Repositories
         public void Setup()
         {
             _transactionScope = new TransactionScope();
-            _mediaRepository = new MediaRepository(ConfigurationManager.ConnectionStrings["testdb"].ConnectionString);
+            _mediaRepository = new MediaRepository(ConfigurationManager.ConnectionStrings["mblog"].ConnectionString);
 
             _fileStream = File.Open(MediaFile, FileMode.Open);
 
@@ -34,13 +34,13 @@ namespace MBlogIntegrationTest.Repositories
 
             _user = BuildMeA.User("email", "name", "password");
 
-            _userRepository = new UserRepository(ConfigurationManager.ConnectionStrings["testdb"].ConnectionString);
+            _userRepository = new UserRepository(ConfigurationManager.ConnectionStrings["mblog"].ConnectionString);
 
             _userRepository.Create(_user);
 
             for (int i = 0; i < 3; i++)
             {
-                using (SqlConnection connection = new SqlConnection(ConfigurationManager.ConnectionStrings["testdb"].ConnectionString))
+                using (SqlConnection connection = new SqlConnection(ConfigurationManager.ConnectionStrings["mblog"].ConnectionString))
                 {
                     using (SqlCommand cmd = connection.CreateCommand())
                     {

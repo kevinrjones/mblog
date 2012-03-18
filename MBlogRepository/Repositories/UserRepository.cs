@@ -22,14 +22,14 @@ namespace MBlogRepository.Repositories
 
         public IEnumerable<User> GetUsersWithTheirBlogs()
         {
-            DbSet<User> users = Entities as DbSet<User>;
+            var users = Entities as DbSet<User>;
 
             return users.Include("Blogs").ToList();
         }
 
         public User GetUserWithTheirBlogs(int id)
         {
-            DbSet<User> users = Entities as DbSet<User>;
+            var users = Entities as DbSet<User>;
 
             return (from e in users.Include("Blogs")
                     where e.Id == id

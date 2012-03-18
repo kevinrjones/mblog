@@ -5,6 +5,6 @@
 
 @image
 Scenario: View an image
-	Given That I navigate to a blog post that contains an image
-	When I view the blog post
+	Given A user
+	When they view a blog post with an image
 	Then the image should be visible

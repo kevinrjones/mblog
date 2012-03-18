@@ -74,9 +74,9 @@ namespace MBlogSpecs
 #line 7
 this.ScenarioSetup(scenarioInfo);
 #line 8
- testRunner.Given("That I navigate to a blog post that contains an image");
+ testRunner.Given("A user");
 #line 9
- testRunner.When("I view the blog post");
+ testRunner.When("they view a blog post with an image");
 #line 10
  testRunner.Then("the image should be visible");
 #line hidden

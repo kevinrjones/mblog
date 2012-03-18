@@ -40,8 +40,8 @@ namespace MBlogIntegrationTest.Repositories
             _user2 = BuildMeA.User("email", "name2", "password")
                 .WithBlog(blog2);
 
-            _userRepository = new UserRepository(ConfigurationManager.ConnectionStrings["testdb"].ConnectionString);
-            _postRepository = new PostRepository(ConfigurationManager.ConnectionStrings["testdb"].ConnectionString);
+            _userRepository = new UserRepository(ConfigurationManager.ConnectionStrings["mblog"].ConnectionString);
+            _postRepository = new PostRepository(ConfigurationManager.ConnectionStrings["mblog"].ConnectionString);
         }
 
         [TearDown]

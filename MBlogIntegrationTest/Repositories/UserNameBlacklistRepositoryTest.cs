@@ -20,7 +20,7 @@ namespace MBlogIntegrationTest.Repositories
 
             _blackList = BuildMeA.Blacklist(_nickname);
             _blacklistRepository =
-                new UsernameBlacklistRepository(ConfigurationManager.ConnectionStrings["testdb"].ConnectionString);
+                new UsernameBlacklistRepository(ConfigurationManager.ConnectionStrings["mblog"].ConnectionString);
             _blacklistRepository.Create(_blackList);
         }
 

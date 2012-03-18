@@ -76,6 +76,9 @@
     <Reference Include="EntityFramework">
       <HintPath>..\packages\EntityFramework.5.0.0-beta1\lib\net45\EntityFramework.dll</HintPath>
     </Reference>
+    <Reference Include="Moq">
+      <HintPath>..\packages\Moq.4.0.10827\lib\NET40\Moq.dll</HintPath>
+    </Reference>
     <Reference Include="nunit.framework">
       <HintPath>..\packages\NUnit.2.5.10.11092\lib\nunit.framework.dll</HintPath>
     </Reference>
@@ -92,8 +95,10 @@
     <Reference Include="System.Data.Entity" />
     <Reference Include="System.Transactions" />
     <Reference Include="System.Data" />
+    <Reference Include="System.Web.Mvc, Version=4.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Images\MediaControllerTest.cs" />
     <Compile Include="Repositories\BlogRepositoryTest.cs" />
     <Compile Include="Repositories\MediaRepositoryTest.cs" />
     <Compile Include="Repositories\NicknameBlacklistRepositoryTest.cs" />
@@ -109,9 +114,21 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\Logging\Logging.csproj">
+      <Project>{BF734CD4-7587-422F-BAE9-626051F1A382}</Project>
+      <Name>Logging</Name>
+    </ProjectReference>
     <ProjectReference Include="..\MBlogBuilder\MBlogBuilder.csproj">
       <Project>{7EAB4CD7-118C-443C-9DD2-FA8D806E15C3}</Project>
       <Name>MBlogBuilder</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\MBlogDomainInterfaces\MBlogDomainInterfaces.csproj">
+      <Project>{35F6ACAF-F2EC-4FC5-974C-BDE9C3FE38D4}</Project>
+      <Name>MBlogDomainInterfaces</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\MBlogDomain\MBlogDomain.csproj">
+      <Project>{6EEE1ECE-69AC-4F6D-8EDE-6536B721AA97}</Project>
+      <Name>MBlogDomain</Name>
     </ProjectReference>
     <ProjectReference Include="..\MBlogModel\MBlogModel.csproj">
       <Project>{9D26D30F-3E4E-43B9-A93B-6E51AB34AC44}</Project>
@@ -120,6 +137,10 @@
     <ProjectReference Include="..\MBlogRepository\MBlogRepository.csproj">
       <Project>{555BF169-88EA-4EF1-B532-D152AF974680}</Project>
       <Name>MBlogRepository</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\MBlog\MBlog.csproj">
+      <Project>{CE90FF9C-A013-406E-B3D7-06C34C4AC9D9}</Project>
+      <Name>MBlog</Name>
     </ProjectReference>
     <ProjectReference Include="..\Repository\Repository.csproj">
       <Project>{6B41D66F-0003-45EC-9692-023F9FCA62E8}</Project>

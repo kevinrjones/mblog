@@ -13,15 +13,13 @@ namespace MBlogIntegrationTest.Repositories
     [TestFixture]
     public class UserRepositoryTest
     {
-        #region Setup/Teardown
-
         [SetUp]
         public void Setup()
         {
             _transactionScope = new TransactionScope();
             _nickname1 = "nickname1";
 
-            _userRepository = new UserRepository(ConfigurationManager.ConnectionStrings["testdb"].ConnectionString);
+            _userRepository = new UserRepository(ConfigurationManager.ConnectionStrings["mblog"].ConnectionString);
 
             Blog blog1 = BuildMeA
                 .Blog("title1", "description1", _nickname1, DateTime.Now);
@@ -43,8 +41,6 @@ namespace MBlogIntegrationTest.Repositories
         {
             _transactionScope.Dispose();
         }
-
-        #endregion
 
         private User user;
         private TransactionScope _transactionScope;
@@ -72,7 +68,7 @@ namespace MBlogIntegrationTest.Repositories
         [Test]
         public void WhenIGetASpecificUserAndTheirBlogsById_ThenIGetTheCorrectUserAndTheirBlogs()
         {
-            _userRepository = new UserRepository(ConfigurationManager.ConnectionStrings["testdb"].ConnectionString);
+            _userRepository = new UserRepository(ConfigurationManager.ConnectionStrings["mblog"].ConnectionString);
             User newUser = _userRepository.GetUserWithTheirBlogs(user.Id);
 
             Assert.That(newUser.Id, Is.EqualTo(user.Id));
