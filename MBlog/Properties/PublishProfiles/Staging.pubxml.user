@@ -1,0 +1,15 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<!--
+
+This file is used by the publish/package process of your Web project. You can customize the behavior of this process
+
+by customizing this MSBuild file. In order to learn more about this please visit http://go.microsoft.com/fwlink/?LinkID=208121.
+
+-->
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <LastUsedBuildConfiguration>Staging</LastUsedBuildConfiguration>
+    <LastUsedPlatform>Any CPU</LastUsedPlatform>
+    <EncryptedPassword>AQAAANCMnd8BFdERjHoAwE/Cl+sBAAAAuV/tbgW2h0iLXN22dCMcIQAAAAACAAAAAAAQZgAAAAEAACAAAADoBOsJeDEgKfxcs1ne0JHmhUGkQbRAwsb5Pj+eHoMlagAAAAAOgAAAAAIAACAAAAATQJ1NZXPpQJ9nQJ5jG/Z+o1YwkWoGjldwp96Z+61pxhAAAADb7r2EK/fapBJkHlxnV+zMQAAAALfmxLZqSZjRJ4J4y8ieMxX+x5GVZyQ4SruuB2XtdoR/c0RmsI9KQ7qRz/vBiQ58zQXhsmTKQHBErIW+g19VyFw=</EncryptedPassword>
+  </PropertyGroup>
+</Project>
