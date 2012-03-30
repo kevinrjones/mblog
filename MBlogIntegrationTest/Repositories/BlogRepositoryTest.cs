@@ -12,14 +12,7 @@ namespace MBlogIntegrationTest.Repositories
     [TestFixture]
     public class BlogRepositoryTest
     {
-        private const int NumberOfPosts = 12;
-        private User _user1;
-        private User _user2;
-        private TransactionScope _transactionScope;
-        private string _nickname;
-        private BlogRepository _blogRepository;
-        private UserRepository _userRepository;
-        private Blog _blog;
+        #region Setup/Teardown
 
         [SetUp]
         public void Setup()
@@ -53,6 +46,23 @@ namespace MBlogIntegrationTest.Repositories
             _blogRepository = new BlogRepository(ConfigurationManager.ConnectionStrings["mblog"].ConnectionString);
         }
 
+        [TearDown]
+        public void TearDown()
+        {
+            _transactionScope.Dispose();
+        }
+
+        #endregion
+
+        private const int NumberOfPosts = 12;
+        private User _user1;
+        private User _user2;
+        private TransactionScope _transactionScope;
+        private string _nickname;
+        private BlogRepository _blogRepository;
+        private UserRepository _userRepository;
+        private Blog _blog;
+
         [Test]
         public void WhenIGetASpecificBlog_ThenIGetTheCorrectBlog()
         {
@@ -65,36 +75,28 @@ namespace MBlogIntegrationTest.Repositories
         }
 
         [Test]
-        public void WhenTheLastUpdateDateIsChanged_ThenTheNewValueIsRecorded()
-        {
-            _userRepository.Create(_user1);
-
-            Blog blog = _blogRepository.GetBlog(_nickname);
-            var createdDateTime = blog.LastUpdated;
-
-            _blogRepository.ChangeBlogLastupdateDate(blog.Id);
-
-            var newTime = _blogRepository.GetBlog(blog.Nickname).LastUpdated;
-
-            Assert.That(createdDateTime.Ticks, Is.Not.EqualTo(newTime.Ticks));
-
-        }
-
-        [Test]
         public void WhenTheLastUpdateDateIsChanged_AndTheBlogDoesNotExist_ThenAnExceptionIsThrown()
         {
             _userRepository.Create(_user1);
 
             Blog blog = _blogRepository.GetBlog(_nickname);
-            
+
             Assert.Throws<MBlogException>(() => _blogRepository.ChangeBlogLastupdateDate(blog.Id + 1001));
         }
 
-        [TearDown]
-        public void TearDown()
+        [Test]
+        public void WhenTheLastUpdateDateIsChanged_ThenTheNewValueIsRecorded()
         {
-            _transactionScope.Dispose();
-        }
+            _userRepository.Create(_user1);
 
+            Blog blog = _blogRepository.GetBlog(_nickname);
+            DateTime createdDateTime = blog.LastUpdated;
+
+            _blogRepository.ChangeBlogLastupdateDate(blog.Id);
+
+            DateTime newTime = _blogRepository.GetBlog(blog.Nickname).LastUpdated;
+
+            Assert.That(createdDateTime.Ticks, Is.Not.EqualTo(newTime.Ticks));
+        }
     }
 }

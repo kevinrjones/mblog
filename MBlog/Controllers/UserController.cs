@@ -36,14 +36,14 @@ namespace MBlog.Controllers
         public ActionResult Create(UserViewModel userViewModel)
         {
             List<ErrorDetails> errorDetails;
-            if(!ModelState.IsValid)
+            if (!ModelState.IsValid)
             {
                 return View("Register");
             }
             errorDetails = _userService.IsUserRegistrationValid(userViewModel.Name, userViewModel.Email);
             if (errorDetails.Count != 0)
             {
-                foreach (var errorDetail in errorDetails)
+                foreach (ErrorDetails errorDetail in errorDetails)
                 {
                     ModelState.AddModelError(errorDetail.FieldName, errorDetail.Message);
                 }

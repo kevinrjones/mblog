@@ -6,7 +6,6 @@ namespace MBlog.Models.Blog
     {
         public CreateBlogViewModel()
         {
-            
         }
 
         public CreateBlogViewModel(MBlogModel.Blog blog)
@@ -18,13 +17,17 @@ namespace MBlog.Models.Blog
             CommentsEnabled = blog.CommentsEnabled;
             Nickname = blog.Nickname;
         }
+
         public bool CommentsEnabled { get; set; }
         public bool ApproveComments { get; set; }
         public bool IsCreate { get; set; }
+
         [Required]
         public string Title { get; set; }
+
         [Required]
         public string Description { get; set; }
+
         [Required]
         public string Nickname { get; set; }
     }

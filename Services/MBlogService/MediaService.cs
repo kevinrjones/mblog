@@ -9,12 +9,14 @@ namespace MBlogService
 {
     public class MediaService : IMediaService
     {
-        private IMediaRepository _mediaRepository;
+        private readonly IMediaRepository _mediaRepository;
 
         public MediaService(IMediaRepository mediaRepository)
         {
             _mediaRepository = mediaRepository;
         }
+
+        #region IMediaService Members
 
         public Media GetMedia(int year, int month, int day, string linkKey)
         {
@@ -47,7 +49,8 @@ namespace MBlogService
             var mediaToCreate = new Media(fileName, userId, contentType, inputStream, contentLength);
             try
             {
-                var media = _mediaRepository.GetMedia(mediaToCreate.Year, mediaToCreate.Month, mediaToCreate.Day, mediaToCreate.FileName);
+                Media media = _mediaRepository.GetMedia(mediaToCreate.Year, mediaToCreate.Month, mediaToCreate.Day,
+                                                        mediaToCreate.FileName);
                 if (media == null)
                 {
                     _mediaRepository.WriteMedia(mediaToCreate);
@@ -66,12 +69,15 @@ namespace MBlogService
             }
         }
 
-        public void WriteMedia(string fileName, string title, string caption, string description, string alternate, int userId, string contentType, int alignment, int size, Stream inputStream, int contentLength)
+        public void WriteMedia(string fileName, string title, string caption, string description, string alternate,
+                               int userId, string contentType, int alignment, int size, Stream inputStream,
+                               int contentLength)
         {
-            var bytes = ReadBytes(inputStream, contentLength);
+            byte[] bytes = ReadBytes(inputStream, contentLength);
 
             // todo: url?
-            var media = new Media(fileName, title, caption, description, alternate, userId, contentType, alignment, size, bytes);
+            var media = new Media(fileName, title, caption, description, alternate, userId, contentType, alignment, size,
+                                  bytes);
             try
             {
                 _mediaRepository.WriteMedia(media);
@@ -82,7 +88,8 @@ namespace MBlogService
             }
         }
 
-        public Media UpdateMediaDetails(int mediaId, string title, string caption, string description, string alternate, int userId)
+        public Media UpdateMediaDetails(int mediaId, string title, string caption, string description, string alternate,
+                                        int userId)
         {
             Media medium;
             try
@@ -119,7 +126,7 @@ namespace MBlogService
                 medium = _mediaRepository.GetMedia(mediaId);
             }
             catch (Exception)
-            {                
+            {
                 throw new MBlogException("Unable to find media");
             }
 
@@ -133,12 +140,13 @@ namespace MBlogService
             throw new MBlogMediaNotFoundException("The requested media does not belong to the user");
         }
 
+        #endregion
+
         private static byte[] ReadBytes(Stream inputStream, int contentLength)
         {
-            byte[] bytes = new byte[contentLength];
+            var bytes = new byte[contentLength];
             inputStream.Read(bytes, 0, contentLength);
             return bytes;
         }
-
     }
 }

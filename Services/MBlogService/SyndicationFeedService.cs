@@ -9,8 +9,8 @@ namespace MBlogService
 {
     public class SyndicationFeedService : ISyndicationFeedService
     {
-        private readonly IPostRepository _postRepository;
         private readonly IBlogRepository _blogRepository;
+        private readonly IPostRepository _postRepository;
 
         public SyndicationFeedService(IBlogRepository blogRepository, IPostRepository postRepository)
         {
@@ -18,20 +18,23 @@ namespace MBlogService
             _postRepository = postRepository;
         }
 
+        #region ISyndicationFeedService Members
+
         public SyndicationFeed CreateSyndicationFeed(string nickname, string feedType, string scheme, string host)
         {
             IList<Post> posts = _postRepository.GetBlogPosts(nickname);
-            var blog = _blogRepository.GetBlog(nickname);
+            Blog blog = _blogRepository.GetBlog(nickname);
 
             string url = string.Format("{0}://{1}/{2}", scheme, host, nickname);
             var feed = new SyndicationFeed(blog.Title, blog.Description, new Uri(url), url, blog.LastUpdated);
-            feed.Authors.Add(new SyndicationPerson { Name = blog.User.Name });
+            feed.Authors.Add(new SyndicationPerson {Name = blog.User.Name});
             feed.Links.Add(SyndicationLink.CreateSelfLink(new Uri(url + "/feed/" + feedType)));
 
             var items = new List<SyndicationItem>();
-            foreach (var post in posts)
+            foreach (Post post in posts)
             {
-                url = string.Format("{0}://{1}/{2}/{3}/{4}/{5}/{6}", scheme, host, nickname, post.Posted.Year, post.Posted.Month, post.Posted.Day, post.TitleLink);
+                url = string.Format("{0}://{1}/{2}/{3}/{4}/{5}/{6}", scheme, host, nickname, post.Posted.Year,
+                                    post.Posted.Month, post.Posted.Day, post.TitleLink);
 
                 var item = new SyndicationItem();
                 item.Title = new TextSyndicationContent(post.Title, TextSyndicationContentKind.Html);
@@ -45,5 +48,6 @@ namespace MBlogService
             return feed;
         }
 
+        #endregion
     }
 }

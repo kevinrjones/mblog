@@ -14,20 +14,21 @@
  * @license
  * Dual licensed under the MIT and GPL licenses.
  */
-;(function()
-{
-	// CommonJS
-	typeof(require) != 'undefined' ? SyntaxHighlighter = require('shCore').SyntaxHighlighter : null;
+;
+(function() {
+    // CommonJS
+    typeof(require) != 'undefined' ? SyntaxHighlighter = require('shCore').SyntaxHighlighter : null;
 
-	function Brush()
-	{
-	};
+    function Brush() {
+    }
 
-	Brush.prototype	= new SyntaxHighlighter.Highlighter();
-	Brush.aliases	= ['text', 'plain'];
+    ;
 
-	SyntaxHighlighter.brushes.Plain = Brush;
+    Brush.prototype = new SyntaxHighlighter.Highlighter();
+    Brush.aliases = ['text', 'plain'];
 
-	// CommonJS
-	typeof(exports) != 'undefined' ? exports.Brush = Brush : null;
+    SyntaxHighlighter.brushes.Plain = Brush;
+
+    // CommonJS
+    typeof(exports) != 'undefined' ? exports.Brush = Brush : null;
 })();

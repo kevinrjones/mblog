@@ -1,13 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using System.Web.Mvc;
-using MBlog.Controllers;
-using MBlog.Models;
 using MBlogModel;
-using MBlogRepository;
-using Moq;
 using NUnit.Framework;
 
 namespace MBlogUnitTest.Model
@@ -15,17 +8,21 @@ namespace MBlogUnitTest.Model
     [TestFixture]
     public class UserTest
     {
+        #region Setup/Teardown
+
         [SetUp]
         public void SetUp()
         {
         }
 
+        #endregion
+
         [Test]
         public void GivenAUser_WhenIInitializeAnEmptyInstance_ThenItIsNotValid()
         {
-            User user = new User();
-            ValidationContext ctx = new ValidationContext(user, null, null);
-            List<ValidationResult> validationResults = new List<ValidationResult>();
+            var user = new User();
+            var ctx = new ValidationContext(user, null, null);
+            var validationResults = new List<ValidationResult>();
             bool isValid = Validator.TryValidateObject(user, ctx, validationResults);
 
             Assert.That(isValid, Is.False);
@@ -34,13 +31,12 @@ namespace MBlogUnitTest.Model
         [Test]
         public void GivenAUser_WhenIInitializeItsProperties_ThenItIsValid()
         {
-            User user = new User("Name", "EMail","hpass", false);
-            ValidationContext ctx = new ValidationContext(user, null, null);
-            List<ValidationResult> validationResults = new List<ValidationResult>();
+            var user = new User("Name", "EMail", "hpass", false);
+            var ctx = new ValidationContext(user, null, null);
+            var validationResults = new List<ValidationResult>();
             bool isValid = Validator.TryValidateObject(user, ctx, validationResults);
 
             Assert.That(isValid, Is.True);
         }
-
     }
 }

@@ -13,7 +13,8 @@ namespace MBlogModel
             LastUpdated = DateTime.Now;
         }
 
-        public Blog(string title, string description, bool approveComments, bool commentsEnabled, string nickname, int userId) : this()
+        public Blog(string title, string description, bool approveComments, bool commentsEnabled, string nickname,
+                    int userId) : this()
         {
             ApproveComments = approveComments;
             Nickname = nickname;
@@ -27,13 +28,15 @@ namespace MBlogModel
 
         [Column("user_id")]
         public int UserId { get; set; }
+
         [Required]
         public string Title { get; set; }
+
         [Required]
         public string Description { get; set; }
 
         [Required, Column("comments_enabled")]
-        public bool CommentsEnabled{ get; set; }
+        public bool CommentsEnabled { get; set; }
 
         [Required, Column("comment_approval")]
         public bool ApproveComments { get; set; }

@@ -4,15 +4,18 @@
 // to the .tt file (i.e. the T4 template) and save it to regenerate this file.
 
 // Make sure the compiler doesn't complain about missing Xml comments
+
 #pragma warning disable 1591
+
 #region T4MVC
 
 using System;
-using System.Diagnostics;
 using System.CodeDom.Compiler;
 using System.Collections.Generic;
+using System.Collections.Specialized;
+using System.Diagnostics;
+using System.IO;
 using System.Linq;
-using System.Runtime.CompilerServices;
 using System.Web;
 using System.Web.Hosting;
 using System.Web.Mvc;
@@ -22,157 +25,222 @@ using System.Web.Routing;
 using T4MVC;
 
 [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
-public static class MVC {
-    public static T4MVC.BlogController Blog = new T4MVC.BlogController();
-    public static T4MVC.CommentsController Comments = new T4MVC.CommentsController();
-    public static T4MVC.DashboardController Dashboard = new T4MVC.DashboardController();
-    public static T4MVC.HomeController Home = new T4MVC.HomeController();
-    public static T4MVC.MediaController Media = new T4MVC.MediaController();
-    public static T4MVC.PostController Post = new T4MVC.PostController();
-    public static T4MVC.PostsController Posts = new T4MVC.PostsController();
-    public static T4MVC.SessionController Session = new T4MVC.SessionController();
-    public static T4MVC.SharedController Shared = new T4MVC.SharedController();
-    public static T4MVC.UserController User = new T4MVC.UserController();
+public static class MVC
+{
+    public static BlogController Blog = new BlogController();
+    public static CommentsController Comments = new CommentsController();
+    public static DashboardController Dashboard = new DashboardController();
+    public static HomeController Home = new HomeController();
+    public static MediaController Media = new MediaController();
+    public static PostController Post = new PostController();
+    public static PostsController Posts = new PostsController();
+    public static SessionController Session = new SessionController();
+    public static SharedController Shared = new SharedController();
+    public static UserController User = new UserController();
 }
 
-namespace T4MVC {
+namespace T4MVC
+{
 }
 
-   
-namespace System.Web.Mvc {
+namespace System.Web.Mvc
+{
     [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
-    public static class T4Extensions {
-        public static MvcHtmlString ActionLink(this HtmlHelper htmlHelper, string linkText, ActionResult result) {
+    public static class T4Extensions
+    {
+        private static DateTime CenturyBegin = new DateTime(2001, 1, 1);
+
+        public static MvcHtmlString ActionLink(this HtmlHelper htmlHelper, string linkText, ActionResult result)
+        {
             return htmlHelper.RouteLink(linkText, result.GetRouteValueDictionary());
         }
 
-        public static MvcHtmlString ActionLink(this HtmlHelper htmlHelper, string linkText, ActionResult result, object htmlAttributes, string protocol = null, string hostName = null, string fragment = null) {
-            return htmlHelper.RouteLink(linkText, null, protocol, hostName, fragment, result.GetRouteValueDictionary(), HtmlHelper.AnonymousObjectToHtmlAttributes(htmlAttributes));
+        public static MvcHtmlString ActionLink(this HtmlHelper htmlHelper, string linkText, ActionResult result,
+                                               object htmlAttributes, string protocol = null, string hostName = null,
+                                               string fragment = null)
+        {
+            return htmlHelper.RouteLink(linkText, null, protocol, hostName, fragment, result.GetRouteValueDictionary(),
+                                        HtmlHelper.AnonymousObjectToHtmlAttributes(htmlAttributes));
         }
 
-        public static MvcHtmlString ActionLink(this HtmlHelper htmlHelper, string linkText, ActionResult result, IDictionary<string, object> htmlAttributes, string protocol = null, string hostName = null, string fragment = null) {
-            return htmlHelper.RouteLink(linkText, null, protocol, hostName, fragment, result.GetRouteValueDictionary(), htmlAttributes);
+        public static MvcHtmlString ActionLink(this HtmlHelper htmlHelper, string linkText, ActionResult result,
+                                               IDictionary<string, object> htmlAttributes, string protocol = null,
+                                               string hostName = null, string fragment = null)
+        {
+            return htmlHelper.RouteLink(linkText, null, protocol, hostName, fragment, result.GetRouteValueDictionary(),
+                                        htmlAttributes);
         }
 
-        public static MvcForm BeginForm(this HtmlHelper htmlHelper, ActionResult result) {
+        public static MvcForm BeginForm(this HtmlHelper htmlHelper, ActionResult result)
+        {
             return htmlHelper.BeginForm(result, FormMethod.Post);
         }
 
-        public static MvcForm BeginForm(this HtmlHelper htmlHelper, ActionResult result, FormMethod formMethod) {
+        public static MvcForm BeginForm(this HtmlHelper htmlHelper, ActionResult result, FormMethod formMethod)
+        {
             return htmlHelper.BeginForm(result, formMethod, null);
         }
 
-        public static MvcForm BeginForm(this HtmlHelper htmlHelper, ActionResult result, FormMethod formMethod, object htmlAttributes) {
+        public static MvcForm BeginForm(this HtmlHelper htmlHelper, ActionResult result, FormMethod formMethod,
+                                        object htmlAttributes)
+        {
             return BeginForm(htmlHelper, result, formMethod, new RouteValueDictionary(htmlAttributes));
         }
 
-        public static MvcForm BeginForm(this HtmlHelper htmlHelper, ActionResult result, FormMethod formMethod, IDictionary<string, object> htmlAttributes) {
-            var callInfo = result.GetT4MVCResult();
-            return htmlHelper.BeginForm(callInfo.Action, callInfo.Controller, callInfo.RouteValueDictionary, formMethod, htmlAttributes);
+        public static MvcForm BeginForm(this HtmlHelper htmlHelper, ActionResult result, FormMethod formMethod,
+                                        IDictionary<string, object> htmlAttributes)
+        {
+            IT4MVCActionResult callInfo = result.GetT4MVCResult();
+            return htmlHelper.BeginForm(callInfo.Action, callInfo.Controller, callInfo.RouteValueDictionary, formMethod,
+                                        htmlAttributes);
         }
 
-        public static void RenderAction(this HtmlHelper htmlHelper, ActionResult result) {
-            var callInfo = result.GetT4MVCResult();
+        public static void RenderAction(this HtmlHelper htmlHelper, ActionResult result)
+        {
+            IT4MVCActionResult callInfo = result.GetT4MVCResult();
             htmlHelper.RenderAction(callInfo.Action, callInfo.Controller, callInfo.RouteValueDictionary);
         }
 
-        public static MvcHtmlString Action(this HtmlHelper htmlHelper, ActionResult result) {
-            var callInfo = result.GetT4MVCResult();
+        public static MvcHtmlString Action(this HtmlHelper htmlHelper, ActionResult result)
+        {
+            IT4MVCActionResult callInfo = result.GetT4MVCResult();
             return htmlHelper.Action(callInfo.Action, callInfo.Controller, callInfo.RouteValueDictionary);
         }
 
-        public static string Action(this UrlHelper urlHelper, ActionResult result) {
+        public static string Action(this UrlHelper urlHelper, ActionResult result)
+        {
             return urlHelper.RouteUrl(null, result.GetRouteValueDictionary());
         }
 
-        public static string Action(this UrlHelper urlHelper, ActionResult result, string protocol = null, string hostName = null) {
+        public static string Action(this UrlHelper urlHelper, ActionResult result, string protocol = null,
+                                    string hostName = null)
+        {
             return urlHelper.RouteUrl(null, result.GetRouteValueDictionary(), protocol, hostName);
         }
 
-        public static string ActionAbsolute(this UrlHelper urlHelper, ActionResult result) {
-            return string.Format("{0}{1}",urlHelper.RequestContext.HttpContext.Request.Url.GetLeftPart(UriPartial.Authority),
-                urlHelper.RouteUrl(result.GetRouteValueDictionary()));
+        public static string ActionAbsolute(this UrlHelper urlHelper, ActionResult result)
+        {
+            return string.Format("{0}{1}",
+                                 urlHelper.RequestContext.HttpContext.Request.Url.GetLeftPart(UriPartial.Authority),
+                                 urlHelper.RouteUrl(result.GetRouteValueDictionary()));
         }
 
-        public static MvcHtmlString ActionLink(this AjaxHelper ajaxHelper, string linkText, ActionResult result, AjaxOptions ajaxOptions) {
+        public static MvcHtmlString ActionLink(this AjaxHelper ajaxHelper, string linkText, ActionResult result,
+                                               AjaxOptions ajaxOptions)
+        {
             return ajaxHelper.RouteLink(linkText, result.GetRouteValueDictionary(), ajaxOptions);
         }
 
-        public static MvcHtmlString ActionLink(this AjaxHelper ajaxHelper, string linkText, ActionResult result, AjaxOptions ajaxOptions, object htmlAttributes) {
-            return ajaxHelper.RouteLink(linkText, result.GetRouteValueDictionary(), ajaxOptions, new RouteValueDictionary(htmlAttributes));
+        public static MvcHtmlString ActionLink(this AjaxHelper ajaxHelper, string linkText, ActionResult result,
+                                               AjaxOptions ajaxOptions, object htmlAttributes)
+        {
+            return ajaxHelper.RouteLink(linkText, result.GetRouteValueDictionary(), ajaxOptions,
+                                        new RouteValueDictionary(htmlAttributes));
         }
 
-        public static MvcHtmlString ActionLink(this AjaxHelper ajaxHelper, string linkText, ActionResult result, AjaxOptions ajaxOptions, IDictionary<string, object> htmlAttributes) {
+        public static MvcHtmlString ActionLink(this AjaxHelper ajaxHelper, string linkText, ActionResult result,
+                                               AjaxOptions ajaxOptions, IDictionary<string, object> htmlAttributes)
+        {
             return ajaxHelper.RouteLink(linkText, result.GetRouteValueDictionary(), ajaxOptions, htmlAttributes);
         }
 
-        public static MvcForm BeginForm(this AjaxHelper ajaxHelper, ActionResult result, AjaxOptions ajaxOptions) {
+        public static MvcForm BeginForm(this AjaxHelper ajaxHelper, ActionResult result, AjaxOptions ajaxOptions)
+        {
             return ajaxHelper.BeginForm(result, ajaxOptions, null);
         }
 
-        public static MvcForm BeginForm(this AjaxHelper ajaxHelper, ActionResult result, AjaxOptions ajaxOptions, object htmlAttributes) {
+        public static MvcForm BeginForm(this AjaxHelper ajaxHelper, ActionResult result, AjaxOptions ajaxOptions,
+                                        object htmlAttributes)
+        {
             return BeginForm(ajaxHelper, result, ajaxOptions, new RouteValueDictionary(htmlAttributes));
         }
 
-        public static MvcForm BeginForm(this AjaxHelper ajaxHelper, ActionResult result, AjaxOptions ajaxOptions, IDictionary<string, object> htmlAttributes) {
-            var callInfo = result.GetT4MVCResult();
-            return ajaxHelper.BeginForm(callInfo.Action, callInfo.Controller, callInfo.RouteValueDictionary, ajaxOptions, htmlAttributes);
+        public static MvcForm BeginForm(this AjaxHelper ajaxHelper, ActionResult result, AjaxOptions ajaxOptions,
+                                        IDictionary<string, object> htmlAttributes)
+        {
+            IT4MVCActionResult callInfo = result.GetT4MVCResult();
+            return ajaxHelper.BeginForm(callInfo.Action, callInfo.Controller, callInfo.RouteValueDictionary, ajaxOptions,
+                                        htmlAttributes);
         }
 
-        public static Route MapRoute(this RouteCollection routes, string name, string url, ActionResult result) {
+        public static Route MapRoute(this RouteCollection routes, string name, string url, ActionResult result)
+        {
             return MapRoute(routes, name, url, result, null /*namespaces*/);
         }
 
-        public static Route MapRoute(this RouteCollection routes, string name, string url, ActionResult result, object defaults) {
+        public static Route MapRoute(this RouteCollection routes, string name, string url, ActionResult result,
+                                     object defaults)
+        {
             return MapRoute(routes, name, url, result, defaults, null /*constraints*/, null /*namespaces*/);
         }
 
-        public static Route MapRoute(this RouteCollection routes, string name, string url, ActionResult result, string[] namespaces) {
+        public static Route MapRoute(this RouteCollection routes, string name, string url, ActionResult result,
+                                     string[] namespaces)
+        {
             return MapRoute(routes, name, url, result, null /*defaults*/, namespaces);
         }
 
-        public static Route MapRoute(this RouteCollection routes, string name, string url, ActionResult result, object defaults, object constraints) {
+        public static Route MapRoute(this RouteCollection routes, string name, string url, ActionResult result,
+                                     object defaults, object constraints)
+        {
             return MapRoute(routes, name, url, result, defaults, constraints, null /*namespaces*/);
         }
 
-        public static Route MapRoute(this RouteCollection routes, string name, string url, ActionResult result, object defaults, string[] namespaces) {
+        public static Route MapRoute(this RouteCollection routes, string name, string url, ActionResult result,
+                                     object defaults, string[] namespaces)
+        {
             return MapRoute(routes, name, url, result, defaults, null /*constraints*/, namespaces);
         }
 
-        public static Route MapRoute(this RouteCollection routes, string name, string url, ActionResult result, object defaults, object constraints, string[] namespaces) {
+        public static Route MapRoute(this RouteCollection routes, string name, string url, ActionResult result,
+                                     object defaults, object constraints, string[] namespaces)
+        {
             // Create and add the route
-            var route = CreateRoute(url, result, defaults, constraints, namespaces);
+            Route route = CreateRoute(url, result, defaults, constraints, namespaces);
             routes.Add(name, route);
             return route;
         }
 
         // Note: can't name the AreaRegistrationContext methods 'MapRoute', as that conflicts with the existing methods
-        public static Route MapRouteArea(this AreaRegistrationContext context, string name, string url, ActionResult result) {
+        public static Route MapRouteArea(this AreaRegistrationContext context, string name, string url,
+                                         ActionResult result)
+        {
             return MapRouteArea(context, name, url, result, null /*namespaces*/);
         }
 
-        public static Route MapRouteArea(this AreaRegistrationContext context, string name, string url, ActionResult result, object defaults) {
+        public static Route MapRouteArea(this AreaRegistrationContext context, string name, string url,
+                                         ActionResult result, object defaults)
+        {
             return MapRouteArea(context, name, url, result, defaults, null /*constraints*/, null /*namespaces*/);
         }
 
-        public static Route MapRouteArea(this AreaRegistrationContext context, string name, string url, ActionResult result, string[] namespaces) {
+        public static Route MapRouteArea(this AreaRegistrationContext context, string name, string url,
+                                         ActionResult result, string[] namespaces)
+        {
             return MapRouteArea(context, name, url, result, null /*defaults*/, namespaces);
         }
 
-        public static Route MapRouteArea(this AreaRegistrationContext context, string name, string url, ActionResult result, object defaults, object constraints) {
+        public static Route MapRouteArea(this AreaRegistrationContext context, string name, string url,
+                                         ActionResult result, object defaults, object constraints)
+        {
             return MapRouteArea(context, name, url, result, defaults, constraints, null /*namespaces*/);
         }
 
-        public static Route MapRouteArea(this AreaRegistrationContext context, string name, string url, ActionResult result, object defaults, string[] namespaces) {
+        public static Route MapRouteArea(this AreaRegistrationContext context, string name, string url,
+                                         ActionResult result, object defaults, string[] namespaces)
+        {
             return MapRouteArea(context, name, url, result, defaults, null /*constraints*/, namespaces);
         }
 
-        public static Route MapRouteArea(this AreaRegistrationContext context, string name, string url, ActionResult result, object defaults, object constraints, string[] namespaces) {
+        public static Route MapRouteArea(this AreaRegistrationContext context, string name, string url,
+                                         ActionResult result, object defaults, object constraints, string[] namespaces)
+        {
             // Create and add the route
-            if ((namespaces == null) && (context.Namespaces != null)) {
-                 namespaces = context.Namespaces.ToArray();
+            if ((namespaces == null) && (context.Namespaces != null))
+            {
+                namespaces = context.Namespaces.ToArray();
             }
-            var route = CreateRoute(url, result, defaults, constraints, namespaces);
+            Route route = CreateRoute(url, result, defaults, constraints, namespaces);
             context.Routes.Add(name, route);
             route.DataTokens["area"] = context.AreaName;
             bool useNamespaceFallback = (namespaces == null) || (namespaces.Length == 0);
@@ -180,12 +248,15 @@ namespace System.Web.Mvc {
             return route;
         }
 
-        private static Route CreateRoute(string url, ActionResult result, object defaults, object constraints, string[] namespaces) {
+        private static Route CreateRoute(string url, ActionResult result, object defaults, object constraints,
+                                         string[] namespaces)
+        {
             // Start by adding the default values from the anonymous object (if any)
             var routeValues = new RouteValueDictionary(defaults);
 
             // Then add the Controller/Action names and the parameters from the call
-            foreach (var pair in result.GetRouteValueDictionary()) {
+            foreach (var pair in result.GetRouteValueDictionary())
+            {
                 routeValues.Add(pair.Key, pair.Value);
             }
 
@@ -196,53 +267,64 @@ namespace System.Web.Mvc {
 
             route.DataTokens = new RouteValueDictionary();
 
-            if (namespaces != null && namespaces.Length > 0) {
+            if (namespaces != null && namespaces.Length > 0)
+            {
                 route.DataTokens["Namespaces"] = namespaces;
             }
 
             return route;
         }
 
-        public static IT4MVCActionResult GetT4MVCResult(this ActionResult result) {
+        public static IT4MVCActionResult GetT4MVCResult(this ActionResult result)
+        {
             var t4MVCResult = result as IT4MVCActionResult;
-            if (t4MVCResult == null) {
-                throw new InvalidOperationException("T4MVC was called incorrectly. You may need to force it to regenerate by right clicking on T4MVC.tt and choosing Run Custom Tool");
+            if (t4MVCResult == null)
+            {
+                throw new InvalidOperationException(
+                    "T4MVC was called incorrectly. You may need to force it to regenerate by right clicking on T4MVC.tt and choosing Run Custom Tool");
             }
             return t4MVCResult;
         }
 
-        public static RouteValueDictionary GetRouteValueDictionary(this ActionResult result) {
+        public static RouteValueDictionary GetRouteValueDictionary(this ActionResult result)
+        {
             return result.GetT4MVCResult().RouteValueDictionary;
         }
 
-        public static ActionResult AddRouteValues(this ActionResult result, object routeValues) {
+        public static ActionResult AddRouteValues(this ActionResult result, object routeValues)
+        {
             return result.AddRouteValues(new RouteValueDictionary(routeValues));
         }
 
-        public static ActionResult AddRouteValues(this ActionResult result, RouteValueDictionary routeValues) {
+        public static ActionResult AddRouteValues(this ActionResult result, RouteValueDictionary routeValues)
+        {
             RouteValueDictionary currentRouteValues = result.GetRouteValueDictionary();
 
             // Add all the extra values
-            foreach (var pair in routeValues) {
+            foreach (var pair in routeValues)
+            {
                 currentRouteValues.Add(pair.Key, pair.Value);
             }
 
             return result;
         }
 
-        public static ActionResult AddRouteValues(this ActionResult result, System.Collections.Specialized.NameValueCollection nameValueCollection) {
+        public static ActionResult AddRouteValues(this ActionResult result, NameValueCollection nameValueCollection)
+        {
             // Copy all the values from the NameValueCollection into the route dictionary
             nameValueCollection.CopyTo(result.GetRouteValueDictionary());
             return result;
         }
 
-        public static ActionResult AddRouteValue(this ActionResult result, string name, object value) {
+        public static ActionResult AddRouteValue(this ActionResult result, string name, object value)
+        {
             RouteValueDictionary routeValues = result.GetRouteValueDictionary();
             routeValues.Add(name, value);
             return result;
         }
-        
-        public static void InitMVCT4Result(this IT4MVCActionResult result, string area, string controller, string action) {
+
+        public static void InitMVCT4Result(this IT4MVCActionResult result, string area, string controller, string action)
+        {
             result.Controller = controller;
             result.Action = action;
             result.RouteValueDictionary = new RouteValueDictionary();
@@ -251,148 +333,297 @@ namespace System.Web.Mvc {
             result.RouteValueDictionary.Add("Action", action);
         }
 
-        public static bool FileExists(string virtualPath) {
+        public static bool FileExists(string virtualPath)
+        {
             if (!HostingEnvironment.IsHosted) return false;
             string filePath = HostingEnvironment.MapPath(virtualPath);
-            return System.IO.File.Exists(filePath);
+            return File.Exists(filePath);
         }
 
-        static DateTime CenturyBegin=new DateTime(2001,1,1);
-        public static string TimestampString(string virtualPath) {
+        public static string TimestampString(string virtualPath)
+        {
             if (!HostingEnvironment.IsHosted) return string.Empty;
             string filePath = HostingEnvironment.MapPath(virtualPath);
-            return Convert.ToString((System.IO.File.GetLastWriteTimeUtc(filePath).Ticks-CenturyBegin.Ticks)/1000000000,16);            
+            return Convert.ToString((File.GetLastWriteTimeUtc(filePath).Ticks - CenturyBegin.Ticks)/1000000000, 16);
         }
     }
 }
 
-
-
-namespace T4MVC {
+namespace T4MVC
+{
     [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
-    public class Dummy {
-        private Dummy() { }
+    public class Dummy
+    {
         public static Dummy Instance = new Dummy();
+
+        private Dummy()
+        {
+        }
     }
 }
 
+[GeneratedCode("T4MVC", "2.0")]
+public interface IT4MVCActionResult
+{
+    string Action { get; set; }
+    string Controller { get; set; }
+    RouteValueDictionary RouteValueDictionary { get; set; }
+}
 
-  
-
-   
-[GeneratedCode("T4MVC", "2.0")]   
-public interface IT4MVCActionResult {   
-    string Action { get; set; }   
-    string Controller { get; set; }   
-    RouteValueDictionary RouteValueDictionary { get; set; }   
-}   
-  
-
-
-
-
-namespace Links {
+namespace Links
+{
     [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
-    public static class Scripts {
+    public static class Scripts
+    {
         private const string URLPATH = "~/Scripts";
-        public static string Url() { return T4MVCHelpers.ProcessVirtualPath(URLPATH); }
-        public static string Url(string fileName) { return T4MVCHelpers.ProcessVirtualPath(URLPATH + "/" + fileName); }
-        public static readonly string _references_js = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/_references.min.js") ? Url("_references.min.js") : Url("_references.js");
-                      
-        public static readonly string fileuploader_js = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/fileuploader.min.js") ? Url("fileuploader.min.js") : Url("fileuploader.js");
-                      
-        public static readonly string jquery_1_6_2_vsdoc_js = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/jquery-1.6.2-vsdoc.min.js") ? Url("jquery-1.6.2-vsdoc.min.js") : Url("jquery-1.6.2-vsdoc.js");
-                      
-        public static readonly string jquery_1_6_2_js = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/jquery-1.6.2.min.js") ? Url("jquery-1.6.2.min.js") : Url("jquery-1.6.2.js");
-                      
+
+        public static readonly string _references_js = T4MVCHelpers.IsProduction() &&
+                                                       T4Extensions.FileExists(URLPATH + "/_references.min.js")
+                                                           ? Url("_references.min.js")
+                                                           : Url("_references.js");
+
+        public static readonly string fileuploader_js = T4MVCHelpers.IsProduction() &&
+                                                        T4Extensions.FileExists(URLPATH + "/fileuploader.min.js")
+                                                            ? Url("fileuploader.min.js")
+                                                            : Url("fileuploader.js");
+
+        public static readonly string jquery_1_6_2_vsdoc_js = T4MVCHelpers.IsProduction() &&
+                                                              T4Extensions.FileExists(URLPATH +
+                                                                                      "/jquery-1.6.2-vsdoc.min.js")
+                                                                  ? Url("jquery-1.6.2-vsdoc.min.js")
+                                                                  : Url("jquery-1.6.2-vsdoc.js");
+
+        public static readonly string jquery_1_6_2_js = T4MVCHelpers.IsProduction() &&
+                                                        T4Extensions.FileExists(URLPATH + "/jquery-1.6.2.min.js")
+                                                            ? Url("jquery-1.6.2.min.js")
+                                                            : Url("jquery-1.6.2.js");
+
         public static readonly string jquery_1_6_2_min_js = Url("jquery-1.6.2.min.js");
-        public static readonly string jquery_ui_1_8_11_js = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/jquery-ui-1.8.11.min.js") ? Url("jquery-ui-1.8.11.min.js") : Url("jquery-ui-1.8.11.js");
-                      
+
+        public static readonly string jquery_ui_1_8_11_js = T4MVCHelpers.IsProduction() &&
+                                                            T4Extensions.FileExists(URLPATH + "/jquery-ui-1.8.11.min.js")
+                                                                ? Url("jquery-ui-1.8.11.min.js")
+                                                                : Url("jquery-ui-1.8.11.js");
+
         public static readonly string jquery_ui_1_8_11_min_js = Url("jquery-ui-1.8.11.min.js");
-        public static readonly string jquery_unobtrusive_ajax_js = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/jquery.unobtrusive-ajax.min.js") ? Url("jquery.unobtrusive-ajax.min.js") : Url("jquery.unobtrusive-ajax.js");
-                      
+
+        public static readonly string jquery_unobtrusive_ajax_js = T4MVCHelpers.IsProduction() &&
+                                                                   T4Extensions.FileExists(URLPATH +
+                                                                                           "/jquery.unobtrusive-ajax.min.js")
+                                                                       ? Url("jquery.unobtrusive-ajax.min.js")
+                                                                       : Url("jquery.unobtrusive-ajax.js");
+
         public static readonly string jquery_unobtrusive_ajax_min_js = Url("jquery.unobtrusive-ajax.min.js");
-        public static readonly string jquery_validate_vsdoc_js = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/jquery.validate-vsdoc.min.js") ? Url("jquery.validate-vsdoc.min.js") : Url("jquery.validate-vsdoc.js");
-                      
-        public static readonly string jquery_validate_js = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/jquery.validate.min.js") ? Url("jquery.validate.min.js") : Url("jquery.validate.js");
-                      
+
+        public static readonly string jquery_validate_vsdoc_js = T4MVCHelpers.IsProduction() &&
+                                                                 T4Extensions.FileExists(URLPATH +
+                                                                                         "/jquery.validate-vsdoc.min.js")
+                                                                     ? Url("jquery.validate-vsdoc.min.js")
+                                                                     : Url("jquery.validate-vsdoc.js");
+
+        public static readonly string jquery_validate_js = T4MVCHelpers.IsProduction() &&
+                                                           T4Extensions.FileExists(URLPATH + "/jquery.validate.min.js")
+                                                               ? Url("jquery.validate.min.js")
+                                                               : Url("jquery.validate.js");
+
         public static readonly string jquery_validate_min_js = Url("jquery.validate.min.js");
-        public static readonly string jquery_validate_unobtrusive_js = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/jquery.validate.unobtrusive.min.js") ? Url("jquery.validate.unobtrusive.min.js") : Url("jquery.validate.unobtrusive.js");
-                      
+
+        public static readonly string jquery_validate_unobtrusive_js = T4MVCHelpers.IsProduction() &&
+                                                                       T4Extensions.FileExists(URLPATH +
+                                                                                               "/jquery.validate.unobtrusive.min.js")
+                                                                           ? Url("jquery.validate.unobtrusive.min.js")
+                                                                           : Url("jquery.validate.unobtrusive.js");
+
         public static readonly string jquery_validate_unobtrusive_min_js = Url("jquery.validate.unobtrusive.min.js");
-        public static readonly string knockout_2_0_0_debug_js = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/knockout-2.0.0.debug.min.js") ? Url("knockout-2.0.0.debug.min.js") : Url("knockout-2.0.0.debug.js");
-                      
-        public static readonly string knockout_2_0_0_js = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/knockout-2.0.0.min.js") ? Url("knockout-2.0.0.min.js") : Url("knockout-2.0.0.js");
-                      
-        public static readonly string mblog_dashboard_js = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/mblog-dashboard.min.js") ? Url("mblog-dashboard.min.js") : Url("mblog-dashboard.js");
-                      
-        public static readonly string mblog_js = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/mblog.min.js") ? Url("mblog.min.js") : Url("mblog.js");
-                      
-        public static readonly string modernizr_2_0_6_development_only_js = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/modernizr-2.0.6-development-only.min.js") ? Url("modernizr-2.0.6-development-only.min.js") : Url("modernizr-2.0.6-development-only.js");
-                      
-        public static readonly string shAutoloader_js = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/shAutoloader.min.js") ? Url("shAutoloader.min.js") : Url("shAutoloader.js");
-                      
-        public static readonly string shBrushAppleScript_js = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/shBrushAppleScript.min.js") ? Url("shBrushAppleScript.min.js") : Url("shBrushAppleScript.js");
-                      
-        public static readonly string shBrushAS3_js = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/shBrushAS3.min.js") ? Url("shBrushAS3.min.js") : Url("shBrushAS3.js");
-                      
-        public static readonly string shBrushBash_js = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/shBrushBash.min.js") ? Url("shBrushBash.min.js") : Url("shBrushBash.js");
-                      
-        public static readonly string shBrushColdFusion_js = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/shBrushColdFusion.min.js") ? Url("shBrushColdFusion.min.js") : Url("shBrushColdFusion.js");
-                      
-        public static readonly string shBrushCpp_js = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/shBrushCpp.min.js") ? Url("shBrushCpp.min.js") : Url("shBrushCpp.js");
-                      
-        public static readonly string shBrushCSharp_js = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/shBrushCSharp.min.js") ? Url("shBrushCSharp.min.js") : Url("shBrushCSharp.js");
-                      
-        public static readonly string shBrushCss_js = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/shBrushCss.min.js") ? Url("shBrushCss.min.js") : Url("shBrushCss.js");
-                      
-        public static readonly string shBrushDelphi_js = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/shBrushDelphi.min.js") ? Url("shBrushDelphi.min.js") : Url("shBrushDelphi.js");
-                      
-        public static readonly string shBrushDiff_js = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/shBrushDiff.min.js") ? Url("shBrushDiff.min.js") : Url("shBrushDiff.js");
-                      
-        public static readonly string shBrushErlang_js = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/shBrushErlang.min.js") ? Url("shBrushErlang.min.js") : Url("shBrushErlang.js");
-                      
-        public static readonly string shBrushGroovy_js = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/shBrushGroovy.min.js") ? Url("shBrushGroovy.min.js") : Url("shBrushGroovy.js");
-                      
-        public static readonly string shBrushJava_js = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/shBrushJava.min.js") ? Url("shBrushJava.min.js") : Url("shBrushJava.js");
-                      
-        public static readonly string shBrushJavaFX_js = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/shBrushJavaFX.min.js") ? Url("shBrushJavaFX.min.js") : Url("shBrushJavaFX.js");
-                      
-        public static readonly string shBrushJScript_js = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/shBrushJScript.min.js") ? Url("shBrushJScript.min.js") : Url("shBrushJScript.js");
-                      
-        public static readonly string shBrushPerl_js = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/shBrushPerl.min.js") ? Url("shBrushPerl.min.js") : Url("shBrushPerl.js");
-                      
-        public static readonly string shBrushPhp_js = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/shBrushPhp.min.js") ? Url("shBrushPhp.min.js") : Url("shBrushPhp.js");
-                      
-        public static readonly string shBrushPlain_js = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/shBrushPlain.min.js") ? Url("shBrushPlain.min.js") : Url("shBrushPlain.js");
-                      
-        public static readonly string shBrushPowerShell_js = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/shBrushPowerShell.min.js") ? Url("shBrushPowerShell.min.js") : Url("shBrushPowerShell.js");
-                      
-        public static readonly string shBrushPython_js = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/shBrushPython.min.js") ? Url("shBrushPython.min.js") : Url("shBrushPython.js");
-                      
-        public static readonly string shBrushRuby_js = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/shBrushRuby.min.js") ? Url("shBrushRuby.min.js") : Url("shBrushRuby.js");
-                      
-        public static readonly string shBrushSass_js = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/shBrushSass.min.js") ? Url("shBrushSass.min.js") : Url("shBrushSass.js");
-                      
-        public static readonly string shBrushScala_js = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/shBrushScala.min.js") ? Url("shBrushScala.min.js") : Url("shBrushScala.js");
-                      
-        public static readonly string shBrushSql_js = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/shBrushSql.min.js") ? Url("shBrushSql.min.js") : Url("shBrushSql.js");
-                      
-        public static readonly string shBrushVb_js = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/shBrushVb.min.js") ? Url("shBrushVb.min.js") : Url("shBrushVb.js");
-                      
-        public static readonly string shBrushXml_js = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/shBrushXml.min.js") ? Url("shBrushXml.min.js") : Url("shBrushXml.js");
-                      
-        public static readonly string shCore_js = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/shCore.min.js") ? Url("shCore.min.js") : Url("shCore.js");
-                      
-        public static readonly string shLegacy_js = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/shLegacy.min.js") ? Url("shLegacy.min.js") : Url("shLegacy.js");
-                      
+
+        public static readonly string knockout_2_0_0_debug_js = T4MVCHelpers.IsProduction() &&
+                                                                T4Extensions.FileExists(URLPATH +
+                                                                                        "/knockout-2.0.0.debug.min.js")
+                                                                    ? Url("knockout-2.0.0.debug.min.js")
+                                                                    : Url("knockout-2.0.0.debug.js");
+
+        public static readonly string knockout_2_0_0_js = T4MVCHelpers.IsProduction() &&
+                                                          T4Extensions.FileExists(URLPATH + "/knockout-2.0.0.min.js")
+                                                              ? Url("knockout-2.0.0.min.js")
+                                                              : Url("knockout-2.0.0.js");
+
+        public static readonly string mblog_dashboard_js = T4MVCHelpers.IsProduction() &&
+                                                           T4Extensions.FileExists(URLPATH + "/mblog-dashboard.min.js")
+                                                               ? Url("mblog-dashboard.min.js")
+                                                               : Url("mblog-dashboard.js");
+
+        public static readonly string mblog_js = T4MVCHelpers.IsProduction() &&
+                                                 T4Extensions.FileExists(URLPATH + "/mblog.min.js")
+                                                     ? Url("mblog.min.js")
+                                                     : Url("mblog.js");
+
+        public static readonly string modernizr_2_0_6_development_only_js = T4MVCHelpers.IsProduction() &&
+                                                                            T4Extensions.FileExists(URLPATH +
+                                                                                                    "/modernizr-2.0.6-development-only.min.js")
+                                                                                ? Url(
+                                                                                    "modernizr-2.0.6-development-only.min.js")
+                                                                                : Url(
+                                                                                    "modernizr-2.0.6-development-only.js");
+
+        public static readonly string shAutoloader_js = T4MVCHelpers.IsProduction() &&
+                                                        T4Extensions.FileExists(URLPATH + "/shAutoloader.min.js")
+                                                            ? Url("shAutoloader.min.js")
+                                                            : Url("shAutoloader.js");
+
+        public static readonly string shBrushAppleScript_js = T4MVCHelpers.IsProduction() &&
+                                                              T4Extensions.FileExists(URLPATH +
+                                                                                      "/shBrushAppleScript.min.js")
+                                                                  ? Url("shBrushAppleScript.min.js")
+                                                                  : Url("shBrushAppleScript.js");
+
+        public static readonly string shBrushAS3_js = T4MVCHelpers.IsProduction() &&
+                                                      T4Extensions.FileExists(URLPATH + "/shBrushAS3.min.js")
+                                                          ? Url("shBrushAS3.min.js")
+                                                          : Url("shBrushAS3.js");
+
+        public static readonly string shBrushBash_js = T4MVCHelpers.IsProduction() &&
+                                                       T4Extensions.FileExists(URLPATH + "/shBrushBash.min.js")
+                                                           ? Url("shBrushBash.min.js")
+                                                           : Url("shBrushBash.js");
+
+        public static readonly string shBrushColdFusion_js = T4MVCHelpers.IsProduction() &&
+                                                             T4Extensions.FileExists(URLPATH +
+                                                                                     "/shBrushColdFusion.min.js")
+                                                                 ? Url("shBrushColdFusion.min.js")
+                                                                 : Url("shBrushColdFusion.js");
+
+        public static readonly string shBrushCpp_js = T4MVCHelpers.IsProduction() &&
+                                                      T4Extensions.FileExists(URLPATH + "/shBrushCpp.min.js")
+                                                          ? Url("shBrushCpp.min.js")
+                                                          : Url("shBrushCpp.js");
+
+        public static readonly string shBrushCSharp_js = T4MVCHelpers.IsProduction() &&
+                                                         T4Extensions.FileExists(URLPATH + "/shBrushCSharp.min.js")
+                                                             ? Url("shBrushCSharp.min.js")
+                                                             : Url("shBrushCSharp.js");
+
+        public static readonly string shBrushCss_js = T4MVCHelpers.IsProduction() &&
+                                                      T4Extensions.FileExists(URLPATH + "/shBrushCss.min.js")
+                                                          ? Url("shBrushCss.min.js")
+                                                          : Url("shBrushCss.js");
+
+        public static readonly string shBrushDelphi_js = T4MVCHelpers.IsProduction() &&
+                                                         T4Extensions.FileExists(URLPATH + "/shBrushDelphi.min.js")
+                                                             ? Url("shBrushDelphi.min.js")
+                                                             : Url("shBrushDelphi.js");
+
+        public static readonly string shBrushDiff_js = T4MVCHelpers.IsProduction() &&
+                                                       T4Extensions.FileExists(URLPATH + "/shBrushDiff.min.js")
+                                                           ? Url("shBrushDiff.min.js")
+                                                           : Url("shBrushDiff.js");
+
+        public static readonly string shBrushErlang_js = T4MVCHelpers.IsProduction() &&
+                                                         T4Extensions.FileExists(URLPATH + "/shBrushErlang.min.js")
+                                                             ? Url("shBrushErlang.min.js")
+                                                             : Url("shBrushErlang.js");
+
+        public static readonly string shBrushGroovy_js = T4MVCHelpers.IsProduction() &&
+                                                         T4Extensions.FileExists(URLPATH + "/shBrushGroovy.min.js")
+                                                             ? Url("shBrushGroovy.min.js")
+                                                             : Url("shBrushGroovy.js");
+
+        public static readonly string shBrushJava_js = T4MVCHelpers.IsProduction() &&
+                                                       T4Extensions.FileExists(URLPATH + "/shBrushJava.min.js")
+                                                           ? Url("shBrushJava.min.js")
+                                                           : Url("shBrushJava.js");
+
+        public static readonly string shBrushJavaFX_js = T4MVCHelpers.IsProduction() &&
+                                                         T4Extensions.FileExists(URLPATH + "/shBrushJavaFX.min.js")
+                                                             ? Url("shBrushJavaFX.min.js")
+                                                             : Url("shBrushJavaFX.js");
+
+        public static readonly string shBrushJScript_js = T4MVCHelpers.IsProduction() &&
+                                                          T4Extensions.FileExists(URLPATH + "/shBrushJScript.min.js")
+                                                              ? Url("shBrushJScript.min.js")
+                                                              : Url("shBrushJScript.js");
+
+        public static readonly string shBrushPerl_js = T4MVCHelpers.IsProduction() &&
+                                                       T4Extensions.FileExists(URLPATH + "/shBrushPerl.min.js")
+                                                           ? Url("shBrushPerl.min.js")
+                                                           : Url("shBrushPerl.js");
+
+        public static readonly string shBrushPhp_js = T4MVCHelpers.IsProduction() &&
+                                                      T4Extensions.FileExists(URLPATH + "/shBrushPhp.min.js")
+                                                          ? Url("shBrushPhp.min.js")
+                                                          : Url("shBrushPhp.js");
+
+        public static readonly string shBrushPlain_js = T4MVCHelpers.IsProduction() &&
+                                                        T4Extensions.FileExists(URLPATH + "/shBrushPlain.min.js")
+                                                            ? Url("shBrushPlain.min.js")
+                                                            : Url("shBrushPlain.js");
+
+        public static readonly string shBrushPowerShell_js = T4MVCHelpers.IsProduction() &&
+                                                             T4Extensions.FileExists(URLPATH +
+                                                                                     "/shBrushPowerShell.min.js")
+                                                                 ? Url("shBrushPowerShell.min.js")
+                                                                 : Url("shBrushPowerShell.js");
+
+        public static readonly string shBrushPython_js = T4MVCHelpers.IsProduction() &&
+                                                         T4Extensions.FileExists(URLPATH + "/shBrushPython.min.js")
+                                                             ? Url("shBrushPython.min.js")
+                                                             : Url("shBrushPython.js");
+
+        public static readonly string shBrushRuby_js = T4MVCHelpers.IsProduction() &&
+                                                       T4Extensions.FileExists(URLPATH + "/shBrushRuby.min.js")
+                                                           ? Url("shBrushRuby.min.js")
+                                                           : Url("shBrushRuby.js");
+
+        public static readonly string shBrushSass_js = T4MVCHelpers.IsProduction() &&
+                                                       T4Extensions.FileExists(URLPATH + "/shBrushSass.min.js")
+                                                           ? Url("shBrushSass.min.js")
+                                                           : Url("shBrushSass.js");
+
+        public static readonly string shBrushScala_js = T4MVCHelpers.IsProduction() &&
+                                                        T4Extensions.FileExists(URLPATH + "/shBrushScala.min.js")
+                                                            ? Url("shBrushScala.min.js")
+                                                            : Url("shBrushScala.js");
+
+        public static readonly string shBrushSql_js = T4MVCHelpers.IsProduction() &&
+                                                      T4Extensions.FileExists(URLPATH + "/shBrushSql.min.js")
+                                                          ? Url("shBrushSql.min.js")
+                                                          : Url("shBrushSql.js");
+
+        public static readonly string shBrushVb_js = T4MVCHelpers.IsProduction() &&
+                                                     T4Extensions.FileExists(URLPATH + "/shBrushVb.min.js")
+                                                         ? Url("shBrushVb.min.js")
+                                                         : Url("shBrushVb.js");
+
+        public static readonly string shBrushXml_js = T4MVCHelpers.IsProduction() &&
+                                                      T4Extensions.FileExists(URLPATH + "/shBrushXml.min.js")
+                                                          ? Url("shBrushXml.min.js")
+                                                          : Url("shBrushXml.js");
+
+        public static readonly string shCore_js = T4MVCHelpers.IsProduction() &&
+                                                  T4Extensions.FileExists(URLPATH + "/shCore.min.js")
+                                                      ? Url("shCore.min.js")
+                                                      : Url("shCore.js");
+
+        public static readonly string shLegacy_js = T4MVCHelpers.IsProduction() &&
+                                                    T4Extensions.FileExists(URLPATH + "/shLegacy.min.js")
+                                                        ? Url("shLegacy.min.js")
+                                                        : Url("shLegacy.js");
+
+        public static string Url()
+        {
+            return T4MVCHelpers.ProcessVirtualPath(URLPATH);
+        }
+
+        public static string Url(string fileName)
+        {
+            return T4MVCHelpers.ProcessVirtualPath(URLPATH + "/" + fileName);
+        }
     }
 
     [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
-    public static class Content {
+    public static class Content
+    {
         private const string URLPATH = "~/Content";
-        public static string Url() { return T4MVCHelpers.ProcessVirtualPath(URLPATH); }
-        public static string Url(string fileName) { return T4MVCHelpers.ProcessVirtualPath(URLPATH + "/" + fileName); }
+
         public static readonly string colors_less = Url("colors.less");
         public static readonly string dashboard_less = Url("dashboard.less");
         public static readonly string fileuploader_css = Url("fileuploader.css");
@@ -404,36 +635,41 @@ namespace Links {
         public static readonly string media_less = Url("media.less");
         public static readonly string not_ie_css = Url("not-ie.css");
         public static readonly string Site_css = Url("Site.css");
+
+        public static string Url()
+        {
+            return T4MVCHelpers.ProcessVirtualPath(URLPATH);
+        }
+
+        public static string Url(string fileName)
+        {
+            return T4MVCHelpers.ProcessVirtualPath(URLPATH + "/" + fileName);
+        }
+
+        #region Nested type: themes
+
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
-        public static class themes {
+        public static class themes
+        {
             private const string URLPATH = "~/Content/themes";
-            public static string Url() { return T4MVCHelpers.ProcessVirtualPath(URLPATH); }
-            public static string Url(string fileName) { return T4MVCHelpers.ProcessVirtualPath(URLPATH + "/" + fileName); }
+
+            public static string Url()
+            {
+                return T4MVCHelpers.ProcessVirtualPath(URLPATH);
+            }
+
+            public static string Url(string fileName)
+            {
+                return T4MVCHelpers.ProcessVirtualPath(URLPATH + "/" + fileName);
+            }
+
+            #region Nested type: base
+
             [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
-            public static class @base {
+            public static class @base
+            {
                 private const string URLPATH = "~/Content/themes/base";
-                public static string Url() { return T4MVCHelpers.ProcessVirtualPath(URLPATH); }
-                public static string Url(string fileName) { return T4MVCHelpers.ProcessVirtualPath(URLPATH + "/" + fileName); }
-                [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
-                public static class images {
-                    private const string URLPATH = "~/Content/themes/base/images";
-                    public static string Url() { return T4MVCHelpers.ProcessVirtualPath(URLPATH); }
-                    public static string Url(string fileName) { return T4MVCHelpers.ProcessVirtualPath(URLPATH + "/" + fileName); }
-                    public static readonly string ui_bg_flat_0_aaaaaa_40x100_png = Url("ui-bg_flat_0_aaaaaa_40x100.png");
-                    public static readonly string ui_bg_flat_75_ffffff_40x100_png = Url("ui-bg_flat_75_ffffff_40x100.png");
-                    public static readonly string ui_bg_glass_55_fbf9ee_1x400_png = Url("ui-bg_glass_55_fbf9ee_1x400.png");
-                    public static readonly string ui_bg_glass_65_ffffff_1x400_png = Url("ui-bg_glass_65_ffffff_1x400.png");
-                    public static readonly string ui_bg_glass_75_dadada_1x400_png = Url("ui-bg_glass_75_dadada_1x400.png");
-                    public static readonly string ui_bg_glass_75_e6e6e6_1x400_png = Url("ui-bg_glass_75_e6e6e6_1x400.png");
-                    public static readonly string ui_bg_glass_95_fef1ec_1x400_png = Url("ui-bg_glass_95_fef1ec_1x400.png");
-                    public static readonly string ui_bg_highlight_soft_75_cccccc_1x100_png = Url("ui-bg_highlight-soft_75_cccccc_1x100.png");
-                    public static readonly string ui_icons_222222_256x240_png = Url("ui-icons_222222_256x240.png");
-                    public static readonly string ui_icons_2e83ff_256x240_png = Url("ui-icons_2e83ff_256x240.png");
-                    public static readonly string ui_icons_454545_256x240_png = Url("ui-icons_454545_256x240.png");
-                    public static readonly string ui_icons_888888_256x240_png = Url("ui-icons_888888_256x240.png");
-                    public static readonly string ui_icons_cd0a0a_256x240_png = Url("ui-icons_cd0a0a_256x240.png");
-                }
-            
+
                 public static readonly string jquery_ui_accordion_css = Url("jquery.ui.accordion.css");
                 public static readonly string jquery_ui_all_css = Url("jquery.ui.all.css");
                 public static readonly string jquery_ui_autocomplete_css = Url("jquery.ui.autocomplete.css");
@@ -448,41 +684,100 @@ namespace Links {
                 public static readonly string jquery_ui_slider_css = Url("jquery.ui.slider.css");
                 public static readonly string jquery_ui_tabs_css = Url("jquery.ui.tabs.css");
                 public static readonly string jquery_ui_theme_css = Url("jquery.ui.theme.css");
-            }
-        
-        }
-    
-    }
 
+                public static string Url()
+                {
+                    return T4MVCHelpers.ProcessVirtualPath(URLPATH);
+                }
+
+                public static string Url(string fileName)
+                {
+                    return T4MVCHelpers.ProcessVirtualPath(URLPATH + "/" + fileName);
+                }
+
+                #region Nested type: images
+
+                [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+                public static class images
+                {
+                    private const string URLPATH = "~/Content/themes/base/images";
+
+                    public static readonly string ui_bg_flat_0_aaaaaa_40x100_png = Url("ui-bg_flat_0_aaaaaa_40x100.png");
+
+                    public static readonly string ui_bg_flat_75_ffffff_40x100_png =
+                        Url("ui-bg_flat_75_ffffff_40x100.png");
+
+                    public static readonly string ui_bg_glass_55_fbf9ee_1x400_png =
+                        Url("ui-bg_glass_55_fbf9ee_1x400.png");
+
+                    public static readonly string ui_bg_glass_65_ffffff_1x400_png =
+                        Url("ui-bg_glass_65_ffffff_1x400.png");
+
+                    public static readonly string ui_bg_glass_75_dadada_1x400_png =
+                        Url("ui-bg_glass_75_dadada_1x400.png");
+
+                    public static readonly string ui_bg_glass_75_e6e6e6_1x400_png =
+                        Url("ui-bg_glass_75_e6e6e6_1x400.png");
+
+                    public static readonly string ui_bg_glass_95_fef1ec_1x400_png =
+                        Url("ui-bg_glass_95_fef1ec_1x400.png");
+
+                    public static readonly string ui_bg_highlight_soft_75_cccccc_1x100_png =
+                        Url("ui-bg_highlight-soft_75_cccccc_1x100.png");
+
+                    public static readonly string ui_icons_222222_256x240_png = Url("ui-icons_222222_256x240.png");
+                    public static readonly string ui_icons_2e83ff_256x240_png = Url("ui-icons_2e83ff_256x240.png");
+                    public static readonly string ui_icons_454545_256x240_png = Url("ui-icons_454545_256x240.png");
+                    public static readonly string ui_icons_888888_256x240_png = Url("ui-icons_888888_256x240.png");
+                    public static readonly string ui_icons_cd0a0a_256x240_png = Url("ui-icons_cd0a0a_256x240.png");
+
+                    public static string Url()
+                    {
+                        return T4MVCHelpers.ProcessVirtualPath(URLPATH);
+                    }
+
+                    public static string Url(string fileName)
+                    {
+                        return T4MVCHelpers.ProcessVirtualPath(URLPATH + "/" + fileName);
+                    }
+                }
+
+                #endregion
+            }
+
+            #endregion
+        }
+
+        #endregion
+    }
 }
 
-static class T4MVCHelpers {
+internal static class T4MVCHelpers
+{
     // You can change the ProcessVirtualPath method to modify the path that gets returned to the client.
     // e.g. you can prepend a domain, or append a query string:
     //      return "http://localhost" + path + "?foo=bar";
-    private static string ProcessVirtualPathDefault(string virtualPath) {
-        // The path that comes in starts with ~/ and must first be made absolute
-        string path = VirtualPathUtility.ToAbsolute(virtualPath);
-        
-        // Add your own modifications here before returning the path
-        return path;
-    }
 
     // Calling ProcessVirtualPath through delegate to allow it to be replaced for unit testing
     public static Func<string, string> ProcessVirtualPath = ProcessVirtualPathDefault;
 
+    private static string ProcessVirtualPathDefault(string virtualPath)
+    {
+        // The path that comes in starts with ~/ and must first be made absolute
+        string path = VirtualPathUtility.ToAbsolute(virtualPath);
+
+        // Add your own modifications here before returning the path
+        return path;
+    }
+
 
     // Logic to determine if the app is running in production or dev environment
-    public static bool IsProduction() { 
-        return (HttpContext.Current != null && !HttpContext.Current.IsDebuggingEnabled); 
+    public static bool IsProduction()
+    {
+        return (HttpContext.Current != null && !HttpContext.Current.IsDebuggingEnabled);
     }
 }
 
-
-
-
-
 #endregion T4MVC
+
 #pragma warning restore 1591
-
-

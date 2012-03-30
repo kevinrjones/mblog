@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
+﻿using System.Collections.Generic;
 using MBlog.Models.Admin;
 using NUnit.Framework;
 
@@ -13,15 +10,15 @@ namespace MBlogUnitTest.ViewModel
         [Test]
         public void GivenANewAdminUserVewModel_WhenIAccessTheInitialBlogCollection_ThenItIsNotNull()
         {
-            AdminUserViewModel model = new AdminUserViewModel();
+            var model = new AdminUserViewModel();
             Assert.That(model.Blogs, Is.Not.Null);
         }
 
         [Test]
         public void GivenANewBlogCollection_WhenIAccessTheCollection_ThenItIsTheSameAsTheSetValue()
         {
-            List<AdminBlogViewModel> blogs = new List<AdminBlogViewModel>();
-            AdminUserViewModel model = new AdminUserViewModel();
+            var blogs = new List<AdminBlogViewModel>();
+            var model = new AdminUserViewModel();
             model.Blogs = blogs;
             Assert.That(model.Blogs, Is.EqualTo(blogs));
         }

@@ -1,15 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.IO;
-using System.Linq;
-using System.Web;
 using System.Web.Mvc;
 using Logging;
 using MBlog.Filters;
 using MBlog.Models.Media;
 using MBlog.Models.User;
 using MBlogModel;
-using MBlogRepository.Interfaces;
 using MBlogServiceInterfaces;
 
 namespace MBlog.Controllers
@@ -29,12 +26,12 @@ namespace MBlog.Controllers
         public ActionResult Index(string nickname)
         {
             var user = HttpContext.User as UserViewModel;
-            var media = _mediaService.GetMedia(1, 10, user.Id);
+            IEnumerable<Media> media = _mediaService.GetMedia(1, 10, user.Id);
             var mediaVM = new List<ShowMediaViewModel>();
 
-            foreach (var medium in media)
+            foreach (Media medium in media)
             {
-                ShowMediaViewModel model = new ShowMediaViewModel(medium);
+                var model = new ShowMediaViewModel(medium);
                 model.FileName = medium.FileName;
                 model.Id = medium.Id;
                 model.Author = nickname;
@@ -61,17 +58,17 @@ namespace MBlog.Controllers
         [AuthorizeLoggedInUser]
         public ActionResult New(NewMediaViewModel model)
         {
-            return View(new NewMediaViewModel { Nickname = model.Nickname, File = model.File });
+            return View(new NewMediaViewModel {Nickname = model.Nickname, File = model.File});
         }
 
         [HttpPost]
         [AuthorizeLoggedInUser]
         public JsonResult Create(NewMediaViewModel model)
         {
-            var result = new MediaCreateJsonResponse { success = false };
+            var result = new MediaCreateJsonResponse {success = false};
             try
             {
-                var user = (UserViewModel)HttpContext.User;
+                var user = (UserViewModel) HttpContext.User;
                 int contentLength;
                 Stream inputStream;
                 string fileName;
@@ -91,7 +88,7 @@ namespace MBlog.Controllers
                 if (contentLength != 0)
                 {
                     string url = string.Empty;
-                    var success = true;
+                    bool success = true;
                     string message = "Created successfully";
                     try
                     {
@@ -102,7 +99,7 @@ namespace MBlog.Controllers
                         success = false;
                         message = e.Message;
                     }
-                    result = new MediaCreateJsonResponse { success = success, url = url, message = message };
+                    result = new MediaCreateJsonResponse {success = success, url = url, message = message};
                 }
             }
             catch (Exception e)
@@ -121,9 +118,10 @@ namespace MBlog.Controllers
             if (!ModelState.IsValid)
                 return View("edit", model);
 
-            var user = (UserViewModel)HttpContext.User;
+            var user = (UserViewModel) HttpContext.User;
 
-            Media media = _mediaService.UpdateMediaDetails(model.Id, model.Title, model.Caption, model.Description, model.Alternate, user.Id );
+            Media media = _mediaService.UpdateMediaDetails(model.Id, model.Title, model.Caption, model.Description,
+                                                           model.Alternate, user.Id);
 
             return View("Edit", new ShowMediaViewModel(media));
         }
@@ -132,8 +130,8 @@ namespace MBlog.Controllers
         [AuthorizeLoggedInUser]
         public ActionResult Edit(string nickname, int mediaId)
         {
-            var user = (UserViewModel)HttpContext.User;
-            var media = _mediaService.GetMedia(mediaId, user.Id);
+            var user = (UserViewModel) HttpContext.User;
+            Media media = _mediaService.GetMedia(mediaId, user.Id);
             return View(new ShowMediaViewModel(media));
         }
     }

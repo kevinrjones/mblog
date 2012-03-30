@@ -1,10 +1,8 @@
 ﻿using System;
-using System.ComponentModel;
-using System.Configuration;
 using NLog;
 using NLog.Common;
-using NLog.Layouts;
 using NLog.Targets;
+using Raven.Client;
 using Raven.Client.Document;
 using Raven.Client.Extensions;
 
@@ -13,12 +11,12 @@ namespace MBlogNlogService
     [Target("RavenDb")]
     public class RavenDbTarget : TargetWithLayout
     {
+        private DocumentStore _store;
         public string ServerUrl { get; set; }
         public string DatabaseName { get; set; }
-        private DocumentStore _store;
 
         protected override void InitializeTarget()
-        {            
+        {
             _store = new DocumentStore {Url = ServerUrl};
             _store.Initialize();
             _store.DatabaseCommands.EnsureDatabaseExists(DatabaseName);
@@ -26,7 +24,7 @@ namespace MBlogNlogService
 
         protected override void Write(LogEventInfo logEvent)
         {
-            LogDetails details = new LogDetails(logEvent);
+            var details = new LogDetails(logEvent);
             try
             {
                 WriteEventToDatabase(details);
@@ -37,16 +35,16 @@ namespace MBlogNlogService
                 {
                     throw;
                 }
-                InternalLogger.Error("Error when writing to database {0}", new object[]{ex});
+                InternalLogger.Error("Error when writing to database {0}", new object[] {ex});
                 throw;
             }
         }
 
         private void WriteEventToDatabase(LogDetails details)
         {
-            using (var session = _store.OpenSession(DatabaseName))
+            using (IDocumentSession session = _store.OpenSession(DatabaseName))
             {
-                session.Store(details);    
+                session.Store(details);
                 session.SaveChanges();
             }
         }

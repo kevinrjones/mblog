@@ -3,15 +3,14 @@ using System.Web.Mvc;
 using Logging;
 using MBlog.Models.Home;
 using MBlogModel;
-using MBlogRepository.Interfaces;
 using MBlogServiceInterfaces;
 
 namespace MBlog.Controllers
 {
     public class HomeController : BaseController
     {
-        private IPostService _postService;
-        private IUserService _userService;
+        private readonly IPostService _postService;
+        private readonly IUserService _userService;
 
         public HomeController(IPostService postService, IUserService userService, ILogger logger)
             : base(logger)

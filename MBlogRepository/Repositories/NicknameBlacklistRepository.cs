@@ -9,6 +9,5 @@ namespace MBlogRepository.Repositories
             : base(new NicknameBlacklistDbContext(connectionString))
         {
         }
-
     }
 }

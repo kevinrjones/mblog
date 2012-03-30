@@ -1,8 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
-using System.Web;
 using System.Linq;
+using System.Web;
 
 namespace MBlog.Models.Media
 {
@@ -25,23 +24,9 @@ namespace MBlog.Models.Media
             _validExtensions.Add("xlsx", "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet");
             _validExtensions.Add("zip", "application/zip");
         }
-       
+
         [Required]
         public HttpPostedFileBase File { get; set; }
-
-        public bool IsAllowed(string extension)
-        {
-            var s = (from a in _validExtensions.Keys
-                     where a == extension
-                     select a).FirstOrDefault();
-
-            return s != null;
-        }
-
-        public string GetExtension(string fileName)
-        {
-            return fileName.Split('.').Last();
-        }
 
         public int BlogId { get; set; }
         public string Nickname { get; set; }
@@ -65,6 +50,8 @@ namespace MBlog.Models.Media
             }
         }
 
+        #region IValidatableObject Members
+
         public IEnumerable<ValidationResult> Validate(ValidationContext validationContext)
         {
             string ext;
@@ -77,7 +64,23 @@ namespace MBlog.Models.Media
                 ext = GetExtension(QqFile);
             }
             if (!IsAllowed(ext))
-                yield return new ValidationResult("Files with this extension not allowed", new[] { "File" });
+                yield return new ValidationResult("Files with this extension not allowed", new[] {"File"});
+        }
+
+        #endregion
+
+        public bool IsAllowed(string extension)
+        {
+            string s = (from a in _validExtensions.Keys
+                        where a == extension
+                        select a).FirstOrDefault();
+
+            return s != null;
+        }
+
+        public string GetExtension(string fileName)
+        {
+            return fileName.Split('.').Last();
         }
     }
 }

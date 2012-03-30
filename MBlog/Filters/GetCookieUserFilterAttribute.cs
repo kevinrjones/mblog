@@ -1,6 +1,4 @@
 ﻿using System;
-using System.Security.Cryptography;
-using System.Web;
 using System.Web.Mvc;
 using MBlog.Controllers;
 using MBlog.Infrastructure;
@@ -13,17 +11,17 @@ namespace MBlog.Filters
 {
     public class GetCookieUserFilterAttribute : AuthorizeAttribute
     {
+        public static string UserCookie = "USER";
+
         [Dependency]
         public IUserService UserService { get; set; }
-
-        public static string UserCookie = "USER";
 
         public override void OnAuthorization(AuthorizationContext filterContext)
         {
             var controller = filterContext.Controller as BaseController;
             if (controller != null)
             {
-                var userViewModel = new UserViewModel { IsLoggedIn = false };
+                var userViewModel = new UserViewModel {IsLoggedIn = false};
                 if (filterContext.HttpContext.Request.Cookies[UserCookie] != null)
                 {
                     string cookie = filterContext.HttpContext.Request.Cookies[UserCookie].Value;

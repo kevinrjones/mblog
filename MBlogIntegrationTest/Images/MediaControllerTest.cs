@@ -2,6 +2,7 @@
 using System.Configuration;
 using System.IO;
 using System.Transactions;
+using System.Web.Mvc;
 using Logging;
 using MBlog.Controllers;
 using MBlogModel;
@@ -17,13 +18,23 @@ namespace MBlogIntegrationTest.Images
     [TestFixture]
     public class MediaControllerTest
     {
-        TransactionScope _transactionScope;
+        #region Setup/Teardown
 
         [SetUp]
         public void Setup()
         {
             _transactionScope = new TransactionScope();
         }
+
+        [TearDown]
+        public void TearDown()
+        {
+            _transactionScope.Dispose();
+        }
+
+        #endregion
+
+        private TransactionScope _transactionScope;
 
         [Test]
         public void GivenAStoredImage_WhenTheImageUrlIsConstructed_ThenTheImageIsReturned()
@@ -32,25 +43,19 @@ namespace MBlogIntegrationTest.Images
             string connectionString = ConfigurationManager.ConnectionStrings["mblog"].ConnectionString;
             string key = "filename";
             IUserService userService = new UserService(new UserRepository(connectionString),
-                                                    new UsernameBlacklistRepository(connectionString), logger.Object);
+                                                       new UsernameBlacklistRepository(connectionString), logger.Object);
             User user = userService.CreateUser("name", "email", "password");
 
             IMediaRepository repository = new MediaRepository(connectionString);
             IMediaService mediaService = new MediaService(repository);
             var controller = new MediaController(mediaService, logger.Object);
 
-            MemoryStream stream = new MemoryStream(new byte[] {1, 2, 3, 4, 5, 6, 7, 8, 9, 0});
+            var stream = new MemoryStream(new byte[] {1, 2, 3, 4, 5, 6, 7, 8, 9, 0});
 
             mediaService.WriteMedia(key, user.Id, "image/png", stream, 10);
 
-            var result = controller.Show(DateTime.Now.Year, DateTime.Now.Month, DateTime.Now.Day, key);
+            ActionResult result = controller.Show(DateTime.Now.Year, DateTime.Now.Month, DateTime.Now.Day, key);
             Assert.That(result, Is.Not.Null);
-        }
-
-        [TearDown]
-        public void TearDown()
-        {
-            _transactionScope.Dispose();            
         }
     }
 }

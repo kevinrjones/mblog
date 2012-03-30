@@ -1,5 +1,4 @@
-﻿using System.Linq;
-using System.Text;
+﻿using System.Collections.Generic;
 using MBlog.Models.Post;
 using NUnit.Framework;
 
@@ -11,8 +10,8 @@ namespace MBlogUnitTest.ViewModel
         [Test]
         public void GivenAPostsViewModel_WhenIGetACollectionOfPostViewModels_ThenItIsInitialized()
         {
-            PostsViewModel model = new PostsViewModel();
-            var posts = model.Posts;
+            var model = new PostsViewModel();
+            List<PostViewModel> posts = model.Posts;
             Assert.That(posts, Is.Not.Null);
         }
     }

@@ -6,7 +6,6 @@ namespace MBlogNlogService
 {
     public class LogDetails
     {
-
         public LogDetails(LogEventInfo logEvent)
         {
             TimeStamp = logEvent.TimeStamp;

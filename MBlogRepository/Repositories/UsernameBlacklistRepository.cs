@@ -1,9 +1,5 @@
-﻿using System.Collections.Generic;
-using MBlogModel;
-using MBlogRepository.Contexts;
+﻿using MBlogRepository.Contexts;
 using MBlogRepository.Interfaces;
-using Repository;
-using System.Linq;
 
 namespace MBlogRepository.Repositories
 {

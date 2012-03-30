@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using OpenQA.Selenium;
-using OpenQA.Selenium.Remote;
-using TechTalk.SpecFlow;
+﻿using TechTalk.SpecFlow;
 
 namespace MBlogSpecs
 {
@@ -38,6 +33,5 @@ namespace MBlogSpecs
         {
             ScenarioContext.Current.Pending();
         }
-
     }
 }

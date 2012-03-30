@@ -7,14 +7,16 @@ namespace MBlogService
 {
     public class DashboardService : IDashboardService
     {
-        private readonly IPostRepository _postRepository;
         private readonly IBlogRepository _blogRepository;
+        private readonly IPostRepository _postRepository;
 
         public DashboardService(IPostRepository postRepository, IBlogRepository blogRepository)
         {
             _postRepository = postRepository;
             _blogRepository = blogRepository;
         }
+
+        #region IDashboardService Members
 
         public void CreatePost(Post post, int blogId)
         {
@@ -41,5 +43,7 @@ namespace MBlogService
                 throw new MBlogException("Unable to update post", e);
             }
         }
+
+        #endregion
     }
 }

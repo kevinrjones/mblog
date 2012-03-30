@@ -40,8 +40,8 @@ namespace MBlog.Controllers
             }
             var user = HttpContext.User as UserViewModel;
             _blogService.CreateBlog(model.Title, model.Description, model.ApproveComments, model.CommentsEnabled,
-                                   model.Nickname, user.Id);
-            return RedirectToRoute(new { controller = "Dashboard", action = "Index" });
+                                    model.Nickname, user.Id);
+            return RedirectToRoute(new {controller = "Dashboard", action = "Index"});
         }
 
         [HttpGet]
@@ -62,8 +62,8 @@ namespace MBlog.Controllers
                 return View("Edit", model);
             }
             _blogService.UpdateBlog(model.Nickname, model.ApproveComments, model.CommentsEnabled, model.Description,
-                                   model.Title);
-            return RedirectToRoute(new { controller = "Dashboard", action = "Index" });
+                                    model.Title);
+            return RedirectToRoute(new {controller = "Dashboard", action = "Index"});
         }
 
         private bool RedirectIfInvalidUser()

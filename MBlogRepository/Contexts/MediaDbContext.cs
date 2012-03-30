@@ -7,9 +7,9 @@ namespace MBlogRepository.Contexts
     {
         public MediaDbContext(string connectionString)
             : base(connectionString)
-        { }
+        {
+        }
 
-        public DbSet<Media> Users { get; set; } 
-
+        public DbSet<Media> Users { get; set; }
     }
 }

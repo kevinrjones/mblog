@@ -13,10 +13,11 @@ namespace MBlog.Controllers
     // todo: get all comments and hide them
     public class PostController : BaseController
     {
-        private readonly IPostService _postService;
         private readonly IDashboardService _dashboardService;
+        private readonly IPostService _postService;
 
-        public PostController(IPostService postService, IDashboardService dashboardService, ILogger logger) : base(logger)
+        public PostController(IPostService postService, IDashboardService dashboardService, ILogger logger)
+            : base(logger)
         {
             _postService = postService;
             _dashboardService = dashboardService;
@@ -24,7 +25,7 @@ namespace MBlog.Controllers
 
         public ActionResult Index(string nickname)
         {
-            var postsViewModel = new PostsViewModel{Nickname = nickname};
+            var postsViewModel = new PostsViewModel {Nickname = nickname};
             IList<Post> posts = _postService.GetBlogPosts(nickname);
             postsViewModel.AddPosts(posts);
             return View(postsViewModel);
@@ -54,7 +55,8 @@ namespace MBlog.Controllers
         public ActionResult Edit(string nickname, int blogId, int postId)
         {
             Post post = _postService.GetBlogPost(postId);
-            return View(new EditPostViewModel {BlogId = blogId, PostId = postId, Title = post.Title, Post = post.BlogPost});
+            return
+                View(new EditPostViewModel {BlogId = blogId, PostId = postId, Title = post.Title, Post = post.BlogPost});
         }
 
         [HttpPost]
@@ -83,10 +85,10 @@ namespace MBlog.Controllers
 
         public ActionResult Show(PostLinkViewModel postLinkViewModel)
         {
-            var postsViewModel = new PostsViewModel{Nickname = postLinkViewModel.Nickname};
+            var postsViewModel = new PostsViewModel {Nickname = postLinkViewModel.Nickname};
             IList<Post> posts = _postService.GetBlogPosts(postLinkViewModel.Year, postLinkViewModel.Month,
-                                                                 postLinkViewModel.Day, postLinkViewModel.Nickname,
-                                                                 postLinkViewModel.Link);
+                                                          postLinkViewModel.Day, postLinkViewModel.Nickname,
+                                                          postLinkViewModel.Link);
 
             var modelStateDictionary = TempData["comment"] as ModelStateDictionary;
 
@@ -111,13 +113,13 @@ namespace MBlog.Controllers
                                //todo: get this from the admin
                            };
             _dashboardService.CreatePost(post, model.BlogId);
-            return RedirectToRoute(new { controller = "Dashboard", action = "Index" });
+            return RedirectToRoute(new {controller = "Dashboard", action = "Index"});
         }
 
         private ActionResult UpdatePost(EditPostViewModel model)
         {
             _dashboardService.Update(model.PostId, model.Title, model.Post, model.BlogId);
-            return RedirectToRoute(new { controller = "Dashboard", action = "Index" });
+            return RedirectToRoute(new {controller = "Dashboard", action = "Index"});
         }
 
         private ActionResult GetPosts(PostLinkViewModel model, IList<Post> posts, PostsViewModel postsViewModel)

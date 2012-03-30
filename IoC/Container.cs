@@ -1,6 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Configuration;
 using Microsoft.Practices.Unity;
 
 namespace IoC
@@ -8,15 +6,15 @@ namespace IoC
     public class Container
     {
         private static Container _container;
-        readonly IUnityContainer _unityContainer = new UnityContainer();
+        private readonly IUnityContainer _unityContainer = new UnityContainer();
+
+        private Container()
+        {
+        }
 
         public IUnityContainer UnityContainer
         {
             get { return _unityContainer; }
-        }
-
-        private Container()
-        {
         }
 
         public static Container Instance

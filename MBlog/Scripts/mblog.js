@@ -1,15 +1,15 @@
-﻿$(function () {
-    $(":checkbox").click(function (evt) {
+﻿$(function() {
+    $(":checkbox").click(function(evt) {
         $(this).closest('li').remove().appendTo("#div-complete ul");
         var itemid = $(this).siblings("input[name^='itemid']:hidden").first().val();
         $.post("Item/Complete", { "Id": itemid });
     });
-    $("#_deleteLists").click(function (evt) {
+    $("#_deleteLists").click(function(evt) {
         $('.list-item-selected')
-        .each(function () {
-            $(this);
-        })
-        .remove();
+            .each(function() {
+                $(this);
+            })
+            .remove();
 
         resetListHighlighting();
 
@@ -21,10 +21,10 @@
 function done(data) {
 }
 
-function appendTodoList (data) {
+function appendTodoList(data) {
     $(".lists")
         .append($("<li>")
-            .append($("<a>")
+                .append($("<a>")
                 .attr("href", "/List/show/" + data.id)
                 .append(data.name)));
     addListHighlighting();
@@ -33,7 +33,7 @@ function appendTodoList (data) {
 
 function resetListHighlighting() {
     removeListHighlighting();
-    addListHighlighting()
+    addListHighlighting();
 }
 
 function removeListHighlighting() {

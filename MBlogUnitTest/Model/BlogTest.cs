@@ -1,7 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using MBlogModel;
 using NUnit.Framework;
 
@@ -13,7 +10,7 @@ namespace MBlogUnitTest.Model
         [Test]
         public void GivenANewBlog_ThenItsLastUpdatedDateIsNow()
         {
-            Blog blog = new Blog();
+            var blog = new Blog();
 
 
             Assert.That(blog.LastUpdated, Is.LessThanOrEqualTo(DateTime.Now));

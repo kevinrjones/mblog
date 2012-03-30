@@ -521,7 +521,11 @@ namespace MBlogIntegrationTest.Repositories
         {
             Comment comment = BuildMeA.Comment("This is a comment", DateTime.Now);
 
-            var posts = new List<Post> { BuildMeA.Post("title 1", "entry 1", new DateTime(2011, 4, 19), DateTime.Today).WithComment(comment) };
+            var posts = new List<Post>
+                            {
+                                BuildMeA.Post("title 1", "entry 1", new DateTime(2011, 4, 19), DateTime.Today).
+                                    WithComment(comment)
+                            };
 
             Blog blog = BuildMeA
                 .Blog("title", "description", _nickname, DateTime.Now)
@@ -580,30 +584,6 @@ namespace MBlogIntegrationTest.Repositories
         }
 
         [Test]
-        public void WhenIUpdateAPost_ThenIPostIsUpdated()
-        {
-            var posts = new List<Post>
-                            {
-                                BuildMeA.Post("title 1", "entry 1", new DateTime(2010, 4, 19), DateTime.Today),
-                            };
-
-            Blog blog = BuildMeA
-                .Blog("title", "description", _nickname, DateTime.Now)
-                .WithPosts(posts);
-
-            _user1 = BuildMeA.User("email", "name", "password")
-                .WithBlog(blog);
-
-            _userRepository.Create(_user1);
-
-            var post = _postRepository.Entities.Where(p => p.Title == "title 1").FirstOrDefault();
-            _postRepository.Update(post.Id, "new title", post.BlogPost);
-            post = _postRepository.Entities.Where(p => p.Title == "new title").FirstOrDefault();
-
-            Assert.That(post, Is.Not.Null);
-        }
-
-        [Test]
         public void WhenIUpdateAPost_AndThePostDoesNotExist_ThenAnExceptionIsThrown()
         {
             var posts = new List<Post>
@@ -620,9 +600,32 @@ namespace MBlogIntegrationTest.Repositories
 
             _userRepository.Create(_user1);
 
-            var post = _postRepository.Entities.Where(p => p.Title == "title 1").FirstOrDefault();
+            Post post = _postRepository.Entities.Where(p => p.Title == "title 1").FirstOrDefault();
             Assert.Throws<MBlogException>(() => _postRepository.Update(post.Id + 1001, "new title", post.BlogPost));
-            
+        }
+
+        [Test]
+        public void WhenIUpdateAPost_ThenIPostIsUpdated()
+        {
+            var posts = new List<Post>
+                            {
+                                BuildMeA.Post("title 1", "entry 1", new DateTime(2010, 4, 19), DateTime.Today),
+                            };
+
+            Blog blog = BuildMeA
+                .Blog("title", "description", _nickname, DateTime.Now)
+                .WithPosts(posts);
+
+            _user1 = BuildMeA.User("email", "name", "password")
+                .WithBlog(blog);
+
+            _userRepository.Create(_user1);
+
+            Post post = _postRepository.Entities.Where(p => p.Title == "title 1").FirstOrDefault();
+            _postRepository.Update(post.Id, "new title", post.BlogPost);
+            post = _postRepository.Entities.Where(p => p.Title == "new title").FirstOrDefault();
+
+            Assert.That(post, Is.Not.Null);
         }
     }
 }

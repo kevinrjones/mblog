@@ -10,12 +10,24 @@ namespace MBlogUnitTest.Domain
     [TestFixture]
     public class BlogDomainTest
     {
-        private Mock<IBlogRepository> _blogRepository;
+        #region Setup/Teardown
 
         [SetUp]
         public void Setup()
         {
-            _blogRepository = new Mock<IBlogRepository>();    
+            _blogRepository = new Mock<IBlogRepository>();
+        }
+
+        #endregion
+
+        private Mock<IBlogRepository> _blogRepository;
+
+        [Test]
+        public void GivenANickname_WhenABlogIsRequested_AndTheDataBaseIsUnavailable_ThenAnMBlogExceptionIsThrown()
+        {
+            _blogRepository.Setup(b => b.GetBlog(It.IsAny<string>())).Throws<Exception>();
+            var blogDomain = new BlogService(_blogRepository.Object);
+            Assert.Throws<MBlogException>(() => blogDomain.GetBlog(It.IsAny<string>()));
         }
 
         [Test]
@@ -28,11 +40,14 @@ namespace MBlogUnitTest.Domain
         }
 
         [Test]
-        public void GivenANickname_WhenABlogIsRequested_AndTheDataBaseIsUnavailable_ThenAnMBlogExceptionIsThrown()
+        public void GivenAValidViewModel_WhenABlogIsUpdated_AndTheDataBaseIsUnavailable_ThenAnMBlogExceptionIsThrown()
         {
             _blogRepository.Setup(b => b.GetBlog(It.IsAny<string>())).Throws<Exception>();
             var blogDomain = new BlogService(_blogRepository.Object);
-            Assert.Throws<MBlogException>(() => blogDomain.GetBlog(It.IsAny<string>()));
+            Assert.Throws<MBlogException>(
+                () =>
+                blogDomain.UpdateBlog(It.IsAny<string>(), It.IsAny<bool>(), It.IsAny<bool>(), It.IsAny<string>(),
+                                      It.IsAny<string>()));
         }
 
         [Test]
@@ -46,27 +61,23 @@ namespace MBlogUnitTest.Domain
         }
 
         [Test]
-        public void GivenAValidViewModel_WhenABlogIsUpdated_AndTheDataBaseIsUnavailable_ThenAnMBlogExceptionIsThrown()
+        public void GivenValidBlogDetails_WhenABlogIsCreated_AndTheDatabaseIsUnavailable_ThenAnMBlogExceptionIsThrown()
         {
-            _blogRepository.Setup(b => b.GetBlog(It.IsAny<string>())).Throws<Exception>();
             var blogDomain = new BlogService(_blogRepository.Object);
-            Assert.Throws<MBlogException>(() => blogDomain.UpdateBlog(It.IsAny<string>(), It.IsAny<bool>(),It.IsAny<bool>(),It.IsAny<string>(),It.IsAny<string>()));
+            _blogRepository.Setup(b => b.Create(It.IsAny<Blog>())).Throws<Exception>();
+            Assert.Throws<MBlogException>(
+                () =>
+                blogDomain.CreateBlog(It.IsAny<string>(), It.IsAny<string>(), It.IsAny<bool>(), It.IsAny<bool>(),
+                                      It.IsAny<string>(), It.IsAny<int>()));
         }
 
         [Test]
         public void GivenValidBlogDetails_WhenABlogIsCreated_ThenTheDatabaseIsUpdated()
         {
             var blogDomain = new BlogService(_blogRepository.Object);
-            blogDomain.CreateBlog(It.IsAny<string>(),It.IsAny<string>(),It.IsAny<bool>(),It.IsAny<bool>(),It.IsAny<string>(),It.IsAny<int>());
-            _blogRepository.Verify(b=>b.Create(It.IsAny<Blog>()));
-        }
-
-        [Test]
-        public void GivenValidBlogDetails_WhenABlogIsCreated_AndTheDatabaseIsUnavailable_ThenAnMBlogExceptionIsThrown()
-        {
-            var blogDomain = new BlogService(_blogRepository.Object);
-            _blogRepository.Setup(b => b.Create(It.IsAny<Blog>())).Throws<Exception>();
-            Assert.Throws<MBlogException>(() => blogDomain.CreateBlog(It.IsAny<string>(), It.IsAny<string>(), It.IsAny<bool>(), It.IsAny<bool>(), It.IsAny<string>(), It.IsAny<int>()));
+            blogDomain.CreateBlog(It.IsAny<string>(), It.IsAny<string>(), It.IsAny<bool>(), It.IsAny<bool>(),
+                                  It.IsAny<string>(), It.IsAny<int>());
+            _blogRepository.Verify(b => b.Create(It.IsAny<Blog>()));
         }
     }
 }

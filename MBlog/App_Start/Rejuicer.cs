@@ -1,6 +1,8 @@
-using Rejuicer;
+using MBlog.App_Start;
+using WebActivator;
 
-[assembly: WebActivator.PostApplicationStartMethod(typeof(MBlog.App_Start.RejuicerContent), "Configure")]
+[assembly: PostApplicationStartMethod(typeof (RejuicerContent), "Configure")]
+
 namespace MBlog.App_Start
 {
     public static class RejuicerContent

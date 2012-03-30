@@ -1,10 +1,4 @@
 ﻿using System;
-using System.Configuration;
-using System.Data.SqlClient;
-using System.IO;
-using MBlogBuilder;
-using MBlogModel;
-using MBlogRepository.Repositories;
 using OpenQA.Selenium;
 using OpenQA.Selenium.Remote;
 using TechTalk.SpecFlow;
@@ -42,6 +36,5 @@ namespace MBlogSpecs
         {
             ScenarioContext.Current.Pending();
         }
-
     }
 }

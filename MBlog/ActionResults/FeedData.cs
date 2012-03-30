@@ -9,6 +9,5 @@ namespace MBlog.ActionResults
         public string Content { get; set; }
         public DateTime LastModifiedDate { get; set; }
         public string ETag { get; set; }
-
     }
 }

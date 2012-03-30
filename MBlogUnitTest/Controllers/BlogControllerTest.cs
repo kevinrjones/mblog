@@ -1,13 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Web.Mvc;
+﻿using System.Web.Mvc;
 using MBlog.Controllers;
 using MBlog.Models.Blog;
 using MBlog.Models.User;
 using MBlogModel;
-using MBlogRepository.Interfaces;
 using MBlogServiceInterfaces;
 using Moq;
 using NUnit.Framework;
@@ -17,8 +12,7 @@ namespace MBlogUnitTest.Controllers
     [TestFixture]
     public class BlogControllerTest : BaseControllerTests
     {
-        private Mock<IBlogService> _blogDomain;
-        private BlogController _controller;
+        #region Setup/Teardown
 
         [SetUp]
         public void SetUp()
@@ -27,41 +21,10 @@ namespace MBlogUnitTest.Controllers
             _controller = new BlogController(_blogDomain.Object, null);
         }
 
-        [Test]
-        public void GivenNoLoggedInUser_WhenNewIsCalled_ThenTheRequestIsRedirected()
-        {
-            MockHttpContext.SetupProperty(h => h.User);
+        #endregion
 
-            SetControllerContext(_controller);
-            _controller.HttpContext.User = new UserViewModel { IsLoggedIn = false };
-
-            var result = _controller.New();
-            Assert.That(result, Is.TypeOf<RedirectToRouteResult>());
-        }
-
-        [Test]
-        public void GivenALoggedInUser_WhenNewIsCalled_ThenTheNewViewIsReturned()
-        {
-            MockHttpContext.SetupProperty(h => h.User);
-
-            SetControllerContext(_controller);
-            _controller.HttpContext.User = new UserViewModel { IsLoggedIn = true };
-
-            var result = _controller.New();
-            Assert.That(result, Is.TypeOf<ViewResult>());
-        }
-
-        [Test]
-        public void GivenNoLoggedInUser_WhenCreateIsCalled_ThenTheRequestIsRedirected()
-        {
-            MockHttpContext.SetupProperty(h => h.User);
-
-            SetControllerContext(_controller);
-            _controller.HttpContext.User = new UserViewModel { IsLoggedIn = false };
-
-            var result = _controller.Create(new CreateBlogViewModel());
-            Assert.That(result, Is.TypeOf<RedirectToRouteResult>());
-        }
+        private Mock<IBlogService> _blogDomain;
+        private BlogController _controller;
 
         [Test]
         public void GivenALoggedInUser_WhenCreateIsCalled_AndTheModelIsInvalid_ThenTheNewViewIsReturned()
@@ -69,13 +32,12 @@ namespace MBlogUnitTest.Controllers
             MockHttpContext.SetupProperty(h => h.User);
 
             SetControllerContext(_controller);
-            _controller.HttpContext.User = new UserViewModel { IsLoggedIn = true };
+            _controller.HttpContext.User = new UserViewModel {IsLoggedIn = true};
             _controller.ModelState.AddModelError("error", "message");
 
-            ViewResult result = _controller.Create(new CreateBlogViewModel()) as ViewResult;
+            var result = _controller.Create(new CreateBlogViewModel()) as ViewResult;
             Assert.That(result, Is.Not.Null);
             Assert.That(result.ViewName, Is.EqualTo("New").IgnoreCase);
-
         }
 
         [Test]
@@ -84,24 +46,36 @@ namespace MBlogUnitTest.Controllers
             MockHttpContext.SetupProperty(h => h.User);
 
             SetControllerContext(_controller);
-            _controller.HttpContext.User = new UserViewModel { IsLoggedIn = true };
+            _controller.HttpContext.User = new UserViewModel {IsLoggedIn = true};
 
-            RedirectToRouteResult result = _controller.Create(new CreateBlogViewModel()) as RedirectToRouteResult;
+            var result = _controller.Create(new CreateBlogViewModel()) as RedirectToRouteResult;
             Assert.That(result, Is.Not.Null);
             Assert.That(result.RouteValues["controller"], Is.EqualTo("dashboard").IgnoreCase);
             Assert.That(result.RouteValues["action"], Is.EqualTo("Index").IgnoreCase);
-
         }
 
         [Test]
         public void GivenALoggedInUser_WhenITryAndEditABlog_ThenIGetTheCorrectView()
         {
             string nickname = "nickname";
-            _blogDomain.Setup(b => b.GetBlog(It.IsAny<string>())).Returns(new Blog("title", "description", true, true, nickname, 1));
+            _blogDomain.Setup(b => b.GetBlog(It.IsAny<string>())).Returns(new Blog("title", "description", true, true,
+                                                                                   nickname, 1));
             var controller = new BlogController(_blogDomain.Object, null);
 
-            var result = controller.Edit(new CreateBlogViewModel{Nickname = nickname});
+            ActionResult result = controller.Edit(new CreateBlogViewModel {Nickname = nickname});
 
+            Assert.That(result, Is.TypeOf<ViewResult>());
+        }
+
+        [Test]
+        public void GivenALoggedInUser_WhenNewIsCalled_ThenTheNewViewIsReturned()
+        {
+            MockHttpContext.SetupProperty(h => h.User);
+
+            SetControllerContext(_controller);
+            _controller.HttpContext.User = new UserViewModel {IsLoggedIn = true};
+
+            ActionResult result = _controller.New();
             Assert.That(result, Is.TypeOf<ViewResult>());
         }
 
@@ -112,7 +86,9 @@ namespace MBlogUnitTest.Controllers
             var controller = new BlogController(_blogDomain.Object, null);
 
 
-            RedirectToRouteResult result = controller.Update(new CreateBlogViewModel { Nickname = nickname, Description = "desc", Title = "title"}) as RedirectToRouteResult;
+            var result =
+                controller.Update(new CreateBlogViewModel {Nickname = nickname, Description = "desc", Title = "title"})
+                as RedirectToRouteResult;
 
             Assert.That(result, Is.Not.Null);
             Assert.That(result.RouteValues["controller"], Is.EqualTo("Dashboard").IgnoreCase);
@@ -126,11 +102,33 @@ namespace MBlogUnitTest.Controllers
 
             controller.ModelState.AddModelError("Name", "Name error");
 
-            var result = controller.Update(new CreateBlogViewModel ()) as ViewResult;
+            var result = controller.Update(new CreateBlogViewModel()) as ViewResult;
 
             Assert.That(result, Is.Not.Null);
         }
 
+        [Test]
+        public void GivenNoLoggedInUser_WhenCreateIsCalled_ThenTheRequestIsRedirected()
+        {
+            MockHttpContext.SetupProperty(h => h.User);
 
+            SetControllerContext(_controller);
+            _controller.HttpContext.User = new UserViewModel {IsLoggedIn = false};
+
+            ActionResult result = _controller.Create(new CreateBlogViewModel());
+            Assert.That(result, Is.TypeOf<RedirectToRouteResult>());
+        }
+
+        [Test]
+        public void GivenNoLoggedInUser_WhenNewIsCalled_ThenTheRequestIsRedirected()
+        {
+            MockHttpContext.SetupProperty(h => h.User);
+
+            SetControllerContext(_controller);
+            _controller.HttpContext.User = new UserViewModel {IsLoggedIn = false};
+
+            ActionResult result = _controller.New();
+            Assert.That(result, Is.TypeOf<RedirectToRouteResult>());
+        }
     }
 }

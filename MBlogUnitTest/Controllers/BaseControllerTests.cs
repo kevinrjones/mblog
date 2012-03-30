@@ -10,10 +10,10 @@ namespace MBlogUnitTest.Controllers
 {
     public class BaseControllerTests
     {
+        protected ControllerContext ControllerContext;
+        protected FakeResponse FakeResponse;
         protected Mock<HttpContextBase> MockHttpContext;
         protected Mock<HttpRequestBase> MockRequest;
-        protected FakeResponse FakeResponse;
-        protected ControllerContext ControllerContext;
 
         [SetUp]
         public void BaseSetup()
@@ -31,6 +31,5 @@ namespace MBlogUnitTest.Controllers
             ControllerContext = new ControllerContext(MockHttpContext.Object, new RouteData(), controller);
             controller.ControllerContext = ControllerContext;
         }
-
     }
 }

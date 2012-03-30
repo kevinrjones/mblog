@@ -8,7 +8,6 @@ namespace MBlog.Models.Post
 
         public PostsViewModel()
         {
-            
         }
 
         public PostsViewModel(int blogId, string nickname, IList<MBlogModel.Post> posts)

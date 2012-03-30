@@ -16,8 +16,7 @@ namespace MBlogUnitTest.Filters
     [TestFixture]
     public class AuthorizeLoggedInUserAttributeTest
     {
-        private Mock<HttpContextBase> _mockHttpContext;
-        Mock<RequestContext> _requestContext;
+        #region Setup/Teardown
 
         [SetUp]
         public void SetUp()
@@ -30,37 +29,10 @@ namespace MBlogUnitTest.Filters
             _mockHttpContext.Setup(h => h.Response).Returns(new FakeResponse());
         }
 
-        [Test]
-        public void GivenAFilter_WhenTheUserIsNotLoggedIn_ThenTheFilterReturnsFalse()
-        {
-            var filterContext = CreateFilterContext();
-            var model = new UserViewModel { IsLoggedIn = false };
-            _mockHttpContext.Setup(h => h.User).Returns(model);
-            var loggedInUserAttribute = new AuthorizeLoggedInUserAttribute();
-            loggedInUserAttribute.OnAuthorization(filterContext);
-            Assert.That(filterContext.Result, Is.TypeOf<RedirectResult>());
-        }
+        #endregion
 
-        [Test]
-        public void GivenAFilter_WhenTheUserIsNull_ThenTheFilterReturnsFalse()
-        {
-            var filterContext = CreateFilterContext();
-            _mockHttpContext.Setup(h => h.User).Returns((IPrincipal)null);
-            var loggedInUserAttribute = new AuthorizeLoggedInUserAttribute();
-            loggedInUserAttribute.OnAuthorization(filterContext);
-            Assert.That(filterContext.Result, Is.TypeOf<RedirectResult>());
-        }
-
-        [Test]
-        public void GivenAFilter_WhenTheUserIsLoggedIn_ThenTheFilterReturnsTrue()
-        {
-            var filterContext = CreateFilterContext();
-            var model = new UserViewModel { IsLoggedIn = true };
-            _mockHttpContext.Setup(h => h.User).Returns(model);
-            var loggedInUserAttribute = new AuthorizeLoggedInUserAttribute();
-            loggedInUserAttribute.OnAuthorization(filterContext);
-            Assert.That(filterContext.Result, Is.Null);
-        }
+        private Mock<HttpContextBase> _mockHttpContext;
+        private Mock<RequestContext> _requestContext;
 
         private AuthorizationContext CreateFilterContext()
         {
@@ -68,8 +40,8 @@ namespace MBlogUnitTest.Filters
             var actionDescriptor = new Mock<ActionDescriptor>();
             actionDescriptor.SetupGet(x => x.ActionName).Returns("Action_With_SomeAttribute");
             actionDescriptor.SetupGet(x => x.ControllerDescriptor).Returns(
-                new ReflectedControllerDescriptor(typeof(BaseController)));
-            var controllerContext = CreateControllerContext(routeData);
+                new ReflectedControllerDescriptor(typeof (BaseController)));
+            ControllerContext controllerContext = CreateControllerContext(routeData);
             return new AuthorizationContext(controllerContext,
                                             actionDescriptor.Object);
         }
@@ -81,6 +53,38 @@ namespace MBlogUnitTest.Filters
                                       routeData,
                                       new BaseController(null));
             return controllerContext;
+        }
+
+        [Test]
+        public void GivenAFilter_WhenTheUserIsLoggedIn_ThenTheFilterReturnsTrue()
+        {
+            AuthorizationContext filterContext = CreateFilterContext();
+            var model = new UserViewModel {IsLoggedIn = true};
+            _mockHttpContext.Setup(h => h.User).Returns(model);
+            var loggedInUserAttribute = new AuthorizeLoggedInUserAttribute();
+            loggedInUserAttribute.OnAuthorization(filterContext);
+            Assert.That(filterContext.Result, Is.Null);
+        }
+
+        [Test]
+        public void GivenAFilter_WhenTheUserIsNotLoggedIn_ThenTheFilterReturnsFalse()
+        {
+            AuthorizationContext filterContext = CreateFilterContext();
+            var model = new UserViewModel {IsLoggedIn = false};
+            _mockHttpContext.Setup(h => h.User).Returns(model);
+            var loggedInUserAttribute = new AuthorizeLoggedInUserAttribute();
+            loggedInUserAttribute.OnAuthorization(filterContext);
+            Assert.That(filterContext.Result, Is.TypeOf<RedirectResult>());
+        }
+
+        [Test]
+        public void GivenAFilter_WhenTheUserIsNull_ThenTheFilterReturnsFalse()
+        {
+            AuthorizationContext filterContext = CreateFilterContext();
+            _mockHttpContext.Setup(h => h.User).Returns((IPrincipal) null);
+            var loggedInUserAttribute = new AuthorizeLoggedInUserAttribute();
+            loggedInUserAttribute.OnAuthorization(filterContext);
+            Assert.That(filterContext.Result, Is.TypeOf<RedirectResult>());
         }
     }
 }

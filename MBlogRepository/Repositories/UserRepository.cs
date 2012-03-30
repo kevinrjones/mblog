@@ -8,12 +8,14 @@ using Repository;
 
 namespace MBlogRepository.Repositories
 {
-    public class UserRepository : BaseEfRepository<User>, IUserRepository 
+    public class UserRepository : BaseEfRepository<User>, IUserRepository
     {
         public UserRepository(string connectionString)
             : base(new UserDbContext(connectionString))
         {
         }
+
+        #region IUserRepository Members
 
         public IEnumerable<User> GetUsers()
         {
@@ -49,5 +51,7 @@ namespace MBlogRepository.Repositories
                     where e.Id == id
                     select e).FirstOrDefault();
         }
+
+        #endregion
     }
 }

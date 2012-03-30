@@ -1,22 +1,22 @@
 ﻿using System;
-using System.ServiceModel.Syndication;
+using System.Web;
 using System.Web.Mvc;
 
 namespace MBlog.ActionResults
 {
     public class SyndicationActionResult : ActionResult
     {
-        public FeedData FeedData { get; set; }
-
         public SyndicationActionResult(FeedData feedData)
         {
             FeedData = feedData;
         }
 
+        public FeedData FeedData { get; set; }
+
         public override void ExecuteResult(ControllerContext context)
         {
-            var response = context.HttpContext.Response;
-            
+            HttpResponseBase response = context.HttpContext.Response;
+
             if (FeedData != null)
             {
                 response.ContentType = FeedData.ContentType;

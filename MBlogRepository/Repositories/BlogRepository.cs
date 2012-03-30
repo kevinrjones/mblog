@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Data.Entity;
 using System.Linq;
 using MBlogModel;
 using MBlogRepository.Contexts;
@@ -15,11 +14,13 @@ namespace MBlogRepository.Repositories
         {
         }
 
+        #region IBlogRepository Members
+
         public Blog GetBlog(string nickname)
         {
             return (from b in Entities
-                   where b.Nickname == nickname
-                   select b).FirstOrDefault();
+                    where b.Nickname == nickname
+                    select b).FirstOrDefault();
         }
 
         public void ChangeBlogLastupdateDate(int blogId)
@@ -27,7 +28,7 @@ namespace MBlogRepository.Repositories
             Blog blog = (from b in Entities
                          where b.Id == blogId
                          select b).FirstOrDefault();
-            
+
             if (blog == null)
             {
                 throw new MBlogException("blogId not valid");
@@ -35,5 +36,7 @@ namespace MBlogRepository.Repositories
             blog.LastUpdated = DateTime.UtcNow;
             Attach(blog);
         }
+
+        #endregion
     }
 }

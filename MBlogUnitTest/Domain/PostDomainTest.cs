@@ -1,7 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using MBlogModel;
 using MBlogRepository.Interfaces;
 using MBlogService;
@@ -14,8 +12,7 @@ namespace MBlogUnitTest.Domain
     [TestFixture]
     public class PostDomainTest
     {
-        IPostService _postService;
-        private Mock<IPostRepository> _postRepository;
+        #region Setup/Teardown
 
         [SetUp]
         public void Setup()
@@ -24,27 +21,10 @@ namespace MBlogUnitTest.Domain
             _postService = new PostService(_postRepository.Object);
         }
 
-        [Test]
-        public void GivenAValidPost_WhenIAddAComment_ThenTheCommentIsWrittenToTheDatabase()
-        {
-            _postService.AddComment(1, "name", "comment");
-            _postRepository.Verify(p => p.AddComment(1, "name", "comment"), Times.Once());
-        }
+        #endregion
 
-        [Test]
-        public void GivenAValidPost_WhenIAddAComment_AndTheDatabaseIsNotAvailable_ThenAnMBlogExceptionIsThrown()
-        {
-            _postRepository.Setup(p => p.AddComment(It.IsAny<int>(), It.IsAny<string>(), It.IsAny<string>())).Throws<Exception>();
-            Assert.Throws<MBlogException>(() => _postService.AddComment(1, "name", "comment"));
-        }
-
-        [Test]
-        public void GivenABlogId_WhenIAskForOrderedBlogPosts_ThenThePostsAreReturned()
-        {
-            _postRepository.Setup(p => p.GetOrderedBlogPosts(1)).Returns(new List<Post> { new Post() });
-            var posts = _postService.GetOrderedBlogPosts(1);
-            Assert.That(posts.Count, Is.EqualTo(1));
-        }
+        private IPostService _postService;
+        private Mock<IPostRepository> _postRepository;
 
         [Test]
         public void GivenABlogId_WhenIAskForOrderedBlogPosts_AndTheDatabaseIsNotAvailable_ThenAnMBlogExceptionIsThrown()
@@ -54,56 +34,42 @@ namespace MBlogUnitTest.Domain
         }
 
         [Test]
-        public void GivenAValidNickname_WhenThePostsAreRetrieved_ThenAllThePostsAreReturned()
+        public void GivenABlogId_WhenIAskForOrderedBlogPosts_ThenThePostsAreReturned()
         {
-            _postRepository.Setup(p => p.GetBlogPosts("nickname")).Returns(new List<Post> {new Post()});
-            var posts = _postService.GetBlogPosts("nickname");
+            _postRepository.Setup(p => p.GetOrderedBlogPosts(1)).Returns(new List<Post> {new Post()});
+            IList<Post> posts = _postService.GetOrderedBlogPosts(1);
             Assert.That(posts.Count, Is.EqualTo(1));
         }
 
         [Test]
-        public void GivenAValidNickname_WhenThePostsAreRetrieved_AndTheDatabaseIsNotAvailable_ThenAnMBlogExceptionIsThrown()
+        public void
+            GivenAValidNickname_WhenThePostsAreRetrieved_AndTheDatabaseIsNotAvailable_ThenAnMBlogExceptionIsThrown()
         {
             _postRepository.Setup(p => p.GetBlogPosts(It.IsAny<string>())).Throws<Exception>();
             Assert.Throws<MBlogException>(() => _postService.GetBlogPosts("nickname"));
         }
 
         [Test]
-        public void WhenAllThePostsAreRetrieved_ThenAllThePostsAreReturned()
+        public void GivenAValidNickname_WhenThePostsAreRetrieved_ThenAllThePostsAreReturned()
         {
-            _postRepository.Setup(p => p.GetPosts()).Returns(new List<Post> { new Post() });
-            var posts = _postService.GetBlogPosts();
+            _postRepository.Setup(p => p.GetBlogPosts("nickname")).Returns(new List<Post> {new Post()});
+            IList<Post> posts = _postService.GetBlogPosts("nickname");
             Assert.That(posts.Count, Is.EqualTo(1));
         }
 
         [Test]
-        public void WhenAllThePostsAreRetrieved_AndTheDatabaseIsNotAvailable_ThenAnMBlogExceptionIsThrown()
+        public void GivenAValidPost_WhenIAddAComment_AndTheDatabaseIsNotAvailable_ThenAnMBlogExceptionIsThrown()
         {
-            _postRepository.Setup(p => p.GetPosts()).Throws<Exception>();
-            Assert.Throws<MBlogException>(() => _postService.GetBlogPosts());
+            _postRepository.Setup(p => p.AddComment(It.IsAny<int>(), It.IsAny<string>(), It.IsAny<string>())).Throws
+                <Exception>();
+            Assert.Throws<MBlogException>(() => _postService.AddComment(1, "name", "comment"));
         }
 
         [Test]
-        public void GivenValidData_WhenThePostsAreRetrieved_ThenAllThePostsAreReturned()
+        public void GivenAValidPost_WhenIAddAComment_ThenTheCommentIsWrittenToTheDatabase()
         {
-            _postRepository.Setup(p => p.GetBlogPosts(It.IsAny<int>(), It.IsAny<int>(), It.IsAny<int>(), It.IsAny<string>(), It.IsAny<string>())).Returns(new List<Post> { new Post() });
-            var posts = _postService.GetBlogPosts(It.IsAny<int>(), It.IsAny<int>(), It.IsAny<int>(), It.IsAny<string>(), It.IsAny<string>());
-            Assert.That(posts.Count, Is.EqualTo(1));
-        }
-
-        [Test]
-        public void GivenValidData_WhenThePostsAreRetrieved_AndTheDatabaseIsNotAvailable_ThenAnMBlogExceptionIsThrown()
-        {
-            _postRepository.Setup(p => p.GetBlogPosts(It.IsAny<int>(), It.IsAny<int>(), It.IsAny<int>(), It.IsAny<string>(), It.IsAny<string>())).Throws<Exception>();
-            Assert.Throws<MBlogException>(() => _postService.GetBlogPosts(It.IsAny<int>(), It.IsAny<int>(), It.IsAny<int>(), It.IsAny<string>(), It.IsAny<string>()));
-        }
-
-        [Test]
-        public void GivenValidData_WhenAPostIsRetrieved_ThenThatPostIsReturned()
-        {
-            _postRepository.Setup(p => p.GetBlogPost(It.IsAny<int>())).Returns(new Post{Id = 1});
-            var posts = _postService.GetBlogPost(It.IsAny<int>());
-            Assert.That(posts.Id, Is.EqualTo(1));
+            _postService.AddComment(1, "name", "comment");
+            _postRepository.Verify(p => p.AddComment(1, "name", "comment"), Times.Once());
         }
 
         [Test]
@@ -115,7 +81,7 @@ namespace MBlogUnitTest.Domain
 
         [Test]
         public void GivenValidData_WhenAPostIsDeleted_ThenThatPostIsReturned()
-        {            
+        {
             _postService.Delete(It.IsAny<int>());
             _postRepository.Verify(p => p.Delete(It.IsAny<Post>()), Times.Once());
         }
@@ -125,6 +91,54 @@ namespace MBlogUnitTest.Domain
         {
             _postRepository.Setup(p => p.GetBlogPost(It.IsAny<int>())).Throws<Exception>();
             Assert.Throws<MBlogException>(() => _postService.GetBlogPost(It.IsAny<int>()));
+        }
+
+        [Test]
+        public void GivenValidData_WhenAPostIsRetrieved_ThenThatPostIsReturned()
+        {
+            _postRepository.Setup(p => p.GetBlogPost(It.IsAny<int>())).Returns(new Post {Id = 1});
+            Post posts = _postService.GetBlogPost(It.IsAny<int>());
+            Assert.That(posts.Id, Is.EqualTo(1));
+        }
+
+        [Test]
+        public void GivenValidData_WhenThePostsAreRetrieved_AndTheDatabaseIsNotAvailable_ThenAnMBlogExceptionIsThrown()
+        {
+            _postRepository.Setup(
+                p =>
+                p.GetBlogPosts(It.IsAny<int>(), It.IsAny<int>(), It.IsAny<int>(), It.IsAny<string>(), It.IsAny<string>()))
+                .Throws<Exception>();
+            Assert.Throws<MBlogException>(
+                () =>
+                _postService.GetBlogPosts(It.IsAny<int>(), It.IsAny<int>(), It.IsAny<int>(), It.IsAny<string>(),
+                                          It.IsAny<string>()));
+        }
+
+        [Test]
+        public void GivenValidData_WhenThePostsAreRetrieved_ThenAllThePostsAreReturned()
+        {
+            _postRepository.Setup(
+                p =>
+                p.GetBlogPosts(It.IsAny<int>(), It.IsAny<int>(), It.IsAny<int>(), It.IsAny<string>(), It.IsAny<string>()))
+                .Returns(new List<Post> {new Post()});
+            IList<Post> posts = _postService.GetBlogPosts(It.IsAny<int>(), It.IsAny<int>(), It.IsAny<int>(),
+                                                          It.IsAny<string>(), It.IsAny<string>());
+            Assert.That(posts.Count, Is.EqualTo(1));
+        }
+
+        [Test]
+        public void WhenAllThePostsAreRetrieved_AndTheDatabaseIsNotAvailable_ThenAnMBlogExceptionIsThrown()
+        {
+            _postRepository.Setup(p => p.GetPosts()).Throws<Exception>();
+            Assert.Throws<MBlogException>(() => _postService.GetBlogPosts());
+        }
+
+        [Test]
+        public void WhenAllThePostsAreRetrieved_ThenAllThePostsAreReturned()
+        {
+            _postRepository.Setup(p => p.GetPosts()).Returns(new List<Post> {new Post()});
+            IList<Post> posts = _postService.GetBlogPosts();
+            Assert.That(posts.Count, Is.EqualTo(1));
         }
     }
 }

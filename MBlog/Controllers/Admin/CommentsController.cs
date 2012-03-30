@@ -1,18 +1,15 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
+﻿using System.Collections.Generic;
 using System.Web.Mvc;
 using Logging;
 using MBlog.Filters;
 using MBlog.Models.Admin;
 using MBlog.Models.Post;
-using MBlogRepository.Interfaces;
+using MBlogModel;
 using MBlogServiceInterfaces;
 
 namespace MBlog.Controllers.Admin
 {
-    public class CommentsController  : BaseController
+    public class CommentsController : BaseController
     {
         private readonly IPostService _postService;
 
@@ -24,8 +21,8 @@ namespace MBlog.Controllers.Admin
         [AuthorizeBlogOwner]
         public ActionResult Index(AdminBlogViewModel model)
         {
-            var posts = _postService.GetOrderedBlogPosts(model.BlogId);
-            var postsViewModel = new PostsViewModel (model.BlogId, model.Nickname, posts);
+            IList<Post> posts = _postService.GetOrderedBlogPosts(model.BlogId);
+            var postsViewModel = new PostsViewModel(model.BlogId, model.Nickname, posts);
             return View(postsViewModel);
         }
     }

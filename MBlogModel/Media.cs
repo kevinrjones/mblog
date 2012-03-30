@@ -8,20 +8,44 @@ namespace MBlogModel
 {
     public class Media
     {
-        public enum ValidSizes { Thumbnail, Medium, Large, Fullsize };
-        public enum ValidAllignments { None, Left, Right };
+        #region ValidAllignments enum
+
+        public enum ValidAllignments
+        {
+            None,
+            Left,
+            Right
+        };
+
+        #endregion
+
+        #region ValidSizes enum
+
+        public enum ValidSizes
+        {
+            Thumbnail,
+            Medium,
+            Large,
+            Fullsize
+        };
+
+        #endregion
+
+        private int _alignment;
+        private int _size;
+        private string _title;
 
         public Media()
         {
-            var date = DateTime.Now;
+            DateTime date = DateTime.Now;
             Year = date.Year;
             Month = date.Month;
             Day = date.Day;
         }
 
         public Media(string fileName, string title, string caption,
-                string description, string alternate, int userId,
-                string mimeType, int alignment, int size, byte[] imageData)
+                     string description, string alternate, int userId,
+                     string mimeType, int alignment, int size, byte[] imageData)
             : this()
         {
             FileName = fileName;
@@ -49,12 +73,11 @@ namespace MBlogModel
             Data = new byte[contentLength];
             inputStream.Read(Data, 0, contentLength);
         }
+
         public int Id { get; set; }
 
         [Required, Column("file_name")]
         public virtual string FileName { get; set; }
-
-        private string _title;
 
         [Required(AllowEmptyStrings = true)]
         public virtual string Title
@@ -77,25 +100,22 @@ namespace MBlogModel
         [Required, Column("mime_type")]
         public virtual string MimeType { get; set; }
 
-        private int _alignment;
         [Required]
         public virtual int Alignment
         {
             get { return _alignment; }
             set
             {
-                if (Enum.IsDefined(typeof(ValidAllignments), value))
+                if (Enum.IsDefined(typeof (ValidAllignments), value))
                 {
                     _alignment = value;
                 }
                 else
                 {
-                    _alignment = (int)ValidAllignments.None;
+                    _alignment = (int) ValidAllignments.None;
                 }
             }
         }
-
-        private int _size;
 
         [Required]
         public virtual int Size
@@ -103,13 +123,13 @@ namespace MBlogModel
             get { return _size; }
             set
             {
-                if (Enum.IsDefined(typeof(ValidSizes), value))
+                if (Enum.IsDefined(typeof (ValidSizes), value))
                 {
                     _size = value;
                 }
                 else
                 {
-                    _size = (int)ValidSizes.Fullsize;
+                    _size = (int) ValidSizes.Fullsize;
                 }
             }
         }
@@ -136,8 +156,8 @@ namespace MBlogModel
         {
             if (ReferenceEquals(null, obj)) return false;
             if (ReferenceEquals(this, obj)) return true;
-            if (obj.GetType() != typeof(Media)) return false;
-            return Equals((Media)obj);
+            if (obj.GetType() != typeof (Media)) return false;
+            return Equals((Media) obj);
         }
 
         public bool Equals(Media other)

@@ -1,9 +1,10 @@
-﻿@model MBlog.Models.Comment.AddCommentViewModel
+﻿@using MBlog.Models.Comment
 @using MBlog.Resources.General
 @using MBlog.Resources.Post
+@model MBlog.Models.Comment.AddCommentViewModel
 <div class="blog-comments">
-    @foreach (var comment in Model.Comments)
-    {            
+    @foreach (CommentViewModel comment in Model.Comments)
+    {
         <div class="blog-comment">
             <div class="blog-comment-header">
                 <span>@comment.Commented.ToLongDateString()</span> @Html.Encode(Global.By) <span>@comment.Name</span>
@@ -15,7 +16,7 @@
     }
 </div>
 @if (Model.CommentsEnabled)
-{ 
+{
     <div id="blog-comment-form">
         <div id="blog-form-header">
             @Html.Encode(Show.LeaveAComment):
@@ -24,21 +25,21 @@
             @Html.Encode(Show.BBCode)
         </div>
         <div id="blog-form-body">
-            @using (Html.BeginForm("Create", "comment", FormMethod.Post, new { }))
+            @using (Html.BeginForm("Create", "comment", FormMethod.Post, new {}))
             {
                 @Html.HiddenFor(m => m.PostId)
                 <div>
                     @Html.Encode(Global.Name):
                 </div>
                 <div>
-                    @Html.TextBoxFor(m => m.Name, new { @class="maxwidth" })
+                    @Html.TextBoxFor(m => m.Name, new {@class = "maxwidth"})
                 </div>
                 <div>
                     @Html.Encode(Global.Comment):
                 </div>
                 <div>
                     <div>
-                        @Html.TextAreaFor(m => m.Comment, new { cols = "25", rows = "5", @class="maxwidth" })
+                        @Html.TextAreaFor(m => m.Comment, new {cols = "25", rows = "5", @class = "maxwidth"})
                     </div>
                     <div>
                         @Html.ValidationMessageFor(m => m.Comment)

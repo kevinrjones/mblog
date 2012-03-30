@@ -1,14 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
+﻿using System.Collections.Generic;
 using System.Web.Mvc;
 using MBlog.Controllers.Admin;
 using MBlog.Models.Admin;
 using MBlog.Models.Post;
 using MBlog.Models.User;
 using MBlogModel;
-using MBlogRepository.Interfaces;
 using MBlogServiceInterfaces;
 using Moq;
 using NUnit.Framework;
@@ -16,9 +12,9 @@ using NUnit.Framework;
 namespace MBlogUnitTest.Controllers.Admin
 {
     [TestFixture]
-    class PostsControllerTest : BaseControllerTests
+    internal class PostsControllerTest : BaseControllerTests
     {
-        private Mock<IPostService> _postDomain;
+        #region Setup/Teardown
 
         [SetUp]
         public void Setup()
@@ -26,25 +22,29 @@ namespace MBlogUnitTest.Controllers.Admin
             _postDomain = new Mock<IPostService>();
         }
 
+        #endregion
+
+        private Mock<IPostService> _postDomain;
+
         [Test]
         public void GivenAUserInContext_AndTheUserIsLoggedIn_WhenIListPosts_ThenIGetAllThePosts()
         {
             const int blogId = 1;
             const string nickname = "nickname";
 
-            
-            _postDomain.Setup(p => p.GetOrderedBlogPosts(It.IsAny<int>())).Returns(new List<Post> { new Post { Title = "empty" } });
-        
+
+            _postDomain.Setup(p => p.GetOrderedBlogPosts(It.IsAny<int>())).Returns(new List<Post>
+                                                                                       {new Post {Title = "empty"}});
+
             var controller = new PostsController(_postDomain.Object, null);
             SetControllerContext(controller);
 
             MockHttpContext.SetupProperty(h => h.User);
-            controller.HttpContext.User = new UserViewModel { IsLoggedIn = true, Id = 1 };
+            controller.HttpContext.User = new UserViewModel {IsLoggedIn = true, Id = 1};
 
-            var result = (ViewResult)controller.Index(new AdminBlogViewModel { Nickname = nickname, BlogId = blogId });
+            var result = (ViewResult) controller.Index(new AdminBlogViewModel {Nickname = nickname, BlogId = blogId});
             var model = result.Model as PostsViewModel;
             Assert.That(model.Posts.Count, Is.EqualTo(1));
         }
-
     }
 }

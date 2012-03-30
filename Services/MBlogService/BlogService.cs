@@ -11,12 +11,14 @@ namespace MBlogService
 
         public BlogService(IBlogRepository blogRepository, string connectionString)
         {
-            
         }
+
         public BlogService(IBlogRepository blogRepository)
         {
             _blogRepository = blogRepository;
         }
+
+        #region IBlogService Members
 
         public Blog GetBlog(string nickname)
         {
@@ -30,7 +32,8 @@ namespace MBlogService
             }
         }
 
-        public void UpdateBlog(string nickname, bool approveComments, bool commentsEnabled, string description, string title)
+        public void UpdateBlog(string nickname, bool approveComments, bool commentsEnabled, string description,
+                               string title)
         {
             try
             {
@@ -48,7 +51,8 @@ namespace MBlogService
             }
         }
 
-        public void CreateBlog(string title, string description, bool approveComments, bool commentsEnabled, string nickname, int userId)
+        public void CreateBlog(string title, string description, bool approveComments, bool commentsEnabled,
+                               string nickname, int userId)
         {
             try
             {
@@ -60,5 +64,7 @@ namespace MBlogService
                 throw new MBlogException("Unable to create blog", e);
             }
         }
+
+        #endregion
     }
 }

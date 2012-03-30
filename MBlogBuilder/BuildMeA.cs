@@ -26,7 +26,8 @@ namespace MBlogBuilder
                                                             });
         }
 
-        public static PostBuilder Post(string title, string entry, DateTime posted, DateTime edited, bool commentsEnabled = true)
+        public static PostBuilder Post(string title, string entry, DateTime posted, DateTime edited,
+                                       bool commentsEnabled = true)
         {
             return (PostBuilder) new PostBuilder().With(p =>
                                                             {
@@ -53,41 +54,40 @@ namespace MBlogBuilder
         }
 
         public static MediaBuilder Media(string fileName, string title, string caption,
-                string description, string alternate, int userId,
-                string mimeType, int alignment, int size, byte[] imageData)
+                                         string description, string alternate, int userId,
+                                         string mimeType, int alignment, int size, byte[] imageData)
         {
-            return (MediaBuilder)new MediaBuilder().With(m =>
-                                {
-                                    m.Alignment = alignment;
-                                    m.Alternate = alternate;
-                                    m.Caption = caption;
-                                    m.Data = imageData;
-                                    m.Description = description;
-                                    m.FileName = fileName;
-                                    m.Title = title;
-                                    m.UserId = userId;
-                                    m.MimeType = mimeType;
-                                    m.Size = size;
-                                });
+            return (MediaBuilder) new MediaBuilder().With(m =>
+                                                              {
+                                                                  m.Alignment = alignment;
+                                                                  m.Alternate = alternate;
+                                                                  m.Caption = caption;
+                                                                  m.Data = imageData;
+                                                                  m.Description = description;
+                                                                  m.FileName = fileName;
+                                                                  m.Title = title;
+                                                                  m.UserId = userId;
+                                                                  m.MimeType = mimeType;
+                                                                  m.Size = size;
+                                                              });
         }
 
         public static MediaBuilder Media(string fileName, string title, string caption,
-        string description, string alternate, 
-        string mimeType, int alignment, int size, byte[] imageData)
+                                         string description, string alternate,
+                                         string mimeType, int alignment, int size, byte[] imageData)
         {
-            return (MediaBuilder)new MediaBuilder().With(m =>
-            {
-                m.Alignment = alignment;
-                m.Alternate = alternate;
-                m.Caption = caption;
-                m.Description = description;
-                m.FileName = fileName;
-                m.Title = title;
-                m.MimeType = mimeType;
-                m.Size = size;
-                m.Data = imageData;
-            });
+            return (MediaBuilder) new MediaBuilder().With(m =>
+                                                              {
+                                                                  m.Alignment = alignment;
+                                                                  m.Alternate = alternate;
+                                                                  m.Caption = caption;
+                                                                  m.Description = description;
+                                                                  m.FileName = fileName;
+                                                                  m.Title = title;
+                                                                  m.MimeType = mimeType;
+                                                                  m.Size = size;
+                                                                  m.Data = imageData;
+                                                              });
         }
-
     }
 }

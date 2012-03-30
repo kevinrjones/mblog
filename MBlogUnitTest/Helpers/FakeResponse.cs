@@ -7,14 +7,11 @@ namespace MBlogUnitTest.Helpers
     {
         // Routing calls this to account for cookieless sessions
         // It's irrelevant for the test, so just return the path unmodified
-        private HttpCookieCollection cookies = new HttpCookieCollection();
-        public override string ApplyAppPathModifier(string x) { return x; }
+        private readonly HttpCookieCollection cookies = new HttpCookieCollection();
+
         public override HttpCookieCollection Cookies
         {
-            get
-            {
-                return cookies;
-            }
+            get { return cookies; }
         }
 
         public override HttpCachePolicyBase Cache
@@ -24,6 +21,11 @@ namespace MBlogUnitTest.Helpers
                 var mock = new Mock<HttpCachePolicyBase>();
                 return mock.Object;
             }
+        }
+
+        public override string ApplyAppPathModifier(string x)
+        {
+            return x;
         }
     }
 }

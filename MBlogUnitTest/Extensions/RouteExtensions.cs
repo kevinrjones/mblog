@@ -9,7 +9,7 @@ namespace MBlogUnitTest.Extensions
     {
         public static RouteData GetRouteData(this string url, string httpMethod)
         {
-            RouteCollection routes = new RouteCollection();
+            var routes = new RouteCollection();
             MvcApplication.RegisterRoutes(routes);
             var mockHttpContext = new Mock<HttpContextBase>();
             var mockRequest = new Mock<HttpRequestBase>();

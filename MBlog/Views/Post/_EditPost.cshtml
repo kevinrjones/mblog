@@ -1,13 +1,12 @@
-﻿@using MBlog.Models.Post
-@using MBlog.Resources.General
-@model EditPostViewModel
+﻿@using MBlog.Resources.General
+@model MBlog.Models.Post.EditPostViewModel
 
 <section id="blog-form">
     <div id="blog-form-header">
         @ViewBag.Title
     </div>
     <div id="blog-post-form-body">
-        @using (Html.BeginForm((string)ViewBag.Action, "post", FormMethod.Post, new { }))
+        @using (Html.BeginForm((string) ViewBag.Action, "post", FormMethod.Post, new {}))
         {
             @Html.HiddenFor(m => m.PostId)
             @Html.HiddenFor(m => m.BlogId)
@@ -15,7 +14,7 @@
                 @Html.Encode(Global.Title):
             </div>
             <div>
-                @Html.TextBoxFor(m => m.Title, new { @class = "maxwidth" })
+                @Html.TextBoxFor(m => m.Title, new {@class = "maxwidth"})
             </div>
             <div>
                 @Html.ValidationMessageFor(m => m.Title)
@@ -25,20 +24,21 @@
             </div>
             <div>
                 <div>
-                    @Html.TextAreaFor(m => m.Post, new { cols = "25", rows = "25", @class = "maxwidth" })
+                    @Html.TextAreaFor(m => m.Post, new {cols = "25", rows = "25", @class = "maxwidth"})
                 </div>
                 <div>
                     @Html.ValidationMessageFor(m => m.Post)
                 </div>
             </div>
             <div>
-            @if (Model.IsCreate)
-            {
-                <input type="submit" value="@Html.Encode(Global.NewPost)" />
-            } else
-            {
-                <input type="submit" value="@Html.Encode(Global.EditPost)" />                
-            }
+                @if (Model.IsCreate)
+                {
+                    <input type="submit" value="@Html.Encode(Global.NewPost)" />
+                }
+                else
+                {
+                    <input type="submit" value="@Html.Encode(Global.EditPost)" />
+                }
             </div>
         }
     </div>

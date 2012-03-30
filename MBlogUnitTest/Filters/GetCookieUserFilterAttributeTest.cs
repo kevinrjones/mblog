@@ -4,9 +4,7 @@ using System.Web.Mvc;
 using System.Web.Routing;
 using MBlog.Controllers;
 using MBlog.Filters;
-using MBlog.Models.User;
 using MBlogModel;
-using MBlogRepository.Interfaces;
 using MBlogServiceInterfaces;
 using Moq;
 using NUnit.Framework;
@@ -14,17 +12,14 @@ using NUnit.Framework;
 namespace MBlogUnitTest.Filters
 {
     [TestFixture]
-    class GetCookieUserFilterAttributeTest
+    internal class GetCookieUserFilterAttributeTest
     {
-        private AuthorizationContext _actionExecutingContext;
-        private IUserService _userService;
-        Mock<HttpContextBase> _mockHttpContext;
-        private const string Nickname = "nickname";
-        private GetCookieUserFilterAttribute _attribute;
+        #region Setup/Teardown
+
         [SetUp]
         public void SetUp()
         {
-            var blogs = new List<Blog> { new Blog { Nickname = Nickname } };
+            var blogs = new List<Blog> {new Blog {Nickname = Nickname}};
 
             var user = new User("Name", "EMail", "Password", false);
             user.Blogs = blogs;
@@ -47,40 +42,44 @@ namespace MBlogUnitTest.Filters
 
             // _userRepository
             var controllerContext = new ControllerContext(httpContextBase,
-                                  new RouteData(),
-                                  new BaseController(null));
+                                                          new RouteData(),
+                                                          new BaseController(null));
 
             var actionDescriptor = new Mock<ActionDescriptor>();
             actionDescriptor.SetupGet(x => x.ActionName).Returns("Action_With_SomeAttribute");
 
             _actionExecutingContext =
                 new AuthorizationContext(controllerContext,
-                                           actionDescriptor.Object);
+                                         actionDescriptor.Object);
 
             _attribute = new GetCookieUserFilterAttribute();
             _attribute.UserService = _userService;
         }
 
+        #endregion
+
+        private AuthorizationContext _actionExecutingContext;
+        private IUserService _userService;
+        private Mock<HttpContextBase> _mockHttpContext;
+        private const string Nickname = "nickname";
+        private GetCookieUserFilterAttribute _attribute;
+
         [Test]
-        public void GivenANonBaseController_WhenIExecuteTheFilter_ThenTheFilterDoesNothing()
+        public void
+            GivenAFilter_WhenThereIsACookieInTheContext_AndTheUserIdIsInValid_ThenNoLoggedInUserIsReturnedInTheHttpContext
+            ()
         {
-            ControllerContext controllerContext =
-            new ControllerContext(new Mock<HttpContextBase>().Object,
-                                  new RouteData(),
-                                  new FakeController());
-
-            var actionDescriptor = new Mock<ActionDescriptor>();
-            actionDescriptor.SetupGet(x => x.ActionName).Returns("Action_With_SomeAttribute");
-
-            _actionExecutingContext =
-                new AuthorizationContext(controllerContext,
-                                           actionDescriptor.Object);
+            _mockHttpContext.Setup(h => h.Request).Returns(new FakeRequestWithInvalidUserId());
 
             _attribute.OnAuthorization(_actionExecutingContext);
+
+            Assert.That(_mockHttpContext.Object.User, Is.Not.Null);
+            Assert.That(_mockHttpContext.Object.User.Identity.IsAuthenticated, Is.False);
         }
 
         [Test]
-        public void GivenAFilter_WhenThereIsACookieInTheContext_AndTheUserIdIsValid_ThenALoggedUserIsReturnedInTheHttpContext()
+        public void
+            GivenAFilter_WhenThereIsACookieInTheContext_AndTheUserIdIsValid_ThenALoggedUserIsReturnedInTheHttpContext()
         {
             _mockHttpContext.Setup(h => h.Request).Returns(new FakeRequestWithValidUserId());
             _attribute.OnAuthorization(_actionExecutingContext);
@@ -90,14 +89,21 @@ namespace MBlogUnitTest.Filters
         }
 
         [Test]
-        public void GivenAFilter_WhenThereIsACookieInTheContext_AndTheUserIdIsInValid_ThenNoLoggedInUserIsReturnedInTheHttpContext()
+        public void GivenANonBaseController_WhenIExecuteTheFilter_ThenTheFilterDoesNothing()
         {
-            _mockHttpContext.Setup(h => h.Request).Returns(new FakeRequestWithInvalidUserId());
+            var controllerContext =
+                new ControllerContext(new Mock<HttpContextBase>().Object,
+                                      new RouteData(),
+                                      new FakeController());
+
+            var actionDescriptor = new Mock<ActionDescriptor>();
+            actionDescriptor.SetupGet(x => x.ActionName).Returns("Action_With_SomeAttribute");
+
+            _actionExecutingContext =
+                new AuthorizationContext(controllerContext,
+                                         actionDescriptor.Object);
 
             _attribute.OnAuthorization(_actionExecutingContext);
-
-            Assert.That(_mockHttpContext.Object.User, Is.Not.Null);
-            Assert.That(_mockHttpContext.Object.User.Identity.IsAuthenticated, Is.False);
         }
 
         //[Test]

@@ -1,6 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using Logging;
@@ -8,7 +6,6 @@ using MBlog.Filters;
 using MBlog.Infrastructure;
 using MBlog.Models.User;
 using MBlogModel;
-using MBlogRepository.Interfaces;
 using MBlogServiceInterfaces;
 
 namespace MBlog.Controllers
@@ -43,7 +40,7 @@ namespace MBlog.Controllers
             if (user != null && user.MatchPassword(userViewModel.Password))
             {
                 UpdateCookiesAndContext(user);
-                return RedirectToRoute(new { action = "Index", controller = "Dashboard" });
+                return RedirectToRoute(new {action = "Index", controller = "Dashboard"});
             }
             return View("New");
         }
@@ -66,7 +63,7 @@ namespace MBlog.Controllers
             byte[] cipherText = user.Id.ToString().Encrypt();
             string base64CipherText = Convert.ToBase64String(cipherText);
             Response.Cookies.Add(new HttpCookie(GetCookieUserFilterAttribute.UserCookie, base64CipherText));
-            HttpContext.User = new UserViewModel { Email = user.Email, Name = user.Name, IsLoggedIn = true };
+            HttpContext.User = new UserViewModel {Email = user.Email, Name = user.Name, IsLoggedIn = true};
         }
     }
 }

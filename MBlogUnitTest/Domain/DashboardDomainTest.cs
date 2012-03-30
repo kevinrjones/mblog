@@ -1,7 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using MBlogModel;
 using MBlogRepository.Interfaces;
 using MBlogService;
@@ -13,9 +10,8 @@ namespace MBlogUnitTest.Domain
     [TestFixture]
     public class DashboardDomainTest
     {
-        Mock<IBlogRepository> blogRepository;
-        Mock<IPostRepository> postRepository;
-        
+        #region Setup/Teardown
+
         [SetUp]
         public void Setup()
         {
@@ -23,42 +19,50 @@ namespace MBlogUnitTest.Domain
             postRepository = new Mock<IPostRepository>();
         }
 
+        #endregion
+
+        private Mock<IBlogRepository> blogRepository;
+        private Mock<IPostRepository> postRepository;
+
+        [Test]
+        public void
+            GivenAValidPost_AndAValidBlogId_AndAnUnavailableDatabase_WhenICreateAPost_ThenAnMBlogExceptionIsThhrown()
+        {
+            postRepository.Setup(p => p.Create(It.IsAny<Post>())).Throws<Exception>();
+            var dashboardService = new DashboardService(postRepository.Object, blogRepository.Object);
+            var post = new Post();
+            Assert.Throws<MBlogException>(() => dashboardService.CreatePost(post, 1));
+        }
+
         [Test]
         public void GivenAValidPost_AndAValidBlogId_WhenICreateAPost_ThenThePostIsCreated()
         {
-            DashboardService dashboardService = new DashboardService(postRepository.Object, blogRepository.Object);
-            Post post = new Post();
+            var dashboardService = new DashboardService(postRepository.Object, blogRepository.Object);
+            var post = new Post();
             dashboardService.CreatePost(post, 1);
             blogRepository.Verify(b => b.ChangeBlogLastupdateDate(1), Times.Once());
             postRepository.Verify(p => p.Create(post), Times.Once());
         }
 
         [Test]
-        public void GivenAValidPost_AndAValidBlogId_AndAnUnavailableDatabase_WhenICreateAPost_ThenAnMBlogExceptionIsThhrown()
+        public void GivenValidData_AndAnUnavailableDatabase_WhenICreateAPost_ThenAnMBlogExceptionIsThhrown()
         {
-            postRepository.Setup(p => p.Create(It.IsAny<Post>())).Throws<Exception>();
-            DashboardService dashboardService = new DashboardService(postRepository.Object, blogRepository.Object);
-            Post post = new Post();
-            Assert.Throws<MBlogException>(() => dashboardService.CreatePost(post, 1));
+            postRepository.Setup(p => p.Update(It.IsAny<int>(), It.IsAny<string>(), It.IsAny<string>())).Throws
+                <Exception>();
+            var dashboardService = new DashboardService(postRepository.Object, blogRepository.Object);
+
+            Assert.Throws<MBlogException>(
+                () => dashboardService.Update(It.IsAny<int>(), It.IsAny<string>(), It.IsAny<string>(), It.IsAny<int>()));
         }
 
         [Test]
         public void GivenValidData_WhenICreateAPost_ThenThePostIsCreated()
         {
-            DashboardService dashboardService = new DashboardService(postRepository.Object, blogRepository.Object);
+            var dashboardService = new DashboardService(postRepository.Object, blogRepository.Object);
 
             dashboardService.Update(1, "title", "entry", 1);
             blogRepository.Verify(b => b.ChangeBlogLastupdateDate(1), Times.Once());
-            postRepository.Verify(p=>p.Update(1, "title", "entry"));
-        }
-
-        [Test]
-        public void GivenValidData_AndAnUnavailableDatabase_WhenICreateAPost_ThenAnMBlogExceptionIsThhrown()
-        {
-            postRepository.Setup(p => p.Update(It.IsAny<int>(), It.IsAny<string>(), It.IsAny<string>())).Throws<Exception>();
-            DashboardService dashboardService = new DashboardService(postRepository.Object, blogRepository.Object);
-
-            Assert.Throws<MBlogException>(() => dashboardService.Update(It.IsAny<int>(), It.IsAny<string>(), It.IsAny<string>(), It.IsAny<int>()));
+            postRepository.Verify(p => p.Update(1, "title", "entry"));
         }
     }
 }

@@ -1,11 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Web.Mvc;
+﻿using System.Web.Mvc;
 using MBlog.Controllers;
 using MBlog.Models.Comment;
-using MBlogRepository.Interfaces;
 using MBlogServiceInterfaces;
 using Moq;
 using NUnit.Framework;
@@ -15,11 +10,7 @@ namespace MBlogUnitTest.Controllers
     [TestFixture]
     public class CommentControllerTest : BaseControllerTests
     {
-        private Mock<IPostService> _postDomain;
-        private CommentController _controller;
-        private const string ExpectedRefererUrl = "value";
-        const string Name = "Name";
-        const string Comment = "Comment";
+        #region Setup/Teardown
 
         [SetUp]
         public void SetUp()
@@ -32,18 +23,20 @@ namespace MBlogUnitTest.Controllers
             SetControllerContext(_controller);
         }
 
-        [Test]
-        public void GivenACommentController_WhenCreateIsCalled_ThenTheCommentIsAdded()
-        {
-            _controller.Create(new AddCommentViewModel(1, true){Name = Name, Comment = Comment});
-            _postDomain.Verify(p => p.AddComment(1, Name, Comment));
-        }
+        #endregion
+
+        private Mock<IPostService> _postDomain;
+        private CommentController _controller;
+        private const string ExpectedRefererUrl = "value";
+        private const string Name = "Name";
+        private const string Comment = "Comment";
 
         [Test]
-        public void GivenACommentController_WhenCreateIsCalled_AndTheCommentIsInvalid_ThenTheCommentStateIsAddedToTempData()
+        public void
+            GivenACommentController_WhenCreateIsCalled_AndTheCommentIsInvalid_ThenTheCommentStateIsAddedToTempData()
         {
             _controller.ModelState.AddModelError("Name", "Name error");
-            _controller.Create(new AddCommentViewModel(1, true) { Name = Name, Comment = Comment });
+            _controller.Create(new AddCommentViewModel(1, true) {Name = Name, Comment = Comment});
             Assert.That(_controller.TempData, Is.Not.Null);
             Assert.That(_controller.TempData["comment"], Is.Not.Null);
         }
@@ -51,9 +44,17 @@ namespace MBlogUnitTest.Controllers
         [Test]
         public void GivenACommentController_WhenCreateIsCalled_ThenTheBrowserIsRedirectedToTheReferer()
         {
-            RedirectResult result = (RedirectResult) _controller.Create(new AddCommentViewModel(1, true) { Name = Name, Comment = Comment });
+            var result =
+                (RedirectResult) _controller.Create(new AddCommentViewModel(1, true) {Name = Name, Comment = Comment});
             Assert.That(result.Url, Is.EqualTo(ExpectedRefererUrl));
-            _postDomain.Verify(p => p.AddComment(1, Name, Comment));                
+            _postDomain.Verify(p => p.AddComment(1, Name, Comment));
+        }
+
+        [Test]
+        public void GivenACommentController_WhenCreateIsCalled_ThenTheCommentIsAdded()
+        {
+            _controller.Create(new AddCommentViewModel(1, true) {Name = Name, Comment = Comment});
+            _postDomain.Verify(p => p.AddComment(1, Name, Comment));
         }
     }
 }

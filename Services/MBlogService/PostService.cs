@@ -16,6 +16,8 @@ namespace MBlogService
             _postRepository = postRepository;
         }
 
+        #region IPostService Members
+
         public void AddComment(int postId, string name, string comment)
         {
             try
@@ -100,5 +102,7 @@ namespace MBlogService
                 throw new MBlogException("Unable to retrieve posts", e);
             }
         }
+
+        #endregion
     }
 }

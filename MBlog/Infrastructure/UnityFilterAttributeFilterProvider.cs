@@ -6,7 +6,7 @@ namespace MBlog.Infrastructure
 {
     public class UnityFilterAttributeFilterProvider : FilterAttributeFilterProvider
     {
-        private IUnityContainer _container;
+        private readonly IUnityContainer _container;
 
         public UnityFilterAttributeFilterProvider(IUnityContainer container)
         {
@@ -14,13 +14,12 @@ namespace MBlog.Infrastructure
         }
 
         protected override IEnumerable<FilterAttribute> GetControllerAttributes(
-                    ControllerContext controllerContext,
-                    ActionDescriptor actionDescriptor)
+            ControllerContext controllerContext,
+            ActionDescriptor actionDescriptor)
         {
-
-            var attributes = base.GetControllerAttributes(controllerContext,
-                                                          actionDescriptor);
-            foreach (var attribute in attributes)
+            IEnumerable<FilterAttribute> attributes = base.GetControllerAttributes(controllerContext,
+                                                                                   actionDescriptor);
+            foreach (FilterAttribute attribute in attributes)
             {
                 _container.BuildUp(attribute.GetType(), attribute);
             }
@@ -29,13 +28,12 @@ namespace MBlog.Infrastructure
         }
 
         protected override IEnumerable<FilterAttribute> GetActionAttributes(
-                    ControllerContext controllerContext,
-                    ActionDescriptor actionDescriptor)
+            ControllerContext controllerContext,
+            ActionDescriptor actionDescriptor)
         {
-
-            var attributes = base.GetActionAttributes(controllerContext,
-                                                      actionDescriptor);
-            foreach (var attribute in attributes)
+            IEnumerable<FilterAttribute> attributes = base.GetActionAttributes(controllerContext,
+                                                                               actionDescriptor);
+            foreach (FilterAttribute attribute in attributes)
             {
                 _container.BuildUp(attribute.GetType(), attribute);
             }

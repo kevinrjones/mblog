@@ -30,6 +30,5 @@ namespace MBlog.Models.Post
         }
 
         public bool IsCreate { get; set; }
-
     }
 }

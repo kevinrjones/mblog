@@ -1,21 +1,21 @@
-﻿using System;
-using System.Data;
+﻿using System.Data;
 using System.Data.Entity;
-using System.Data.Entity.Validation;
 using System.Linq;
 
 namespace Repository
 {
     public abstract class BaseEfRepository<T> : IRepository<T> where T : class
     {
-        private readonly IDbSet<T> _dbSet;
         private readonly DbContext _dataDbContext;
+        private readonly IDbSet<T> _dbSet;
 
         protected BaseEfRepository(DbContext dataDbContext)
         {
             _dataDbContext = dataDbContext;
             _dbSet = dataDbContext.Set<T>();
         }
+
+        #region IRepository<T> Members
 
         public IQueryable<T> Entities
         {
@@ -45,14 +45,16 @@ namespace Repository
             _dbSet.Remove(entity);
         }
 
-        protected internal void Save()
-        {
-            _dataDbContext.SaveChanges();
-        }
-
         public void Dispose()
         {
             _dataDbContext.Dispose();
+        }
+
+        #endregion
+
+        protected internal void Save()
+        {
+            _dataDbContext.SaveChanges();
         }
     }
 }

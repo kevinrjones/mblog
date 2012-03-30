@@ -5,7 +5,9 @@ namespace MBlogRepository.Contexts
 {
     public class BlogDbContext : DbContext
     {
-        public BlogDbContext(string connectionString) : base(connectionString) { }
+        public BlogDbContext(string connectionString) : base(connectionString)
+        {
+        }
 
         public DbSet<Post> Posts { get; set; }
     }

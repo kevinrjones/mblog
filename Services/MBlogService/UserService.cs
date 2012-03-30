@@ -10,16 +10,19 @@ namespace MBlogService
 {
     public class UserService : IUserService
     {
+        private readonly ILogger _logger;
         private readonly IUserRepository _userRepository;
         private readonly IUsernameBlacklistRepository _usernameBlacklistRepository;
-        private readonly ILogger _logger;
 
-        public UserService(IUserRepository userRepository, IUsernameBlacklistRepository usernameBlacklistRepository, ILogger logger)
+        public UserService(IUserRepository userRepository, IUsernameBlacklistRepository usernameBlacklistRepository,
+                           ILogger logger)
         {
             _userRepository = userRepository;
             _usernameBlacklistRepository = usernameBlacklistRepository;
             _logger = logger;
         }
+
+        #region IUserService Members
 
         public User GetUser(string email)
         {
@@ -43,14 +46,13 @@ namespace MBlogService
             {
                 throw new MBlogException("Unable to retrieve user", e);
             }
-            
         }
 
         public User CreateUser(string name, string email, string password)
         {
             try
             {
-                User user = new User(name, email, password, false);
+                var user = new User(name, email, password, false);
                 _userRepository.Create(user);
 
                 return user;
@@ -69,19 +71,19 @@ namespace MBlogService
                 User user = GetUser(email);
                 if (user != null)
                 {
-                    errorDetails.Add(new ErrorDetails { FieldName = "EMail", Message = "EMail already exists in database" });
+                    errorDetails.Add(new ErrorDetails
+                                         {FieldName = "EMail", Message = "EMail already exists in database"});
                 }
 
                 Blacklist blacklist = _usernameBlacklistRepository.GetName(name);
                 if (blacklist != null)
                 {
-                    errorDetails.Add(new ErrorDetails { FieldName = "Name", Message = "That user name is reserved" });
+                    errorDetails.Add(new ErrorDetails {FieldName = "Name", Message = "That user name is reserved"});
                 }
                 return errorDetails;
             }
             catch (Exception e)
             {
-
                 throw new MBlogException("Unable to access repository", e);
             }
         }
@@ -95,7 +97,7 @@ namespace MBlogService
             catch (Exception e)
             {
                 throw new MBlogException("Unable to retrieve user and blogs", e);
-            }            
+            }
         }
 
         public IEnumerable<User> GetUsersWithTheirBlogs()
@@ -109,5 +111,7 @@ namespace MBlogService
                 throw new MBlogException("Unable to retrieve users and blogs", e);
             }
         }
+
+        #endregion
     }
 }

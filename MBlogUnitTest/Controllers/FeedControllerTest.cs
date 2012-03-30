@@ -1,18 +1,8 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Collections.Specialized;
-using System.Linq;
 using System.ServiceModel.Syndication;
-using System.Text;
-using System.Web.Mvc;
 using MBlog.ActionResults;
 using MBlog.Controllers;
-using MBlog.Models;
-using MBlog.Models.Admin;
-using MBlog.Models.Post;
-using MBlog.Models.User;
-using MBlogModel;
-using MBlogRepository.Interfaces;
 using MBlogServiceInterfaces;
 using Moq;
 using NUnit.Framework;
@@ -20,9 +10,9 @@ using NUnit.Framework;
 namespace MBlogUnitTest.Controllers
 {
     [TestFixture]
-    class FeedControllerTest : BaseControllerTests
+    internal class FeedControllerTest : BaseControllerTests
     {
-        private Mock<ISyndicationFeedService> _syndicationFeedDomain;
+        #region Setup/Teardown
 
         [SetUp]
         public void SetUp()
@@ -33,7 +23,24 @@ namespace MBlogUnitTest.Controllers
             headers.Add("HOST", "localhost");
             MockRequest.Setup(r => r.Headers).Returns(headers);
             MockHttpContext.Setup(h => h.Request).Returns(MockRequest.Object);
+        }
 
+        #endregion
+
+        private Mock<ISyndicationFeedService> _syndicationFeedDomain;
+
+        [Test]
+        public void WhenAnAtomFeedIsRequested_ThenAnRssViewResultIsReturned()
+        {
+            var controller = new FeedController(_syndicationFeedDomain.Object, null);
+            SetControllerContext(controller);
+            _syndicationFeedDomain.Setup(
+                s =>
+                s.CreateSyndicationFeed(It.IsAny<string>(), It.IsAny<string>(), It.IsAny<string>(), It.IsAny<string>()))
+                .Returns(new SyndicationFeed());
+            var feed = (SyndicationActionResult) controller.Atom("kevin");
+            FeedData feedData = feed.FeedData;
+            Assert.That(feedData.ContentType, Is.EqualTo("application/atom+xml"));
         }
 
         [Test]
@@ -45,24 +52,9 @@ namespace MBlogUnitTest.Controllers
                 s =>
                 s.CreateSyndicationFeed(It.IsAny<string>(), It.IsAny<string>(), It.IsAny<string>(), It.IsAny<string>()))
                 .Returns(new SyndicationFeed());
-            SyndicationActionResult feed = (SyndicationActionResult) controller.Rss("kevin");
+            var feed = (SyndicationActionResult) controller.Rss("kevin");
             FeedData feedData = feed.FeedData;
             Assert.That(feedData.ContentType, Is.EqualTo("application/rss+xml"));
         }
-
-        [Test]
-        public void WhenAnAtomFeedIsRequested_ThenAnRssViewResultIsReturned()
-        {
-            var controller = new FeedController(_syndicationFeedDomain.Object, null);
-            SetControllerContext(controller);
-            _syndicationFeedDomain.Setup(
-                s =>
-                s.CreateSyndicationFeed(It.IsAny<string>(), It.IsAny<string>(), It.IsAny<string>(), It.IsAny<string>()))
-                .Returns(new SyndicationFeed());
-            SyndicationActionResult feed = (SyndicationActionResult)controller.Atom("kevin");
-            FeedData feedData = feed.FeedData;
-            Assert.That(feedData.ContentType, Is.EqualTo("application/atom+xml"));
-        }
-
     }
 }

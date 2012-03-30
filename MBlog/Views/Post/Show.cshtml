@@ -1,11 +1,11 @@
 ﻿@using MBlog.Models.Post
-@model PostsViewModel
+@model MBlog.Models.Post.PostsViewModel
 @{
     ViewBag.Title = "Show Blog Posts";
     Layout = "~/Views/Post/_PostLayout.cshtml";
 }
 <ul class="blog-list">
-    @foreach (var viewModel in Model.Posts)
+    @foreach (PostViewModel viewModel in Model.Posts)
     {
         <li class="blog-post">
             @{
@@ -15,6 +15,6 @@
                     Html.RenderPartial("_ShowCommentsForPost", viewModel.AddCommentViewModel);
                 }
             }
-        </li>        
+        </li>
     }
 </ul>

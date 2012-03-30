@@ -6,10 +6,12 @@ using Repository;
 
 namespace MBlogRepository.Repositories
 {
-    public class BlacklistRepositoryBase: BaseEfRepository<Blacklist>
+    public class BlacklistRepositoryBase : BaseEfRepository<Blacklist>
     {
         public BlacklistRepositoryBase(DbContext dbContext)
-            : base(dbContext){}
+            : base(dbContext)
+        {
+        }
 
         public List<Blacklist> GetNames()
         {
@@ -20,6 +22,5 @@ namespace MBlogRepository.Repositories
         {
             return Entities.Where(e => e.Name == nickname).FirstOrDefault();
         }
-
     }
 }

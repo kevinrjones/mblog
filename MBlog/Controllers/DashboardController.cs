@@ -6,14 +6,13 @@ using MBlog.Models.Admin;
 using MBlog.Models.Post;
 using MBlog.Models.User;
 using MBlogModel;
-using MBlogRepository.Interfaces;
 using MBlogServiceInterfaces;
 
 namespace MBlog.Controllers
 {
     public class DashboardController : BaseController
     {
-        private IPostService _postService;
+        private readonly IPostService _postService;
         private readonly IUserService _userService;
 
         public DashboardController(IPostService postService, IUserService userService, ILogger logger)
@@ -38,7 +37,7 @@ namespace MBlog.Controllers
         public ActionResult ListPosts(AdminBlogViewModel model)
         {
             IList<Post> posts = _postService.GetOrderedBlogPosts(model.BlogId);
-            var postsViewModel = new PostsViewModel (model.BlogId, model.Nickname, posts);
+            var postsViewModel = new PostsViewModel(model.BlogId, model.Nickname, posts);
             return View(postsViewModel);
         }
     }

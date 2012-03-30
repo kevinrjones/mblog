@@ -1,14 +1,13 @@
 ﻿using System.Web.Mvc;
 using Logging;
 using MBlog.Models.Comment;
-using MBlogRepository.Interfaces;
 using MBlogServiceInterfaces;
 
 namespace MBlog.Controllers
 {
     public class CommentController : BaseController
     {
-        private IPostService _postService;
+        private readonly IPostService _postService;
 
         public CommentController(IPostService postService, ILogger logger)
             : base(logger)

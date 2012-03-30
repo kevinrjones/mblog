@@ -14,6 +14,8 @@ namespace MBlogRepository.Repositories
         {
         }
 
+        #region IMediaRepository Members
+
         public Media GetMedia(int id)
         {
             return (from i in Entities
@@ -25,9 +27,9 @@ namespace MBlogRepository.Repositories
         {
             return (from i in Entities
                     where i.Year == year
-                    && i.Month == month
-                    && i.Day == day
-                    && i.LinkKey == linkKey
+                          && i.Month == month
+                          && i.Day == day
+                          && i.LinkKey == linkKey
                     select i).FirstOrDefault();
         }
 
@@ -36,7 +38,7 @@ namespace MBlogRepository.Repositories
             return Entities
                 .Where(e => e.UserId == userId)
                 .OrderBy(e => e.Id)
-                .Skip((pageNumber - 1) * numberOfItems)
+                .Skip((pageNumber - 1)*numberOfItems)
                 .Take(numberOfItems)
                 .ToList();
         }
@@ -51,5 +53,7 @@ namespace MBlogRepository.Repositories
         {
             Attach(media);
         }
+
+        #endregion
     }
 }

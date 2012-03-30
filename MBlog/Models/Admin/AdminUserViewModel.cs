@@ -8,7 +8,6 @@ namespace MBlog.Models.Admin
 
         public AdminUserViewModel()
         {
-            
         }
 
 
@@ -21,7 +20,6 @@ namespace MBlog.Models.Admin
 
         public int UserId { get; set; }
         public string Name { get; set; }
-
 
 
         public List<AdminBlogViewModel> Blogs

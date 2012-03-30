@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using MBlogModel;
+﻿using MBlogModel;
 
 namespace MBlogBuilder
 {
@@ -15,11 +10,11 @@ namespace MBlogBuilder
         }
 
         public MediaBuilder(string fileName, string title, string caption,
-                string description, string alternate, int userId,
-                string mimeType, int alignment, int size, byte[] imageData)
+                            string description, string alternate, int userId,
+                            string mimeType, int alignment, int size, byte[] imageData)
         {
             Instance = new Media(fileName, title, caption, description,
-                alternate, userId, mimeType, alignment, size, imageData);
+                                 alternate, userId, mimeType, alignment, size, imageData);
         }
 
         public MediaBuilder WithUser(User user)

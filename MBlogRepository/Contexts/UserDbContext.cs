@@ -6,8 +6,10 @@ namespace MBlogRepository.Contexts
     public class UserDbContext : DbContext
     {
         public UserDbContext(string connectionString)
-            : base(connectionString){ }
+            : base(connectionString)
+        {
+        }
 
-        public DbSet<User> Users { get; set; } 
+        public DbSet<User> Users { get; set; }
     }
 }

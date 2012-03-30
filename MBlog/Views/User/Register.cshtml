@@ -1,12 +1,11 @@
-﻿@using MBlog.Models.User
-@using MBlog.Resources.General
+﻿@using MBlog.Resources.General
 @using MBlog.Resources.User
-@model UserViewModel
+@model MBlog.Models.User.UserViewModel
 @{
     ViewBag.Title = Html.Encode(Register.Title);
 }
 <div style="margin-top: 30px">
-    @using (Html.BeginForm("Create", "user", FormMethod.Post, new { @class = "form" }))
+    @using (Html.BeginForm("Create", "user", FormMethod.Post, new {@class = "form"}))
     {
         @Html.ValidationSummary(true)
         <fieldset>
@@ -24,7 +23,7 @@
                 <span class="label">
                     @Html.LabelFor(model => model.Email, Global.Email)
                 </span>
-                    <span class="formw">@Html.EditorFor(model => model.Email)</span>
+                <span class="formw">@Html.EditorFor(model => model.Email)</span>
                 <div>
                     @Html.ValidationMessageFor(model => model.Email)
                 </div>
@@ -33,7 +32,7 @@
                 <span class="label">
                     @Html.LabelFor(model => model.Password, Global.Password)
                 </span>
-                    <span class="formw">@Html.PasswordFor(model => model.Password)</span>
+                <span class="formw">@Html.PasswordFor(model => model.Password)</span>
                 <div>
                     @Html.ValidationMessageFor(model => model.Password)
                 </div>
@@ -42,13 +41,13 @@
                 <span class="label">
                     @Html.LabelFor(model => model.RepeatPassword, Global.RepeatPassword)
                 </span>
-                    <span class="formw">@Html.PasswordFor(model => model.RepeatPassword)</span>
+                <span class="formw">@Html.PasswordFor(model => model.RepeatPassword)</span>
                 <div>
                     @Html.ValidationMessageFor(model => model.RepeatPassword)
                 </div>
             </div>
             <div class="row">
-                    <span class="formw"><input type="submit" value="@Html.Encode(Register.Title)" id="submit" name="submit" /></span>
+                <span class="formw"><input type="submit" value="@Html.Encode(Register.Title)" id="submit" name="submit" /></span>
             </div>
         </fieldset>
     }

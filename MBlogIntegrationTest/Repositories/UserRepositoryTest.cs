@@ -13,6 +13,8 @@ namespace MBlogIntegrationTest.Repositories
     [TestFixture]
     public class UserRepositoryTest
     {
+        #region Setup/Teardown
+
         [SetUp]
         public void Setup()
         {
@@ -41,6 +43,8 @@ namespace MBlogIntegrationTest.Repositories
         {
             _transactionScope.Dispose();
         }
+
+        #endregion
 
         private User user;
         private TransactionScope _transactionScope;

@@ -7,20 +7,20 @@ namespace MBlog.Models.Media
 {
     public class ShowMediaViewModel
     {
-        private readonly Dictionary<int, string> _sizeLookup = new Dictionary<int, string>();
         private readonly Dictionary<int, string> _alignLookup = new Dictionary<int, string>();
+        private readonly Dictionary<int, string> _sizeLookup = new Dictionary<int, string>();
 
 
         protected ShowMediaViewModel()
         {
-            _sizeLookup.Add((int)MBlogModel.Media.ValidSizes.Fullsize, "img-fullsize");
-            _sizeLookup.Add((int)MBlogModel.Media.ValidSizes.Thumbnail, "img-thumbnail");
-            _sizeLookup.Add((int)MBlogModel.Media.ValidSizes.Medium, "img-medium");
-            _sizeLookup.Add((int)MBlogModel.Media.ValidSizes.Large, "img-large");
+            _sizeLookup.Add((int) MBlogModel.Media.ValidSizes.Fullsize, "img-fullsize");
+            _sizeLookup.Add((int) MBlogModel.Media.ValidSizes.Thumbnail, "img-thumbnail");
+            _sizeLookup.Add((int) MBlogModel.Media.ValidSizes.Medium, "img-medium");
+            _sizeLookup.Add((int) MBlogModel.Media.ValidSizes.Large, "img-large");
 
-            _alignLookup.Add((int)MBlogModel.Media.ValidAllignments.None, "");
-            _alignLookup.Add((int)MBlogModel.Media.ValidAllignments.Right, "img-align-right");
-            _alignLookup.Add((int)MBlogModel.Media.ValidAllignments.Left, "img-align-left");
+            _alignLookup.Add((int) MBlogModel.Media.ValidAllignments.None, "");
+            _alignLookup.Add((int) MBlogModel.Media.ValidAllignments.Right, "img-align-right");
+            _alignLookup.Add((int) MBlogModel.Media.ValidAllignments.Left, "img-align-left");
         }
 
         public ShowMediaViewModel(MBlogModel.Media media)
@@ -51,6 +51,7 @@ namespace MBlog.Models.Media
 
         [Required]
         public string Title { get; set; }
+
         public string LinkKey { get; set; }
         public string ContentType { get; set; }
         public string Caption { get; set; }
@@ -63,7 +64,9 @@ namespace MBlog.Models.Media
         public string DisplayDate { get; set; }
         public int Id { get; set; }
         public int UserId { get; set; }
-        public string Extension {
+
+        public string Extension
+        {
             get
             {
                 if (!string.IsNullOrEmpty(FileName) && FileName.Contains("."))
@@ -73,6 +76,7 @@ namespace MBlog.Models.Media
                 return "Unknown File Type";
             }
         }
+
         public string Author { get; set; }
 
         public string FileName { get; set; }

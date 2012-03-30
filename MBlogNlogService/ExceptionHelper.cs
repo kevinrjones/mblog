@@ -1,6 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Text;
 using System.Threading;
 
 namespace MBlogNlogService
@@ -9,7 +7,8 @@ namespace MBlogNlogService
     {
         public static bool MustBeRethrown(this Exception exception)
         {
-            if (exception is StackOverflowException || exception is ThreadAbortException || exception is OutOfMemoryException)
+            if (exception is StackOverflowException || exception is ThreadAbortException ||
+                exception is OutOfMemoryException)
                 return true;
             else
                 return false;

@@ -5,9 +5,11 @@ namespace MBlogRepository.Contexts
 {
     public class UsernameBlacklistDbContext : DbContext
     {
-        public UsernameBlacklistDbContext(string connectionString) : base(connectionString) { }
-
         public DbSet<Blacklist> UsernameBlacklist;
+
+        public UsernameBlacklistDbContext(string connectionString) : base(connectionString)
+        {
+        }
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {

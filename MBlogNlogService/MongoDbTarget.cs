@@ -1,11 +1,7 @@
 ﻿using System;
-using System.ComponentModel;
-using System.Configuration;
-using System.Net.Sockets;
 using MongoDB.Driver;
 using NLog;
 using NLog.Common;
-using NLog.Layouts;
 using NLog.Targets;
 
 namespace MBlogNlogService
@@ -13,8 +9,8 @@ namespace MBlogNlogService
     [Target("MongoDb")]
     public class MongoDbTarget : TargetWithLayout
     {
-        public string ServerUrl { get; set; }
         private MongoDatabase _database;
+        public string ServerUrl { get; set; }
         public string DatabaseName { get; set; }
 
         protected override void InitializeTarget()
@@ -25,7 +21,7 @@ namespace MBlogNlogService
 
         protected override void Write(LogEventInfo logEvent)
         {
-            LogDetails details = new LogDetails(logEvent);
+            var details = new LogDetails(logEvent);
 
             try
             {
@@ -37,7 +33,7 @@ namespace MBlogNlogService
                 {
                     throw;
                 }
-                InternalLogger.Error("Error when writing to database {0}", new object[] { ex });
+                InternalLogger.Error("Error when writing to database {0}", new object[] {ex});
                 throw;
             }
         }
