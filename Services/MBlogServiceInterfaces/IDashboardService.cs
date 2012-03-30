@@ -1,8 +1,8 @@
 using MBlogModel;
 
-namespace MBlogDomainInterfaces
+namespace MBlogServiceInterfaces
 {
-    public interface IDashboardDomain
+    public interface IDashboardService
     {
         void CreatePost(Post post, int blogId);
         void Update(int postId, string title, string post, int blogId);

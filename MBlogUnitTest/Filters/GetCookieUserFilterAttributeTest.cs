@@ -5,9 +5,9 @@ using System.Web.Routing;
 using MBlog.Controllers;
 using MBlog.Filters;
 using MBlog.Models.User;
-using MBlogDomainInterfaces;
 using MBlogModel;
 using MBlogRepository.Interfaces;
+using MBlogServiceInterfaces;
 using Moq;
 using NUnit.Framework;
 
@@ -17,7 +17,7 @@ namespace MBlogUnitTest.Filters
     class GetCookieUserFilterAttributeTest
     {
         private AuthorizationContext _actionExecutingContext;
-        private IUserDomain _userDomain;
+        private IUserService _userService;
         Mock<HttpContextBase> _mockHttpContext;
         private const string Nickname = "nickname";
         private GetCookieUserFilterAttribute _attribute;
@@ -29,7 +29,7 @@ namespace MBlogUnitTest.Filters
             var user = new User("Name", "EMail", "Password", false);
             user.Blogs = blogs;
 
-            var mockRepo = new Mock<IUserDomain>();
+            var mockRepo = new Mock<IUserService>();
 
             mockRepo.Setup(r => r.GetUser(1)).Returns(user);
             mockRepo.Setup(r => r.GetUserWithTheirBlogs(1)).Returns(user);
@@ -39,7 +39,7 @@ namespace MBlogUnitTest.Filters
             mockRepo.Setup(r => r.GetUser(2)).Returns(user2);
             mockRepo.Setup(r => r.GetUserWithTheirBlogs(2)).Returns(user2);
 
-            _userDomain = mockRepo.Object;
+            _userService = mockRepo.Object;
             _mockHttpContext = new Mock<HttpContextBase>();
             _mockHttpContext.SetupProperty(h => h.User);
 
@@ -58,7 +58,7 @@ namespace MBlogUnitTest.Filters
                                            actionDescriptor.Object);
 
             _attribute = new GetCookieUserFilterAttribute();
-            _attribute.UserDomain = _userDomain;
+            _attribute.UserService = _userService;
         }
 
         [Test]

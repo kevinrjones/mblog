@@ -7,9 +7,9 @@ using MBlog.Filters;
 using MBlog.Infrastructure;
 using MBlog.Models;
 using MBlog.Models.User;
-using MBlogDomainInterfaces;
 using MBlogModel;
 using MBlogRepository.Interfaces;
+using MBlogServiceInterfaces;
 using Moq;
 using NUnit.Framework;
 
@@ -19,12 +19,12 @@ namespace MBlogUnitTest.Controllers
     class SessionControllerTest : BaseControllerTests
     {
         SessionController _sessionController;
-        private Mock<IUserDomain> _userDomain;        
+        private Mock<IUserService> _userDomain;        
 
         [SetUp]
         public void Setup()
         {
-            _userDomain = new Mock<IUserDomain>();
+            _userDomain = new Mock<IUserService>();
 
             _sessionController = new SessionController(_userDomain.Object, null);
 

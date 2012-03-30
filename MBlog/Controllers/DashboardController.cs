@@ -5,22 +5,22 @@ using MBlog.Filters;
 using MBlog.Models.Admin;
 using MBlog.Models.Post;
 using MBlog.Models.User;
-using MBlogDomainInterfaces;
 using MBlogModel;
 using MBlogRepository.Interfaces;
+using MBlogServiceInterfaces;
 
 namespace MBlog.Controllers
 {
     public class DashboardController : BaseController
     {
-        private IPostDomain _postDomain;
-        private readonly IUserDomain _userDomain;
+        private IPostService _postService;
+        private readonly IUserService _userService;
 
-        public DashboardController(IPostDomain postDomain, IUserDomain userDomain, ILogger logger)
+        public DashboardController(IPostService postService, IUserService userService, ILogger logger)
             : base(logger)
         {
-            _postDomain = postDomain;
-            _userDomain = userDomain;
+            _postService = postService;
+            _userService = userService;
         }
 
         [AuthorizeLoggedInUser]
@@ -28,7 +28,7 @@ namespace MBlog.Controllers
         {
             var userViewModel = HttpContext.User as UserViewModel;
 
-            User user = _userDomain.GetUserWithTheirBlogs(userViewModel.Id);
+            User user = _userService.GetUserWithTheirBlogs(userViewModel.Id);
 
             var adminUserViewModel = new AdminUserViewModel(userViewModel.Name, userViewModel.Id, user.Blogs);
             return View(adminUserViewModel);
@@ -37,7 +37,7 @@ namespace MBlog.Controllers
         [AuthorizeBlogOwner]
         public ActionResult ListPosts(AdminBlogViewModel model)
         {
-            IList<Post> posts = _postDomain.GetOrderedBlogPosts(model.BlogId);
+            IList<Post> posts = _postService.GetOrderedBlogPosts(model.BlogId);
             var postsViewModel = new PostsViewModel (model.BlogId, model.Nickname, posts);
             return View(postsViewModel);
         }

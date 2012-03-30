@@ -5,10 +5,10 @@ using System.Web.Mvc;
 using MBlog.Controllers;
 using MBlog.Filters;
 using MBlog.Models.User;
-using MBlogDomainInterfaces;
-using MBlogDomainInterfaces.ModelState;
 using MBlogModel;
 using MBlogRepository.Interfaces;
+using MBlogServiceInterfaces;
+using MBlogServiceInterfaces.ModelState;
 using Moq;
 using NUnit.Framework;
 
@@ -18,11 +18,11 @@ namespace MBlogUnitTest.Controllers
     class UserControllerTest : BaseControllerTests
     {
         UserController _controller;
-        private Mock<IUserDomain> _userDomain;
+        private Mock<IUserService> _userDomain;
         [SetUp]
         public void Setup()
         {
-            _userDomain = new Mock<IUserDomain>();
+            _userDomain = new Mock<IUserService>();
             _controller = new UserController(_userDomain.Object, null);
 
             SetControllerContext(_controller);

@@ -6,20 +6,20 @@ using Logging;
 using MBlog.Filters;
 using MBlog.Infrastructure;
 using MBlog.Models.User;
-using MBlogDomainInterfaces;
-using MBlogDomainInterfaces.ModelState;
 using MBlogModel;
+using MBlogServiceInterfaces;
+using MBlogServiceInterfaces.ModelState;
 
 namespace MBlog.Controllers
 {
     public class UserController : BaseController
     {
-        private readonly IUserDomain _userDomain;
+        private readonly IUserService _userService;
 
-        public UserController(IUserDomain userDomain, ILogger logger)
+        public UserController(IUserService userService, ILogger logger)
             : base(logger)
         {
-            _userDomain = userDomain;
+            _userService = userService;
         }
 
         [HttpGet]
@@ -40,7 +40,7 @@ namespace MBlog.Controllers
             {
                 return View("Register");
             }
-            errorDetails = _userDomain.IsUserRegistrationValid(userViewModel.Name, userViewModel.Email);
+            errorDetails = _userService.IsUserRegistrationValid(userViewModel.Name, userViewModel.Email);
             if (errorDetails.Count != 0)
             {
                 foreach (var errorDetail in errorDetails)
@@ -50,7 +50,7 @@ namespace MBlog.Controllers
                 return View("Register");
             }
 
-            User user = _userDomain.CreateUser(userViewModel.Name, userViewModel.Email, userViewModel.Password);
+            User user = _userService.CreateUser(userViewModel.Name, userViewModel.Email, userViewModel.Password);
             UpdateCookiesAndContext(user);
             return RedirectToAction("index", "Dashboard");
         }

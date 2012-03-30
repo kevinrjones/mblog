@@ -5,9 +5,9 @@ using System.Web.Mvc;
 using MBlog.Controllers;
 using MBlog.Models.Media;
 using MBlog.Models.User;
-using MBlogDomainInterfaces;
 using MBlogModel;
 using MBlogRepository.Interfaces;
+using MBlogServiceInterfaces;
 using Moq;
 using NUnit.Framework;
 
@@ -16,12 +16,12 @@ namespace MBlogUnitTest.Controllers
     [TestFixture]
     class MediaControllerTest : BaseControllerTests
     {
-        private Mock<IMediaDomain> _mediaDomain;
+        private Mock<IMediaService> _mediaDomain;
 
         [SetUp]
         public void Setup()
         {
-            _mediaDomain = new Mock<IMediaDomain>();
+            _mediaDomain = new Mock<IMediaService>();
         }
 
         [Test]
@@ -150,14 +150,14 @@ namespace MBlogUnitTest.Controllers
         }
 
         [Test]
-        public void WhenUpdateIsCalled_AndTheModelStateIsInvalid_ThenTheNewViewIsReturned()
+        public void WhenUpdateIsCalled_AndTheModelStateIsInvalid_ThenTheEditViewIsReturned()
         {
             MediaController controller = new MediaController(_mediaDomain.Object, null);
             var model = new UpdateMediaViewModel();
             controller.ViewData.ModelState.AddModelError("Key", "ErrorMessage");
             ViewResult result = (ViewResult)controller.Update(model);
             Assert.That(result, Is.Not.Null);
-            Assert.That(result.ViewName, Is.EqualTo("New").IgnoreCase);
+            Assert.That(result.ViewName, Is.EqualTo("Edit").IgnoreCase);
         }
 
         [Test]

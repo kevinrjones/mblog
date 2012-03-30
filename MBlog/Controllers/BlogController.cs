@@ -3,19 +3,19 @@ using Logging;
 using MBlog.Filters;
 using MBlog.Models.Blog;
 using MBlog.Models.User;
-using MBlogDomainInterfaces;
 using MBlogModel;
+using MBlogServiceInterfaces;
 
 namespace MBlog.Controllers
 {
     public class BlogController : BaseController
     {
-        private readonly IBlogDomain _blogDomain;
+        private readonly IBlogService _blogService;
 
-        public BlogController(IBlogDomain blogDomain, ILogger logger)
+        public BlogController(IBlogService blogService, ILogger logger)
             : base(logger)
         {
-            _blogDomain = blogDomain;
+            _blogService = blogService;
         }
 
         [HttpGet]
@@ -39,7 +39,7 @@ namespace MBlog.Controllers
                 return View("New", model);
             }
             var user = HttpContext.User as UserViewModel;
-            _blogDomain.CreateBlog(model.Title, model.Description, model.ApproveComments, model.CommentsEnabled,
+            _blogService.CreateBlog(model.Title, model.Description, model.ApproveComments, model.CommentsEnabled,
                                    model.Nickname, user.Id);
             return RedirectToRoute(new { controller = "Dashboard", action = "Index" });
         }
@@ -48,7 +48,7 @@ namespace MBlog.Controllers
         [AuthorizeBlogOwner]
         public ActionResult Edit(CreateBlogViewModel model)
         {
-            Blog blog = _blogDomain.GetBlog(model.Nickname);
+            Blog blog = _blogService.GetBlog(model.Nickname);
             var modelOut = new CreateBlogViewModel(blog);
             return View(modelOut);
         }
@@ -61,7 +61,7 @@ namespace MBlog.Controllers
             {
                 return View("Edit", model);
             }
-            _blogDomain.UpdateBlog(model.Nickname, model.ApproveComments, model.CommentsEnabled, model.Description,
+            _blogService.UpdateBlog(model.Nickname, model.ApproveComments, model.CommentsEnabled, model.Description,
                                    model.Title);
             return RedirectToRoute(new { controller = "Dashboard", action = "Index" });
         }

@@ -6,9 +6,9 @@ using System.Web.Routing;
 using MBlog.Controllers;
 using MBlog.Filters;
 using MBlog.Models.User;
-using MBlogDomainInterfaces;
 using MBlogModel;
 using MBlogRepository.Interfaces;
+using MBlogServiceInterfaces;
 using MBlogUnitTest.Extensions;
 using MBlogUnitTest.Helpers;
 using Moq;
@@ -19,17 +19,17 @@ namespace MBlogUnitTest.Filters
     [TestFixture]
     public class AuthorizeBlogOwnerAttributeTest
     {
-        private IBlogDomain _blogDomain;
+        private IBlogService _blogService;
         private Mock<HttpContextBase> _mockHttpContext;
         private const string Nickname = "nickname";
         Mock<RequestContext> _requestContext;
-        Mock<IBlogDomain> _mockBlogDomain;
+        Mock<IBlogService> _mockBlogDomain;
         private AuthorizeBlogOwnerAttribute _blogOwnerAttribute;
 
         [SetUp]
         public void SetUp()
         {
-            _mockBlogDomain = new Mock<IBlogDomain>();
+            _mockBlogDomain = new Mock<IBlogService>();
 
             _mockHttpContext = new Mock<HttpContextBase>();
             _requestContext = new Mock<RequestContext>();
@@ -40,9 +40,9 @@ namespace MBlogUnitTest.Filters
 
             _mockHttpContext.Setup(h => h.Response).Returns(new FakeResponse());
 
-            _blogDomain = _mockBlogDomain.Object;
+            _blogService = _mockBlogDomain.Object;
             _blogOwnerAttribute = new AuthorizeBlogOwnerAttribute();
-            _blogOwnerAttribute.BlogDomain = _blogDomain;
+            _blogOwnerAttribute.BlogService = _blogService;
         }
 
         [Test]

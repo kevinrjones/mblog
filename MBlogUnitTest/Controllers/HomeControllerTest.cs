@@ -4,8 +4,8 @@ using System.Linq;
 using System.Web.Mvc;
 using MBlog.Controllers;
 using MBlog.Models.Home;
-using MBlogDomainInterfaces;
 using MBlogModel;
+using MBlogServiceInterfaces;
 using Moq;
 using NUnit.Framework;
 
@@ -14,15 +14,15 @@ namespace MBlogUnitTest.Controllers
     [TestFixture]
     class HomeControllerTest
     {
-        private Mock<IUserDomain> _userDomain;
-        private Mock<IPostDomain> _postDomain;
+        private Mock<IUserService> _userDomain;
+        private Mock<IPostService> _postDomain;
         private HomeController _controller;
 
         [SetUp]
         public void SetUp()
         {
-            _userDomain = new Mock<IUserDomain>();
-            _postDomain = new Mock<IPostDomain>();
+            _userDomain = new Mock<IUserService>();
+            _postDomain = new Mock<IPostService>();
 
             InitializeUserRepository();
 

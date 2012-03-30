@@ -1,22 +1,19 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using MBlogDomainInterfaces;
 using MBlogModel;
 using MBlogRepository.Interfaces;
+using MBlogServiceInterfaces;
 
-namespace MBlogDomain
+namespace MBlogService
 {
-    public class BlogDomain : IBlogDomain
+    public class BlogService : IBlogService
     {
         private readonly IBlogRepository _blogRepository;
 
-        public BlogDomain(IBlogRepository blogRepository, string connectionString)
+        public BlogService(IBlogRepository blogRepository, string connectionString)
         {
             
         }
-        public BlogDomain(IBlogRepository blogRepository)
+        public BlogService(IBlogRepository blogRepository)
         {
             _blogRepository = blogRepository;
         }

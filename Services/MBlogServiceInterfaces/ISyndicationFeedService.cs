@@ -1,8 +1,8 @@
 using System.ServiceModel.Syndication;
 
-namespace MBlogDomainInterfaces
+namespace MBlogServiceInterfaces
 {
-    public interface ISyndicationFeedDomain
+    public interface ISyndicationFeedService
     {
         SyndicationFeed CreateSyndicationFeed(string nickname, string feedType, string scheme, string host);
     }

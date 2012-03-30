@@ -1,10 +1,10 @@
 using System.Collections.Generic;
-using MBlogDomainInterfaces.ModelState;
 using MBlogModel;
+using MBlogServiceInterfaces.ModelState;
 
-namespace MBlogDomainInterfaces
+namespace MBlogServiceInterfaces
 {
-    public interface IUserDomain
+    public interface IUserService
     {
         User GetUser(string email);
         User GetUser(int id);

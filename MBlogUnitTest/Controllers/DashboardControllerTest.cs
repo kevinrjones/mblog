@@ -9,9 +9,9 @@ using MBlog.Models;
 using MBlog.Models.Admin;
 using MBlog.Models.Post;
 using MBlog.Models.User;
-using MBlogDomainInterfaces;
 using MBlogModel;
 using MBlogRepository.Interfaces;
+using MBlogServiceInterfaces;
 using Moq;
 using NUnit.Framework;
 
@@ -20,15 +20,15 @@ namespace MBlogUnitTest.Controllers
     [TestFixture]
     class DashboardControllerTest : BaseControllerTests
     {
-        private Mock<IUserDomain> _userDomain;
-        private Mock<IPostDomain> _postDomain;
+        private Mock<IUserService> _userDomain;
+        private Mock<IPostService> _postDomain;
         private DashboardController _controller;
 
         [SetUp]
         public void SetUp()
         {
-            _userDomain = new Mock<IUserDomain>();
-            _postDomain = new Mock<IPostDomain>();
+            _userDomain = new Mock<IUserService>();
+            _postDomain = new Mock<IPostService>();
             _userDomain.Setup(u => u.GetUserWithTheirBlogs(It.IsAny<int>())).Returns(new User{Blogs = new List<Blog>{new Blog()}});
             _controller = new DashboardController(_postDomain.Object, _userDomain.Object, null);
         }

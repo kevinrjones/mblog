@@ -1,12 +1,9 @@
-﻿using System;
-using System.Collections;
-using System.Collections.Generic;
-using System.Text;
+﻿using System.Collections.Generic;
 using MBlogModel;
 
-namespace MBlogDomainInterfaces
+namespace MBlogServiceInterfaces
 {
-    public interface IPostDomain
+    public interface IPostService
     {
         void AddComment(int postId, string name, string comment);
         Post GetBlogPost(int postId);

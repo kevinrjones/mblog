@@ -1,20 +1,20 @@
 ﻿using System;
 using System.Collections.Generic;
 using Logging;
-using MBlogDomainInterfaces;
-using MBlogDomainInterfaces.ModelState;
 using MBlogModel;
 using MBlogRepository.Interfaces;
+using MBlogServiceInterfaces;
+using MBlogServiceInterfaces.ModelState;
 
-namespace MBlogDomain
+namespace MBlogService
 {
-    public class UserDomain : IUserDomain
+    public class UserService : IUserService
     {
         private readonly IUserRepository _userRepository;
         private readonly IUsernameBlacklistRepository _usernameBlacklistRepository;
         private readonly ILogger _logger;
 
-        public UserDomain(IUserRepository userRepository, IUsernameBlacklistRepository usernameBlacklistRepository, ILogger logger)
+        public UserService(IUserRepository userRepository, IUsernameBlacklistRepository usernameBlacklistRepository, ILogger logger)
         {
             _userRepository = userRepository;
             _usernameBlacklistRepository = usernameBlacklistRepository;

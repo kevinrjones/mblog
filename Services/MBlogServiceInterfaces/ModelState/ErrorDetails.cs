@@ -1,4 +1,4 @@
-﻿namespace MBlogDomainInterfaces.ModelState
+﻿namespace MBlogServiceInterfaces.ModelState
 {
     public class ErrorDetails
     {

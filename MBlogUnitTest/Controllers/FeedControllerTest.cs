@@ -11,9 +11,9 @@ using MBlog.Models;
 using MBlog.Models.Admin;
 using MBlog.Models.Post;
 using MBlog.Models.User;
-using MBlogDomainInterfaces;
 using MBlogModel;
 using MBlogRepository.Interfaces;
+using MBlogServiceInterfaces;
 using Moq;
 using NUnit.Framework;
 
@@ -22,12 +22,12 @@ namespace MBlogUnitTest.Controllers
     [TestFixture]
     class FeedControllerTest : BaseControllerTests
     {
-        private Mock<ISyndicationFeedDomain> _syndicationFeedDomain;
+        private Mock<ISyndicationFeedService> _syndicationFeedDomain;
 
         [SetUp]
         public void SetUp()
         {
-            _syndicationFeedDomain = new Mock<ISyndicationFeedDomain>();
+            _syndicationFeedDomain = new Mock<ISyndicationFeedService>();
             MockRequest.Setup(r => r.Url).Returns(new Uri("http://foo.com/feed/rss"));
             var headers = new NameValueCollection();
             headers.Add("HOST", "localhost");

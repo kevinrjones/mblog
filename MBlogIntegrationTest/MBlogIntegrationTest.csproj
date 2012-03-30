@@ -122,14 +122,6 @@
       <Project>{7EAB4CD7-118C-443C-9DD2-FA8D806E15C3}</Project>
       <Name>MBlogBuilder</Name>
     </ProjectReference>
-    <ProjectReference Include="..\MBlogDomainInterfaces\MBlogDomainInterfaces.csproj">
-      <Project>{35F6ACAF-F2EC-4FC5-974C-BDE9C3FE38D4}</Project>
-      <Name>MBlogDomainInterfaces</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\MBlogDomain\MBlogDomain.csproj">
-      <Project>{6EEE1ECE-69AC-4F6D-8EDE-6536B721AA97}</Project>
-      <Name>MBlogDomain</Name>
-    </ProjectReference>
     <ProjectReference Include="..\MBlogModel\MBlogModel.csproj">
       <Project>{9D26D30F-3E4E-43B9-A93B-6E51AB34AC44}</Project>
       <Name>MBlogModel</Name>
@@ -145,6 +137,14 @@
     <ProjectReference Include="..\Repository\Repository.csproj">
       <Project>{6B41D66F-0003-45EC-9692-023F9FCA62E8}</Project>
       <Name>Repository</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Services\MBlogServiceInterfaces\MBlogServiceInterfaces.csproj">
+      <Project>{35F6ACAF-F2EC-4FC5-974C-BDE9C3FE38D4}</Project>
+      <Name>MBlogServiceInterfaces</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Services\MBlogService\MBlogService.csproj">
+      <Project>{6EEE1ECE-69AC-4F6D-8EDE-6536B721AA97}</Project>
+      <Name>MBlogService</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup />

@@ -1,19 +1,17 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.IO;
-using System.Linq;
-using System.Text;
-using MBlogDomainInterfaces;
 using MBlogModel;
 using MBlogRepository.Interfaces;
+using MBlogServiceInterfaces;
 
-namespace MBlogDomain
+namespace MBlogService
 {
-    public class MediaDomain : IMediaDomain
+    public class MediaService : IMediaService
     {
         private IMediaRepository _mediaRepository;
 
-        public MediaDomain(IMediaRepository mediaRepository)
+        public MediaService(IMediaRepository mediaRepository)
         {
             _mediaRepository = mediaRepository;
         }

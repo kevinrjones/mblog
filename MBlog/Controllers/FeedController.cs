@@ -2,32 +2,32 @@
 using System.Web.Mvc;
 using Logging;
 using MBlog.ActionResults;
-using MBlogDomainInterfaces;
+using MBlogServiceInterfaces;
 
 namespace MBlog.Controllers
 {
     
     public class FeedController : BaseController
     {
-        private readonly ISyndicationFeedDomain _syndicationFeedDomain;
+        private readonly ISyndicationFeedService _syndicationFeedService;
 
-        public FeedController(ISyndicationFeedDomain syndicationFeedDomain, ILogger logger)
+        public FeedController(ISyndicationFeedService syndicationFeedService, ILogger logger)
             : base(logger)
         {
-            _syndicationFeedDomain = syndicationFeedDomain;           
+            _syndicationFeedService = syndicationFeedService;           
         }
 
         [HttpGet]
         public ActionResult Rss(string nickname)
         {
-            var feed = _syndicationFeedDomain.CreateSyndicationFeed(nickname, "rss", HttpContext.Request.Url.Scheme, HttpContext.Request.Headers["HOST"]);
+            var feed = _syndicationFeedService.CreateSyndicationFeed(nickname, "rss", HttpContext.Request.Url.Scheme, HttpContext.Request.Headers["HOST"]);
             return new SyndicationActionResult(feed.GetRssFeed());
         }
 
         [HttpGet]
         public ActionResult Atom(string nickname)
         {
-            var feed = _syndicationFeedDomain.CreateSyndicationFeed(nickname, "atom", HttpContext.Request.Url.Scheme, HttpContext.Request.Headers["HOST"]);            
+            var feed = _syndicationFeedService.CreateSyndicationFeed(nickname, "atom", HttpContext.Request.Url.Scheme, HttpContext.Request.Headers["HOST"]);            
             return new SyndicationActionResult(feed.GetAtomFeed());
         }
     }

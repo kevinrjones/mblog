@@ -11,9 +11,9 @@ using MBlog.Models;
 using MBlog.Models.Admin;
 using MBlog.Models.Post;
 using MBlog.Models.User;
-using MBlogDomain;
 using MBlogModel;
 using MBlogRepository.Interfaces;
+using MBlogService;
 using Moq;
 using NUnit.Framework;
 
@@ -38,8 +38,8 @@ namespace MBlogUnitTest.Controllers
         public void GivenThreePosts_TheAllPostsAppearInTheFeed()
         {
             _postRepository.Setup(p => p.GetBlogPosts("nickname")).Returns(new List<Post> { new Post(), new Post(), new Post() });
-            SyndicationFeedDomain feedDomain = new SyndicationFeedDomain(_blogRepository.Object, _postRepository.Object);
-            var syndicationFeed = feedDomain.CreateSyndicationFeed("nickname", "feedtype", "scheme", "host");
+            SyndicationFeedService feedService = new SyndicationFeedService(_blogRepository.Object, _postRepository.Object);
+            var syndicationFeed = feedService.CreateSyndicationFeed("nickname", "feedtype", "scheme", "host");
             Assert.That(syndicationFeed.Items.Count(), Is.EqualTo(3));
         }
 
@@ -47,8 +47,8 @@ namespace MBlogUnitTest.Controllers
         public void GivenAPost_TheTheItemContainsTheCorrectData()
         {
             _postRepository.Setup(p => p.GetBlogPosts("nickname")).Returns(new List<Post> { new Post { Title = "postTitle", BlogPost = "body", Edited = new DateTime(2010, 1, 1) } });
-            SyndicationFeedDomain feedDomain = new SyndicationFeedDomain(_blogRepository.Object, _postRepository.Object);
-            var syndicationFeed = feedDomain.CreateSyndicationFeed("nickname", "feedtype", "scheme", "host");
+            SyndicationFeedService feedService = new SyndicationFeedService(_blogRepository.Object, _postRepository.Object);
+            var syndicationFeed = feedService.CreateSyndicationFeed("nickname", "feedtype", "scheme", "host");
             var item = syndicationFeed.Items.FirstOrDefault();
             var content = (TextSyndicationContent)item.Content;
             Assert.That(item.Title.Text, Is.EqualTo("postTitle"));

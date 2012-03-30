@@ -6,9 +6,9 @@ using System.Web.Mvc;
 using MBlog.Controllers;
 using MBlog.Models.Blog;
 using MBlog.Models.User;
-using MBlogDomainInterfaces;
 using MBlogModel;
 using MBlogRepository.Interfaces;
+using MBlogServiceInterfaces;
 using Moq;
 using NUnit.Framework;
 
@@ -17,13 +17,13 @@ namespace MBlogUnitTest.Controllers
     [TestFixture]
     public class BlogControllerTest : BaseControllerTests
     {
-        private Mock<IBlogDomain> _blogDomain;
+        private Mock<IBlogService> _blogDomain;
         private BlogController _controller;
 
         [SetUp]
         public void SetUp()
         {
-            _blogDomain = new Mock<IBlogDomain>();
+            _blogDomain = new Mock<IBlogService>();
             _controller = new BlogController(_blogDomain.Object, null);
         }
 

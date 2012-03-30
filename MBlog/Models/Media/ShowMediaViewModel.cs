@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 
 namespace MBlog.Models.Media
@@ -48,6 +49,7 @@ namespace MBlog.Models.Media
         // create styles from data passed in
         public string ClassString { get; set; }
 
+        [Required]
         public string Title { get; set; }
         public string LinkKey { get; set; }
         public string ContentType { get; set; }

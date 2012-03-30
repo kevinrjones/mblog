@@ -1,8 +1,8 @@
 using MBlogModel;
 
-namespace MBlogDomainInterfaces
+namespace MBlogServiceInterfaces
 {
-    public interface IBlogDomain
+    public interface IBlogService
     {
         Blog GetBlog(string nickname);
         void UpdateBlog(string nickname, bool approveComments, bool commentsEnabled, string description, string title);

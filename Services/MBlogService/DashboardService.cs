@@ -1,19 +1,16 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using MBlogDomainInterfaces;
 using MBlogModel;
 using MBlogRepository.Interfaces;
+using MBlogServiceInterfaces;
 
-namespace MBlogDomain
+namespace MBlogService
 {
-    public class DashboardDomain : IDashboardDomain
+    public class DashboardService : IDashboardService
     {
         private readonly IPostRepository _postRepository;
         private readonly IBlogRepository _blogRepository;
 
-        public DashboardDomain(IPostRepository postRepository, IBlogRepository blogRepository)
+        public DashboardService(IPostRepository postRepository, IBlogRepository blogRepository)
         {
             _postRepository = postRepository;
             _blogRepository = blogRepository;

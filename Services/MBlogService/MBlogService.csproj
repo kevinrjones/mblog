@@ -8,8 +8,8 @@
     <ProjectGuid>{6EEE1ECE-69AC-4F6D-8EDE-6536B721AA97}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>MBlogDomain</RootNamespace>
-    <AssemblyName>MBlogDomain</AssemblyName>
+    <RootNamespace>MBlogService</RootNamespace>
+    <AssemblyName>MBlogService</AssemblyName>
     <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <TargetFrameworkProfile />
@@ -70,34 +70,34 @@
     <Reference Include="System.ServiceModel.Web" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="BlogDomain.cs" />
-    <Compile Include="DashboardDomain.cs" />
-    <Compile Include="MediaDomain.cs" />
-    <Compile Include="PostDomain.cs" />
+    <Compile Include="BlogService.cs" />
+    <Compile Include="DashboardService.cs" />
+    <Compile Include="MediaService.cs" />
+    <Compile Include="PostService.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="SyndicationFeedDomain.cs" />
-    <Compile Include="UserDomain.cs" />
+    <Compile Include="SyndicationFeedService.cs" />
+    <Compile Include="UserService.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Logging\Logging.csproj">
+    <ProjectReference Include="..\..\Logging\Logging.csproj">
       <Project>{BF734CD4-7587-422F-BAE9-626051F1A382}</Project>
       <Name>Logging</Name>
     </ProjectReference>
-    <ProjectReference Include="..\MBlogDomainInterfaces\MBlogDomainInterfaces.csproj">
-      <Project>{35F6ACAF-F2EC-4FC5-974C-BDE9C3FE38D4}</Project>
-      <Name>MBlogDomainInterfaces</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\MBlogModel\MBlogModel.csproj">
+    <ProjectReference Include="..\..\MBlogModel\MBlogModel.csproj">
       <Project>{9D26D30F-3E4E-43B9-A93B-6E51AB34AC44}</Project>
       <Name>MBlogModel</Name>
     </ProjectReference>
-    <ProjectReference Include="..\MBlogRepository\MBlogRepository.csproj">
+    <ProjectReference Include="..\..\MBlogRepository\MBlogRepository.csproj">
       <Project>{555BF169-88EA-4EF1-B532-D152AF974680}</Project>
       <Name>MBlogRepository</Name>
     </ProjectReference>
-    <ProjectReference Include="..\Repository\Repository.csproj">
+    <ProjectReference Include="..\..\Repository\Repository.csproj">
       <Project>{6B41D66F-0003-45EC-9692-023F9FCA62E8}</Project>
       <Name>Repository</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\MBlogServiceInterfaces\MBlogServiceInterfaces.csproj">
+      <Project>{35F6ACAF-F2EC-4FC5-974C-BDE9C3FE38D4}</Project>
+      <Name>MBlogServiceInterfaces</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

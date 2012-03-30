@@ -8,20 +8,20 @@ using Logging;
 using MBlog.Filters;
 using MBlog.Models.Media;
 using MBlog.Models.User;
-using MBlogDomainInterfaces;
 using MBlogModel;
 using MBlogRepository.Interfaces;
+using MBlogServiceInterfaces;
 
 namespace MBlog.Controllers
 {
     public class MediaController : BaseController
     {
-        private readonly IMediaDomain _mediaDomain;
+        private readonly IMediaService _mediaService;
 
-        public MediaController(IMediaDomain mediaDomain, ILogger logger)
+        public MediaController(IMediaService mediaService, ILogger logger)
             : base(logger)
         {
-            _mediaDomain = mediaDomain;
+            _mediaService = mediaService;
         }
 
         [HttpGet]
@@ -29,7 +29,7 @@ namespace MBlog.Controllers
         public ActionResult Index(string nickname)
         {
             var user = HttpContext.User as UserViewModel;
-            var media = _mediaDomain.GetMedia(1, 10, user.Id);
+            var media = _mediaService.GetMedia(1, 10, user.Id);
             var mediaVM = new List<ShowMediaViewModel>();
 
             foreach (var medium in media)
@@ -48,7 +48,7 @@ namespace MBlog.Controllers
         {
             try
             {
-                Media img = _mediaDomain.GetMedia(year, month, day, linkkey);
+                Media img = _mediaService.GetMedia(year, month, day, linkkey);
                 return new FileContentResult(img.Data, img.MimeType);
             }
             catch (MBlogMediaNotFoundException)
@@ -95,7 +95,7 @@ namespace MBlog.Controllers
                     string message = "Created successfully";
                     try
                     {
-                        url = _mediaDomain.WriteMedia(fileName, user.Id, model.ContentType, inputStream, contentLength);
+                        url = _mediaService.WriteMedia(fileName, user.Id, model.ContentType, inputStream, contentLength);
                     }
                     catch (MBlogInsertItemException e)
                     {
@@ -119,11 +119,11 @@ namespace MBlog.Controllers
         {
             // todo: content type?
             if (!ModelState.IsValid)
-                return View("new", model);
+                return View("edit", model);
 
             var user = (UserViewModel)HttpContext.User;
 
-            Media media = _mediaDomain.UpdateMediaDetails(model.Id, model.Title, model.Caption, model.Description, model.Alternate, user.Id );
+            Media media = _mediaService.UpdateMediaDetails(model.Id, model.Title, model.Caption, model.Description, model.Alternate, user.Id );
 
             return View("Edit", new ShowMediaViewModel(media));
         }
@@ -133,10 +133,8 @@ namespace MBlog.Controllers
         public ActionResult Edit(string nickname, int mediaId)
         {
             var user = (UserViewModel)HttpContext.User;
-            var media = _mediaDomain.GetMedia(mediaId, user.Id);
+            var media = _mediaService.GetMedia(mediaId, user.Id);
             return View(new ShowMediaViewModel(media));
         }
-
-
     }
 }

@@ -7,9 +7,9 @@ using MBlog.Controllers.Admin;
 using MBlog.Models.Admin;
 using MBlog.Models.Post;
 using MBlog.Models.User;
-using MBlogDomainInterfaces;
 using MBlogModel;
 using MBlogRepository.Interfaces;
+using MBlogServiceInterfaces;
 using Moq;
 using NUnit.Framework;
 
@@ -18,12 +18,12 @@ namespace MBlogUnitTest.Controllers.Admin
     [TestFixture]
     class PostsControllerTest : BaseControllerTests
     {
-        private Mock<IPostDomain> _postDomain;
+        private Mock<IPostService> _postDomain;
 
         [SetUp]
         public void Setup()
         {
-            _postDomain = new Mock<IPostDomain>();
+            _postDomain = new Mock<IPostService>();
         }
 
         [Test]

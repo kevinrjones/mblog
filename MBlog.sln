@@ -36,13 +36,15 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CollectionHelpers", "Collec
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MBlogBuilder", "MBlogBuilder\MBlogBuilder.csproj", "{7EAB4CD7-118C-443C-9DD2-FA8D806E15C3}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MBlogDomain", "MBlogDomain\MBlogDomain.csproj", "{6EEE1ECE-69AC-4F6D-8EDE-6536B721AA97}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MBlogDomainInterfaces", "MBlogDomainInterfaces\MBlogDomainInterfaces.csproj", "{35F6ACAF-F2EC-4FC5-974C-BDE9C3FE38D4}"
-EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "IoC", "IoC\IoC.csproj", "{1B074CE2-5C46-4846-819B-22EB6BD8E04A}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MBlog", "MBlog\MBlog.csproj", "{CE90FF9C-A013-406E-B3D7-06C34C4AC9D9}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Services", "Services", "{9352EDE0-72FA-42E5-A4DC-54DF003A3EFE}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MBlogService", "Services\MBlogService\MBlogService.csproj", "{6EEE1ECE-69AC-4F6D-8EDE-6536B721AA97}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MBlogServiceInterfaces", "Services\MBlogServiceInterfaces\MBlogServiceInterfaces.csproj", "{35F6ACAF-F2EC-4FC5-974C-BDE9C3FE38D4}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -83,8 +85,8 @@ Global
 		{3364110A-5B6C-45AA-9BD7-00929FCEC2BA}.Staging|Any CPU.Build.0 = Staging|Any CPU
 		{3364110A-5B6C-45AA-9BD7-00929FCEC2BA}.Test|Any CPU.ActiveCfg = Test|Any CPU
 		{3364110A-5B6C-45AA-9BD7-00929FCEC2BA}.Test|Any CPU.Build.0 = Test|Any CPU
-		{35F6ACAF-F2EC-4FC5-974C-BDE9C3FE38D4}.Acceptance|Any CPU.ActiveCfg = Test|Any CPU
-		{35F6ACAF-F2EC-4FC5-974C-BDE9C3FE38D4}.Acceptance|Any CPU.Build.0 = Test|Any CPU
+		{35F6ACAF-F2EC-4FC5-974C-BDE9C3FE38D4}.Acceptance|Any CPU.ActiveCfg = Acceptance|Any CPU
+		{35F6ACAF-F2EC-4FC5-974C-BDE9C3FE38D4}.Acceptance|Any CPU.Build.0 = Acceptance|Any CPU
 		{35F6ACAF-F2EC-4FC5-974C-BDE9C3FE38D4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{35F6ACAF-F2EC-4FC5-974C-BDE9C3FE38D4}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{35F6ACAF-F2EC-4FC5-974C-BDE9C3FE38D4}.Release|Any CPU.ActiveCfg = Release|Any CPU
@@ -113,8 +115,8 @@ Global
 		{6B41D66F-0003-45EC-9692-023F9FCA62E8}.Staging|Any CPU.Build.0 = Staging|Any CPU
 		{6B41D66F-0003-45EC-9692-023F9FCA62E8}.Test|Any CPU.ActiveCfg = Test|Any CPU
 		{6B41D66F-0003-45EC-9692-023F9FCA62E8}.Test|Any CPU.Build.0 = Test|Any CPU
-		{6EEE1ECE-69AC-4F6D-8EDE-6536B721AA97}.Acceptance|Any CPU.ActiveCfg = Test|Any CPU
-		{6EEE1ECE-69AC-4F6D-8EDE-6536B721AA97}.Acceptance|Any CPU.Build.0 = Test|Any CPU
+		{6EEE1ECE-69AC-4F6D-8EDE-6536B721AA97}.Acceptance|Any CPU.ActiveCfg = Acceptance|Any CPU
+		{6EEE1ECE-69AC-4F6D-8EDE-6536B721AA97}.Acceptance|Any CPU.Build.0 = Acceptance|Any CPU
 		{6EEE1ECE-69AC-4F6D-8EDE-6536B721AA97}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{6EEE1ECE-69AC-4F6D-8EDE-6536B721AA97}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{6EEE1ECE-69AC-4F6D-8EDE-6536B721AA97}.Release|Any CPU.ActiveCfg = Release|Any CPU
@@ -196,6 +198,10 @@ Global
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{35F6ACAF-F2EC-4FC5-974C-BDE9C3FE38D4} = {9352EDE0-72FA-42E5-A4DC-54DF003A3EFE}
+		{6EEE1ECE-69AC-4F6D-8EDE-6536B721AA97} = {9352EDE0-72FA-42E5-A4DC-54DF003A3EFE}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		EnterpriseLibraryConfigurationToolBinariesPath = packages\Unity.2.1.505.0\lib\NET35

@@ -5,8 +5,8 @@ using System.Text;
 using System.Web.Mvc;
 using MBlog.Controllers;
 using MBlog.Models.Comment;
-using MBlogDomainInterfaces;
 using MBlogRepository.Interfaces;
+using MBlogServiceInterfaces;
 using Moq;
 using NUnit.Framework;
 
@@ -15,7 +15,7 @@ namespace MBlogUnitTest.Controllers
     [TestFixture]
     public class CommentControllerTest : BaseControllerTests
     {
-        private Mock<IPostDomain> _postDomain;
+        private Mock<IPostService> _postDomain;
         private CommentController _controller;
         private const string ExpectedRefererUrl = "value";
         const string Name = "Name";
@@ -24,7 +24,7 @@ namespace MBlogUnitTest.Controllers
         [SetUp]
         public void SetUp()
         {
-            _postDomain = new Mock<IPostDomain>();
+            _postDomain = new Mock<IPostService>();
             _controller = new CommentController(_postDomain.Object, null);
             var headers = new FormCollection {{"Referer", ExpectedRefererUrl}};
             MockRequest.Setup(r => r.Headers).Returns(headers);

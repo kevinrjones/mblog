@@ -2,8 +2,8 @@ using System.Web;
 using System.Web.Mvc;
 using MBlog.Controllers;
 using MBlog.Models.User;
-using MBlogDomainInterfaces;
 using MBlogModel;
+using MBlogServiceInterfaces;
 using Microsoft.Practices.Unity;
 
 namespace MBlog.Filters
@@ -11,7 +11,7 @@ namespace MBlog.Filters
     public class AuthorizeBlogOwnerAttribute : AuthorizeLoggedInUserAttribute
     {
         [Dependency]
-        public IBlogDomain BlogDomain { get; set; }
+        public IBlogService BlogService { get; set; }
 
         public override void OnAuthorization(AuthorizationContext filterContext)
         {
@@ -59,7 +59,7 @@ namespace MBlog.Filters
 
         private bool UserOwnsBlog(BaseController controller, string nickname, int blogId)
         {            
-            Blog blog = BlogDomain.GetBlog(nickname);
+            Blog blog = BlogService.GetBlog(nickname);
             return blog != null && blog.Id == blogId;
         }
     }

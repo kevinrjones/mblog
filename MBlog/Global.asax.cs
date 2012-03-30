@@ -4,11 +4,11 @@ using System.Web.Mvc;
 using System.Web.Routing;
 using Logging;
 using MBlog.Infrastructure;
-using MBlogDomain;
-using MBlogDomainInterfaces;
 using MBlogNlogService;
 using MBlogRepository.Interfaces;
 using MBlogRepository.Repositories;
+using MBlogService;
+using MBlogServiceInterfaces;
 using Microsoft.Practices.Unity;
 using Rejuicer;
 
@@ -298,12 +298,12 @@ namespace MBlog
                 .RegisterType<IUsernameBlacklistRepository, UsernameBlacklistRepository>(ctor)
                 .RegisterType<INicknameBlacklistRepository, NicknameBlacklistRepository>(ctor)
                 .RegisterType<IMediaRepository, MediaRepository>(ctor)
-                .RegisterType<IUserDomain, UserDomain>()
-                .RegisterType<IBlogDomain, BlogDomain>()
-                .RegisterType<IDashboardDomain, DashboardDomain>()
-                .RegisterType<IMediaDomain, MediaDomain>()
-                .RegisterType<IPostDomain, PostDomain>()
-                .RegisterType<ISyndicationFeedDomain, SyndicationFeedDomain>()
+                .RegisterType<IUserService, UserService>()
+                .RegisterType<IBlogService, BlogService>()
+                .RegisterType<IDashboardService, DashboardService>()
+                .RegisterType<IMediaService, MediaService>()
+                .RegisterType<IPostService, PostService>()
+                .RegisterType<ISyndicationFeedService, SyndicationFeedService>()
                 .RegisterType<ILogger, NLogService>()
                 ;
 

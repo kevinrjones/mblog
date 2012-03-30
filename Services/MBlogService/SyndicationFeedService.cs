@@ -1,18 +1,18 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ServiceModel.Syndication;
-using MBlogDomainInterfaces;
 using MBlogModel;
 using MBlogRepository.Interfaces;
+using MBlogServiceInterfaces;
 
-namespace MBlogDomain
+namespace MBlogService
 {
-    public class SyndicationFeedDomain : ISyndicationFeedDomain
+    public class SyndicationFeedService : ISyndicationFeedService
     {
         private readonly IPostRepository _postRepository;
         private readonly IBlogRepository _blogRepository;
 
-        public SyndicationFeedDomain(IBlogRepository blogRepository, IPostRepository postRepository)
+        public SyndicationFeedService(IBlogRepository blogRepository, IPostRepository postRepository)
         {
             _blogRepository = blogRepository;
             _postRepository = postRepository;

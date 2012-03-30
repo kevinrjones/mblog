@@ -2,22 +2,22 @@
 using System.Web.Mvc;
 using Logging;
 using MBlog.Models.Home;
-using MBlogDomainInterfaces;
 using MBlogModel;
 using MBlogRepository.Interfaces;
+using MBlogServiceInterfaces;
 
 namespace MBlog.Controllers
 {
     public class HomeController : BaseController
     {
-        private IPostDomain _postDomain;
-        private IUserDomain _userDomain;
+        private IPostService _postService;
+        private IUserService _userService;
 
-        public HomeController(IPostDomain postDomain, IUserDomain userDomain, ILogger logger)
+        public HomeController(IPostService postService, IUserService userService, ILogger logger)
             : base(logger)
         {
-            _postDomain = postDomain;
-            _userDomain = userDomain;
+            _postService = postService;
+            _userService = userService;
         }
 
         public ActionResult Index()
@@ -33,13 +33,13 @@ namespace MBlog.Controllers
 
         private void GetPosts(HomePageViewModel homePageViewModel)
         {
-            IEnumerable<Post> posts = _postDomain.GetBlogPosts();
+            IEnumerable<Post> posts = _postService.GetBlogPosts();
             homePageViewModel.Add(posts);
         }
 
         private void GetUsersAndBlogs(HomePageViewModel homePageViewModel)
         {
-            IEnumerable<User> users = _userDomain.GetUsersWithTheirBlogs();
+            IEnumerable<User> users = _userService.GetUsersWithTheirBlogs();
             homePageViewModel.Add(users);
         }
     }

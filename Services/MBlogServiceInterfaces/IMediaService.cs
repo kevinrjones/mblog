@@ -1,12 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.IO;
-using System.Text;
 using MBlogModel;
 
-namespace MBlogDomainInterfaces
+namespace MBlogServiceInterfaces
 {
-    public interface IMediaDomain
+    public interface IMediaService
     {
         Media GetMedia(int year, int month, int day, string linkKey);
         Media GetMedia(int mediaId, int userId);
