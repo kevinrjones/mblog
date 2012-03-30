@@ -87,10 +87,7 @@ namespace MBlogIntegrationTest.Repositories
 
             Blog blog = _blogRepository.GetBlog(_nickname);
             
-
             Assert.Throws<MBlogException>(() => _blogRepository.ChangeBlogLastupdateDate(blog.Id + 1001));
-
-
         }
 
         [TearDown]

@@ -12,6 +12,10 @@ namespace MBlogDomain
     {
         private readonly IBlogRepository _blogRepository;
 
+        public BlogDomain(IBlogRepository blogRepository, string connectionString)
+        {
+            
+        }
         public BlogDomain(IBlogRepository blogRepository)
         {
             _blogRepository = blogRepository;

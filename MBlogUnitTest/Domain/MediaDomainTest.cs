@@ -173,7 +173,7 @@ namespace MBlogUnitTest.Domain
         {
             _mediaRepository.Setup(m => m.GetMedia(It.IsAny<int>())).Returns(new Media{UserId = 1});
             _mediaRepository.Setup(m => m.UpdateMedia(It.IsAny<Media>())).Throws<Exception>();
-            Assert.Throws<MBlogException>(() => mediaDomain.UpdateMediaDetails(It.IsAny<int>(), It.IsAny<string>(), It.IsAny<string>(), It.IsAny<string>(), It.IsAny<string>(), 1));
+            Assert.Throws<MBlogException>(() => mediaDomain.UpdateMediaDetails(It.IsAny<int>(), "", It.IsAny<string>(), It.IsAny<string>(), It.IsAny<string>(), 1));
         }
 
         [Test]
@@ -188,7 +188,7 @@ namespace MBlogUnitTest.Domain
         public void WhenMediaIsUpdated_AndItBelongsToTheUser_ThenItIsUpdated()
         {
             _mediaRepository.Setup(m => m.GetMedia(It.IsAny<int>())).Returns(new Media { UserId = 1 });
-            mediaDomain.UpdateMediaDetails(It.IsAny<int>(), It.IsAny<string>() , It.IsAny<string>(), It.IsAny<string>(), It.IsAny<string>(), 1);
+            mediaDomain.UpdateMediaDetails(It.IsAny<int>(), "" , It.IsAny<string>(), It.IsAny<string>(), It.IsAny<string>(), 1);
             Assert.True(true, "No exceptions thrown");
         }
 

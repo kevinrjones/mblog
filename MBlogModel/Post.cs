@@ -44,7 +44,6 @@ namespace MBlogModel
             if (!string.IsNullOrEmpty(entry))
                 BlogPost = entry;
             Edited = DateTime.UtcNow;
-
         }
 
         public string TitleLink

@@ -7,7 +7,6 @@ using MBlog.Filters;
 using MBlog.Models.Post;
 using MBlogDomainInterfaces;
 using MBlogModel;
-using MBlogRepository.Interfaces;
 
 namespace MBlog.Controllers
 {

@@ -277,7 +277,7 @@ namespace MBlog
                 .File("~/Scripts/shBrushRuby.js")
                 .File("~/Scripts/shBrushSql.js")
                 .File("~/Scripts/shBrushXml.js")
-                .File("~/Scripts/modernizr-1.7.min.js")
+                .File("~/Scripts/modernizr-2.0.6-development-only.js")
                 .File("~/Scripts/fileuploader.js")
                 .File("~/Scripts/mblog.js")
                 .Configure();
@@ -290,7 +290,7 @@ namespace MBlog
 
         private IUnityContainer GetUnityContainer()
         {
-            InjectionConstructor ctor = new InjectionConstructor(ConfigurationManager.ConnectionStrings["mblog"].ConnectionString);
+            var ctor = new InjectionConstructor(ConfigurationManager.ConnectionStrings["mblog"].ConnectionString);
             IUnityContainer container = new UnityContainer()
                 .RegisterType<IUserRepository, UserRepository>(ctor)
                 .RegisterType<IPostRepository, PostRepository>(ctor)
