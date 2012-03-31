@@ -60,8 +60,15 @@ task AddDataBaseUser -depends CreateDatabase {
      $db = $ProjectName + "_" + $DatabaseConfiguration
 	 $msg = "Add-User "  + $Server + " " + $db + " " + $DatabaseUser + " " + $DatabaseRole
 	 out-host -InputObject $msg
-     exec {Add-User $Server $db $DatabaseUser $DatabaseRole }
-	 out-host -InputObject "User added"
+	 try
+	 {
+		exec {Add-User $Server $db $DatabaseUser $DatabaseRole }
+	 }
+ 	 catch
+	 {		
+		Write-Error ("Failed to create user: " + $_)
+		throw
+	 } 
 }
 
 task DeployDatabase -depends Init {
