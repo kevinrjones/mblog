@@ -58,7 +58,8 @@ task RecreateDatabase -depends DeleteDatabase, AddDatabaseUser {
 
 task AddDataBaseUser -depends CreateDatabase {
      $db = $ProjectName + "_" + $DatabaseConfiguration
-	 out-host -InputObject "Add-User" $Server $db $DatabaseUser $DatabaseRole
+	 $msg = "Add-User "  + $Server + " " + $db + " " + $DatabaseUser + " " + $DatabaseRole
+	 out-host -InputObject $msg
      exec {Add-User $Server $db $DatabaseUser $DatabaseRole }
 }
 
