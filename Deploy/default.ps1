@@ -24,6 +24,8 @@ $db = $ProjectName + "_" + $DatabaseConfiguration
 . .\Sql\CreateDatabase.ps1
 . .\Sql\DeleteDatabase.ps1
 . .\Sql\AddUser.ps1
+. .\helpers\Utility.ps1
+SetConsoleBufferWidth
 
 task default -depends Deploy
 
