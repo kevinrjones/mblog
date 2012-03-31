@@ -72,4 +72,10 @@ task Deploy -depends Build, CreateDatabase, AddDatabaseUser, DeployDatabase {
     exec { &$MsDeploy "-verb:sync" "-source:contentPath=$OutputWebDir" "-dest:contentPath=$TargetDir" }
 }
 
+task DeployIntegrationTest -depends RecreateDatabase, Deploy {
+    $TargetDir = $INetPubRoot + "\" +  $Configuration
+    out-host -InputObject $TargetDir
+    exec { &$MsDeploy "-verb:sync" "-source:contentPath=$OutputWebDir" "-dest:contentPath=$TargetDir" }
+}
+
 

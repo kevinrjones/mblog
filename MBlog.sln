@@ -5,6 +5,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Deploy", "Deploy", "{66B9AA
 	ProjectSection(SolutionItems) = preProject
 		Deploy\default.ps1 = Deploy\default.ps1
 		Deploy\deploy.ps1 = Deploy\deploy.ps1
+		Deploy\deployIntegrationTest.ps1 = Deploy\deployIntegrationTest.ps1
 		Deploy\psake.ps1 = Deploy\psake.ps1
 		Deploy\psake.psm1 = Deploy\psake.psm1
 		Deploy\release.ps1 = Deploy\release.ps1
@@ -45,6 +46,14 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MBlogService", "Services\MBlogService\MBlogService.csproj", "{6EEE1ECE-69AC-4F6D-8EDE-6536B721AA97}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MBlogServiceInterfaces", "Services\MBlogServiceInterfaces\MBlogServiceInterfaces.csproj", "{35F6ACAF-F2EC-4FC5-974C-BDE9C3FE38D4}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Sql", "Sql", "{68F70131-2466-4745-B7E8-4A3A2E53AA19}"
+	ProjectSection(SolutionItems) = preProject
+		Deploy\Sql\AddUser.ps1 = Deploy\Sql\AddUser.ps1
+		Deploy\Sql\CreateDatabase.ps1 = Deploy\Sql\CreateDatabase.ps1
+		Deploy\Sql\DeleteDatabase.ps1 = Deploy\Sql\DeleteDatabase.ps1
+		Deploy\Sql\LoadSqlSmo.ps1 = Deploy\Sql\LoadSqlSmo.ps1
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -201,6 +210,7 @@ Global
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
 		{35F6ACAF-F2EC-4FC5-974C-BDE9C3FE38D4} = {9352EDE0-72FA-42E5-A4DC-54DF003A3EFE}
+		{68F70131-2466-4745-B7E8-4A3A2E53AA19} = {66B9AA14-9D36-4828-BEE1-75FDA431C118}
 		{6EEE1ECE-69AC-4F6D-8EDE-6536B721AA97} = {9352EDE0-72FA-42E5-A4DC-54DF003A3EFE}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
