@@ -62,7 +62,7 @@ task AddDataBaseUser -depends CreateDatabase {
 	 out-host -InputObject $msg
 	 try
 	 {
-		exec {Add-User $Server $db $DatabaseUser $DatabaseRole }
+		Add-User $Server $db $DatabaseUser $DatabaseRole 
 	 }
  	 catch
 	 {		
