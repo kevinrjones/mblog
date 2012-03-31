@@ -39,7 +39,7 @@ namespace MBlog.Resources.Admin {
         public static global::System.Resources.ResourceManager ResourceManager {
             get {
                 if (object.ReferenceEquals(resourceMan, null)) {
-                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("MBlog3.Resources.Admin.Index", typeof(Index).Assembly);
+                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("MBlog.Resources.Admin.Index", typeof(Index).Assembly);
                     resourceMan = temp;
                 }
                 return resourceMan;

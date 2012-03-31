@@ -12,7 +12,7 @@ namespace UploadImages
     {
         static void Main(string[] args)
         {
-            Dictionary<string, string> images = new Dictionary<string, string>();
+            var images = new Dictionary<string, string>();
             images.Add("TeamCity", "../../Images/TeamCity.png");
             images.Add("InitialBlog", "../../Images/InitialBlog.png");
 
@@ -33,11 +33,12 @@ namespace UploadImages
                     {
                         connection.Open();
                         cmd.CommandText =
-                            "INSERT INTO [media]([title],[file_name]," +
+                            "INSERT INTO [media]([title],[file_name], [link_key]," +
                             "[year], [month], [day],[mime_type],[alignment],[size],[user_id],[bytes])" +
-                            "VALUES(@title, @file_name,  @year,  @month,  @day, @mime_type, @alignment, @size, @user_id, @bytes)";
+                            "VALUES(@title, @file_name, @link_key,  @year,  @month,  @day, @mime_type, @alignment, @size, @user_id, @bytes)";
                         cmd.Parameters.AddWithValue("@title", image.Key);
                         cmd.Parameters.AddWithValue("@file_name", fileName);
+                        cmd.Parameters.AddWithValue("@link_key", image.Key);
                         cmd.Parameters.AddWithValue("@year", 2012);
                         cmd.Parameters.AddWithValue("@month", 11);
                         cmd.Parameters.AddWithValue("@day", 18);
