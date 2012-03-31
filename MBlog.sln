@@ -55,6 +55,11 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Sql", "Sql", "{68F70131-246
 		Deploy\Sql\LoadSqlSmo.ps1 = Deploy\Sql\LoadSqlSmo.ps1
 	EndProjectSection
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Helpers", "Helpers", "{75966453-790E-4375-8CD6-5DF248199CD0}"
+	ProjectSection(SolutionItems) = preProject
+		Deploy\Helpers\Utility.ps1 = Deploy\Helpers\Utility.ps1
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Acceptance|Any CPU = Acceptance|Any CPU
@@ -212,6 +217,7 @@ Global
 		{35F6ACAF-F2EC-4FC5-974C-BDE9C3FE38D4} = {9352EDE0-72FA-42E5-A4DC-54DF003A3EFE}
 		{68F70131-2466-4745-B7E8-4A3A2E53AA19} = {66B9AA14-9D36-4828-BEE1-75FDA431C118}
 		{6EEE1ECE-69AC-4F6D-8EDE-6536B721AA97} = {9352EDE0-72FA-42E5-A4DC-54DF003A3EFE}
+		{75966453-790E-4375-8CD6-5DF248199CD0} = {66B9AA14-9D36-4828-BEE1-75FDA431C118}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		EnterpriseLibraryConfigurationToolBinariesPath = packages\Unity.2.1.505.0\lib\NET35
