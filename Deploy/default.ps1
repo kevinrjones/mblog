@@ -61,6 +61,7 @@ task AddDataBaseUser -depends CreateDatabase {
 	 $msg = "Add-User "  + $Server + " " + $db + " " + $DatabaseUser + " " + $DatabaseRole
 	 out-host -InputObject $msg
      exec {Add-User $Server $db $DatabaseUser $DatabaseRole }
+	 out-host -InputObject "User added"
 }
 
 task DeployDatabase -depends Init {
