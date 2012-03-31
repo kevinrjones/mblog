@@ -188,11 +188,6 @@
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
     </Compile>
-    <Compile Include="Resources\Admin\Index1.Designer.cs">
-      <DependentUpon>Index.resx</DependentUpon>
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-    </Compile>
     <Compile Include="Resources\Blog\Edit.Designer.cs">
       <DependentUpon>Edit.resx</DependentUpon>
       <AutoGen>True</AutoGen>
@@ -499,7 +494,7 @@
   <ItemGroup>
     <EmbeddedResource Include="Resources\Admin\Index.resx">
       <Generator>PublicResXFileCodeGenerator</Generator>
-      <LastGenOutput>Index1.Designer.cs</LastGenOutput>
+      <LastGenOutput>Index.Designer.cs</LastGenOutput>
       <CustomToolNamespace>MBlog.Resources.Admin</CustomToolNamespace>
       <SubType>Designer</SubType>
     </EmbeddedResource>
