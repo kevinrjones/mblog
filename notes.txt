@@ -1,1 +1,13 @@
-add UI to upload file - some of this is probabkly already in a branch
+Media
+=====
+
+Delete all (the check box on the UI)
+View
+Delete (with confirmation)
+Upload (this is the most important), change UI to show 'New'
+       Change colors on 'new' page
+       Make sure upload generates URL for inclusion in the post
+       Add link to 'new media' (or include UI) in 'New Post' page
+       Show URLs on list media page
+
+add UI to upload file - some of this is probably already in a branch
