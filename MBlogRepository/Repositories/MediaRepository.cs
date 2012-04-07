@@ -51,7 +51,7 @@ namespace MBlogRepository.Repositories
 
         public void UpdateMedia(Media media)
         {
-            Attach(media);
+            Update(media);
         }
 
         #endregion

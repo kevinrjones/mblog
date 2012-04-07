@@ -37,7 +37,9 @@ namespace MBlog.Models.Admin
                                   BlogId = blog.Id,
                                   Nickname = blog.Nickname,
                                   Title = blog.Title,
-                                  Description = blog.Description
+                                  Description = blog.Description,
+                                  LastUpdated = blog.LastUpdated,
+                                  NumberOfPosts = blog.TotalPosts
                               });
             }
         }

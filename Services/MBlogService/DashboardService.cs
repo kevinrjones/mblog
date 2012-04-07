@@ -23,7 +23,7 @@ namespace MBlogService
             try
             {
                 _postRepository.Create(post);
-                _blogRepository.ChangeBlogLastupdateDate(blogId);
+                _blogRepository.UpdateBlogStatistics(blogId);
             }
             catch (Exception e)
             {
@@ -36,7 +36,7 @@ namespace MBlogService
             try
             {
                 _postRepository.Update(postId, title, post);
-                _blogRepository.ChangeBlogLastupdateDate(blogId);
+                _blogRepository.UpdateBlogStatistics(blogId);
             }
             catch (Exception e)
             {

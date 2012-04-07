@@ -8,5 +8,7 @@ namespace MBlog.Models.Media
         public string message;
         public bool success;
         public string url;
+        public string action { get; set; }
+        public string title { get; set; }
     }
 }

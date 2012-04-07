@@ -19,6 +19,7 @@
             <section class="admin-user-links">
                 Profile
                 <div class="admin-blog-actions">
+                    <span class="admin-link">@Html.ActionLink(Index.NewMedia, "new", "Media", new {nickname = Model.Blogs[0].Nickname}, null)</span>
                     <span class="admin-link">@Html.ActionLink(Index.ListMedia, "index", "Media", new {nickname = Model.Blogs[0].Nickname}, null)</span>
                 </div>
             </section>
@@ -40,7 +41,7 @@
                         </div>
                         <div class="admin-blog-details">
                             <span>
-                                x @Html.Encode(Index.Posts), @Html.Encode(Index.LastPublishedOn) xx-xx-xx - <a href="#">@Html.Encode(Index.ViewBlog)</a></span>
+                                @blog.NumberOfPosts @Html.Encode(Index.Posts), @Html.Encode(Index.LastPublishedOn) @blog.LastUpdated.ToShortDateString() - @Html.ActionLink(Html.Encode(Index.ViewBlog), "index", "Post", new{nickname=blog.Nickname}, null) </span>
                         </div>
                         <div class="admin-blog-actions">
                             <span class="admin-link">@Html.ActionLink(Global.NewPost, "new", "Post", new {nickname = blog.Nickname, blogId = blog.BlogId}, null)</span>

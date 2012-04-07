@@ -85,7 +85,12 @@ namespace MBlogRepository.Repositories
                 throw new MBlogException("postId not valid");
             }
             post.UpdatePost(title, entry);
-            Attach(post);
+            Update(post);
+        }
+
+        public int GetCountOfPostsForBlog(int blogId)
+        {
+            return Entities.Where(p => p.BlogId == blogId).Count();
         }
 
         public IList<Post> GetBlogPosts(int year, int month, int day, string nickname, string link)

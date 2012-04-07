@@ -39,7 +39,7 @@ namespace MBlogService
                 blog.CommentsEnabled = commentsEnabled;
                 blog.Description = description;
                 blog.Title = title;
-                _blogRepository.Attach(blog);
+                _blogRepository.Update(blog);
             }
             catch (Exception e)
             {

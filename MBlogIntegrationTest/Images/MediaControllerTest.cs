@@ -43,7 +43,8 @@ namespace MBlogIntegrationTest.Images
             string connectionString = ConfigurationManager.ConnectionStrings["mblog"].ConnectionString;
             string key = "filename";
             IUserService userService = new UserService(new UserRepository(connectionString),
-                                                       new UsernameBlacklistRepository(connectionString), logger.Object);
+                                                       new UsernameBlacklistRepository(connectionString), 
+                                                       logger.Object);
             User user = userService.CreateUser("name", "email", "password");
 
             IMediaRepository repository = new MediaRepository(connectionString);

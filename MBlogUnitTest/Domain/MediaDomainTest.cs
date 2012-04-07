@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 using MBlogModel;
 using MBlogRepository.Interfaces;
 using MBlogService;
@@ -94,15 +95,30 @@ namespace MBlogUnitTest.Domain
         public void WhenMediaIsCreated_ThenTheUrlToTheMediaIsReturned()
         {
             DateTime now = DateTime.Now;
+            string linkKey = Filename.Split('.').First();
             _mediaRepository.Setup(
                 m => m.GetMedia(It.IsAny<int>(), It.IsAny<int>(), It.IsAny<int>(), It.IsAny<string>())).Returns(
                     (Media) null);
-            var stream = new Mock<Stream>();
+            _mediaRepository.Setup(m => m.WriteMedia(It.IsAny<Media>())).Returns(new Media{LinkKey = linkKey});
+             var stream = new Mock<Stream>();
 
             string url = mediaService.WriteMedia(Filename, It.IsAny<int>(), It.IsAny<string>(), stream.Object,
-                                                 It.IsAny<int>());
+                                                 It.IsAny<int>()).Url;
+            Assert.That(url, Is.EqualTo(string.Format("{0}/{1}/{2}/{3}", now.Year, now.Month, now.Day, linkKey)));
+        }
 
-            Assert.That(url, Is.EqualTo(string.Format("{0}/{1}/{2}/{3}", now.Year, now.Month, now.Day, Filename)));
+        [Test]
+        public void WhenMediaIsCreated_ThenTheIdToTheMediaIsReturned()
+        {
+            _mediaRepository.Setup(
+                m => m.GetMedia(It.IsAny<int>(), It.IsAny<int>(), It.IsAny<int>(), It.IsAny<string>())).Returns(
+                    (Media) null);
+            _mediaRepository.Setup(m => m.WriteMedia(It.IsAny<Media>())).Returns(new Media { Id = 101 });
+            var stream = new Mock<Stream>();
+
+            int id = mediaService.WriteMedia(Filename, It.IsAny<int>(), It.IsAny<string>(), stream.Object,
+                                                 It.IsAny<int>()).Id;
+            Assert.That(id, Is.EqualTo(101));
         }
 
         [Test]

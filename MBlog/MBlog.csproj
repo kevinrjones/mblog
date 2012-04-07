@@ -20,8 +20,8 @@
     <OldToolsVersion>4.0</OldToolsVersion>
     <UseIISExpress>true</UseIISExpress>
     <IISExpressSSLPort />
-    <IISExpressAnonymousAuthentication />
-    <IISExpressWindowsAuthentication />
+    <IISExpressAnonymousAuthentication>enabled</IISExpressAnonymousAuthentication>
+    <IISExpressWindowsAuthentication>enabled</IISExpressWindowsAuthentication>
     <IISExpressUseClassicPipelineMode />
     <UpgradeBackupLocation />
   </PropertyGroup>
@@ -303,6 +303,7 @@
     <Content Include="Content\shThemeMDUltra.css" />
     <Content Include="Content\shThemeMidnight.css" />
     <Content Include="Content\shThemeRDark.css" />
+    <Content Include="Content\Styles\reset.css" />
     <Content Include="Content\themes\base\images\ui-bg_flat_0_aaaaaa_40x100.png" />
     <Content Include="Content\themes\base\images\ui-bg_flat_75_ffffff_40x100.png" />
     <Content Include="Content\themes\base\images\ui-bg_glass_55_fbf9ee_1x400.png" />
@@ -584,11 +585,11 @@
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Content\colors.less" />
-    <Content Include="Content\dashboard.less" />
-    <Content Include="Content\form.less" />
-    <Content Include="Content\main.less" />
-    <Content Include="Content\media.less" />
+    <Content Include="Content\Styles\colors.less" />
+    <Content Include="Content\Styles\dashboard.less" />
+    <Content Include="Content\Styles\form.less" />
+    <Content Include="Content\Styles\main.less" />
+    <Content Include="Content\Styles\media.less" />
     <Content Include="Web.Staging.config">
       <DependentUpon>Web.config</DependentUpon>
     </Content>

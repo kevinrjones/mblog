@@ -43,6 +43,8 @@ namespace MBlogModel
 
         [NotMapped]
         public virtual bool IsBlogOwner { get; set; }
+        [NotMapped]
+        public virtual int TotalPosts { get; set; }
 
         [NotMapped]
         public virtual string Password

@@ -27,7 +27,7 @@ namespace Repository
             return _dbSet.Create();
         }
 
-        public void Attach(T entity)
+        public void Update(T entity)
         {
             _dbSet.Attach(entity);
             _dataDbContext.Entry(entity).State = EntityState.Modified;

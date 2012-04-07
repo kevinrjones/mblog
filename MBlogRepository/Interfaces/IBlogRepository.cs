@@ -6,6 +6,6 @@ namespace MBlogRepository.Interfaces
     public interface IBlogRepository : IRepository<Blog>
     {
         Blog GetBlog(string nickname);
-        void ChangeBlogLastupdateDate(int blogId);
+        void UpdateBlogStatistics(int blogId);
     }
 }

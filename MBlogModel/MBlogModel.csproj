@@ -115,6 +115,7 @@
     <None Include="Database\db\migrate\20110711000000_create_elmah_database.rb" />
     <None Include="Database\db\migrate\20110805000000_make_edited_not_null.rb" />
     <None Include="Database\db\migrate\20110612000000_add_foreign_keys.rb" />
+    <None Include="Database\db\migrate\20120404000000_add_total_posts_to_blog.rb" />
     <Content Include="Database\db\scripts\Images\image.png" />
     <Content Include="Database\db\scripts\insert.sql" />
   </ItemGroup>

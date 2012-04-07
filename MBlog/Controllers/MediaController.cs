@@ -87,19 +87,19 @@ namespace MBlog.Controllers
 
                 if (contentLength != 0)
                 {
-                    string url = string.Empty;
-                    bool success = true;
-                    string message = "Created successfully";
+                    var media = new Media();
+                    var success = true;
+                    var message = "Created successfully";
                     try
                     {
-                        url = _mediaService.WriteMedia(fileName, user.Id, model.ContentType, inputStream, contentLength);
+                        media = _mediaService.WriteMedia(fileName, user.Id, model.ContentType, inputStream, contentLength);
                     }
                     catch (MBlogInsertItemException e)
                     {
                         success = false;
                         message = e.Message;
                     }
-                    result = new MediaCreateJsonResponse {success = success, url = url, message = message};
+                    result = new MediaCreateJsonResponse {success = success, url = media.Url, message = message, title = media.Title, action = Url.Action("update", "media", new{mediaId = media.Id})};
                 }
             }
             catch (Exception e)

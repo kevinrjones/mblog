@@ -1,9 +1,13 @@
-﻿namespace MBlog.Models.Admin
+﻿using System;
+
+namespace MBlog.Models.Admin
 {
     public class AdminBlogViewModel
     {
         private string _title;
         public string Nickname { get; set; }
+        public DateTime LastUpdated { get; set; }
+        public int NumberOfPosts { get; set; }
 
         public string Title
         {

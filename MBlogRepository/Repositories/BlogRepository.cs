@@ -23,7 +23,7 @@ namespace MBlogRepository.Repositories
                     select b).FirstOrDefault();
         }
 
-        public void ChangeBlogLastupdateDate(int blogId)
+        public void UpdateBlogStatistics(int blogId)
         {
             Blog blog = (from b in Entities
                          where b.Id == blogId
@@ -34,7 +34,9 @@ namespace MBlogRepository.Repositories
                 throw new MBlogException("blogId not valid");
             }
             blog.LastUpdated = DateTime.UtcNow;
-            Attach(blog);
+            blog.TotalPosts++;
+
+            Update(blog);
         }
 
         #endregion

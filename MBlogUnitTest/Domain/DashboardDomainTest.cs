@@ -40,7 +40,7 @@ namespace MBlogUnitTest.Domain
             var dashboardService = new DashboardService(postRepository.Object, blogRepository.Object);
             var post = new Post();
             dashboardService.CreatePost(post, 1);
-            blogRepository.Verify(b => b.ChangeBlogLastupdateDate(1), Times.Once());
+            blogRepository.Verify(b => b.UpdateBlogStatistics(1), Times.Once());
             postRepository.Verify(p => p.Create(post), Times.Once());
         }
 
@@ -61,7 +61,7 @@ namespace MBlogUnitTest.Domain
             var dashboardService = new DashboardService(postRepository.Object, blogRepository.Object);
 
             dashboardService.Update(1, "title", "entry", 1);
-            blogRepository.Verify(b => b.ChangeBlogLastupdateDate(1), Times.Once());
+            blogRepository.Verify(b => b.UpdateBlogStatistics(1), Times.Once());
             postRepository.Verify(p => p.Update(1, "title", "entry"));
         }
     }

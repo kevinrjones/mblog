@@ -44,20 +44,20 @@ namespace MBlogService
             return _mediaRepository.GetMedia(pageNumber, pageItems, userId);
         }
 
-        public string WriteMedia(string fileName, int userId, string contentType, Stream inputStream, int contentLength)
+        public Media WriteMedia(string fileName, int userId, string contentType, Stream inputStream, int contentLength)
         {
             var mediaToCreate = new Media(fileName, userId, contentType, inputStream, contentLength);
+            
             try
             {
                 Media media = _mediaRepository.GetMedia(mediaToCreate.Year, mediaToCreate.Month, mediaToCreate.Day,
-                                                        mediaToCreate.FileName);
+                                                        mediaToCreate.LinkKey);
                 if (media == null)
                 {
-                    _mediaRepository.WriteMedia(mediaToCreate);
-                    return string.Format("{0}/{1}/{2}/{3}", mediaToCreate.Year, mediaToCreate.Month, mediaToCreate.Day,
-                                         mediaToCreate.FileName);
+                    mediaToCreate = _mediaRepository.WriteMedia(mediaToCreate);
+                    return mediaToCreate;
                 }
-                throw new MBlogInsertItemException("Unable to add item. This item already exists in the database");
+                throw new MBlogInsertItemException("Unable to add media. The media already exists in the database");
             }
             catch (MBlogInsertItemException)
             {

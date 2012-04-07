@@ -12,8 +12,6 @@ namespace MBlogIntegrationTest.Repositories
     [TestFixture]
     public class BlogRepositoryTest
     {
-        #region Setup/Teardown
-
         [SetUp]
         public void Setup()
         {
@@ -52,8 +50,6 @@ namespace MBlogIntegrationTest.Repositories
             _transactionScope.Dispose();
         }
 
-        #endregion
-
         private const int NumberOfPosts = 12;
         private User _user1;
         private User _user2;
@@ -81,7 +77,7 @@ namespace MBlogIntegrationTest.Repositories
 
             Blog blog = _blogRepository.GetBlog(_nickname);
 
-            Assert.Throws<MBlogException>(() => _blogRepository.ChangeBlogLastupdateDate(blog.Id + 1001));
+            Assert.Throws<MBlogException>(() => _blogRepository.UpdateBlogStatistics(blog.Id + 1001));
         }
 
         [Test]
@@ -92,11 +88,26 @@ namespace MBlogIntegrationTest.Repositories
             Blog blog = _blogRepository.GetBlog(_nickname);
             DateTime createdDateTime = blog.LastUpdated;
 
-            _blogRepository.ChangeBlogLastupdateDate(blog.Id);
+            _blogRepository.UpdateBlogStatistics(blog.Id);
 
             DateTime newTime = _blogRepository.GetBlog(blog.Nickname).LastUpdated;
 
             Assert.That(createdDateTime.Ticks, Is.Not.EqualTo(newTime.Ticks));
+        }
+
+        [Test]
+        public void WhenAPostIsAdded_ThenTheTotalPostCountIsUpdated()
+        {
+            _userRepository.Create(_user1);
+
+            Blog blog = _blogRepository.GetBlog(_nickname);
+            int initialCount = blog.TotalPosts;
+
+            _blogRepository.UpdateBlogStatistics(blog.Id);
+
+            int newCount = _blogRepository.GetBlog(blog.Nickname).TotalPosts;
+
+            Assert.That(newCount, Is.EqualTo(initialCount + 1));
         }
     }
 }

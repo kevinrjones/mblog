@@ -17,7 +17,7 @@ namespace MBlog
 {
     public class MvcApplication : HttpApplication
     {
-        public static void RegisterGlobalFilters(GlobalFilterCollection filters)
+        private static void RegisterGlobalFilters(GlobalFilterCollection filters)
         {
             filters.Add(new HandleErrorAttribute());
         }
@@ -307,6 +307,7 @@ namespace MBlog
                 .File("~/Scripts/mblog.js")
                 .Configure();
             OnRequest.ForCss("~/Combined-{0}.css").Compact
+                .File("~/Content/Styles/reset.css")
                 .File("~/Content/shCore.css")
                 .File("~/Content/shThemeRDark.css")
                 .File("~/Content/fileuploader.css")

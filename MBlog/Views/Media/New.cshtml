@@ -5,13 +5,13 @@
     ViewBag.Title = "Upload File";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
-
 <script type="text/javascript">
-    $(function() {
+    $(function () {
         var uploader = new qq.FileUploader({
             element: $('#file-uploader')[0],
             action: '@Url.Action("create")',
             allowedExtensions: ['jpg', 'gif', 'png', 'pdf', 'doc', 'docx', 'xls', 'xlsx', 'ppt', 'pptx', 'zip'],
+            multiple: false,
             params: {
                 nickname: '@Model.Nickname',
                 blogId: '@Model.BlogId'
@@ -21,12 +21,18 @@
             '<div class="qq-upload-button">Click to Select File to Upload</div>' +
             '<ul class="qq-upload-list"></ul>' +
             '</div>',
-            onComplete: function(id, fileName, result) {
+            onSubmit: function (id, fileName) {
+                $('.media-details').hide();
+                $('#upload-error-text').html("");
+            },
+            onComplete: function (id, fileName, result) {
                 qq.FileUploaderBasic.prototype._onComplete.apply(this, arguments);
                 if (result.success) {
+                    $('#createForm').attr('action', result.action);
+                    $('#Title').attr('value', result.title);
                     $('.media-details').show();
                 } else {
-                    $('#upload-error-text').InnerHtml = result.message;
+                    $('#upload-error-text').html(result.message);
                 }
             }
         });
@@ -37,10 +43,10 @@
         @ViewBag.Title
     </div>
     <div id="media-form-body">
-        <div class="media-upload">            
+        <div class="media-upload">
             <div id="file-uploader">
-                <noscript>          
-                    @using (Html.BeginForm("Create", "media", FormMethod.Post, new {enctype = "multipart/form-data"}))
+                <noscript>
+                    @using (Html.BeginForm("Create", "media", FormMethod.Post, new { enctype = "multipart/form-data" }))
                     {
                         @Html.HiddenFor(m => m.Nickname)
                         @Html.HiddenFor(m => m.BlogId)
@@ -52,42 +58,53 @@
                     }
                 </noscript>
             </div>
-            <div id="upload-error-text"></div>
         </div>
+        <div id="upload-error-text"></div>
         <div class="media-details">
-            @using (Html.BeginForm("Update", "media", FormMethod.Post))
-            {
+            @using (Html.BeginForm("Update", "media", new { mediaId = 1 }, FormMethod.Post, new { name = "createForm", id = "createForm" }))
+            {               
                 <div class="row">
-                    <span class="label">@New.Caption:</span> <span class="formw">@Html.TextBoxFor(m => m.Caption, new {@class = "maxwidth"})</span>
+                    <span class="label">@Global.Title:</span>
+                    <span class="formw">@Html.TextBoxFor(m => m.Title, new { @class = "maxwidth" })</span>
                 </div>
                 <div class="row">
-                    <span class="label">@Global.Description:</span> <span class="formw">@Html.TextBoxFor(m => m.Description, new {@class = "maxwidth"})</span>
+                    <span class="label">@New.Caption:</span>
+                    <span class="formw">@Html.TextBoxFor(m => m.Caption, new { @class = "maxwidth" })</span>
                 </div>
                 <div class="row">
-                    <span class="label">New.Alternate_Text:</span> <span class="formw">@Html.TextBoxFor(m => m.Alternate, new {@class = "maxwidth"})</span>
+                    <span class="label">@Global.Description:</span>
+                    <span class="formw">@Html.TextBoxFor(m => m.Description, new { @class = "maxwidth" })
+                    </span>
+                </div>
+                <div class="row">
+                    <span class="label">New.Alternate_Text:</span>
+                    <span class="formw">@Html.TextBoxFor(m => m.Alternate, new { @class = "maxwidth" })
+                    </span>
                 </div>
 
                 <div class="row">
                     <span class="label">
-                        @New.Alignment: </span><span class="formw">
-                                                   <input type="radio" id="align-none" name="alignment" value="0" checked="checked" />
-                                                   None
-                                                   <input type="radio" id="align-left" name="alignment" value="1" />
-                                                   Left
-                                                   <input type="radio" id="align-right" name="alignment" value="2" />
-                                                   Right </span>
+                        @New.Alignment: </span>
+                    <span class="formw">
+                        <input type="radio" id="align-none" name="alignment" value="0" checked="checked" />
+                        None
+                        <input type="radio" id="align-left" name="alignment" value="1" />
+                        Left
+                        <input type="radio" id="align-right" name="alignment" value="2" />
+                        Right </span>
                 </div>
                 <div class="row">
                     <span class="label">
-                        @New.Size: </span><span class="formw">
-                                              <input type="radio" id="size-thumbnail" name="size" value="0" />
-                                              Thumbnail
-                                              <input type="radio" id="size-small" name="size" value="1" />
-                                              Small
-                                              <input type="radio" id="size-medium" name="size" value="2" />
-                                              Medium
-                                              <input type="radio" id="size-large" name="size" value="3" checked="checked" />
-                                              Large </span>
+                        @New.Size: </span>
+                    <span class="formw">
+                        <input type="radio" id="size-thumbnail" name="size" value="0" />
+                        Thumbnail
+                        <input type="radio" id="size-small" name="size" value="1" />
+                        Small
+                        <input type="radio" id="size-medium" name="size" value="2" />
+                        Medium
+                        <input type="radio" id="size-large" name="size" value="3" checked="checked" />
+                        Large </span>
                 </div>
                 <div class="row">
                     <input type="submit" value="@Html.Encode(New.UploadImage)" />

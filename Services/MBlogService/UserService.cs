@@ -14,8 +14,7 @@ namespace MBlogService
         private readonly IUserRepository _userRepository;
         private readonly IUsernameBlacklistRepository _usernameBlacklistRepository;
 
-        public UserService(IUserRepository userRepository, IUsernameBlacklistRepository usernameBlacklistRepository,
-                           ILogger logger)
+        public UserService(IUserRepository userRepository, IUsernameBlacklistRepository usernameBlacklistRepository, ILogger logger)
         {
             _userRepository = userRepository;
             _usernameBlacklistRepository = usernameBlacklistRepository;
@@ -92,7 +91,8 @@ namespace MBlogService
         {
             try
             {
-                return _userRepository.GetUserWithTheirBlogs(id);
+                User user = _userRepository.GetUserWithTheirBlogs(id);
+                return user;
             }
             catch (Exception e)
             {

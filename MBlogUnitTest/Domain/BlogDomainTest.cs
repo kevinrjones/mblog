@@ -57,7 +57,7 @@ namespace MBlogUnitTest.Domain
             var blogDomain = new BlogService(_blogRepository.Object);
             blogDomain.UpdateBlog("nickname", It.IsAny<bool>(), It.IsAny<bool>(), It.IsAny<string>(), It.IsAny<string>());
             _blogRepository.Verify(b => b.GetBlog("nickname"), Times.Once());
-            _blogRepository.Verify(b => b.Attach(It.IsAny<Blog>()), Times.Once());
+            _blogRepository.Verify(b => b.Update(It.IsAny<Blog>()), Times.Once());
         }
 
         [Test]

@@ -10,7 +10,6 @@ namespace MBlogModel
         public Blog()
         {
             Posts = new List<Post>();
-            LastUpdated = DateTime.Now;
         }
 
         public Blog(string title, string description, bool approveComments, bool commentsEnabled, string nickname,
@@ -43,6 +42,9 @@ namespace MBlogModel
 
         [Required, Column("last_updated")]
         public DateTime LastUpdated { get; set; }
+
+        [Required, Column("total_posts")]
+        public int TotalPosts { get; set; }
 
         [Required]
         public string Nickname { get; set; }
