@@ -124,6 +124,15 @@ namespace MBlog.Resources.Admin {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to No Posts Yet.
+        /// </summary>
+        public static string NoPosts {
+            get {
+                return ResourceManager.GetString("NoPosts", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to posts.
         /// </summary>
         public static string Posts {

@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Configuration;
+using System.Linq;
 using System.Transactions;
 using MBlogBuilder;
 using MBlogModel;
@@ -108,6 +109,18 @@ namespace MBlogIntegrationTest.Repositories
             int newCount = _blogRepository.GetBlog(blog.Nickname).TotalPosts;
 
             Assert.That(newCount, Is.EqualTo(initialCount + 1));
+        }
+
+        [Test]
+        public void WhenICreateABlog_ThenTheBlogIsCreated()
+        {
+            _userRepository.Create(_user1);
+            int initialCount = _blogRepository.Entities.Count();
+            Blog blog = new Blog("title", "desc", false, false, "nick", _user1.Id);
+
+            _blogRepository.Create(blog);
+
+            Assert.That(_blogRepository.Entities.Count(), Is.EqualTo(initialCount + 1));
         }
     }
 }

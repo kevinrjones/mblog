@@ -8,10 +8,10 @@ using MBlogServiceInterfaces.ModelState;
 using Moq;
 using NUnit.Framework;
 
-namespace MBlogUnitTest.Domain
+namespace MBlogUnitTest.Services
 {
     [TestFixture]
-    public class UserDomainTest
+    public class UserServiceTest
     {
         #region Setup/Teardown
 

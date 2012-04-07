@@ -147,4 +147,7 @@
   <data name="NewMedia" xml:space="preserve">
     <value>Add New Media</value>
   </data>
+  <data name="NoPosts" xml:space="preserve">
+    <value>No Posts Yet</value>
+  </data>
 </root>

@@ -203,6 +203,13 @@ namespace MBlog
                 );
 
             routes.MapRoute(
+                name: "Media-delete",
+                url: "{nickname}/media/delete/{mediaId}",
+                defaults: new { controller = "Media", action = "Delete", },
+                constraints: new { httpMethod = new HttpMethodConstraint("GET") }
+                );
+
+            routes.MapRoute(
                 name: "Posts-new",
                 url: "{nickname}/new/{blogId}",
                 defaults: new {controller = "Post", action = "New"},
@@ -293,24 +300,24 @@ namespace MBlog
                 .File("~/Scripts/jquery.validate.js")
                 .File("~/Scripts/jquery.validate.unobtrusive.js")
                 .File("~/Scripts/jquery.unobtrusive-ajax.js")
-                .File("~/Scripts/shCore.js")
-                .File("~/Scripts/shBrushBash.js")
-                .File("~/Scripts/shBrushCss.js")
-                .File("~/Scripts/shBrushCSharp.js")
-                .File("~/Scripts/shBrushJScript.js")
-                .File("~/Scripts/shBrushPowerShell.js")
-                .File("~/Scripts/shBrushRuby.js")
-                .File("~/Scripts/shBrushSql.js")
-                .File("~/Scripts/shBrushXml.js")
+                .File("~/Scripts/SyntaxHighlighter/shCore.js")
+                .File("~/Scripts/SyntaxHighlighter/shBrushBash.js")
+                .File("~/Scripts/SyntaxHighlighter/shBrushCss.js")
+                .File("~/Scripts/SyntaxHighlighter/shBrushCSharp.js")
+                .File("~/Scripts/SyntaxHighlighter/shBrushJScript.js")
+                .File("~/Scripts/SyntaxHighlighter/shBrushPowerShell.js")
+                .File("~/Scripts/SyntaxHighlighter/shBrushRuby.js")
+                .File("~/Scripts/SyntaxHighlighter/shBrushSql.js")
+                .File("~/Scripts/SyntaxHighlighter/shBrushXml.js")
                 .File("~/Scripts/modernizr-2.0.6-development-only.js")
-                .File("~/Scripts/fileuploader.js")
-                .File("~/Scripts/mblog.js")
+                .File("~/Scripts/FileUploader/fileuploader.js")
+                .File("~/Scripts/mblog/mblog.js")
                 .Configure();
             OnRequest.ForCss("~/Combined-{0}.css").Compact
                 .File("~/Content/Styles/reset.css")
-                .File("~/Content/shCore.css")
-                .File("~/Content/shThemeRDark.css")
-                .File("~/Content/fileuploader.css")
+                .File("~/Content/SyntaxHighlighter/shCore.css")
+                .File("~/Content/SyntaxHighlighter/shThemeRDark.css")
+                .File("~/Content/fileuploader/fileuploader.css")
                 .Configure();
         }
 

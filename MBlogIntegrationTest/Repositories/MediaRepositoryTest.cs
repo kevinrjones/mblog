@@ -14,7 +14,13 @@ namespace MBlogIntegrationTest.Repositories
     [TestFixture]
     public class MediaRepositoryTest
     {
-        #region Setup/Teardown
+        private MediaRepository _mediaRepository;
+        private const string MediaFile = "../../Repositories/Media/image.png";
+        private byte[] _mediaData;
+        private User _user;
+        private FileStream _fileStream;
+        private TransactionScope _transactionScope;
+        private UserRepository _userRepository;
 
         [SetUp]
         public void Setup()
@@ -70,16 +76,6 @@ namespace MBlogIntegrationTest.Repositories
             _transactionScope.Dispose();
             _fileStream.Close();
         }
-
-        #endregion
-
-        private MediaRepository _mediaRepository;
-        private const string MediaFile = "../../Repositories/Media/image.png";
-        private byte[] _mediaData;
-        private User _user;
-        private FileStream _fileStream;
-        private TransactionScope _transactionScope;
-        private UserRepository _userRepository;
 
         [Test]
         public void GivenAnExistingMedia_IfItIsUpdated_ThenTheMediaInTheDatabaseIsUpdated()
@@ -150,5 +146,15 @@ namespace MBlogIntegrationTest.Repositories
             IEnumerable<Media> retrievedMedia = _mediaRepository.GetMedia(2, 2, _user.Id);
             Assert.That(retrievedMedia.Count(), Is.EqualTo(1));
         }
+
+        [Test]
+        public void WhenIDeleteAMedium_ThenItIsDeleted()
+        {
+            Media retrievedMedia = _mediaRepository.GetMedia(2012, 12, 18, "TestImage1");
+            _mediaRepository.Delete(retrievedMedia);
+            Media deletedMedia = _mediaRepository.GetMedia(retrievedMedia.Id);
+            Assert.That(deletedMedia, Is.Null);
+        }
+
     }
 }

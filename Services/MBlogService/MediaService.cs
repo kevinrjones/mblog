@@ -47,7 +47,7 @@ namespace MBlogService
         public Media WriteMedia(string fileName, int userId, string contentType, Stream inputStream, int contentLength)
         {
             var mediaToCreate = new Media(fileName, userId, contentType, inputStream, contentLength);
-            
+
             try
             {
                 Media media = _mediaRepository.GetMedia(mediaToCreate.Year, mediaToCreate.Month, mediaToCreate.Day,
@@ -116,6 +116,32 @@ namespace MBlogService
                 throw new MBlogException("Could not update media", e);
             }
             return medium;
+        }
+
+        public void DeleteMedia(int mediaId, int userId)
+        {
+            Media medium;
+            try
+            {
+                medium = _mediaRepository.GetMedia(mediaId);
+            }
+            catch (Exception)
+            {
+                throw new MBlogException("Unable to find media");
+            }
+            if (medium.UserId != userId)
+            {
+                throw new MBlogException("Unable to delete medium. This user does not have permission");
+            }
+
+            try
+            {
+                _mediaRepository.Delete(medium);
+            }
+            catch (Exception)
+            {
+                throw new MBlogException("Unable to delete media");
+            }
         }
 
         public Media GetMedia(int mediaId, int userId)

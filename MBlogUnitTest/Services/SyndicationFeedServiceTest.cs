@@ -5,13 +5,14 @@ using System.ServiceModel.Syndication;
 using MBlogModel;
 using MBlogRepository.Interfaces;
 using MBlogService;
+using MBlogUnitTest.Controllers;
 using Moq;
 using NUnit.Framework;
 
-namespace MBlogUnitTest.Controllers
+namespace MBlogUnitTest.Services
 {
     [TestFixture]
-    internal class SyndicationFeedDomainTest : BaseControllerTests
+    internal class SyndicationFeedServiceTest : BaseControllerTests
     {
         #region Setup/Teardown
 

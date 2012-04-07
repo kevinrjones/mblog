@@ -43,6 +43,7 @@ namespace Repository
         public void Delete(T entity)
         {
             _dbSet.Remove(entity);
+            Save();
         }
 
         public void Dispose()

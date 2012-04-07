@@ -1,9 +1,10 @@
 using System.Collections.Generic;
 using MBlogModel;
+using Repository;
 
 namespace MBlogRepository.Interfaces
 {
-    public interface IMediaRepository
+    public interface IMediaRepository : IRepository<Media>
     {
         Media GetMedia(int id);
         Media GetMedia(int year, int month, int day, string linkKey);

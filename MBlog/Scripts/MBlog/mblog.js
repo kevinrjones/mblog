@@ -16,6 +16,10 @@
         evt.preventDefault();
     });
     addListHighlighting();
+    $('.listmedia-details .row-actions .delete a').bind('click', function () {
+        if (!confirm('Are you sure you want to delete this item?'))
+            return false;
+    });
 });
 
 function done(data) {

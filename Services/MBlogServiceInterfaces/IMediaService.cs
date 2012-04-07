@@ -16,5 +16,7 @@ namespace MBlogServiceInterfaces
 
         Media UpdateMediaDetails(int id, string fileName, string caption, string description, string alternate,
                                  int userId);
+
+        void DeleteMedia(int mediaId, int userId);
     }
 }

@@ -19,8 +19,11 @@
             <section class="admin-user-links">
                 Profile
                 <div class="admin-blog-actions">
-                    <span class="admin-link">@Html.ActionLink(Index.NewMedia, "new", "Media", new {nickname = Model.Blogs[0].Nickname}, null)</span>
-                    <span class="admin-link">@Html.ActionLink(Index.ListMedia, "index", "Media", new {nickname = Model.Blogs[0].Nickname}, null)</span>
+                    @if (Model.Blogs.Count > 0)
+                    {
+                        <span class="admin-link">@Html.ActionLink(Index.NewMedia, "new", "Media", new {nickname = Model.Nickname}, null)</span>
+                        <span class="admin-link">@Html.ActionLink(Index.ListMedia, "index", "Media", new {nickname = Model.Nickname}, null)</span>
+                    }
                 </div>
             </section>
         </section>
@@ -40,8 +43,16 @@
                             <span>@blog.Title</span>
                         </div>
                         <div class="admin-blog-details">
-                            <span>
-                                @blog.NumberOfPosts @Html.Encode(Index.Posts), @Html.Encode(Index.LastPublishedOn) @blog.LastUpdated.ToShortDateString() - @Html.ActionLink(Html.Encode(Index.ViewBlog), "index", "Post", new{nickname=blog.Nickname}, null) </span>
+                            @if(@blog.NumberOfPosts > 0)
+                            {
+                                <span>
+                                    @blog.NumberOfPosts @Html.Encode(Index.Posts), @Html.Encode(Index.LastPublishedOn) @blog.LastUpdated.ToShortDateString() - @Html.ActionLink(Html.Encode(Index.ViewBlog), "index", "Post", new {nickname = blog.Nickname}, null) </span>
+                            }else
+                            {
+                                <span>
+                                    @Html.Encode(Index.NoPosts) - @Html.ActionLink(Html.Encode(Index.ViewBlog), "index", "Post", new {nickname = blog.Nickname}, null) </span>
+                                
+                            }
                         </div>
                         <div class="admin-blog-actions">
                             <span class="admin-link">@Html.ActionLink(Global.NewPost, "new", "Post", new {nickname = blog.Nickname, blogId = blog.BlogId}, null)</span>

@@ -8,21 +8,17 @@ using MBlogService;
 using Moq;
 using NUnit.Framework;
 
-namespace MBlogUnitTest.Domain
+namespace MBlogUnitTest.Services
 {
     [TestFixture]
-    public class MediaDomainTest
+    public class MediaServiceTest
     {
-        #region Setup/Teardown
-
         [SetUp]
         public void Setup()
         {
             _mediaRepository = new Mock<IMediaRepository>();
             mediaService = new MediaService(_mediaRepository.Object);
         }
-
-        #endregion
 
         private Mock<IMediaRepository> _mediaRepository;
         private MediaService mediaService;
@@ -237,5 +233,48 @@ namespace MBlogUnitTest.Domain
             Assert.Throws<MBlogMediaNotFoundException>(
                 () => mediaService.GetMedia(It.IsAny<int>(), It.IsAny<int>(), It.IsAny<int>(), It.IsAny<string>()));
         }
+
+        [Test]
+        public void WhenMediaIsDeleted_AndItBelongsToTheUser_ThenItIsDeleted()
+        {
+            int userId = 1;
+            _mediaRepository.Setup(m => m.GetMedia(It.IsAny<int>())).Returns(new Media {UserId = userId});
+            mediaService.DeleteMedia(It.IsAny<int>(), userId);
+            Assert.True(true, "No exceptions thrown");
+        }
+
+        
+        [Test]
+        public void WhenMediaIsDeleted_AndItDoesnotBelongToTheUser_ThenAnMBlogExceptionIsThrown()
+        {
+            int userId = 1;
+            int ownerId = 2;
+            _mediaRepository.Setup(m => m.GetMedia(It.IsAny<int>())).Returns(new Media { UserId = ownerId });
+            Assert.Throws<MBlogException>(
+                () =>
+                mediaService.DeleteMedia(It.IsAny<int>(), userId));
+        }
+
+        
+        
+        [Test]
+        public void WhenMediaIsDeleted_AndTheDatabaseIsNotAvailable_ThenAnMBlogExceptionIsThrown()
+        {
+            _mediaRepository.Setup(m => m.GetMedia(It.IsAny<int>())).Throws<Exception>();
+            Assert.Throws<MBlogException>(
+                () =>
+                mediaService.DeleteMedia(It.IsAny<int>(), It.IsAny<int>()));
+        }
+        
+        [Test]
+        public void WhenMediaIsDeleted_AndTheUserIsValid_AndTheDatabaseIsNotAvailable_ThenAnMBlogExceptionIsThrown()
+        {
+            int userId = 1;
+            _mediaRepository.Setup(m => m.GetMedia(It.IsAny<int>())).Returns(new Media {UserId = userId});
+            _mediaRepository.Setup(m => m.Delete(It.IsAny<Media>())).Throws<Exception>();
+            Assert.Throws<MBlogException>(
+                () =>
+                mediaService.DeleteMedia(It.IsAny<int>(), userId));
+        }               
     }
 }

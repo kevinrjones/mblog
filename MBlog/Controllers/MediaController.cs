@@ -116,8 +116,9 @@ namespace MBlog.Controllers
         {
             // todo: content type?
             if (!ModelState.IsValid)
+            {
                 return View("edit", model);
-
+            }
             var user = (UserViewModel) HttpContext.User;
 
             Media media = _mediaService.UpdateMediaDetails(model.Id, model.Title, model.Caption, model.Description,
@@ -128,11 +129,20 @@ namespace MBlog.Controllers
 
         [HttpGet]
         [AuthorizeLoggedInUser]
-        public ActionResult Edit(string nickname, int mediaId)
+        public ActionResult Edit(int mediaId)
         {
             var user = (UserViewModel) HttpContext.User;
             Media media = _mediaService.GetMedia(mediaId, user.Id);
             return View(new ShowMediaViewModel(media));
+        }
+
+        [HttpGet]
+        [AuthorizeLoggedInUser]
+        public ActionResult Delete(int mediaid)
+        {
+            var user = (UserViewModel)HttpContext.User;
+            _mediaService.DeleteMedia(mediaid, user.Id);
+            return RedirectToAction("Index", "Media", new {nickname="kevin"});
         }
     }
 }

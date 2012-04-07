@@ -191,5 +191,18 @@ namespace MBlogUnitTest.Routing
                                                                       action = "Delete"
                                                                   }));
         }
+
+        [Test]
+        public void GivenACorrectRoutesCollection_WhenIAskToCreateAUrlForDeletingMedia_ThenIGetTheCorrectUrl()
+        {
+            /*@Html.ActionLink("Delete", "Delete", new { MediaId = media.Id })*/
+            UrlHelper helper = GetUrlHelper();
+
+            string expectedurl = "/nickname/media/delete/1";
+
+            string url = helper.Action("Delete", "Media", new { nickname = "nickname", MediaId = 1 });
+
+            Assert.AreEqual(expectedurl, url);
+        }
     }
 }

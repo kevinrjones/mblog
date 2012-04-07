@@ -304,5 +304,19 @@ namespace MBlogUnitTest.Routing
                                                      },
                       "POST");
         }
+        [Test]
+        public void GivenACorrectRoutesCollection_WhenIDeleteAMedium_ThenIGetTheDeleteActionForMedia()
+        {
+            TestRoute("~/nickname/media/delete/1", new
+                                                      {
+                                                          controller = "Media",
+                                                          action = "Delete",
+                                                          mediaId = 1,
+                                                          nickname = "nickname"
+                                                      },
+                      "POST");
+        }
+
+
     }
 }

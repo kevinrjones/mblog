@@ -21,6 +21,14 @@ namespace MBlog.Models.Admin
         public int UserId { get; set; }
         public string Name { get; set; }
 
+        private string _nickname;
+        public string Nickname
+        {
+            get
+            {
+                return Blogs.Count > 0 ? Blogs[0].Nickname : "";
+            }
+        }
 
         public List<AdminBlogViewModel> Blogs
         {
