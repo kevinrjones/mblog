@@ -50,7 +50,7 @@ namespace MBlogService
 
             try
             {
-                Media media = _mediaRepository.GetMedia(mediaToCreate.Year, mediaToCreate.Month, mediaToCreate.Day,
+                Media media = _mediaRepository.GetMedia(userId, mediaToCreate.Year, mediaToCreate.Month, mediaToCreate.Day,
                                                         mediaToCreate.LinkKey);
                 if (media == null)
                 {

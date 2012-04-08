@@ -304,6 +304,21 @@ namespace MBlogUnitTest.Routing
                                                      },
                       "POST");
         }
+
+
+        [Test]
+        public void GivenACorrectRoutesCollection_WhenIUpdateAMedium_ThenIGetTheUpdateActionForMedia()
+        {
+            TestRoute("~/nickname/media/update/1", new
+                                                    {
+                                                        controller = "Media",
+                                                        action = "Update",
+                                                        id = 1,
+                                                        nickname = "nickname"
+                                                    },
+                      "POST");
+        }
+
         [Test]
         public void GivenACorrectRoutesCollection_WhenIDeleteAMedium_ThenIGetTheDeleteActionForMedia()
         {
@@ -311,7 +326,7 @@ namespace MBlogUnitTest.Routing
                                                       {
                                                           controller = "Media",
                                                           action = "Delete",
-                                                          mediaId = 1,
+                                                          id = 1,
                                                           nickname = "nickname"
                                                       },
                       "POST");

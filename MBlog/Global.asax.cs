@@ -169,7 +169,7 @@ namespace MBlog
 
             routes.MapRoute(
                 name: "Media-update",
-                url: "{nickname}/media/update/{mediaId}",
+                url: "{nickname}/media/update/{id}",
                 defaults: new {controller = "Media", action = "Update",},
                 constraints: new {httpMethod = new HttpMethodConstraint("POST")}
                 );
@@ -204,9 +204,9 @@ namespace MBlog
 
             routes.MapRoute(
                 name: "Media-delete",
-                url: "{nickname}/media/delete/{mediaId}",
+                url: "{nickname}/media/delete/{id}",
                 defaults: new { controller = "Media", action = "Delete", },
-                constraints: new { httpMethod = new HttpMethodConstraint("GET") }
+                constraints: new { httpMethod = new HttpMethodConstraint("POST") }
                 );
 
             routes.MapRoute(

@@ -89,7 +89,7 @@ namespace MBlog.Controllers
                 {
                     var media = new Media();
                     var success = true;
-                    var message = "Created successfully";
+                    var message = "Media uploaded successfully";
                     try
                     {
                         media = _mediaService.WriteMedia(fileName, user.Id, model.ContentType, inputStream, contentLength);
@@ -99,7 +99,7 @@ namespace MBlog.Controllers
                         success = false;
                         message = e.Message;
                     }
-                    result = new MediaCreateJsonResponse {success = success, url = media.Url, message = message, title = media.Title, action = Url.Action("update", "media", new{mediaId = media.Id})};
+                    result = new MediaCreateJsonResponse {success = success, url = media.Url, message = message, title = media.Title, action = Url.Action("update", "media", new{id = media.Id})};
                 }
             }
             catch (Exception e)
@@ -114,17 +114,17 @@ namespace MBlog.Controllers
         [AuthorizeLoggedInUser]
         public ActionResult Update(UpdateMediaViewModel model)
         {
-            // todo: content type?
             if (!ModelState.IsValid)
             {
                 return View("edit", model);
             }
             var user = (UserViewModel) HttpContext.User;
 
-            Media media = _mediaService.UpdateMediaDetails(model.Id, model.Title, model.Caption, model.Description,
+            _mediaService.UpdateMediaDetails(model.Id, model.Title, model.Caption, model.Description,
                                                            model.Alternate, user.Id);
 
-            return View("Edit", new ShowMediaViewModel(media));
+            // todo: return JSON result
+            return RedirectToAction("New", "Media");
         }
 
         [HttpGet]
@@ -142,7 +142,7 @@ namespace MBlog.Controllers
         {
             var user = (UserViewModel)HttpContext.User;
             _mediaService.DeleteMedia(mediaid, user.Id);
-            return RedirectToAction("Index", "Media", new {nickname="kevin"});
+            return RedirectToAction("Index", "Media");
         }
     }
 }

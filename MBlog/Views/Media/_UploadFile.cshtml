@@ -1,0 +1,111 @@
+﻿@using MBlog.Resources.General
+@using MBlog.Resources.Media
+@model MBlog.Models.Media.NewMediaViewModel
+<script type="text/javascript">
+    $(function () {
+        var uploader = new qq.FileUploader({
+            element: $('#file-uploader')[0],
+            action: '@Url.Action("create")',
+            allowedExtensions: ['jpg', 'gif', 'png', 'pdf', 'doc', 'docx', 'xls', 'xlsx', 'ppt', 'pptx', 'zip'],
+            multiple: false,
+            params: {
+                nickname: '@Model.Nickname',
+                blogId: '@Model.BlogId'
+            },
+            template: '<div class="qq-uploader">' +
+            '<div class="qq-upload-drop-area"><span>Drop file here to upload</span></div>' +
+            '<div class="qq-upload-button">Click to Select File to Upload</div>' +
+            '<ul class="qq-upload-list"></ul>' +
+            '</div>',
+            onSubmit: function (id, fileName) {
+                $('.media-details').hide();
+                $('#upload-error-text').css('visibility', 'hidden').html("");
+            },
+            onComplete: function (id, fileName, result) {
+                qq.FileUploaderBasic.prototype._onComplete.apply(this, arguments);
+                if (result.success) {
+                    $('#createForm').attr('action', result.action);
+                    $('#Title').attr('value', result.title);
+                    $('.media-details').show();
+                    $('#upload-error-text').css('visibility', 'visible').html(result.message);
+                } else {
+                    $('#upload-error-text').css('visibility', 'visible').html(result.message);
+                }
+                $('.qq-upload-list').empty();
+            }
+        });
+    });
+</script>
+
+
+    <div id="media-form-body">
+        <div class="media-upload">
+            <div id="file-uploader">
+                <noscript>
+                    @using (Html.BeginForm("Create", "media", FormMethod.Post, new { enctype = "multipart/form-data" }))
+                    {
+                        @Html.HiddenFor(m => m.Nickname)
+                        @Html.HiddenFor(m => m.BlogId)
+                        @Html.Hidden("imageId", "someId")
+
+                        <div>
+                            <input type="file" name="file" id="file" /><input type="submit" value="@Html.Encode(New.UploadImage)" />@Html.ValidationMessage("File")
+                        </div>
+                    }
+                </noscript>
+            </div>
+        </div>
+        <div id="upload-error-text" class="input-validation-error"></div>
+        <div class="media-details">
+            @using (Html.BeginForm("Update", "media", new { mediaId = 1 }, FormMethod.Post, new { name = "createForm", id = "createForm" }))
+            {               
+                <div class="row">
+                    <span class="label">@Global.Title:</span>
+                    <span class="formw">@Html.TextBoxFor(m => m.Title, new { @class = "maxwidth" })</span>
+                </div>
+                <div class="row">
+                    <span class="label">@New.Caption:</span>
+                    <span class="formw">@Html.TextBoxFor(m => m.Caption, new { @class = "maxwidth" })</span>
+                </div>
+                <div class="row">
+                    <span class="label">@Global.Description:</span>
+                    <span class="formw">@Html.TextBoxFor(m => m.Description, new { @class = "maxwidth" })
+                    </span>
+                </div>
+                <div class="row">
+                    <span class="label">New.Alternate_Text:</span>
+                    <span class="formw">@Html.TextBoxFor(m => m.Alternate, new { @class = "maxwidth" })
+                    </span>
+                </div>
+
+                <div class="row">
+                    <span class="label">
+                        @New.Alignment: </span>
+                    <span class="formw">
+                        <input type="radio" id="align-none" name="alignment" value="0" checked="checked" />
+                        None
+                        <input type="radio" id="align-left" name="alignment" value="1" />
+                        Left
+                        <input type="radio" id="align-right" name="alignment" value="2" />
+                        Right </span>
+                </div>
+                <div class="row">
+                    <span class="label">
+                        @New.Size: </span>
+                    <span class="formw">
+                        <input type="radio" id="size-thumbnail" name="size" value="0" />
+                        Thumbnail
+                        <input type="radio" id="size-small" name="size" value="1" />
+                        Small
+                        <input type="radio" id="size-medium" name="size" value="2" />
+                        Medium
+                        <input type="radio" id="size-large" name="size" value="3" checked="checked" />
+                        Large </span>
+                </div>
+                <div class="row">
+                    <input type="submit" value="@Html.Encode(New.UpdateImage)" />
+                </div>
+            }
+        </div>
+    </div>
+

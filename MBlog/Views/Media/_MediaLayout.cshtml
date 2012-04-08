@@ -1,0 +1,11 @@
+﻿@{ Layout = "~/Views/Shared/_Layout.cshtml"; }
+@RenderBody()
+@section DashboardHeaders
+{
+    <link href="@Url.Content("~/Content/Styles/dashboard.less")" rel="stylesheet" type="text/css" />
+    <script src="@Url.Content("~/Scripts/MBlog/mblog-dashboard.js")" type="text/javascript"> </script>
+    <style>
+    .blog-sidebar { display: none; }
+    .blog-main-body { width: 100%; }
+</style>
+}

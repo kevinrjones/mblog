@@ -120,22 +120,25 @@
   <data name="UploadImage" xml:space="preserve">
     <value>Upload Media</value>
   </data>
-  <data name="Caption">
-    <value xml:space="preserve">Caption</value>
+  <data name="Caption" xml:space="preserve">
+    <value>Caption</value>
   </data>
-  <data name="Alternate_Text">
-    <value xml:space="preserve">Alternate Text</value>
+  <data name="Alternate_Text" xml:space="preserve">
+    <value>Alternate Text</value>
   </data>
-  <data name="Alignment">
-    <value xml:space="preserve">Alignment</value>
+  <data name="Alignment" xml:space="preserve">
+    <value>Alignment</value>
   </data>
-  <data name="Size">
-    <value xml:space="preserve">Size</value>
+  <data name="Size" xml:space="preserve">
+    <value>Size</value>
   </data>
-  <data name="InvalidFileExtension">
-    <value xml:space="preserve">File extension is invalid</value>
+  <data name="InvalidFileExtension" xml:space="preserve">
+    <value>File extension is invalid</value>
   </data>
-  <data name="InvalidFileName">
-    <value xml:space="preserve">Invalid file name</value>
+  <data name="InvalidFileName" xml:space="preserve">
+    <value>Invalid file name</value>
+  </data>
+  <data name="UpdateImage" xml:space="preserve">
+    <value>Update Media</value>
   </data>
 </root>

@@ -344,7 +344,7 @@
     <Content Include="Properties\PublishProfiles\Test.pubxml.user" />
     <Content Include="Properties\PublishProfiles\Web-Staging.pubxml.user" />
     <Content Include="README.jQuery.vsdoc.txt" />
-    <Content Include="Scripts\FileUpoloader\fileuploader.js" />
+    <Content Include="Scripts\FileUploader\fileuploader.js" />
     <Content Include="Scripts\jquery-1.7.1-vsdoc.js" />
     <Content Include="Scripts\jquery-1.7.1.js" />
     <Content Include="Scripts\jquery-1.7.1.min.js" />
@@ -597,6 +597,7 @@
       <DependentUpon>Web.config</DependentUpon>
     </Content>
     <None Include="Content\images\Thumbs.db" />
+    <Content Include="Views\Media\_UploadFile.cshtml" />
     <None Include="Properties\PublishProfiles\Acceptance.pubxml" />
     <None Include="Properties\PublishProfiles\Debug.pubxml" />
     <None Include="Properties\PublishProfiles\Live.pubxml" />
@@ -612,6 +613,7 @@
     </None>
     <None Include="T4MVC.tt.settings.t4" />
     <Content Include="Views\Dashboard\ListPosts.cshtml" />
+    <Content Include="Views\Media\_MediaLayout.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />

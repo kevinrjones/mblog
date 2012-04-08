@@ -33,6 +33,18 @@ namespace MBlogRepository.Repositories
                     select i).FirstOrDefault();
         }
 
+        public Media GetMedia(int userId, int year, int month, int day, string linkKey)
+        {
+            return (from i in Entities
+                    where i.UserId == userId
+                          &&  i.Year == year
+                          && i.Month == month
+                          && i.Day == day
+                          && i.LinkKey == linkKey
+                    select i).FirstOrDefault();
+            
+        }
+
         public IEnumerable<Media> GetMedia(int pageNumber, int numberOfItems, int userId)
         {
             return Entities

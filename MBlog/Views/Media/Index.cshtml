@@ -2,7 +2,7 @@
 @model IEnumerable<MBlog.Models.Media.ShowMediaViewModel>
 @{
     ViewBag.Title = "List Media";
-    Layout = "~/Views/Dashboard/_DashboardLayout.cshtml";
+    Layout = "~/Views/Media/_MediaLayout.cshtml";
 }
 <h2>List Media</h2>
 <section class="list-items">
@@ -30,7 +30,11 @@
                         </a>
                     }
                 </td>
-                <td class="listmedia-details"><a href="#">@media.Title</a>
+                <td class="listmedia-details">
+                    @Html.ActionLink(media.Title, "show", new { media.Year, media.Month, media.Day, media.LinkKey })
+                    <div>
+                        URL:<span class="url-to-copy">&lt;img src="@Url.Action("show", new { media.Year, media.Month, media.Day, media.LinkKey })"></span>
+                    </div>
                     <p>@Html.Encode(media.Extension)</p>
                     <div class="row-actions">
                         <span class="edit">@Html.ActionLink("Edit", "Edit", new { MediaId = media.Id }) | </span>

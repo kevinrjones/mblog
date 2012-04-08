@@ -115,6 +115,15 @@ namespace MBlog.Resources.Media {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Update Media.
+        /// </summary>
+        public static string UpdateImage {
+            get {
+                return ResourceManager.GetString("UpdateImage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Upload Media.
         /// </summary>
         public static string UploadImage {
