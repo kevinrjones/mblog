@@ -36,7 +36,7 @@ namespace MBlogUnitTest.Services
         public void GivenAnExistingMedia_WhenDuplicateMediaIsCreated_ThenAnMBlogInsertItemExceptionIsThrown()
         {
             _mediaRepository.Setup(
-                m => m.GetMedia(It.IsAny<int>(), It.IsAny<int>(), It.IsAny<int>(), It.IsAny<string>())).Returns(
+                m => m.GetMedia(It.IsAny<int>(), It.IsAny<int>(), It.IsAny<int>(), It.IsAny<int>(), It.IsAny<string>())).Returns(
                     new Media {Id = 1});
 
             var stream = new Mock<Stream>();
@@ -78,7 +78,7 @@ namespace MBlogUnitTest.Services
         public void WhenMediaIsCreated_AndTheDataBaseIsNotAvailable_ThenAnMBlogExceptionIsThrown()
         {
             _mediaRepository.Setup(
-                m => m.GetMedia(It.IsAny<int>(), It.IsAny<int>(), It.IsAny<int>(), It.IsAny<string>())).Throws
+                m => m.GetMedia(It.IsAny<int>(), It.IsAny<int>(), It.IsAny<int>(), It.IsAny<int>(), It.IsAny<string>())).Throws
                 <Exception>();
             var stream = new Mock<Stream>();
 

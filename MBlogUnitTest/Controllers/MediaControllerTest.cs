@@ -250,14 +250,13 @@ namespace MBlogUnitTest.Controllers
         }
 
         [Test]
-        public void WhenUpdateIsCalled_AndTheModelStateIsInvalid_ThenTheEditViewIsReturned()
+        public void WhenUpdateIsCalled_AndTheModelStateIsInvalid_ThenTheCorrectViewIsReturned()
         {
             var controller = new MediaController(_mediaService.Object, null);
             var model = new UpdateMediaViewModel();
             controller.ViewData.ModelState.AddModelError("Key", "ErrorMessage");
-            var result = (ViewResult)controller.Update(model);
+            var result = (JsonResult)controller.Update(model);
             Assert.That(result, Is.Not.Null);
-            Assert.That(result.ViewName, Is.EqualTo("Edit").IgnoreCase);
         }
 
         [Test]
@@ -280,25 +279,17 @@ namespace MBlogUnitTest.Controllers
             controller.HttpContext.User = new UserViewModel { IsLoggedIn = true, Id = userId };
 
             var model = new UpdateMediaViewModel
-                            {
-                                Id = 1,
-                                Title = "title",
-                                Caption = "caption",
-                                Description = "description",
-                                Alternate = "alternate",
-                            };
+            {
+                Id = 1,
+                Title = "title",
+                Caption = "caption",
+                Description = "description",
+                Alternate = "alternate",
+            };
 
-            _mediaService.Setup(i => i.UpdateMediaDetails(1, "title", "caption", "description", "alternate", 1001)).
-                Returns(new Media
-                            {
-                                Size = (int)Media.ValidSizes.Fullsize,
-                                Alignment = (int)Media.ValidAllignments.Left,
-                                Caption = "caption"
-                            });
-
-            var result = (ViewResult)controller.Update(model);
-            var smvmodel = (ShowMediaViewModel)result.Model;
-            Assert.That(smvmodel.Caption, Is.EqualTo("caption"));
+            controller.Update(model);
+            
+            _mediaService.Verify(i => i.UpdateMediaDetails(1, "title", "caption", "description", "alternate", 1001), Times.Once());
         }
     }
 }

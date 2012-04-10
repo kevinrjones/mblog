@@ -200,7 +200,7 @@ namespace MBlogUnitTest.Routing
 
             string expectedurl = "/nickname/media/delete/1";
 
-            string url = helper.Action("Delete", "Media", new { nickname = "nickname", MediaId = 1 });
+            string url = helper.Action("Delete", "Media", new { nickname = "nickname", id = 1 });
 
             Assert.AreEqual(expectedurl, url);
         }
