@@ -4,6 +4,7 @@ using System.Linq;
 using System.Web.Mvc;
 using Logging;
 using MBlog.Filters;
+using MBlog.Models.Media;
 using MBlog.Models.Post;
 using MBlogModel;
 using MBlogServiceInterfaces;
@@ -35,7 +36,8 @@ namespace MBlog.Controllers
         [AuthorizeBlogOwner]
         public ActionResult New(string nickname, int blogId)
         {
-            return View(new EditPostViewModel {BlogId = blogId, IsCreate = true, Nickname = nickname});
+            NewMediaViewModel model = new NewMediaViewModel {Nickname = nickname, BlogId = blogId};
+            return View(new EditPostViewModel {BlogId = blogId, IsCreate = true, Nickname = nickname, NewMediaViewModel = model});
         }
 
         [HttpPost]

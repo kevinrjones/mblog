@@ -97,7 +97,7 @@ namespace MBlog.Resources.Blog {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to New Blog.
+        ///   Looks up a localized string similar to Create New Blog.
         /// </summary>
         public static string NewBlog {
             get {

@@ -1,5 +1,7 @@
+using System.ComponentModel.DataAnnotations;
 using System.IO;
 using HtmlAgilityPack;
+using MBlog.Models.Media;
 
 namespace MBlog.Models.Post
 {
@@ -9,9 +11,11 @@ namespace MBlog.Models.Post
         public int BlogId { get; set; }
         public int PostId { get; set; }
 
+        [Required]
         public string Title { get; set; }
 
 
+        [Required]
         public string Post
         {
             get { return _post; }
@@ -30,5 +34,6 @@ namespace MBlog.Models.Post
         }
 
         public bool IsCreate { get; set; }
+        public NewMediaViewModel NewMediaViewModel { get; set; }
     }
 }

@@ -171,4 +171,7 @@
   <data name="SaveChanges" xml:space="preserve">
     <value>Save Changes</value>
   </data>
+  <data name="EnterTitle" xml:space="preserve">
+    <value>Enter title here</value>
+  </data>
 </root>

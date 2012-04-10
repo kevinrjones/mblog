@@ -142,6 +142,15 @@ namespace MBlog.Resources.General {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Enter title here.
+        /// </summary>
+        public static string EnterTitle {
+            get {
+                return ResourceManager.GetString("EnterTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Name.
         /// </summary>
         public static string Name {

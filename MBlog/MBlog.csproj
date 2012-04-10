@@ -335,6 +335,7 @@
     <Content Include="Content\Styles\Site.css" />
     <Content Include="images\InitialBlog.png" />
     <Content Include="images\InitialBlogThumbNail.png" />
+    <Content Include="images\media-button.png" />
     <Content Include="images\teamcity-thumb.png" />
     <Content Include="images\teamcity.png" />
     <Content Include="Properties\PublishProfiles\Acceptance.pubxml.user" />
@@ -362,6 +363,7 @@
     <Content Include="Scripts\knockout-2.0.0.debug.js" />
     <Content Include="Scripts\knockout-2.0.0.js" />
     <Content Include="Scripts\MBlog\mblog-dashboard.js" />
+    <Content Include="Scripts\MBlog\mblog-post.js" />
     <Content Include="Scripts\MBlog\mblog.js" />
     <Content Include="Scripts\modernizr-2.0.6-development-only.js" />
     <Content Include="Scripts\SyntaxHighlighter\shAutoloader.js" />
@@ -531,6 +533,7 @@
       <Generator>PublicResXFileCodeGenerator</Generator>
       <LastGenOutput>Global.Designer.cs</LastGenOutput>
       <CustomToolNamespace>MBlog.Resources.General</CustomToolNamespace>
+      <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="Resources\Home\Index.resx">
       <Generator>PublicResXFileCodeGenerator</Generator>

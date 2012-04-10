@@ -114,9 +114,10 @@ namespace MBlog.Controllers
         [AuthorizeLoggedInUser]
         public ActionResult Update(UpdateMediaViewModel model)
         {
+            JsonResult result = new JsonResult();
             if (!ModelState.IsValid)
             {
-                return View("edit", model);
+                return Json(new MediaCreateJsonResponse{ success = false, message = "Invalid values" });
             }
             var user = (UserViewModel) HttpContext.User;
 
@@ -124,7 +125,7 @@ namespace MBlog.Controllers
                                                            model.Alternate, user.Id);
 
             // todo: return JSON result
-            return RedirectToAction("New", "Media");
+            return Json(new MediaCreateJsonResponse{success = true});
         }
 
         [HttpGet]

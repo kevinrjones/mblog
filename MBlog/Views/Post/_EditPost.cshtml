@@ -1,45 +1,38 @@
 ﻿@using MBlog.Resources.General
 @model MBlog.Models.Post.EditPostViewModel
-
 <section id="blog-form">
     <div id="blog-form-header">
         @ViewBag.Title
     </div>
     <div id="blog-post-form-body">
-        @using (Html.BeginForm((string) ViewBag.Action, "post", FormMethod.Post, new {}))
+        @using (Html.BeginForm((string)ViewBag.Action, "post", FormMethod.Post, new { id = "form" }))
         {
             @Html.HiddenFor(m => m.PostId)
             @Html.HiddenFor(m => m.BlogId)
-            <div>
-                @Html.Encode(Global.Title):
+            <div id="post-title">
+                @Html.TextBoxFor(m => m.Title, new { @class = "maxwidth", placeholder = @Global.EnterTitle })
             </div>
-            <div>
-                @Html.TextBoxFor(m => m.Title, new {@class = "maxwidth"})
-            </div>
-            <div>
-                @Html.ValidationMessageFor(m => m.Title)
-            </div>
-            <div>
-                @Html.Encode(Global.Post):
-            </div>
-            <div>
-                <div>
-                    @Html.TextAreaFor(m => m.Post, new {cols = "25", rows = "25", @class = "maxwidth"})
+            <div id="post-wrapper">
+                <div id="post-buttons">
+                    <span>Upload/Insert: </span><a href="#" id="add-media"><img src="@Url.Content("~/images/media-button.png")" width="15" height="15"/></a>
+                </div>
+                <div id="post-body">
+                    @Html.TextAreaFor(m => m.Post, new { cols = "25", rows = "25", @class = "maxwidth" })
                 </div>
                 <div>
-                    @Html.ValidationMessageFor(m => m.Post)
+                    @if (Model.IsCreate)
+                    {
+                        <input type="submit" value="@Html.Encode(Global.NewPost)" />
+                    }
+                    else
+                    {
+                        <input type="submit" value="@Html.Encode(Global.EditPost)" />
+                    }
                 </div>
-            </div>
-            <div>
-                @if (Model.IsCreate)
-                {
-                    <input type="submit" value="@Html.Encode(Global.NewPost)" />
-                }
-                else
-                {
-                    <input type="submit" value="@Html.Encode(Global.EditPost)" />
-                }
             </div>
         }
     </div>
+</section>
+<section id="upload-media">
+    @{ Html.RenderPartial("~/Views/Media/_uploadfile.cshtml", Model.NewMediaViewModel, new ViewDataDictionary()); }
 </section>
