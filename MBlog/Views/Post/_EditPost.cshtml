@@ -13,9 +13,14 @@
                 @Html.TextBoxFor(m => m.Title, new { @class = "maxwidth", placeholder = @Global.EnterTitle })
             </div>
             <div id="post-wrapper">
-                <div id="post-buttons">
-                    <span>Upload/Insert: </span><a href="#" id="add-media"><img src="@Url.Content("~/images/media-button.png")" width="15" height="15"/></a>
-                </div>
+                @if (Model.IsCreate)
+                {
+                    <div id="post-buttons">
+                        <span>Upload/Insert: </span>
+                        <a href="#" id="add-media">
+                            <img src="@Url.Content("~/images/media-button.png")" width="15" height="15"/></a>
+                    </div>
+                }
                 <div id="post-body">
                     @Html.TextAreaFor(m => m.Post, new { cols = "25", rows = "25", @class = "maxwidth" })
                 </div>
@@ -33,6 +38,13 @@
         }
     </div>
 </section>
-<section id="upload-media">
-    @{ Html.RenderPartial("~/Views/Media/_uploadfile.cshtml", Model.NewMediaViewModel, new ViewDataDictionary()); }
-</section>
+@if (Model.IsCreate)
+{
+    <div id="overlay" class="overlay-background"></div>
+    <section id="upload-wrapper">
+        <div id="mediaclose"></div>
+        <section id="upload-media">
+            @{ Html.RenderPartial("~/Views/Media/_uploadfile.cshtml", Model.NewMediaViewModel, new ViewDataDictionary()); }
+        </section>
+    </section>
+}

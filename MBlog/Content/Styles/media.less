@@ -3,12 +3,16 @@
 
 
 #media-form-body { 
-	padding: 0px 0 0px 10px; width:750px; margin: 0px auto; 
+	padding: 0px 0 10px 10px; 
+	margin: 0px auto; 
 }
 
 //.qq-upload-list{ display: none;}
 .qq-upload-size{display: none;}
 .qq-upload-file{display: none;}
+.qq-uploader {
+	height: 140px;
+}
 
 .row { 
 	span.label { text-align: left; }
@@ -87,8 +91,8 @@ th {
 
 #file-uploader
 {
-    .qq-upload-drop-area {display:block !important; margin-left:150px; width: 80%; background-color: @file-upload; }
-	.qq-upload-button {background-color: @dark-main; padding: 1em; }
+    .qq-upload-drop-area {display:block !important; background-color: @file-upload; min-height: 150px}
+	.qq-upload-button {background-color: @dark-main; padding: 1em; top: 105px; margin: 0 auto; }
 }
 
 .media-header-media{
@@ -111,11 +115,51 @@ th {
 #upload-error-text {
 	height: @line-height;
 	padding: @line-height / 2 0 0 @line-height / 2;
-	visibility: hidden;
+	//visibility: hidden;
 	margin-bottom: 2px;
 }
 
 .url-to-copy{
 	background-color: @light-main;
 	padding: 2pt 4pt;
+}
+
+#overlay {
+    height: 100%;
+    left: 0;
+    position: fixed;
+    top: 0;
+    width: 100%;
+    z-index: 100;
+}
+
+.overlay-background {
+    background-color: #000000;
+    opacity: 0.75;
+}
+
+#upload-wrapper {
+	top: 50px;
+	display: none;
+	position: fixed;
+	margin-left: 100px;
+	z-index: 1000;
+	width:	9 / 12 * (@max-width-pixels) * 1px; 
+	background: @background-color;
+	height: 100px;	
+	#upload-media {
+		margin: 0em auto; 
+		background-color: white;
+		padding: 5px 10px 0 0;
+		clear:both;
+	}
+}
+
+#mediaclose {
+	padding: 5px 25px 0 0;
+	margin: 10px 0 0 0;
+	height: 20px;
+	background-image: url("close.png");
+	background-repeat: no-repeat;
+	float: right;
 }

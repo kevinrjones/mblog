@@ -10,5 +10,6 @@ namespace MBlog.Models.Media
         public string url;
         public string action { get; set; }
         public string title { get; set; }
+        public string imageAnchor { get; set; }
     }
 }

@@ -26,10 +26,6 @@ namespace MBlog.Models.Media
         public ShowMediaViewModel(MBlogModel.Media media)
             : this()
         {
-            ClassString += _sizeLookup[media.Size];
-            ClassString += " ";
-            ClassString += _alignLookup[media.Alignment];
-
             Id = media.Id;
             FileName = media.FileName;
             Title = media.Title;
@@ -43,11 +39,20 @@ namespace MBlog.Models.Media
             Day = media.Day;
             Url = media.Url;
             UserId = media.UserId;
+            Alignment = media.Alignment;
+            Size = media.Size;
             DisplayDate = new DateTime(media.Year, media.Month, media.Day).ToShortDateString();
         }
 
         // create styles from data passed in
-        public string ClassString { get; set; }
+        private string _classString;
+        public string ClassString
+        {
+            get
+            {
+                return string.Format("{0} {1}", _sizeLookup[Size], _alignLookup[Alignment]);
+            }
+        }
 
         [Required]
         public string Title { get; set; }
@@ -64,6 +69,8 @@ namespace MBlog.Models.Media
         public string DisplayDate { get; set; }
         public int Id { get; set; }
         public int UserId { get; set; }
+        public int Alignment { get; set; }
+        public int Size { get; set; }
 
         public string Extension
         {

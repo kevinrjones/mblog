@@ -13,10 +13,9 @@
                 blogId: '@Model.BlogId'
             },
             template: '<div class="qq-uploader">' +
-            '<div class="qq-upload-drop-area"><span>Drop file here to upload</span></div>' +
-            '<div class="qq-upload-button">Click to Select File to Upload</div>' +
-            '<ul class="qq-upload-list"></ul>' +
-            '</div>',
+                '<div class="qq-upload-drop-area"><span>Drop file here to upload<p>or</p></span>' +            
+                '<div class="qq-upload-button">Select File</div></div>' +
+                '<ul class="qq-upload-list"></ul>',
             onSubmit: function (id, fileName) {
                 $('.media-details').hide();
                 $('#upload-error-text').css('visibility', 'hidden').html("");
@@ -24,9 +23,9 @@
             onComplete: function (id, fileName, result) {
                 qq.FileUploaderBasic.prototype._onComplete.apply(this, arguments);
                 if (result.success) {
-                    $('#createForm').attr('action', result.action);
-                    $('#Title').attr('value', result.title);
                     $('.media-details').show();
+                    $('#createForm').attr('action', result.action);
+                    $('#MediaTitle').attr('value', result.title);
                     $('#upload-error-text').css('visibility', 'visible').html(result.message);
                 } else {
                     $('#upload-error-text').css('visibility', 'visible').html(result.message);
@@ -44,9 +43,10 @@
                     type: this.method,
                     data: $(this).serialize(),
                     success: function (result) {
-                        if(result.success) {
+                        if (result.success) {
                             $('.media-details').hide();
                             $('#upload-error-text').css('visibility', 'visible').html("Update sucessful");
+                            $('#Post').html($('#Post').html() + " " + result.imageAnchor);
                         } else {
                             $('#upload-error-text').css('visibility', 'visible').html(result.message);
                         }
@@ -68,19 +68,21 @@
                     @Html.Hidden("imageId", "someId")
 
                     <div>
-                        <input type="file" name="file" id="file" /><input type="submit" value="@Html.Encode(New.UploadImage)" />@Html.ValidationMessage("File")
+                        <input type="file" name="file" id="file" />
+                        <input type="submit" value="@Html.Encode(New.UploadImage)" />@Html.ValidationMessage("File")
                     </div>
                 }
             </noscript>
         </div>
     </div>
-    <div id="upload-error-text" class="input-validation-error"></div>
+    <div style="clear: both"></div>
+    <div id="upload-error-text" class="input-validation-error" style="visibility: hidden"></div>
     <div class="media-details">
         @using (Html.BeginForm("Update", "media", new { id = 1 }, FormMethod.Post, new { name = "createForm", id = "createForm" }))
         {               
             <div class="row">
                 <span class="label">@Global.Title:</span>
-                <span class="formw">@Html.TextBoxFor(m => m.Title, new { @class = "maxwidth" })</span>
+                <span class="formw">@Html.TextBoxFor(m => m.Title, new { @class = "maxwidth" , Id = "MediaTitle"})</span>
             </div>
             <div class="row">
                 <span class="label">@New.Caption:</span>

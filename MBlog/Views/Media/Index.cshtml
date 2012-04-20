@@ -32,9 +32,6 @@
                 </td>
                 <td class="listmedia-details">
                     @Html.ActionLink(media.Title, "show", new { media.Year, media.Month, media.Day, media.LinkKey })
-                    <div>
-                        URL:<span class="url-to-copy">&lt;img src="@Url.Action("show", new { media.Year, media.Month, media.Day, media.LinkKey })"></span>
-                    </div>
                     <p>@Html.Encode(media.Extension)</p>
                     <div class="row-actions">
                         <span class="edit">@Html.ActionLink("Edit", "Edit", new { MediaId = media.Id }) | </span>

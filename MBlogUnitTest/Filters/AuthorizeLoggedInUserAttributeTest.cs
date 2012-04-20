@@ -16,20 +16,16 @@ namespace MBlogUnitTest.Filters
     [TestFixture]
     public class AuthorizeLoggedInUserAttributeTest
     {
-        #region Setup/Teardown
 
         [SetUp]
         public void SetUp()
         {
-            _mockHttpContext = new Mock<HttpContextBase>();
             _mockHttpContext = new Mock<HttpContextBase>();
             _requestContext = new Mock<RequestContext>();
             _mockHttpContext.Setup(h => h.CurrentHandler).Returns(new MvcHandler(_requestContext.Object));
             _mockHttpContext.Setup(h => h.Items).Returns(new Dictionary<string, object>());
             _mockHttpContext.Setup(h => h.Response).Returns(new FakeResponse());
         }
-
-        #endregion
 
         private Mock<HttpContextBase> _mockHttpContext;
         private Mock<RequestContext> _requestContext;

@@ -273,6 +273,7 @@
     <Content Include="App_Readme\glimpse.mvc3.readme.txt" />
     <Content Include="App_Readme\glimpse.readme.txt" />
     <Content Include="Content\FileUploader\fileuploader.css" />
+    <Content Include="Content\Styles\close.png" />
     <Content Include="Content\Styles\ie.css" />
     <Content Include="Content\images\ajax-loader.png" />
     <Content Include="Content\images\icons-18-black.png" />

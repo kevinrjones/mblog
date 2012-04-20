@@ -1,5 +1,13 @@
-﻿$(function() {
+﻿$(function () {
+    $("#overlay").hide();
     $("#add-media").click(function() {
-        $('#upload-media').show();
+        $('#overlay').show();
+        $('#upload-wrapper').show();
+    });
+    $("#mediaclose").click(function (evt) {
+        $('.media-details').hide();
+        $('#upload-error-text').css('visibility', 'hidden').html("");
+        $('#overlay').hide();
+        $('#upload-wrapper').hide();
     });
 });
