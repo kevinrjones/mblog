@@ -271,9 +271,11 @@ namespace MBlogUnitTest.Controllers
             fileBase.Setup(s => s.ContentType).Returns("contentType");
             const string fileName = "fileName";
             fileBase.Setup(s => s.FileName).Returns(fileName);
+            _mediaService.Setup(m => m.UpdateMediaDetails(1, "title", "caption", "description", "alternate", 1001)).
+                Returns(new Media());
 
             var controller = new MediaController(_mediaService.Object, null);
-
+            controller.Url = new UrlHelper(new RequestContext(MockHttpContext.Object, new RouteData()), Routes);
             SetControllerContext(controller);
             MockHttpContext.SetupProperty(h => h.User);
             controller.HttpContext.User = new UserViewModel { IsLoggedIn = true, Id = userId };
