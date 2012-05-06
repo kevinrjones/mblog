@@ -11,5 +11,11 @@ namespace MBlogRepository.Contexts
         }
 
         public DbSet<User> Users { get; set; }
+
+        protected override void OnModelCreating(DbModelBuilder modelBuilder)
+        {
+            Database.SetInitializer<UserDbContext>(null);
+        }
+
     }
 }

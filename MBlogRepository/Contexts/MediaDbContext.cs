@@ -11,5 +11,12 @@ namespace MBlogRepository.Contexts
         }
 
         public DbSet<Media> Users { get; set; }
+
+        protected override void OnModelCreating(DbModelBuilder modelBuilder)
+        {
+            Database.SetInitializer<MediaDbContext>(null);
+            base.OnModelCreating(modelBuilder);
+        }
+
     }
 }
