@@ -5,7 +5,7 @@ using MBlogServiceInterfaces;
 
 namespace MBlog.Controllers
 {
-    public class CommentController : BaseController
+    public partial class CommentController : BaseController
     {
         private readonly IPostService _postService;
 
@@ -15,7 +15,7 @@ namespace MBlog.Controllers
             _postService = postService;
         }
 
-        public ActionResult Create(AddCommentViewModel commentViewModel)
+        public virtual ActionResult Create(AddCommentViewModel commentViewModel)
         {
             if (ModelState.IsValid)
             {

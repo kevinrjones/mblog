@@ -7,7 +7,7 @@ using MBlogServiceInterfaces;
 
 namespace MBlog.Controllers
 {
-    public class HomeController : BaseController
+    public partial class HomeController : BaseController
     {
         private readonly IPostService _postService;
         private readonly IUserService _userService;
@@ -19,7 +19,7 @@ namespace MBlog.Controllers
             _userService = userService;
         }
 
-        public ActionResult Index()
+        public virtual ActionResult Index()
         {
             //Logger.Info("HomeController Index method called");
             var model = new HomePageViewModel();

@@ -8,7 +8,7 @@ using MBlogServiceInterfaces;
 
 namespace MBlog.Controllers
 {
-    public class BlogController : BaseController
+    public partial class BlogController : BaseController
     {
         private readonly IBlogService _blogService;
 
@@ -19,7 +19,7 @@ namespace MBlog.Controllers
         }
 
         [HttpGet]
-        public ActionResult New()
+        public virtual ActionResult New()
         {
             if (RedirectIfInvalidUser())
                 return RedirectToAction("New", "Session");
@@ -29,7 +29,7 @@ namespace MBlog.Controllers
 
         [HttpPost]
         [ValidateInput(false)]
-        public ActionResult Create(CreateBlogViewModel model)
+        public virtual ActionResult Create(CreateBlogViewModel model)
         {
             if (RedirectIfInvalidUser())
                 return RedirectToAction("New", "Session");
@@ -46,7 +46,7 @@ namespace MBlog.Controllers
 
         [HttpGet]
         [AuthorizeBlogOwner]
-        public ActionResult Edit(CreateBlogViewModel model)
+        public virtual ActionResult Edit(CreateBlogViewModel model)
         {
             Blog blog = _blogService.GetBlog(model.Nickname);
             var modelOut = new CreateBlogViewModel(blog);
@@ -55,7 +55,7 @@ namespace MBlog.Controllers
 
         [HttpPost]
         [AuthorizeBlogOwner]
-        public ActionResult Update(CreateBlogViewModel model)
+        public virtual ActionResult Update(CreateBlogViewModel model)
         {
             if (!ModelState.IsValid)
             {

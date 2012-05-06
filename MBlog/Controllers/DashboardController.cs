@@ -10,7 +10,7 @@ using MBlogServiceInterfaces;
 
 namespace MBlog.Controllers
 {
-    public class DashboardController : BaseController
+    public partial class DashboardController : BaseController
     {
         private readonly IPostService _postService;
         private readonly IUserService _userService;
@@ -23,7 +23,7 @@ namespace MBlog.Controllers
         }
 
         [AuthorizeLoggedInUser]
-        public ActionResult Index()
+        public virtual ActionResult Index()
         {
             var userViewModel = HttpContext.User as UserViewModel;
 
@@ -34,7 +34,7 @@ namespace MBlog.Controllers
         }
 
         [AuthorizeBlogOwner]
-        public ActionResult ListPosts(AdminBlogViewModel model)
+        public virtual ActionResult ListPosts(AdminBlogViewModel model)
         {
             IList<Post> posts = _postService.GetOrderedBlogPosts(model.BlogId);
             var postsViewModel = new PostsViewModel(model.BlogId, model.Nickname, posts);

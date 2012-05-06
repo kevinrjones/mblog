@@ -9,7 +9,7 @@ using MBlogServiceInterfaces;
 
 namespace MBlog.Controllers.Admin
 {
-    public class CommentsController : BaseController
+    public partial class CommentsController : BaseController
     {
         private readonly IPostService _postService;
 
@@ -19,7 +19,7 @@ namespace MBlog.Controllers.Admin
         }
 
         [AuthorizeBlogOwner]
-        public ActionResult Index(AdminBlogViewModel model)
+        public virtual ActionResult Index(AdminBlogViewModel model)
         {
             IList<Post> posts = _postService.GetOrderedBlogPosts(model.BlogId);
             var postsViewModel = new PostsViewModel(model.BlogId, model.Nickname, posts);

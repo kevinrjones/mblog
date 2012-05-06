@@ -296,7 +296,7 @@ namespace MBlog
         private static void ConfigureRejuicer()
         {
             OnRequest.ForJs("~/Combined-{0}.js").Combine
-                .File("~/Scripts/jquery-1.7.1.js")
+                .File("~/Scripts/jquery-1.7.2.js")
                 .File("~/Scripts/jquery.validate.js")
                 .File("~/Scripts/jquery.validate.unobtrusive.js")
                 .File("~/Scripts/jquery.unobtrusive-ajax.js")
