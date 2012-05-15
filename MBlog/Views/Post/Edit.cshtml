@@ -5,6 +5,5 @@
     ViewBag.Action = "Update";
     Layout = "~/Views/Post/_PostLayout.cshtml";
 }
-@{
-    Html.RenderPartial("_EditPost", Model);
-}
+
+@Html.Partial("_EditPost", Model)
