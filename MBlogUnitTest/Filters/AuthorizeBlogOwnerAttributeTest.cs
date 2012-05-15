@@ -73,17 +73,17 @@ namespace MBlogUnitTest.Filters
         public void GivenAFilter_BlogIdIsInRequestItems_ThenTheFilterReturnsTrue()
         {
             int blogId = 1;
-            RouteData routeData = string.Format("~/{0}/update/25", Nickname).GetRouteData("POST");
+            RouteData routeData = string.Format("~/{0}/update/", Nickname).GetRouteData("POST");
             _mockBlogDomain.Setup(r => r.GetBlog(Nickname)).Returns(new Blog {Id = blogId});
             _requestContext.Setup(r => r.RouteData).Returns(routeData);
 
             AuthorizationContext filterContext = CreateFilterContext(routeData);
 
             var httpRequest = new Mock<HttpRequestBase>();
-            var qs = new NameValueCollection();
-            qs.Add("blogId", blogId.ToString());
-            httpRequest.Setup(h => h.Params).Returns(qs);
-            httpRequest.Setup(h => h.QueryString).Returns(qs);
+            var queryString = new NameValueCollection();
+            queryString.Add("blogId", blogId.ToString());
+            httpRequest.Setup(h => h.Params).Returns(queryString);
+            httpRequest.Setup(h => h.QueryString).Returns(queryString);
 
             var model = new UserViewModel {IsLoggedIn = true};
             _mockHttpContext.Setup(h => h.User).Returns(model);
@@ -95,7 +95,7 @@ namespace MBlogUnitTest.Filters
         [Test]
         public void GivenAFilter_WhenTheBlogIdIsEmpty_ThenTheFilterReturnsFalse()
         {
-            RouteData routeData = string.Format("~/{0}/edit/25", Nickname).GetRouteData("GET");
+            RouteData routeData = string.Format("~/{0}/edit/25/1", Nickname).GetRouteData("GET");
             _requestContext.Setup(r => r.RouteData).Returns(routeData);
 
             AuthorizationContext filterContext = CreateFilterContext(routeData);
