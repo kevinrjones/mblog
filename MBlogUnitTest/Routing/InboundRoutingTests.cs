@@ -91,6 +91,19 @@ namespace MBlogUnitTest.Routing
         }
 
         [Test]
+        public void GivenACorrectRoutesCollection_WhenIAskForAPost_AndThereAreNoDates_ThenIGetTheShowView()
+        {
+            TestRoute("~/nickname/1990", new
+                                                    {
+                                                        controller = "Post",
+                                                        action = "Show",
+                                                        nickname = "nickname",
+                                                        year=1990
+                                                    },
+                      "GET");
+        }
+
+        [Test]
         public void GivenACorrectRoutesCollection_WhenIAskForCommentsIndex_ThenIGetTheAdminControllerIndexView()
         {
             TestRoute("~/Admin/Comments/index", new
