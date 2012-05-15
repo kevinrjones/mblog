@@ -251,12 +251,11 @@ namespace MBlog
                         {
                             controller = "Post",
                             action = "Show",
-                            year = UrlParameter.Optional,
                             month = UrlParameter.Optional,
                             day = UrlParameter.Optional,
                             link = UrlParameter.Optional
                         }
-                //,new { year = @"\d{4}", month = @"\d{2}", day = @"\d{2}" }
+//                        , constraints: new { year = @"\d{4}", month = @"^$ | \d{2}", day = @"^$ | \d{2}" }
                 );
 
             routes.MapRoute(
@@ -297,9 +296,11 @@ namespace MBlog
         {
             OnRequest.ForJs("~/Combined-{0}.js").Combine
                 .File("~/Scripts/jquery-1.7.2.js")
+                .File("~/Scripts/jquery-ui-1.8.19")
+                .File("~/Scripts/jquery.mobile-1.1.0")
+                .File("~/Scripts/jquery.unobtrusive-ajax.js")
                 .File("~/Scripts/jquery.validate.js")
                 .File("~/Scripts/jquery.validate.unobtrusive.js")
-                .File("~/Scripts/jquery.unobtrusive-ajax.js")
                 .File("~/Scripts/SyntaxHighlighter/shCore.js")
                 .File("~/Scripts/SyntaxHighlighter/shBrushBash.js")
                 .File("~/Scripts/SyntaxHighlighter/shBrushCss.js")
@@ -309,7 +310,7 @@ namespace MBlog
                 .File("~/Scripts/SyntaxHighlighter/shBrushRuby.js")
                 .File("~/Scripts/SyntaxHighlighter/shBrushSql.js")
                 .File("~/Scripts/SyntaxHighlighter/shBrushXml.js")
-                .File("~/Scripts/modernizr-2.0.6-development-only.js")
+                .File("~/Scripts/modernizr-2.5.3.js")
                 .File("~/Scripts/FileUploader/fileuploader.js")
                 .File("~/Scripts/mblog/mblog.js")
                 .Configure();
