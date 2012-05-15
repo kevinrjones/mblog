@@ -46,7 +46,7 @@ namespace MBlog.Controllers
             try
             {
                 Media img = _mediaService.GetMedia(year, month, day, linkkey);
-                return new FileContentResult(img.Data, img.MimeType);
+                return File(img.Data, img.MimeType);
             }
             catch (MBlogMediaNotFoundException)
             {
