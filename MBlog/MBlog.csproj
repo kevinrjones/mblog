@@ -143,6 +143,7 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="HtmHelpers\DisplayAuthentication.cs" />
     <Compile Include="Infrastructure\CookieEncryption.cs" />
     <Compile Include="Infrastructure\UnityDependencyResolver.cs" />
     <Compile Include="Infrastructure\UnityFilterAttributeFilterProvider.cs" />
