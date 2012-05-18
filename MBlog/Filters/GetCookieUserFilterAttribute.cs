@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Threading;
 using System.Web.Mvc;
 using MBlog.Controllers;
 using MBlog.Infrastructure;
@@ -11,7 +12,7 @@ namespace MBlog.Filters
 {
     public class GetCookieUserFilterAttribute : AuthorizeAttribute
     {
-        public static string UserCookie = "USER";
+        public const string UserCookie = "USER";
 
         [Dependency]
         public IUserService UserService { get; set; }
@@ -41,7 +42,7 @@ namespace MBlog.Filters
                         }
                     }
                 }
-                filterContext.HttpContext.User = userViewModel;
+                filterContext.HttpContext.User = Thread.CurrentPrincipal = userViewModel;
             }
         }
 

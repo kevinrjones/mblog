@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Web;
 using System.Web.Mvc;
+using System.Web.Security;
 using Logging;
 using MBlog.Filters;
 using MBlog.Infrastructure;
@@ -23,7 +24,7 @@ namespace MBlog.Controllers
         public ActionResult New()
         {
             if (!HttpContext.User.Identity.IsAuthenticated)
-            {
+            {                
                 return View();
             }
             return RedirectToAction("index", "Dashboard");

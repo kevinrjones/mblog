@@ -40,7 +40,7 @@ namespace MBlog.Filters
             int id = int.Parse(blogId);
             var user = httpContext.User as UserViewModel;
 
-            if (!IsLoggedInUser(user) || !UserOwnsBlog(controller, nickname, id))
+            if (!IsLoggedInUser(user) || !UserOwnsBlog(nickname, id))
             {
                 Logger.Error("Authorize failed: blogID: {0}, nickname: {1}, user: {2}", blogId, nickname, user);
                 return false;
@@ -58,7 +58,7 @@ namespace MBlog.Filters
             return blogId;
         }
 
-        private bool UserOwnsBlog(BaseController controller, string nickname, int blogId)
+        private bool UserOwnsBlog(string nickname, int blogId)
         {
             Blog blog = BlogService.GetBlog(nickname);
             return blog != null && blog.Id == blogId;
