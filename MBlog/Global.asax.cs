@@ -280,8 +280,6 @@ namespace MBlog
 
             RegisterGlobalFilters(GlobalFilters.Filters);
             RegisterRoutes(RouteTable.Routes);
-
-//            BundleTable.Bundles.RegisterTemplateBundles();
         }
 
         private static void AddUnityFilterProvider(IUnityContainer container)
