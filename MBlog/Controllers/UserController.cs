@@ -12,7 +12,7 @@ using MBlogServiceInterfaces.ModelState;
 
 namespace MBlog.Controllers
 {
-    public class UserController : BaseController
+    public partial class UserController : BaseController
     {
         private readonly IUserService _userService;
 
@@ -23,7 +23,7 @@ namespace MBlog.Controllers
         }
 
         [HttpGet]
-        public ActionResult New()
+        public virtual ActionResult New()
         {
             if (!HttpContext.User.Identity.IsAuthenticated)
             {
@@ -33,7 +33,7 @@ namespace MBlog.Controllers
         }
 
         [HttpPost]
-        public ActionResult Create(UserViewModel userViewModel)
+        public virtual ActionResult Create(UserViewModel userViewModel)
         {
             List<ErrorDetails> errorDetails;
             if (!ModelState.IsValid)
@@ -55,7 +55,7 @@ namespace MBlog.Controllers
             return RedirectToAction("index", "Dashboard");
         }
 
-        public ActionResult Logout()
+        public virtual ActionResult Logout()
         {
             HttpCookie cookie;
             if ((cookie = Request.Cookies[GetCookieUserFilterAttribute.UserCookie]) != null)

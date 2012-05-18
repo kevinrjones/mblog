@@ -409,7 +409,7 @@ namespace <#=controller.Namespace #> {
 
 <#} #>
         [<#= GeneratedCode #>, DebuggerNonUserCode]
-        protected <#=controller.ClassName #>(Dummy d) { }
+        protected <#=controller.ClassName #>(Dummy d) : base(d) { }
 
         [<#= GeneratedCode #>, DebuggerNonUserCode]
         protected RedirectToRouteResult RedirectToAction(ActionResult result) {

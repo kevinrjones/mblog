@@ -124,6 +124,18 @@
     <Compile Include="ActionResults\SyndicationActionResult.cs" />
     <Compile Include="ActionResults\SyndicationHelper.cs" />
     <Compile Include="App_Start\Rejuicer.cs" />
+    <Compile Include="BaseController.generated.cs">
+      <DependentUpon>T4MVC.tt</DependentUpon>
+    </Compile>
+    <Compile Include="BlogController.generated.cs">
+      <DependentUpon>T4MVC.tt</DependentUpon>
+    </Compile>
+    <Compile Include="CommentController.generated.cs">
+      <DependentUpon>T4MVC.tt</DependentUpon>
+    </Compile>
+    <Compile Include="CommentsController.generated.cs">
+      <DependentUpon>T4MVC.tt</DependentUpon>
+    </Compile>
     <Compile Include="Controllers\Admin\CommentsController.cs" />
     <Compile Include="Controllers\Admin\PostsController.cs" />
     <Compile Include="Controllers\BaseController.cs" />
@@ -137,11 +149,20 @@
     <Compile Include="Controllers\publishing\AtomController.cs" />
     <Compile Include="Controllers\SessionController.cs" />
     <Compile Include="Controllers\UserController.cs" />
+    <Compile Include="DashboardController.generated.cs">
+      <DependentUpon>T4MVC.tt</DependentUpon>
+    </Compile>
+    <Compile Include="FeedController.generated.cs">
+      <DependentUpon>T4MVC.tt</DependentUpon>
+    </Compile>
     <Compile Include="Filters\AuthorizeBlogOwnerAttribute.cs" />
     <Compile Include="Filters\AuthorizeLoggedInUserAttribute.cs" />
     <Compile Include="Filters\GetCookieUserFilterAttribute.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
+    </Compile>
+    <Compile Include="HomeController.generated.cs">
+      <DependentUpon>T4MVC.tt</DependentUpon>
     </Compile>
     <Compile Include="HtmHelpers\DisplayAuthentication.cs" />
     <Compile Include="Infrastructure\CookieEncryption.cs" />
@@ -150,6 +171,9 @@
     <Compile Include="Logging\ExceptionFormatter.cs" />
     <Compile Include="Logging\IMessageInformation.cs" />
     <Compile Include="Logging\WebMessageInformation.cs" />
+    <Compile Include="MediaController.generated.cs">
+      <DependentUpon>T4MVC.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\Admin\AdminBlogViewModel.cs" />
     <Compile Include="Models\Admin\AdminUserViewModel.cs" />
     <Compile Include="Models\Blog\CreateBlogViewModel.cs" />
@@ -172,6 +196,12 @@
     <Compile Include="Models\User\UserBlogViewModel.cs" />
     <Compile Include="Models\User\UserViewModel.cs" />
     <Compile Include="Models\Validators\BBCodeValidator.cs" />
+    <Compile Include="PostController.generated.cs">
+      <DependentUpon>T4MVC.tt</DependentUpon>
+    </Compile>
+    <Compile Include="PostsController.generated.cs">
+      <DependentUpon>T4MVC.tt</DependentUpon>
+    </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Resources\Admin\Index.Designer.cs">
       <DependentUpon>Index.resx</DependentUpon>
@@ -244,9 +274,18 @@
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
     </Compile>
+    <Compile Include="SessionController.generated.cs">
+      <DependentUpon>T4MVC.tt</DependentUpon>
+    </Compile>
+    <Compile Include="SharedController.generated.cs">
+      <DependentUpon>T4MVC.tt</DependentUpon>
+    </Compile>
     <Compile Include="T4MVC.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
+      <DependentUpon>T4MVC.tt</DependentUpon>
+    </Compile>
+    <Compile Include="UserController.generated.cs">
       <DependentUpon>T4MVC.tt</DependentUpon>
     </Compile>
   </ItemGroup>

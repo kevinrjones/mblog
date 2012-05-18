@@ -11,7 +11,7 @@ using MBlogServiceInterfaces;
 
 namespace MBlog.Controllers
 {
-    public class SessionController : BaseController
+    public partial class SessionController : BaseController
     {
         private readonly IUserService _userService;
 
@@ -21,7 +21,7 @@ namespace MBlog.Controllers
         }
 
         [HttpGet]
-        public ActionResult New()
+        public virtual ActionResult New()
         {
             if (!HttpContext.User.Identity.IsAuthenticated)
             {                
@@ -31,7 +31,7 @@ namespace MBlog.Controllers
         }
 
         [HttpPost]
-        public ActionResult Create(LoginUserViewModel userViewModel)
+        public virtual ActionResult Create(LoginUserViewModel userViewModel)
         {
             if (!ModelState.IsValid)
             {
@@ -47,7 +47,7 @@ namespace MBlog.Controllers
         }
 
         [HttpGet]
-        public ActionResult Delete()
+        public virtual ActionResult Delete()
         {
             HttpCookie cookie;
             if ((cookie = Request.Cookies[GetCookieUserFilterAttribute.UserCookie]) != null)
