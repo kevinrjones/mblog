@@ -99,7 +99,6 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
-    <None Include="ClassDiagram1.cd" />
     <None Include="Database\database.log" />
     <None Include="Database\database.yml" />
     <None Include="Database\db\migrate\20110327000000_create_initial_database.rb" />
