@@ -2,14 +2,14 @@
 @using MBlog.Resources.User
 @model MBlog.Models.User.UserViewModel
 @{
-    ViewBag.Title = Html.Encode(Register.Title);
+    ViewBag.Title = Register.Title;
 }
 <div style="margin-top: 30px">
     @using (Html.BeginForm("Create", "user", FormMethod.Post, new {@class = "form"}))
     {
         @Html.ValidationSummary(true)
         <fieldset>
-            <legend>@Html.Encode(Register.Title)</legend>
+            <legend>@Register.Title</legend>
             <div class="row">
                 <span class="label">
                     @Html.LabelFor(model => model.Name, Global.Name)
@@ -47,7 +47,7 @@
                 </div>
             </div>
             <div class="row">
-                <span class="formw"><input type="submit" value="@Html.Encode(Register.Title)" id="submit" name="submit" /></span>
+                <span class="formw"><input type="submit" value="@Register.Title" id="submit" name="submit" /></span>
             </div>
         </fieldset>
     }

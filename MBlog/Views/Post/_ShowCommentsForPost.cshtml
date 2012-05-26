@@ -7,7 +7,7 @@
     {
         <div class="blog-comment">
             <div class="blog-comment-header">
-                <span>@comment.Commented.ToLongDateString()</span> @Html.Encode(Global.By) <span>@comment.Name</span>
+                <span>@comment.Commented.ToLongDateString()</span> @Global.By <span>@comment.Name</span>
             </div>
             <div class="blog-comment-body">
                 @Html.Raw(comment.Comment)
@@ -19,23 +19,23 @@
 {
     <div id="blog-comment-form">
         <div id="blog-form-header">
-            @Html.Encode(Show.LeaveAComment):
+            @Show.LeaveAComment:
         </div>
         <div class="comment-help">
-            @Html.Encode(Show.BBCode)
+            @Show.BBCode
         </div>
         <div id="blog-form-body">
             @using (Html.BeginForm("Create", "comment", FormMethod.Post, new {}))
             {
                 @Html.HiddenFor(m => m.PostId)
                 <div>
-                    @Html.Encode(Global.Name):
+                    @Global.Name:
                 </div>
                 <div>
                     @Html.TextBoxFor(m => m.Name, new {@class = "maxwidth"})
                 </div>
                 <div>
-                    @Html.Encode(Global.Comment):
+                    @Global.Comment:
                 </div>
                 <div>
                     <div>
@@ -46,7 +46,7 @@
                     </div>
                 </div>
                 <div>
-                    <input type="submit" value=@Html.Encode(Show.PostComment) />
+                    <input type="submit" value=@Show.PostComment />
                 </div>
             }
         </div>

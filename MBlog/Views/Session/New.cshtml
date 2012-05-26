@@ -2,25 +2,28 @@
 @using MBlog.Resources.User
 @model MBlog.Models.User.UserViewModel
 @{
-    ViewBag.Title = Html.Encode(Login.Title);
+    ViewBag.Title = Login.Title;
+    Layout = "~/Views/Session/_Layout.cshtml";
 }
-<div style="margin-top: 30px;" class="base-font">
-    @using (Html.BeginForm("Create", "session", FormMethod.Post, new {@class = "form"}))
+<div class="login-form" class="base-font">
+    @using (Html.BeginForm("Create", "session", FormMethod.Post, new { @class = "form" }))
     {
         <fieldset>
-            <legend>@Html.Encode(Login.Title)</legend>
+            <legend class="base-font">@Login.Title</legend>
             <div class="row">
-                <span class="label">@Html.LabelFor(m => m.Email, Global.Email)</span>
-                <span class="formw">@Html.TextBoxFor(m => m.Email, new {@class = "base-font"})</span>
+                <span class="label">@Html.LabelFor(m => m.Email, Global.Email, new {@class = "base-font"})</span>
+                <span class="formw">@Html.TextBoxFor(m => m.Email, new { @class = "base-font" })</span>
                 <div>@Html.ValidationMessageFor(m => m.Email)</div>
             </div>
             <div class="row">
-                <span class="label">@Html.LabelFor(m => m.Password, Global.Password)</span>
-                <span class="formw">@Html.PasswordFor(m => m.Password, new {@class = "base-font"})</span>
+                <span class="label">@Html.LabelFor(m => m.Password, Global.Password, new { @class = "base-font" })</span>
+                <span class="formw">@Html.PasswordFor(m => m.Password, new { @class = "base-font" })</span>
                 <div>@Html.ValidationMessageFor(m => m.Password)</div>
             </div>
             <div class="row">
-                <span class="formw base-font"><input type="submit" /></span>
+                <span class="label">&nbsp;</span>
+                <span class="formw">
+                    <input type="submit" class="base-font"/></span>
             </div>
         </fieldset>
     }

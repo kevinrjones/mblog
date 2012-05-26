@@ -14,18 +14,18 @@
         <div class="media-edit-form">
             <div class="media-header-media">
                 <a href="@Url.Action("show", "media", new { Model.Year, Model.Month, Model.Day, Model.LinkKey })">
-                    <img src="@Url.Action("show", "media", new { Model.Year, Model.Month, Model.Day, Model.LinkKey })" alt="@Html.Encode(Model.Alternate)" class="media-160x120" height="120" width="160"/>
+                    <img src="@Url.Action("show", "media", new { Model.Year, Model.Month, Model.Day, Model.LinkKey })" alt="@Model.Alternate" class="media-160x120" height="120" width="160"/>
                 </a>
             </div>
             <div class="media-header-details">
                 <p>
-                    <span>Name: </span>@Html.Encode(Model.FileName)
+                    <span>Name: </span>@Model.FileName
                 </p>
                 <p>
-                    <span>Content Type: </span>@Html.Encode(Model.ContentType)
+                    <span>Content Type: </span>@Model.ContentType
                 </p>
                 <p>
-                    <span>Date Uplaoded: </span>@Html.Encode(Model.DisplayDate)
+                    <span>Date Uplaoded: </span>@Model.DisplayDate
                 </p>
             </div>
             <div class="clear-both"></div>
@@ -33,29 +33,29 @@
         @using (Html.BeginForm("Update", "media", FormMethod.Post, new { @class = "media-edit-form" }))
         {
             <fieldset>
-                <legend>@Html.Encode(Edit.EditMediaSettings)</legend>
+                <legend>@Edit.EditMediaSettings</legend>
                 <div class="row">
-                    <span class="label">@Html.Encode(Global.Title):</span>
+                    <span class="label">@Global.Title:</span>
                     <span class="input">@Html.TextBoxFor(m => m.Title)</span>
                     <span class="message">@Html.ValidationMessageFor(m => m.Title)</span>
                 </div>
                 <div class="row">
-                    <span class="label">@Html.Encode(Edit.Caption):</span>
+                    <span class="label">@Edit.Caption:</span>
                     <span class="input">@Html.TextBoxFor(m => m.Caption)</span>
                     <span class="message">@Html.ValidationMessageFor(m => m.Caption)</span>
                 </div>
                 <div class="row">
-                    <span class="label">@Html.Encode(Edit.Description):</span>
+                    <span class="label">@Edit.Description:</span>
                     <span class="input">@Html.TextBoxFor(m => m.Description)</span>
                     <span class="message">@Html.ValidationMessageFor(m => m.Description)</span>
                 </div>
                 <div class="row">
-                    <span class="label">@Html.Encode(Edit.Alternate):</span>
+                    <span class="label">@Edit.Alternate:</span>
                     <span class="input">@Html.TextBoxFor(m => m.Alternate)</span>
                     <span class="message">@Html.ValidationMessageFor(m => m.Alternate)</span>
                 </div>
                 <div>
-                    <input type="submit" value="@Html.Encode(Global.SaveChanges)" />
+                    <input type="submit" value="@Global.SaveChanges" />
                 </div>
             </fieldset>
         }

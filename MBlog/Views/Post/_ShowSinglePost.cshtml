@@ -5,7 +5,7 @@
     <div class="blog-date-posted">
         <span>@Model.DatePosted.ToLongDateString()</span> 
         | 
-        <span>@Html.ActionLink(@Html.Encode(Global.Comments) + "(" + @Model.CommentCount + ")", "show", new {controller = "Post", link = Model.Link, year = Model.YearPosted, month = Model.MonthPosted, day = Model.DayPosted})</span>
+        <span>@Html.ActionLink(@Global.Comments + "(" + @Model.CommentCount + ")", "show", new {controller = "Post", link = Model.Link, year = Model.YearPosted, month = Model.MonthPosted, day = Model.DayPosted})</span>
     </div>
 </div>
 <div class="blog-entry">@MvcHtmlString.Create(Model.Post)</div>

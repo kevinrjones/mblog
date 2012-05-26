@@ -3,24 +3,24 @@
 @using MBlog.Resources.Home
 @model MBlog.Models.Home.HomePageViewModel
 @{
-    ViewBag.Title = Html.Encode(Index.HomePage);
+    ViewBag.Title = Index.HomePage;
 }
 <section class="home-page">
     <section class="home-page-header">
-        <h2 class="home-page-sub-title">@Html.Encode(Index.BlogsOnThisSite)</h2>
+        <h2 class="home-page-sub-title">@Index.BlogsOnThisSite</h2>
         <ul class="home-page-list">
             @foreach (UserBlogViewModel userBlogViewModel in Model.UserBlogViewModels)
             {
                 <li>
                     @Html.ActionLink(userBlogViewModel.Title, "Index", new {nickname = userBlogViewModel.Nickname, Controller = "Post"})
-                    @Html.Encode(Index.WrittenBy)
+                    @Index.WrittenBy
                     @userBlogViewModel.Name
                 </li>
             }
         </ul>
     </section>
     <section class="home-page-content">
-        <h2 class="home-page-sub-title">@Html.Encode(Index.LatestPosts)</h2>
+        <h2 class="home-page-sub-title">@Index.LatestPosts</h2>
         <ul class="blog-list">
             @foreach (HomePagePostViewModel blogViewModel in Model.HomePagePostViewModels)
             {
