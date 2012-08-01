@@ -1,37 +1,17 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Web.Http;
+using System.Web.Mvc;
 
 namespace MBlog.Controllers.publishing
 {
-    public class AtomController : ApiController
+    public class AtomController : Controller
     {
         // GET /api/atom
-        public IEnumerable<string> Get()
+        public ActionResult GetServiceDocument()
         {
-            return new string[] { "value1", "value2" };
+            return View();
         }
 
-        // GET /api/atom/5
-        public string Get(int id)
-        {
-            return "value";
-        }
-
-        // POST /api/atom
-        public void Post(string value)
-        {
-        }
-
-        // PUT /api/atom/5
-        public void Put(int id, string value)
-        {
-        }
-
-        // DELETE /api/atom/5
-        public void Delete(int id)
-        {
-        }
     }
 }

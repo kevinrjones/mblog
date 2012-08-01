@@ -40,6 +40,20 @@ namespace MBlog
                 );
 
             routes.MapRoute(
+                name: "Really Simple Discovery",
+                url: "publishing/rsd",
+                defaults: new { controller = "Rsd", action = "Rsd" },
+                constraints: new { httpMethod = new HttpMethodConstraint("GET") }
+                );
+
+            routes.MapRoute(
+                name: "Atom-Service",
+                url: "atom/service",
+                defaults: new { controller = "Atom", action = "GetServiceDocument" },
+                constraints: new { httpMethod = new HttpMethodConstraint("GET") }
+                );
+
+            routes.MapRoute(
                 name: "Blog-create",
                 url: "blog/create",
                 defaults: new {controller = "Blog", action = "Create"},

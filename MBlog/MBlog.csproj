@@ -48,9 +48,9 @@
     <Reference Include="CodeKicker.BBCode">
       <HintPath>..\packages\BBCode.0.3.0\lib\CodeKicker.BBCode.dll</HintPath>
     </Reference>
-    <Reference Include="dotless.Core">
-      <HintPath>..\packages\dotless.1.3.0.2\lib\dotless.Core.dll</HintPath>
-      <Private>True</Private>
+    <Reference Include="dotless.Core, Version=1.3.0.4, Culture=neutral, PublicKeyToken=96b446c9e63eae34, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\dotless.1.3.0.4\lib\dotless.Core.dll</HintPath>
     </Reference>
     <Reference Include="EcmaScript.NET.modified">
       <HintPath>..\packages\YUICompressor.NET.1.7.1.0\lib\net35\EcmaScript.NET.modified.dll</HintPath>
@@ -147,6 +147,7 @@
     <Compile Include="Controllers\MediaController.cs" />
     <Compile Include="Controllers\PostController.cs" />
     <Compile Include="Controllers\publishing\AtomController.cs" />
+    <Compile Include="Controllers\publishing\RsdController.cs" />
     <Compile Include="Controllers\SessionController.cs" />
     <Compile Include="Controllers\UserController.cs" />
     <Compile Include="DashboardController.generated.cs">
@@ -675,6 +676,8 @@
     </None>
     <None Include="T4MVC.tt.settings.t4" />
     <Content Include="Views\Session\_Layout.cshtml" />
+    <Content Include="Views\Rsd\Rsd.cshtml" />
+    <Content Include="Views\Atom\GetServiceDocument.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
