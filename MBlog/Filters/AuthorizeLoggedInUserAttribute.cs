@@ -2,7 +2,6 @@ using System.Web;
 using System.Web.Mvc;
 using Logging;
 using MBlog.Models.User;
-using Microsoft.Practices.Unity;
 
 namespace MBlog.Filters
 {
@@ -13,7 +12,6 @@ namespace MBlog.Filters
             Logger = new NullLogger();
         }
 
-        [Dependency]
         public ILogger Logger { get; set; }
 
         protected override void HandleUnauthorizedRequest(AuthorizationContext filterContext)

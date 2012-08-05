@@ -4,13 +4,11 @@ using MBlog.Controllers;
 using MBlog.Models.User;
 using MBlogModel;
 using MBlogServiceInterfaces;
-using Microsoft.Practices.Unity;
 
 namespace MBlog.Filters
 {
     public class AuthorizeBlogOwnerAttribute : AuthorizeLoggedInUserAttribute
     {
-        [Dependency]
         public IBlogService BlogService { get; set; }
 
         public override void OnAuthorization(AuthorizationContext filterContext)
