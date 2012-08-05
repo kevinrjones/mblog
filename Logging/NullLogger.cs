@@ -2,8 +2,6 @@ namespace Logging
 {
     public class NullLogger : ILogger
     {
-        #region ILogger Members
-
         public void Trace(string message, params object[] args)
         {
         }
@@ -27,7 +25,5 @@ namespace Logging
         public void Fatal(string message, params object[] args)
         {
         }
-
-        #endregion
     }
 }
