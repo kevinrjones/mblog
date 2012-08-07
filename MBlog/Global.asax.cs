@@ -1,17 +1,12 @@
 ﻿using System.Configuration;
-using System.Linq;
+using System.Reflection;
 using System.Web;
 using System.Web.Mvc;
 using System.Web.Routing;
 using Autofac;
 using Autofac.Integration.Mvc;
 using Logging;
-using MBlog.Infrastructure;
 using MBlogNlogService;
-using MBlogRepository.Interfaces;
-using MBlogRepository.Repositories;
-using MBlogService;
-using MBlogServiceInterfaces;
 using Rejuicer;
 
 namespace MBlog
@@ -277,6 +272,7 @@ namespace MBlog
             builder.RegisterFilterProvider();
             var container = builder.Build();
             DependencyResolver.SetResolver(new AutofacDependencyResolver(container));
+            
             AreaRegistration.RegisterAllAreas();
 
             ConfigureRejuicer();
@@ -316,19 +312,12 @@ namespace MBlog
         private void RegisterTypes(ContainerBuilder builder)
         {
             string ctor = ConfigurationManager.ConnectionStrings["mblog"].ConnectionString;
-            builder.RegisterType<UserRepository>().As<IUserRepository>().WithParameter(new NamedParameter("connectionString", ctor)).InstancePerHttpRequest();
-            builder.RegisterType<PostRepository>().As<IPostRepository>().WithParameter(new NamedParameter("connectionString", ctor)).InstancePerHttpRequest();
-            builder.RegisterType<BlogRepository>().As<IBlogRepository>().WithParameter(new NamedParameter("connectionString", ctor)).InstancePerHttpRequest();
-            builder.RegisterType<UsernameBlacklistRepository>().As<IUsernameBlacklistRepository>().WithParameter(new NamedParameter("connectionString", ctor)).InstancePerHttpRequest();
-            builder.RegisterType<NicknameBlacklistRepository>().As<INicknameBlacklistRepository>().WithParameter(new NamedParameter("connectionString", ctor)).InstancePerHttpRequest();
-            builder.RegisterType<MediaRepository>().As<IMediaRepository>().WithParameter(new NamedParameter("connectionString", ctor)).InstancePerHttpRequest();
-            builder.RegisterType<UserService>().As<IUserService>().InstancePerHttpRequest();
-            builder.RegisterType<BlogService>().As<IBlogService>().InstancePerHttpRequest();
-            builder.RegisterType<DashboardService>().As<IDashboardService>().InstancePerHttpRequest();
-            builder.RegisterType<MediaService>().As<IMediaService>().InstancePerHttpRequest();
-            builder.RegisterType<PostService>().As<IPostService>().InstancePerHttpRequest();
-            builder.RegisterType<SyndicationFeedService>().As<ISyndicationFeedService>().InstancePerHttpRequest();
-            builder.RegisterType<NLogService>().As<ILogger>().InstancePerHttpRequest();
+            var repositoryAssemblies = Assembly.Load("MBlogRepository");
+            builder.RegisterAssemblyTypes(repositoryAssemblies).AsImplementedInterfaces().WithParameter(new NamedParameter("connectionString", ctor)).InstancePerHttpRequest(); 
+            var serviceAssemblies = Assembly.Load("MBlogService");
+            builder.RegisterAssemblyTypes(serviceAssemblies).AsImplementedInterfaces();
+
+            builder.RegisterType<NLogService>().As<ILogger>();
         }
     }
 }
