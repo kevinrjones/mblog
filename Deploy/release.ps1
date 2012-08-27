@@ -1,5 +1,5 @@
 param (
-    $Properties = @{TargetDir="c:\inetpub\wwwroot\mblog"; Configuration="Release"; DataBaseEnvironment="production"}
+    $Properties = @{TargetDir="c:\inetpub\wwwroot\mblog"; Configuration="Release"; DataBaseConfiguration="production"}
 )
 if(Get-Module -name $name){ remove-module psake}
 import-module .\psake.psm1
