@@ -8,8 +8,6 @@ namespace MBlogNlogService
     {
         private static readonly Logger Logger = LogManager.GetLogger("NLogService");
 
-        #region ILogger Members
-
         public void Trace(string message, params object[] args)
         {
             Logger.Trace(message, args);
@@ -46,7 +44,5 @@ namespace MBlogNlogService
         {
             Logger.Fatal(message, args);
         }
-
-        #endregion
     }
 }

@@ -6,7 +6,6 @@ using MBlog.Infrastructure;
 using MBlog.Models.User;
 using MBlogModel;
 using MBlogServiceInterfaces;
-using Microsoft.Practices.Unity;
 
 namespace MBlog.Filters
 {
@@ -14,7 +13,6 @@ namespace MBlog.Filters
     {
         public const string UserCookie = "USER";
 
-        [Dependency]
         public IUserService UserService { get; set; }
 
         public override void OnAuthorization(AuthorizationContext filterContext)
