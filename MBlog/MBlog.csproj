@@ -86,6 +86,9 @@
       <Private>True</Private>
       <HintPath>..\packages\Microsoft.Web.Infrastructure.1.0.0.0\lib\net40\Microsoft.Web.Infrastructure.dll</HintPath>
     </Reference>
+    <Reference Include="Newtonsoft.Json">
+      <HintPath>..\packages\Newtonsoft.Json.4.5.8\lib\net40\Newtonsoft.Json.dll</HintPath>
+    </Reference>
     <Reference Include="NLog">
       <HintPath>..\packages\NLog.2.0.0.2000\lib\net40\NLog.dll</HintPath>
     </Reference>
@@ -149,8 +152,9 @@
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\MediaController.cs" />
     <Compile Include="Controllers\PostController.cs" />
-    <Compile Include="Controllers\publishing\AtomController.cs" />
-    <Compile Include="Controllers\publishing\RsdController.cs" />
+    <Compile Include="Controllers\Publishing\AtomController.cs" />
+    <Compile Include="Models\Atom\AtomViewModel.cs" />
+    <Compile Include="Controllers\Publishing\RsdController.cs" />
     <Compile Include="Controllers\SessionController.cs" />
     <Compile Include="Controllers\UserController.cs" />
     <Compile Include="DashboardController.generated.cs">

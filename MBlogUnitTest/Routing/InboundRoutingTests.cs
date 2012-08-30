@@ -345,6 +345,18 @@ namespace MBlogUnitTest.Routing
                       "POST");
         }
 
+        [Test]
+        public void GivenACorrectRoutesCollection_WhenIAskForATheAtomPubServiceDocument_ThenIGetTheAtomPubServiceDocument()
+        {
+            TestRoute("~/nickname/pub/atom", new
+                                              {
+                                                  controller = "Atom",
+                                                  action = "GetServiceDocument",
+                                                  nickname = "nickname"
+                                              },
+                      "GET");
+        }
+
 
     }
 }
