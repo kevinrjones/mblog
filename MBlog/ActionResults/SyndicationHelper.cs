@@ -1,3 +1,4 @@
+using System;
 using System.IO;
 using System.Linq;
 using System.ServiceModel.Syndication;
@@ -22,28 +23,34 @@ namespace MBlog.ActionResults
 
         private static FeedData GetFeed(SyndicationFeed feed, string contentType, WriteTo writeTo)
         {
-            var feedData = new FeedData {ContentType = contentType};
+            var feedData = new FeedData { ContentType = contentType };
             if (feed.Items.Any())
             {
                 SyndicationItem item = (from syndicationItem in feed.Items
                                         orderby syndicationItem.PublishDate descending
-                                        select syndicationItem).FirstOrDefault();
+                                        select syndicationItem).First();
 
-                var xmlWriterSettings = new XmlWriterSettings {Encoding = new UTF8Encoding(false)};
-
-                var memoryStream = new MemoryStream();
-
-                using (XmlWriter writer = XmlWriter.Create(memoryStream, xmlWriterSettings))
-                {
-                    writeTo(writer);
-                }
-
-                memoryStream.Position = 0;
-                var sr = new StreamReader(memoryStream);
-                feedData.Content = sr.ReadToEnd();
                 feedData.LastModifiedDate = item.PublishDate.DateTime;
-                feedData.ETag = feedData.Content.GetHashCode().ToString();
             }
+            else
+            {
+                feedData.LastModifiedDate = DateTime.MinValue;
+            }
+
+            var xmlWriterSettings = new XmlWriterSettings { Encoding = new UTF8Encoding(false) };
+
+            var memoryStream = new MemoryStream();
+
+            using (XmlWriter writer = XmlWriter.Create(memoryStream, xmlWriterSettings))
+            {
+                writeTo(writer);
+            }
+
+            memoryStream.Position = 0;
+            var sr = new StreamReader(memoryStream);
+            feedData.Content = sr.ReadToEnd();
+            feedData.ETag = feedData.Content.GetHashCode().ToString();
+            //}
             return feedData;
         }
 
