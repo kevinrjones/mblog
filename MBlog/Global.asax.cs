@@ -57,6 +57,35 @@ namespace MBlog
                 );
 
             routes.MapRoute(
+                name: "Atom-Service-Index",
+                url: "{nickname}/pub/atom/posts",
+                defaults: new { controller = "Atom", action = "Index" },
+                constraints: new { httpMethod = new HttpMethodConstraint("GET") }
+                );
+
+            routes.MapRoute(
+                name: "Posts-get-atom",
+                url: "{nickname}/pub/atom/posts/edit/{blogId}/{postId}",
+                defaults: new { controller = "Atom", action = "Get" },
+                constraints: new { httpMethod = new HttpMethodConstraint("GET") }
+                );
+
+            routes.MapRoute(
+                name: "Posts-update-atom",
+                url: "{nickname}/pub/atom/posts/edit/{blogId}/{postId}",
+                defaults: new { controller = "Atom", action = "Update" },
+                constraints: new { httpMethod = new HttpMethodConstraint("PUT") }
+                );
+
+            routes.MapRoute(
+                name: "Posts-create-atom",
+                url: "{nickname}/pub/atom/posts/",
+                defaults: new { controller = "Atom", action = "Create" },
+                constraints: new { httpMethod = new HttpMethodConstraint("POST") }
+                );
+
+
+            routes.MapRoute(
                 name: "Blog-edit",
                 url: "{nickname}/blog/edit/{blogId}",
                 defaults: new { controller = "Blog", action = "Edit", },

@@ -11,7 +11,7 @@ namespace MBlog.Filters
 {
     public class GetCookieUserFilterAttribute : AuthorizeAttribute
     {
-        public const string UserCookie = "USER";
+        public const string UserCookieName = "USER";
 
         public IUserService UserService { get; set; }
 
@@ -21,9 +21,9 @@ namespace MBlog.Filters
             if (controller != null)
             {
                 var userViewModel = new UserViewModel {IsLoggedIn = false};
-                if (filterContext.HttpContext.Request.Cookies[UserCookie] != null)
+                if (filterContext.HttpContext.Request.Cookies[UserCookieName] != null)
                 {
-                    string cookie = filterContext.HttpContext.Request.Cookies[UserCookie].Value;
+                    string cookie = filterContext.HttpContext.Request.Cookies[UserCookieName].Value;
                     byte[] cipherText = Convert.FromBase64String(cookie);
                     string plainText = cipherText.Decrypt();
                     int id;
@@ -36,19 +36,11 @@ namespace MBlog.Filters
                             userViewModel.Email = user.Email;
                             userViewModel.Name = user.Name;
                             userViewModel.IsLoggedIn = true;
-                            AddNicknamesToUser(user, userViewModel);
+                            userViewModel.AddNicknamesToUser(user);
                         }
                     }
                 }
                 filterContext.HttpContext.User = Thread.CurrentPrincipal = userViewModel;
-            }
-        }
-
-        private void AddNicknamesToUser(User user, UserViewModel userViewModel)
-        {
-            foreach (Blog blog in user.Blogs)
-            {
-                userViewModel.Nicknames.Add(blog.Nickname);
             }
         }
     }

@@ -21,7 +21,7 @@
     <UseIISExpress>true</UseIISExpress>
     <IISExpressSSLPort />
     <IISExpressAnonymousAuthentication>enabled</IISExpressAnonymousAuthentication>
-    <IISExpressWindowsAuthentication>enabled</IISExpressWindowsAuthentication>
+    <IISExpressWindowsAuthentication>disabled</IISExpressWindowsAuthentication>
     <IISExpressUseClassicPipelineMode />
     <UpgradeBackupLocation />
   </PropertyGroup>
@@ -117,6 +117,7 @@
     <Reference Include="System.Web.Routing" />
     <Reference Include="System.Xml" />
     <Reference Include="System.Configuration" />
+    <Reference Include="System.Xml.Linq" />
     <Reference Include="WebActivator">
       <HintPath>..\packages\WebActivator.1.5\lib\net40\WebActivator.dll</HintPath>
     </Reference>
@@ -153,6 +154,8 @@
     <Compile Include="Controllers\MediaController.cs" />
     <Compile Include="Controllers\PostController.cs" />
     <Compile Include="Controllers\Publishing\AtomController.cs" />
+    <Compile Include="Filters\BasicAutohorizeAttribute.cs" />
+    <Compile Include="Filters\HttpBasicUnauthorizedResult.cs" />
     <Compile Include="Models\Atom\AtomViewModel.cs" />
     <Compile Include="Controllers\Publishing\RsdController.cs" />
     <Compile Include="Controllers\SessionController.cs" />
@@ -187,6 +190,7 @@
     <Compile Include="Models\Comment\AddCommentViewModel.cs" />
     <Compile Include="Models\Comment\CommentViewModel.cs" />
     <Compile Include="Models\Error\ErrorViewData.cs" />
+    <Compile Include="Models\Feed\NewPostViewModel.cs" />
     <Compile Include="Models\Home\HomePagePostViewModel.cs" />
     <Compile Include="Models\Home\HomePageViewModel.cs" />
     <Compile Include="Models\Media\MediaCreateJsonResponse.cs" />
@@ -683,6 +687,8 @@
     <Content Include="Views\Session\_Layout.cshtml" />
     <Content Include="Views\Rsd\Rsd.cshtml" />
     <Content Include="Views\Atom\GetServiceDocument.cshtml" />
+    <Content Include="Views\Atom\Get.cshtml" />
+    <Content Include="Views\Atom\Create.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />

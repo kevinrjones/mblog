@@ -1,0 +1,17 @@
+﻿<?xml version="1.0" encoding='utf-8' ?>
+@model MBlog.Models.Post.EditPostViewModel
+
+@{
+    Response.ContentType = "application/atomsvc+xml";
+    Layout = "";
+}
+
+<entry xmlns="http://www.w3.org/2005/Atom">
+    <id>@Url.Action("get", "atom", new { blogid = Model.BlogId, postid = Model.PostId }, HttpContext.Current.Request.Url.Scheme)</id>
+    <title type="html">@Model.Title</title>
+    <published>@Model.Published.ToString(@"yyyy-MM-ddTHH\:mm\:ss.fffffffzzz")</published>
+    <updated>@Model.Edited.ToString(@"yyyy-MM-ddTHH\:mm\:ss.fffffffzzz")</updated>
+    <link rel="self" href="@Url.Action("get", "atom", new { blogid = Model.BlogId, postid = Model.PostId }, HttpContext.Current.Request.Url.Scheme)" />
+    <link rel="edit" type="application/atom+xml;type=entry" href="@Url.Action("update", "atom", new { blogid = Model.BlogId, postid = Model.PostId }, HttpContext.Current.Request.Url.Scheme)" />
+    <content type="html">@Model.Post</content>
+</entry>

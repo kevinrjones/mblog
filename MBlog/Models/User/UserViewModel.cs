@@ -74,5 +74,14 @@ namespace MBlog.Models.User
         {
             return string.Format("Name: {0}, Id: {1}", Name, Id);
         }
+
+        public void AddNicknamesToUser(MBlogModel.User user)
+        {
+            foreach (MBlogModel.Blog blog in user.Blogs)
+            {
+                Nicknames.Add(blog.Nickname);
+            }
+        }
+
     }
 }

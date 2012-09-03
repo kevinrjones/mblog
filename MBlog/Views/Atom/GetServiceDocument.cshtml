@@ -1,5 +1,4 @@
 ﻿<?xml version="1.0" encoding='utf-8' ?>
-@using MBlog.Resources.Admin
 @model MBlog.Models.Atom.AtomViewModel
 @{
     Response.ContentType = "application/atomsvc+xml";
@@ -8,10 +7,10 @@
 <service xmlns="http://www.w3.org/2007/app" xmlns:atom="http://www.w3.org/2005/Atom">
   <workspace>
     <atom:title>MBlog</atom:title>
-    <collection href="@Url.Action("Atom", "Feed", new {nickname = @Model.Nickname}, null)" >
+    <collection href="@Url.Action("Index", "atom", new {nickname = @Model.Nickname}, HttpContext.Current.Request.Url.Scheme)" >
       <atom:title>@Model.Title</atom:title>
       <accept>application/atom+xml;type=entry</accept>
-      <categories href="{relative href to entries}" />
+      <categories href="categories" />
     </collection>
 @*    <collection href="http://example.org/blog/pic" >
       <atom:title>Pictures</atom:title>

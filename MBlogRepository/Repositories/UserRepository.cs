@@ -40,7 +40,7 @@ namespace MBlogRepository.Repositories
 
         public User GetUser(string email)
         {
-            return (from e in Entities
+            return (from e in Entities.Include("Blogs")
                     where e.Email == email
                     select e).FirstOrDefault();
         }

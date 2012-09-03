@@ -1,3 +1,4 @@
+using System;
 using System.ComponentModel.DataAnnotations;
 using System.IO;
 using HtmlAgilityPack;
@@ -10,6 +11,8 @@ namespace MBlog.Models.Post
         private string _post;
         public int BlogId { get; set; }
         public int PostId { get; set; }
+        public DateTime Edited { get; set; }
+        public DateTime Published { get; set; }
 
         [Required]
         public string Title { get; set; }

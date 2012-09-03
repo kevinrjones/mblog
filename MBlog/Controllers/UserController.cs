@@ -58,7 +58,7 @@ namespace MBlog.Controllers
         public virtual ActionResult Logout()
         {
             HttpCookie cookie;
-            if ((cookie = Request.Cookies[GetCookieUserFilterAttribute.UserCookie]) != null)
+            if ((cookie = Request.Cookies[GetCookieUserFilterAttribute.UserCookieName]) != null)
             {
                 cookie.Expires = new DateTime(1970, 1, 1);
                 Response.Cookies.Add(cookie);
@@ -71,7 +71,7 @@ namespace MBlog.Controllers
         {
             byte[] cipherText = user.Id.ToString().Encrypt();
             string base64CipherText = Convert.ToBase64String(cipherText);
-            Response.Cookies.Add(new HttpCookie(GetCookieUserFilterAttribute.UserCookie, base64CipherText));
+            Response.Cookies.Add(new HttpCookie(GetCookieUserFilterAttribute.UserCookieName, base64CipherText));
             HttpContext.User = new UserViewModel {Email = user.Email, Name = user.Name, IsLoggedIn = true};
         }
     }
