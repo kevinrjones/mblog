@@ -171,6 +171,9 @@
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\Rejuicer.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
+    <Compile Include="AtomController.generated.cs">
+      <DependentUpon>T4MVC.tt</DependentUpon>
+    </Compile>
     <Compile Include="BaseController.generated.cs">
       <DependentUpon>T4MVC.tt</DependentUpon>
     </Compile>
@@ -323,6 +326,9 @@
       <DependentUpon>Register.resx</DependentUpon>
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
+    </Compile>
+    <Compile Include="RsdController.generated.cs">
+      <DependentUpon>T4MVC.tt</DependentUpon>
     </Compile>
     <Compile Include="SessionController.generated.cs">
       <DependentUpon>T4MVC.tt</DependentUpon>

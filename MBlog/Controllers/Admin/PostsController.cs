@@ -12,19 +12,22 @@ namespace MBlog.Controllers.Admin
     public partial class PostsController : BaseController
     {
         private readonly IPostService _postService;
+        private readonly IBlogService _blogService;
 
-        public PostsController(IPostService postService, ILogger logger)
+        public PostsController(IPostService postService, IBlogService blogService, ILogger logger)
             : base(logger)
         {
             _postService = postService;
+            _blogService = blogService;
         }
 
 
         [AuthorizeBlogOwner]
         public virtual ActionResult Index(AdminBlogViewModel model)
         {
-            IList<Post> posts = _postService.GetOrderedBlogPosts(model.BlogId);
-            var postsViewModel = new PostsViewModel {BlogId = model.BlogId, Nickname = model.Nickname};
+            var blog = _blogService.GetBlog(model.Nickname);
+            IList<Post> posts = _postService.GetOrderedBlogPosts(blog.Id);
+            var postsViewModel = new PostsViewModel {Nickname = model.Nickname};
             postsViewModel.AddPosts(posts);
             return View(postsViewModel);
         }

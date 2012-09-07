@@ -12,17 +12,20 @@ namespace MBlog.Controllers.Admin
     public partial class CommentsController : BaseController
     {
         private readonly IPostService _postService;
+        private readonly IBlogService _blogService;
 
-        public CommentsController(IPostService postService, ILogger logger) : base(logger)
+        public CommentsController(IPostService postService, IBlogService blogService, ILogger logger) : base(logger)
         {
             _postService = postService;
+            _blogService = blogService;
         }
 
         [AuthorizeBlogOwner]
         public virtual ActionResult Index(AdminBlogViewModel model)
         {
-            IList<Post> posts = _postService.GetOrderedBlogPosts(model.BlogId);
-            var postsViewModel = new PostsViewModel(model.BlogId, model.Nickname, posts);
+            var blog = _blogService.GetBlog(model.Nickname);
+            IList<Post> posts = _postService.GetOrderedBlogPosts(blog.Id);
+            var postsViewModel = new PostsViewModel(model.Nickname, posts);
             return View(postsViewModel);
         }
     }

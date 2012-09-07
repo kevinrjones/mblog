@@ -16,12 +16,14 @@ namespace MBlog.Controllers
     {
         private readonly IDashboardService _dashboardService;
         private readonly IPostService _postService;
+        private readonly IBlogService _blogService;
 
-        public PostController(IPostService postService, IDashboardService dashboardService, ILogger logger)
+        public PostController(IPostService postService, IDashboardService dashboardService, IBlogService blogService, ILogger logger)
             : base(logger)
         {
             _postService = postService;
             _dashboardService = dashboardService;
+            _blogService = blogService;
         }
 
         public virtual ActionResult Index(string nickname)
@@ -34,48 +36,48 @@ namespace MBlog.Controllers
 
         [HttpGet]
         [AuthorizeBlogOwner]
-        public virtual ActionResult New(string nickname, int blogId)
+        public virtual ActionResult New(string nickname)
         {
-            NewMediaViewModel model = new NewMediaViewModel {Nickname = nickname, BlogId = blogId};
-            return View(new EditPostViewModel {BlogId = blogId, IsCreate = true, Nickname = nickname, NewMediaViewModel = model});
+            NewMediaViewModel model = new NewMediaViewModel {Nickname = nickname};
+            return View(new EditPostViewModel {IsCreate = true, Nickname = nickname, NewMediaViewModel = model});
         }
 
         [HttpPost]
         [ValidateInput(false)]
         [AuthorizeBlogOwner]
-        public virtual ActionResult Create(EditPostViewModel model)
+        public virtual ActionResult Create(string nickname, EditPostViewModel model)
         {
             if (!ModelState.IsValid)
             {
                 return View("New", model);
             }
-            return CreatePost(model);
+            return CreatePost(nickname, model);
         }
 
         [HttpGet]
         [AuthorizeBlogOwner]
-        public virtual ActionResult Edit(string nickname, int blogId, int postId)
+        public virtual ActionResult Edit(string nickname, int postId)
         {
             Post post = _postService.GetBlogPost(postId);
             return
-                View(new EditPostViewModel {BlogId = blogId, PostId = postId, Title = post.Title, Post = post.BlogPost});
+                View(new EditPostViewModel {PostId = postId, Title = post.Title, Post = post.BlogPost});
         }
 
         [HttpPost]
         [ValidateInput(false)]
         [AuthorizeBlogOwner]
-        public virtual ActionResult Update(EditPostViewModel model)
+        public virtual ActionResult Update(string nickname, EditPostViewModel model)
         {
             if (!ModelState.IsValid)
             {
                 return View("Edit", model);
             }
-            return UpdatePost(model);
+            return UpdatePost(nickname, model);
         }
 
         [HttpPost]
         [AuthorizeBlogOwner]
-        public virtual ActionResult Delete(EditPostViewModel model)
+        public virtual ActionResult Delete(string nickname, EditPostViewModel model)
         {
             if (!ModelState.IsValid)
             {
@@ -102,25 +104,27 @@ namespace MBlog.Controllers
             return GetPosts(postLinkViewModel, posts, postsViewModel);
         }
 
-        private ActionResult CreatePost(EditPostViewModel model)
+        private ActionResult CreatePost(string nickname, EditPostViewModel model)
         {
+            var blog = _blogService.GetBlog(nickname);
             var post = new Post
                            {
                                Title = model.Title,
                                BlogPost = model.Post,
                                Edited = DateTime.UtcNow,
                                Posted = DateTime.UtcNow,
-                               BlogId = model.BlogId,
+                               BlogId = blog.Id,
                                CommentsEnabled = true,
                                //todo: get this from the admin
                            };
-            _dashboardService.CreatePost(post, model.BlogId);
+            _dashboardService.CreatePost(post, blog.Id);
             return RedirectToRoute(new {controller = "Dashboard", action = "Index"});
         }
 
-        private ActionResult UpdatePost(EditPostViewModel model)
+        private ActionResult UpdatePost(string nickname, EditPostViewModel model)
         {
-            _dashboardService.Update(model.PostId, model.Title, model.Post, model.BlogId);
+            var blog = _blogService.GetBlog(nickname);
+            _dashboardService.Update(model.PostId, model.Title, model.Post, blog.Id);
             return RedirectToRoute(new {controller = "Dashboard", action = "Index"});
         }
 

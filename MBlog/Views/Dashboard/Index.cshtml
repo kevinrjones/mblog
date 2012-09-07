@@ -56,10 +56,10 @@
                             }
                         </div>
                         <div class="admin-blog-actions">
-                            <span class="admin-link">@Html.ActionLink(Global.NewPost, "new", "Post", new {nickname = blog.Nickname, blogId = blog.BlogId}, null)</span>
-                            <span class="admin-link">@Html.ActionLink(Global.EditPosts, "index", "Posts", new {nickname = blog.Nickname, blogId = blog.BlogId}, null)</span>
-                            <span class="admin-link">@Html.ActionLink(Global.Comments, "index", "Comments", new {nickname = blog.Nickname, blogId = blog.BlogId}, null)</span>
-                            <span class="admin-link">@Html.ActionLink(Index.Settings, "Edit", "Blog", new {nickname = blog.Nickname, blogId = blog.BlogId}, null)</span>
+                            <span class="admin-link">@Html.ActionLink(Global.NewPost, "new", "Post", new {nickname = blog.Nickname}, null)</span>
+                            <span class="admin-link">@Html.ActionLink(Global.EditPosts, "index", "Posts", new {nickname = blog.Nickname}, null)</span>
+                            <span class="admin-link">@Html.ActionLink(Global.Comments, "index", "Comments", new {nickname = blog.Nickname}, null)</span>
+                            <span class="admin-link">@Html.ActionLink(Index.Settings, "Edit", "Blog", new {nickname = blog.Nickname}, null)</span>
                         </div>
                     </section>
                 }

@@ -33,6 +33,8 @@ public static class MVC {
     public static MBlog.Controllers.HomeController Home = new MBlog.Controllers.T4MVC_HomeController();
     public static MBlog.Controllers.MediaController Media = new MBlog.Controllers.T4MVC_MediaController();
     public static MBlog.Controllers.PostController Post = new MBlog.Controllers.T4MVC_PostController();
+    public static MBlog.Controllers.publishing.AtomController Atom = new MBlog.Controllers.publishing.T4MVC_AtomController();
+    public static MBlog.Controllers.publishing.RsdController Rsd = new MBlog.Controllers.publishing.T4MVC_RsdController();
     public static MBlog.Controllers.SessionController Session = new MBlog.Controllers.T4MVC_SessionController();
     public static MBlog.Controllers.UserController User = new MBlog.Controllers.T4MVC_UserController();
     public static T4MVC.SharedController Shared = new T4MVC.SharedController();
@@ -352,6 +354,9 @@ namespace Links {
         public static readonly string jquery_mobile_1_1_0_js = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/jquery.mobile-1.1.0.min.js") ? Url("jquery.mobile-1.1.0.min.js") : Url("jquery.mobile-1.1.0.js");
                       
         public static readonly string jquery_mobile_1_1_0_min_js = Url("jquery.mobile-1.1.0.min.js");
+        public static readonly string jquery_mobile_1_1_1_js = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/jquery.mobile-1.1.1.min.js") ? Url("jquery.mobile-1.1.1.min.js") : Url("jquery.mobile-1.1.1.js");
+                      
+        public static readonly string jquery_mobile_1_1_1_min_js = Url("jquery.mobile-1.1.1.min.js");
         public static readonly string jquery_unobtrusive_ajax_js = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/jquery.unobtrusive-ajax.min.js") ? Url("jquery.unobtrusive-ajax.min.js") : Url("jquery.unobtrusive-ajax.js");
                       
         public static readonly string jquery_unobtrusive_ajax_min_js = Url("jquery.unobtrusive-ajax.min.js");
@@ -477,11 +482,17 @@ namespace Links {
         public static readonly string jquery_mobile_1_0_1_css = Url("jquery.mobile-1.0.1.css");
         public static readonly string jquery_mobile_1_1_0_css = Url("jquery.mobile-1.1.0.css");
         public static readonly string jquery_mobile_1_1_0_min_css = Url("jquery.mobile-1.1.0.min.css");
+        public static readonly string jquery_mobile_1_1_1_css = Url("jquery.mobile-1.1.1.css");
+        public static readonly string jquery_mobile_1_1_1_min_css = Url("jquery.mobile-1.1.1.min.css");
         public static readonly string jquery_mobile_structure_1_0_1_css = Url("jquery.mobile.structure-1.0.1.css");
         public static readonly string jquery_mobile_structure_1_1_0_css = Url("jquery.mobile.structure-1.1.0.css");
         public static readonly string jquery_mobile_structure_1_1_0_min_css = Url("jquery.mobile.structure-1.1.0.min.css");
+        public static readonly string jquery_mobile_structure_1_1_1_css = Url("jquery.mobile.structure-1.1.1.css");
+        public static readonly string jquery_mobile_structure_1_1_1_min_css = Url("jquery.mobile.structure-1.1.1.min.css");
         public static readonly string jquery_mobile_theme_1_1_0_css = Url("jquery.mobile.theme-1.1.0.css");
         public static readonly string jquery_mobile_theme_1_1_0_min_css = Url("jquery.mobile.theme-1.1.0.min.css");
+        public static readonly string jquery_mobile_theme_1_1_1_css = Url("jquery.mobile.theme-1.1.1.css");
+        public static readonly string jquery_mobile_theme_1_1_1_min_css = Url("jquery.mobile.theme-1.1.1.min.css");
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
         public static class Styles {
             private const string URLPATH = "~/Content/Styles";

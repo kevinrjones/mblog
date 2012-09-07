@@ -81,7 +81,7 @@ namespace MBlog.App_Start
 
             routes.MapRoute(
                 name: "Blog-edit",
-                url: "{nickname}/blog/edit/{blogId}",
+                url: "{nickname}/blog/edit",
                 defaults: new { controller = "Blog", action = "Edit", },
                 constraints: new { httpMethod = new HttpMethodConstraint("GET") }
                 );
@@ -95,7 +95,7 @@ namespace MBlog.App_Start
 
             routes.MapRoute(
                 name: "Blog-delete",
-                url: "{nickname}/blog/delete/{blogId}",
+                url: "{nickname}/blog/delete",
                 defaults: new { controller = "Blog", action = "Delete" },
                 constraints: new { httpMethod = new HttpMethodConstraint("POST") }
                 );
@@ -243,7 +243,7 @@ namespace MBlog.App_Start
 
             routes.MapRoute(
                 name: "Posts-new",
-                url: "{nickname}/new/{blogId}",
+                url: "{nickname}/new",
                 defaults: new { controller = "Post", action = "New" },
                 constraints: new { httpMethod = new HttpMethodConstraint("GET") }
                 );
@@ -264,9 +264,16 @@ namespace MBlog.App_Start
 
             routes.MapRoute(
                 name: "Posts-edit",
-                url: "{nickname}/edit/{blogId}/{postId}",
+                url: "{nickname}/edit/{postId}",
                 defaults: new { controller = "Post", action = "Edit" },
                 constraints: new { httpMethod = new HttpMethodConstraint("GET") }
+                );
+
+            routes.MapRoute(
+                name: "Posts-delete",
+                url: "{nickname}/delete/{postId}",
+                defaults: new { controller = "Post", action = "Delete" },
+                constraints: new { httpMethod = new HttpMethodConstraint("POST") }
                 );
 
             routes.MapRoute(

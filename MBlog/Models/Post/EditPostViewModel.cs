@@ -9,7 +9,6 @@ namespace MBlog.Models.Post
     public class EditPostViewModel : BasePostViewModel
     {
         private string _post;
-        public int BlogId { get; set; }
         public int PostId { get; set; }
         public DateTime Edited { get; set; }
         public DateTime Published { get; set; }

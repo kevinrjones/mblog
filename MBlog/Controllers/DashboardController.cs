@@ -14,12 +14,14 @@ namespace MBlog.Controllers
     {
         private readonly IPostService _postService;
         private readonly IUserService _userService;
+        private readonly IBlogService _blogService;
 
-        public DashboardController(IPostService postService, IUserService userService, ILogger logger)
+        public DashboardController(IPostService postService, IUserService userService, IBlogService blogService,  ILogger logger)
             : base(logger)
         {
             _postService = postService;
             _userService = userService;
+            _blogService = blogService;
         }
 
         [AuthorizeLoggedInUser]
@@ -36,8 +38,9 @@ namespace MBlog.Controllers
         [AuthorizeBlogOwner]
         public virtual ActionResult ListPosts(AdminBlogViewModel model)
         {
-            IList<Post> posts = _postService.GetOrderedBlogPosts(model.BlogId);
-            var postsViewModel = new PostsViewModel(model.BlogId, model.Nickname, posts);
+            var blog = _blogService.GetBlog(model.Nickname);
+            IList<Post> posts = _postService.GetOrderedBlogPosts(blog.Id);
+            var postsViewModel = new PostsViewModel(model.Nickname, posts);
             return View(postsViewModel);
         }
     }

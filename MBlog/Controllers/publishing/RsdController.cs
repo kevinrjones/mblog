@@ -6,12 +6,12 @@ using System.Web.Mvc;
 
 namespace MBlog.Controllers.publishing
 {
-    public class RsdController : Controller
+    public partial class RsdController : Controller
     {
         //
         // GET: /Rsd/
 
-        public ActionResult Rsd()
+        public virtual ActionResult Rsd()
         {
             return View();
         }

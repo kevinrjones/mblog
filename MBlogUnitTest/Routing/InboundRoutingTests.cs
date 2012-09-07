@@ -195,11 +195,10 @@ namespace MBlogUnitTest.Routing
         [Test]
         public void GivenACorrectRoutesCollection_WhenIAskToEditABlog_ThenIGetTheEditActionForLogin()
         {
-            TestRoute("~/nickname/blog/edit/1", new
+            TestRoute("~/nickname/blog/edit", new
                                                     {
                                                         controller = "Blog",
                                                         action = "Edit",
-                                                        blogId = 1,
                                                         nickname = "nickname"
                                                     },
                       "GET");
@@ -257,11 +256,10 @@ namespace MBlogUnitTest.Routing
         [Test]
         public void GivenACorrectRoutesCollection_WhenIDeleteABlog_ThenIGetTheDeleteActionForBlogs()
         {
-            TestRoute("~/nickname/blog/delete/1", new
+            TestRoute("~/nickname/blog/delete", new
                                                       {
                                                           controller = "Blog",
                                                           action = "Delete",
-                                                          blogId = 1,
                                                           nickname = "nickname"
                                                       },
                       "POST");

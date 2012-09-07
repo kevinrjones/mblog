@@ -20,10 +20,10 @@ using System.Web.Mvc.Ajax;
 using System.Web.Mvc.Html;
 using System.Web.Routing;
 using T4MVC;
-namespace MBlog.Controllers {
-    public partial class PostController {
+namespace MBlog.Controllers.publishing {
+    public partial class AtomController {
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
-        protected PostController(Dummy d) : base(d) { }
+        protected AtomController(Dummy d) : base(d) { }
 
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
         protected RedirectToRouteResult RedirectToAction(ActionResult result) {
@@ -39,23 +39,18 @@ namespace MBlog.Controllers {
 
         [NonAction]
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public System.Web.Mvc.ActionResult GetServiceDocument() {
+            return new T4MVC_ActionResult(Area, Name, ActionNames.GetServiceDocument);
+        }
+        [NonAction]
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
         public System.Web.Mvc.ActionResult Index() {
             return new T4MVC_ActionResult(Area, Name, ActionNames.Index);
         }
         [NonAction]
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
-        public System.Web.Mvc.ActionResult New() {
-            return new T4MVC_ActionResult(Area, Name, ActionNames.New);
-        }
-        [NonAction]
-        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
-        public System.Web.Mvc.ActionResult Create() {
-            return new T4MVC_ActionResult(Area, Name, ActionNames.Create);
-        }
-        [NonAction]
-        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
-        public System.Web.Mvc.ActionResult Edit() {
-            return new T4MVC_ActionResult(Area, Name, ActionNames.Edit);
+        public System.Web.Mvc.ActionResult Get() {
+            return new T4MVC_ActionResult(Area, Name, ActionNames.Get);
         }
         [NonAction]
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
@@ -69,45 +64,50 @@ namespace MBlog.Controllers {
         }
         [NonAction]
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
-        public System.Web.Mvc.ActionResult Show() {
-            return new T4MVC_ActionResult(Area, Name, ActionNames.Show);
+        public System.Web.Mvc.ActionResult Create() {
+            return new T4MVC_ActionResult(Area, Name, ActionNames.Create);
         }
 
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
-        public PostController Actions { get { return MVC.Post; } }
+        public AtomController Actions { get { return MVC.Atom; } }
         [GeneratedCode("T4MVC", "2.0")]
         public readonly string Area = "";
         [GeneratedCode("T4MVC", "2.0")]
-        public readonly string Name = "Post";
+        public readonly string Name = "Atom";
         [GeneratedCode("T4MVC", "2.0")]
-        public const string NameConst = "Post";
+        public const string NameConst = "Atom";
 
         static readonly ActionNamesClass s_actions = new ActionNamesClass();
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
         public ActionNamesClass ActionNames { get { return s_actions; } }
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
         public class ActionNamesClass {
+            public readonly string GetServiceDocument = "GetServiceDocument";
             public readonly string Index = "Index";
-            public readonly string New = "New";
-            public readonly string Create = "Create";
-            public readonly string Edit = "Edit";
+            public readonly string Get = "Get";
             public readonly string Update = "Update";
             public readonly string Delete = "Delete";
-            public readonly string Show = "Show";
+            public readonly string Create = "Create";
         }
 
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
         public class ActionNameConstants {
+            public const string GetServiceDocument = "GetServiceDocument";
             public const string Index = "Index";
-            public const string New = "New";
-            public const string Create = "Create";
-            public const string Edit = "Edit";
+            public const string Get = "Get";
             public const string Update = "Update";
             public const string Delete = "Delete";
-            public const string Show = "Show";
+            public const string Create = "Create";
         }
 
 
+        static readonly ActionParamsClass_GetServiceDocument s_params_GetServiceDocument = new ActionParamsClass_GetServiceDocument();
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public ActionParamsClass_GetServiceDocument GetServiceDocumentParams { get { return s_params_GetServiceDocument; } }
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public class ActionParamsClass_GetServiceDocument {
+            public readonly string nickname = "nickname";
+        }
         static readonly ActionParamsClass_Index s_params_Index = new ActionParamsClass_Index();
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
         public ActionParamsClass_Index IndexParams { get { return s_params_Index; } }
@@ -115,28 +115,12 @@ namespace MBlog.Controllers {
         public class ActionParamsClass_Index {
             public readonly string nickname = "nickname";
         }
-        static readonly ActionParamsClass_New s_params_New = new ActionParamsClass_New();
+        static readonly ActionParamsClass_Get s_params_Get = new ActionParamsClass_Get();
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
-        public ActionParamsClass_New NewParams { get { return s_params_New; } }
+        public ActionParamsClass_Get GetParams { get { return s_params_Get; } }
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
-        public class ActionParamsClass_New {
+        public class ActionParamsClass_Get {
             public readonly string nickname = "nickname";
-        }
-        static readonly ActionParamsClass_Create s_params_Create = new ActionParamsClass_Create();
-        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
-        public ActionParamsClass_Create CreateParams { get { return s_params_Create; } }
-        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
-        public class ActionParamsClass_Create {
-            public readonly string nickname = "nickname";
-            public readonly string model = "model";
-        }
-        static readonly ActionParamsClass_Edit s_params_Edit = new ActionParamsClass_Edit();
-        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
-        public ActionParamsClass_Edit EditParams { get { return s_params_Edit; } }
-        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
-        public class ActionParamsClass_Edit {
-            public readonly string nickname = "nickname";
-            public readonly string blogId = "blogId";
             public readonly string postId = "postId";
         }
         static readonly ActionParamsClass_Update s_params_Update = new ActionParamsClass_Update();
@@ -145,7 +129,7 @@ namespace MBlog.Controllers {
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
         public class ActionParamsClass_Update {
             public readonly string nickname = "nickname";
-            public readonly string model = "model";
+            public readonly string postId = "postId";
         }
         static readonly ActionParamsClass_Delete s_params_Delete = new ActionParamsClass_Delete();
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
@@ -153,35 +137,35 @@ namespace MBlog.Controllers {
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
         public class ActionParamsClass_Delete {
             public readonly string nickname = "nickname";
-            public readonly string model = "model";
+            public readonly string postId = "postId";
         }
-        static readonly ActionParamsClass_Show s_params_Show = new ActionParamsClass_Show();
+        static readonly ActionParamsClass_Create s_params_Create = new ActionParamsClass_Create();
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
-        public ActionParamsClass_Show ShowParams { get { return s_params_Show; } }
+        public ActionParamsClass_Create CreateParams { get { return s_params_Create; } }
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
-        public class ActionParamsClass_Show {
-            public readonly string postLinkViewModel = "postLinkViewModel";
+        public class ActionParamsClass_Create {
+            public readonly string nickname = "nickname";
         }
         static readonly ViewNames s_views = new ViewNames();
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
         public ViewNames Views { get { return s_views; } }
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
         public class ViewNames {
-            public readonly string _EditPost = "~/Views/Post/_EditPost.cshtml";
-            public readonly string _PostLayout = "~/Views/Post/_PostLayout.cshtml";
-            public readonly string _ShowCommentsForPost = "~/Views/Post/_ShowCommentsForPost.cshtml";
-            public readonly string _ShowSinglePost = "~/Views/Post/_ShowSinglePost.cshtml";
-            public readonly string Edit = "~/Views/Post/Edit.cshtml";
-            public readonly string Index = "~/Views/Post/Index.cshtml";
-            public readonly string InvalidDelete = "~/Views/Post/InvalidDelete.cshtml";
-            public readonly string New = "~/Views/Post/New.cshtml";
-            public readonly string Show = "~/Views/Post/Show.cshtml";
+            public readonly string Create = "~/Views/Atom/Create.cshtml";
+            public readonly string Get = "~/Views/Atom/Get.cshtml";
+            public readonly string GetServiceDocument = "~/Views/Atom/GetServiceDocument.cshtml";
         }
     }
 
     [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
-    public class T4MVC_PostController: MBlog.Controllers.PostController {
-        public T4MVC_PostController() : base(Dummy.Instance) { }
+    public class T4MVC_AtomController: MBlog.Controllers.publishing.AtomController {
+        public T4MVC_AtomController() : base(Dummy.Instance) { }
+
+        public override System.Web.Mvc.ActionResult GetServiceDocument(string nickname) {
+            var callInfo = new T4MVC_ActionResult(Area, Name, ActionNames.GetServiceDocument);
+            callInfo.RouteValueDictionary.Add("nickname", nickname);
+            return callInfo;
+        }
 
         public override System.Web.Mvc.ActionResult Index(string nickname) {
             var callInfo = new T4MVC_ActionResult(Area, Name, ActionNames.Index);
@@ -189,43 +173,30 @@ namespace MBlog.Controllers {
             return callInfo;
         }
 
-        public override System.Web.Mvc.ActionResult New(string nickname) {
-            var callInfo = new T4MVC_ActionResult(Area, Name, ActionNames.New);
-            callInfo.RouteValueDictionary.Add("nickname", nickname);
-            return callInfo;
-        }
-
-        public override System.Web.Mvc.ActionResult Create(string nickname, MBlog.Models.Post.EditPostViewModel model) {
-            var callInfo = new T4MVC_ActionResult(Area, Name, ActionNames.Create);
-            callInfo.RouteValueDictionary.Add("nickname", nickname);
-            callInfo.RouteValueDictionary.Add("model", model);
-            return callInfo;
-        }
-
-        public override System.Web.Mvc.ActionResult Edit(string nickname, int postId) {
-            var callInfo = new T4MVC_ActionResult(Area, Name, ActionNames.Edit);
+        public override System.Web.Mvc.ActionResult Get(string nickname, int postId) {
+            var callInfo = new T4MVC_ActionResult(Area, Name, ActionNames.Get);
             callInfo.RouteValueDictionary.Add("nickname", nickname);
             callInfo.RouteValueDictionary.Add("postId", postId);
             return callInfo;
         }
 
-        public override System.Web.Mvc.ActionResult Update(string nickname, MBlog.Models.Post.EditPostViewModel model) {
+        public override System.Web.Mvc.ActionResult Update(string nickname, int postId) {
             var callInfo = new T4MVC_ActionResult(Area, Name, ActionNames.Update);
             callInfo.RouteValueDictionary.Add("nickname", nickname);
-            callInfo.RouteValueDictionary.Add("model", model);
+            callInfo.RouteValueDictionary.Add("postId", postId);
             return callInfo;
         }
 
-        public override System.Web.Mvc.ActionResult Delete(string nickname, MBlog.Models.Post.EditPostViewModel model) {
+        public override System.Web.Mvc.ActionResult Delete(string nickname, int postId) {
             var callInfo = new T4MVC_ActionResult(Area, Name, ActionNames.Delete);
             callInfo.RouteValueDictionary.Add("nickname", nickname);
-            callInfo.RouteValueDictionary.Add("model", model);
+            callInfo.RouteValueDictionary.Add("postId", postId);
             return callInfo;
         }
 
-        public override System.Web.Mvc.ActionResult Show(MBlog.Models.Post.PostLinkViewModel postLinkViewModel) {
-            var callInfo = new T4MVC_ActionResult(Area, Name, ActionNames.Show);
-            callInfo.RouteValueDictionary.Add("postLinkViewModel", postLinkViewModel);
+        public override System.Web.Mvc.ActionResult Create(string nickname) {
+            var callInfo = new T4MVC_ActionResult(Area, Name, ActionNames.Create);
+            callInfo.RouteValueDictionary.Add("nickname", nickname);
             return callInfo;
         }
 

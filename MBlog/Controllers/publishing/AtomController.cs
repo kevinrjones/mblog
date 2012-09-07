@@ -17,7 +17,7 @@ using MBlogServiceInterfaces;
 namespace MBlog.Controllers.publishing
 {
     [BasicAuthorize]
-    public class AtomController : BaseController
+    public partial class AtomController : BaseController
     {
         private readonly IBlogService _blogService;
         private readonly IPostService _postService;
@@ -34,7 +34,7 @@ namespace MBlog.Controllers.publishing
         }
 
         [HttpGet]
-        public ActionResult GetServiceDocument(string nickname)
+        public virtual ActionResult GetServiceDocument(string nickname)
         {
             var blog = _blogService.GetBlog(nickname);
             var viewModel = new AtomViewModel { Title = blog.Title, Nickname = nickname };
@@ -42,7 +42,7 @@ namespace MBlog.Controllers.publishing
         }
 
         [HttpGet]
-        public ActionResult Index(string nickname)
+        public virtual ActionResult Index(string nickname)
         {
             SyndicationFeed feed = _syndicationFeedService.CreateSyndicationFeed(nickname, "atom",
                                                                      HttpContext.Request.Url.Scheme,
@@ -53,16 +53,16 @@ namespace MBlog.Controllers.publishing
 
         [HttpGet]
         [AuthorizeBlogOwner]
-        public ActionResult Get(string nickname, int postId)
+        public virtual ActionResult Get(string nickname, int postId)
         {
             Post post = _postService.GetBlogPost(postId);
             return
-                View(new EditPostViewModel {BlogId = post.BlogId, PostId = postId, Title = post.Title, Post = post.BlogPost, Edited = post.Edited, Published = post.Posted});
+                View(new EditPostViewModel {PostId = postId, Title = post.Title, Post = post.BlogPost, Edited = post.Edited, Published = post.Posted});
         }
         
         [HttpPut]
         [AuthorizeBlogOwner]
-        public ActionResult Update(string nickname, int postId)
+        public virtual ActionResult Update(string nickname, int postId)
         {
             var atomXMl = XDocument.Load(new StreamReader(Request.InputStream));
             XNamespace ns = "http://www.w3.org/2005/Atom";
@@ -77,7 +77,7 @@ namespace MBlog.Controllers.publishing
 
         [HttpDelete]
         [AuthorizeBlogOwner]
-        public ActionResult Delete(string nickname, int postId)
+        public virtual ActionResult Delete(string nickname, int postId)
         {
             _postService.Delete(postId);
             return new HttpStatusCodeResult(HttpStatusCode.OK);
@@ -85,7 +85,7 @@ namespace MBlog.Controllers.publishing
 
         [HttpPost]
         [AuthorizeBlogOwner]
-        public ActionResult Create(string nickname)
+        public virtual ActionResult Create(string nickname)
         {
             var atomXMl = XDocument.Load(new StreamReader(Request.InputStream));
             XNamespace ns = "http://www.w3.org/2005/Atom";

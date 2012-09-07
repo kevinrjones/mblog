@@ -23,7 +23,5 @@ namespace MBlog.Models.Admin
         }
 
         public string Description { get; set; }
-
-        public int BlogId { get; set; }
     }
 }

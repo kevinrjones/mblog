@@ -152,9 +152,9 @@ namespace MBlogUnitTest.Routing
             /*@Html.ActionLink("Foo", "New", "Post")*/
             UrlHelper helper = GetUrlHelper();
 
-            string expectedurl = "/nickname/new/1";
+            string expectedurl = "/nickname/new";
 
-            string url = helper.Action("New", "Post", new {nickname = "nickname", blogId = 1});
+            string url = helper.Action("New", "Post", new {nickname = "nickname"});
 
             Assert.AreEqual(expectedurl, url);
         }

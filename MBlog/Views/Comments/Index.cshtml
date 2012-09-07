@@ -15,7 +15,7 @@
                     @Html.ActionLink(Global.View, "Show", "Post", new {nickname = Model.Nickname, link = postViewModel.Link, year = postViewModel.YearPosted, month = postViewModel.MonthPosted, day = postViewModel.DayPosted}, null)
                 </td>
                 <td>
-                    @Html.ActionLink(Global.Edit, "edit", "Post", new {nickname = Model.Nickname, postId = postViewModel.Id, blogId = Model.BlogId}, null)
+                    @Html.ActionLink(Global.Edit, "edit", "Post", new {nickname = Model.Nickname, postId = postViewModel.Id}, null)
                 </td>
                 <td class="post-title">
                     @MvcHtmlString.Create(postViewModel.Title) 
@@ -31,7 +31,7 @@
                     name
                 </td>
                 <td>
-                    @Html.ActionLink(Global.Delete, "delete", "Post", new {nickname = Model.Nickname, postId = postViewModel.Id, blogId = Model.BlogId}, null)
+                    @Html.ActionLink(Global.Delete, "delete", "Post", new {nickname = Model.Nickname, postId = postViewModel.Id}, null)
                 </td>
             </tr>
         }

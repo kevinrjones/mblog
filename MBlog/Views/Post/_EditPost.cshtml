@@ -8,7 +8,6 @@
         @using (Html.BeginForm((string)ViewBag.Action, "post", FormMethod.Post, new { id = "form" }))
         {
             @Html.HiddenFor(m => m.PostId)
-            @Html.HiddenFor(m => m.BlogId)
             <div id="post-title">
                 @Html.TextBoxFor(m => m.Title, new { @class = "maxwidth", placeholder = @Global.EnterTitle })
             </div>

@@ -41,7 +41,6 @@ namespace MBlog.Models.Admin
             {
                 Blogs.Add(new AdminBlogViewModel
                               {
-                                  BlogId = blog.Id,
                                   Nickname = blog.Nickname,
                                   Title = blog.Title,
                                   Description = blog.Description,

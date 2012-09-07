@@ -10,9 +10,8 @@ namespace MBlog.Models.Post
         {
         }
 
-        public PostsViewModel(int blogId, string nickname, IList<MBlogModel.Post> posts)
+        public PostsViewModel(string nickname, IList<MBlogModel.Post> posts)
         {
-            BlogId = blogId;
             Nickname = nickname;
             AddPosts(posts);
         }
@@ -24,8 +23,6 @@ namespace MBlog.Models.Post
         }
 
         public bool ShowComments { get; set; }
-
-        public int BlogId { get; set; }
 
         public void AddPosts(IList<MBlogModel.Post> posts)
         {

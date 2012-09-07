@@ -20,10 +20,13 @@ using System.Web.Mvc.Ajax;
 using System.Web.Mvc.Html;
 using System.Web.Routing;
 using T4MVC;
-namespace MBlog.Controllers {
-    public partial class BaseController {
+namespace MBlog.Controllers.publishing {
+    public partial class RsdController {
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
-        protected BaseController(Dummy d) : base() { }
+        public RsdController() { }
+
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        protected RsdController(Dummy d) : base() { }
 
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
         protected RedirectToRouteResult RedirectToAction(ActionResult result) {
@@ -39,23 +42,25 @@ namespace MBlog.Controllers {
 
 
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
-        public BaseController Actions { get { return MVC.Base; } }
+        public RsdController Actions { get { return MVC.Rsd; } }
         [GeneratedCode("T4MVC", "2.0")]
         public readonly string Area = "";
         [GeneratedCode("T4MVC", "2.0")]
-        public readonly string Name = "Base";
+        public readonly string Name = "Rsd";
         [GeneratedCode("T4MVC", "2.0")]
-        public const string NameConst = "Base";
+        public const string NameConst = "Rsd";
 
         static readonly ActionNamesClass s_actions = new ActionNamesClass();
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
         public ActionNamesClass ActionNames { get { return s_actions; } }
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
         public class ActionNamesClass {
+            public readonly string Rsd = "Rsd";
         }
 
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
         public class ActionNameConstants {
+            public const string Rsd = "Rsd";
         }
 
 
@@ -64,12 +69,18 @@ namespace MBlog.Controllers {
         public ViewNames Views { get { return s_views; } }
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
         public class ViewNames {
+            public readonly string Rsd = "~/Views/Rsd/Rsd.cshtml";
         }
     }
 
     [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
-    public class T4MVC_BaseController: MBlog.Controllers.BaseController {
-        public T4MVC_BaseController() : base(Dummy.Instance) { }
+    public class T4MVC_RsdController: MBlog.Controllers.publishing.RsdController {
+        public T4MVC_RsdController() : base(Dummy.Instance) { }
+
+        public override System.Web.Mvc.ActionResult Rsd() {
+            var callInfo = new T4MVC_ActionResult(Area, Name, ActionNames.Rsd);
+            return callInfo;
+        }
 
     }
 }

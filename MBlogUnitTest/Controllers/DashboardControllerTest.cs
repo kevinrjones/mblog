@@ -14,27 +14,26 @@ namespace MBlogUnitTest.Controllers
     [TestFixture]
     internal class DashboardControllerTest : BaseControllerTests
     {
-        #region Setup/Teardown
+        private Mock<IUserService> _userService;
+        private Mock<IPostService> _postService;
+        private Mock<IBlogService> _blogService;
+        private DashboardController _controller;
+
 
         [SetUp]
         public void SetUp()
         {
-            _userDomain = new Mock<IUserService>();
-            _postDomain = new Mock<IPostService>();
-            _userDomain.Setup(u => u.GetUserWithTheirBlogs(It.IsAny<int>())).Returns(new User
+            _userService = new Mock<IUserService>();
+            _postService = new Mock<IPostService>();
+            _userService.Setup(u => u.GetUserWithTheirBlogs(It.IsAny<int>())).Returns(new User
                                                                                          {
                                                                                              Blogs =
-                                                                                                 new List<Blog>
-                                                                                                     {new Blog()}
+                                                                                                 new List<Blog> { new Blog() }
+
                                                                                          });
-            _controller = new DashboardController(_postDomain.Object, _userDomain.Object, null);
+            _blogService = new Mock<IBlogService>();
+            _controller = new DashboardController(_postService.Object, _userService.Object, _blogService.Object, null);
         }
-
-        #endregion
-
-        private Mock<IUserService> _userDomain;
-        private Mock<IPostService> _postDomain;
-        private DashboardController _controller;
 
         [Test]
         public void GivenAUserInContext_AndTheUserIsLoggedIn_WhenIGoToTheAdminIndexPage_ThenIGetAllTheBlogs()
@@ -42,10 +41,10 @@ namespace MBlogUnitTest.Controllers
             SetControllerContext(_controller);
 
             MockHttpContext.SetupProperty(h => h.User);
-            _controller.HttpContext.User = new UserViewModel {IsLoggedIn = true, Id = 1};
+            _controller.HttpContext.User = new UserViewModel { IsLoggedIn = true, Id = 1 };
 
-            var result = (ViewResult) _controller.Index();
-            var model = (AdminUserViewModel) result.Model;
+            var result = (ViewResult)_controller.Index();
+            var model = (AdminUserViewModel)result.Model;
 
             Assert.That(model.Blogs.Count, Is.EqualTo(1));
         }
@@ -56,9 +55,9 @@ namespace MBlogUnitTest.Controllers
             SetControllerContext(_controller);
 
             MockHttpContext.SetupProperty(h => h.User);
-            _controller.HttpContext.User = new UserViewModel {IsLoggedIn = true, Id = 1};
+            _controller.HttpContext.User = new UserViewModel { IsLoggedIn = true, Id = 1 };
 
-            var result = (ViewResult) _controller.Index();
+            var result = (ViewResult)_controller.Index();
             Assert.That(result, Is.Not.Null);
         }
 
@@ -68,10 +67,11 @@ namespace MBlogUnitTest.Controllers
             SetControllerContext(_controller);
 
             MockHttpContext.SetupProperty(h => h.User);
-            _controller.HttpContext.User = new UserViewModel {IsLoggedIn = true, Id = 1};
-            _postDomain.Setup(p => p.GetOrderedBlogPosts(1)).Returns(new List<Post> {new Post()});
-            var result = (ViewResult) _controller.ListPosts(new AdminBlogViewModel {BlogId = 1});
-            var model = (PostsViewModel) result.Model;
+            _controller.HttpContext.User = new UserViewModel { IsLoggedIn = true, Id = 1 };
+            _blogService.Setup(b => b.GetBlog(It.IsAny<string>())).Returns(new Blog{Id = 1});
+            _postService.Setup(p => p.GetOrderedBlogPosts(1)).Returns(new List<Post> { new Post() });
+            var result = (ViewResult)_controller.ListPosts(new AdminBlogViewModel());
+            var model = (PostsViewModel)result.Model;
 
             Assert.That(model.Posts.Count, Is.EqualTo(1));
         }

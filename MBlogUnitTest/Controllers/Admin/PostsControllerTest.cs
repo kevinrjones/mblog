@@ -14,35 +14,33 @@ namespace MBlogUnitTest.Controllers.Admin
     [TestFixture]
     internal class PostsControllerTest : BaseControllerTests
     {
-        #region Setup/Teardown
+        private Mock<IPostService> _postService;
+        private Mock<IBlogService> _blogService;
 
         [SetUp]
         public void Setup()
         {
-            _postDomain = new Mock<IPostService>();
+            _postService = new Mock<IPostService>();
+            _blogService = new Mock<IBlogService>();
         }
 
-        #endregion
-
-        private Mock<IPostService> _postDomain;
 
         [Test]
         public void GivenAUserInContext_AndTheUserIsLoggedIn_WhenIListPosts_ThenIGetAllThePosts()
         {
-            const int blogId = 1;
             const string nickname = "nickname";
 
 
-            _postDomain.Setup(p => p.GetOrderedBlogPosts(It.IsAny<int>())).Returns(new List<Post>
+            _postService.Setup(p => p.GetOrderedBlogPosts(It.IsAny<int>())).Returns(new List<Post>
                                                                                        {new Post {Title = "empty"}});
-
-            var controller = new PostsController(_postDomain.Object, null);
+            _blogService.Setup(b => b.GetBlog(nickname)).Returns(new Blog{Id = 1});
+            var controller = new PostsController(_postService.Object, _blogService.Object, null);
             SetControllerContext(controller);
 
             MockHttpContext.SetupProperty(h => h.User);
             controller.HttpContext.User = new UserViewModel {IsLoggedIn = true, Id = 1};
 
-            var result = (ViewResult) controller.Index(new AdminBlogViewModel {Nickname = nickname, BlogId = blogId});
+            var result = (ViewResult) controller.Index(new AdminBlogViewModel {Nickname = nickname});
             var model = result.Model as PostsViewModel;
             Assert.That(model.Posts.Count, Is.EqualTo(1));
         }
