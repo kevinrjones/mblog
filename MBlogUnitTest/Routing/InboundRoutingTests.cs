@@ -208,13 +208,12 @@ namespace MBlogUnitTest.Routing
         public void GivenACorrectRoutesCollection_WhenIAskToEdit_ThenIGetTheEditActionForTheBlogPost()
         {
             //http://localhost:7969/kevin/edit/1/25
-            TestRoute("~/nickname/edit/1/25", new
+            TestRoute("~/nickname/edit/25", new
                                                   {
                                                       nickname = "nickname",
                                                       controller = "Post",
                                                       action = "Edit",
                                                       postId = "25",
-                                                      blogId = "1",
                                                   },
                       "GET");
         }
