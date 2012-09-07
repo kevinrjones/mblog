@@ -11,7 +11,7 @@ using MBlogServiceInterfaces;
 
 namespace MBlog.Controllers
 {
-    public class MediaController : BaseController
+    public partial class MediaController : BaseController
     {
         private readonly IMediaService _mediaService;
 
@@ -23,7 +23,7 @@ namespace MBlog.Controllers
 
         [HttpGet]
         [AuthorizeLoggedInUser]
-        public ActionResult Index(string nickname)
+        public virtual ActionResult Index(string nickname)
         {
             var user = HttpContext.User as UserViewModel;
             IEnumerable<Media> media = _mediaService.GetMedia(1, 10, user.Id);
@@ -41,12 +41,12 @@ namespace MBlog.Controllers
         }
 
         [HttpGet]
-        public ActionResult Show(int year, int month, int day, string linkkey)
+        public virtual ActionResult Show(int year, int month, int day, string linkkey)
         {
             try
             {
                 Media img = _mediaService.GetMedia(year, month, day, linkkey);
-                return new FileContentResult(img.Data, img.MimeType);
+                return File(img.Data, img.MimeType);
             }
             catch (MBlogMediaNotFoundException)
             {
@@ -56,14 +56,14 @@ namespace MBlog.Controllers
 
         [HttpGet]
         [AuthorizeLoggedInUser]
-        public ActionResult New(NewMediaViewModel model)
+        public virtual ActionResult New(NewMediaViewModel model)
         {
             return View(new NewMediaViewModel {Nickname = model.Nickname, File = model.File});
         }
 
         [HttpPost]
         [AuthorizeLoggedInUser]
-        public JsonResult Create(NewMediaViewModel model)
+        public virtual JsonResult Create(NewMediaViewModel model)
         {
             var result = new MediaCreateJsonResponse {success = false};
             try
@@ -114,7 +114,7 @@ namespace MBlog.Controllers
 
         [HttpPost]
         [AuthorizeLoggedInUser]
-        public ActionResult Update(UpdateMediaViewModel model)
+        public virtual ActionResult Update(UpdateMediaViewModel model)
         {
             if (!ModelState.IsValid)
             {
@@ -132,7 +132,7 @@ namespace MBlog.Controllers
 
         [HttpGet]
         [AuthorizeLoggedInUser]
-        public ActionResult Edit(int mediaId)
+        public virtual ActionResult Edit(int mediaId)
         {
             var user = (UserViewModel) HttpContext.User;
             Media media = _mediaService.GetMedia(mediaId, user.Id);
@@ -141,7 +141,7 @@ namespace MBlog.Controllers
 
         [HttpGet]
         [AuthorizeLoggedInUser]
-        public ActionResult Delete(int mediaid)
+        public virtual ActionResult Delete(int mediaid)
         {
             var user = (UserViewModel)HttpContext.User;
             _mediaService.DeleteMedia(mediaid, user.Id);

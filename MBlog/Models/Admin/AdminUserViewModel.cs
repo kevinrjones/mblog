@@ -21,7 +21,6 @@ namespace MBlog.Models.Admin
         public int UserId { get; set; }
         public string Name { get; set; }
 
-        private string _nickname;
         public string Nickname
         {
             get

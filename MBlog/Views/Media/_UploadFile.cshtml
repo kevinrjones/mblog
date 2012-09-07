@@ -69,7 +69,7 @@
 
                     <div>
                         <input type="file" name="file" id="file" />
-                        <input type="submit" value="@Html.Encode(New.UploadImage)" />@Html.ValidationMessage("File")
+                        <input type="submit" value="@New.UploadImage" />@Html.ValidationMessage("File")
                     </div>
                 }
             </noscript>
@@ -124,7 +124,7 @@
                     Large </span>
             </div>
             <div class="row">
-                <input type="submit" value="@Html.Encode(New.UpdateImage)" />
+                <input type="submit" value="@New.UpdateImage" />
             </div>
         }
     </div>

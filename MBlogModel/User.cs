@@ -56,7 +56,7 @@ namespace MBlogModel
         {
             SHA256 shaM = new SHA256Managed();
             byte[] data;
-            Salt = Convert.ToBase64String(Encoding.UTF32.GetBytes(GetHashCode() + new Random().ToString()));
+            Salt = Convert.ToBase64String(Encoding.UTF32.GetBytes(GetHashCode() + new Random().Next().ToString()));
             data = Encoding.UTF32.GetBytes(password + "wibble" + Salt);
             HashedPassword = Convert.ToBase64String(shaM.ComputeHash(data));
         }

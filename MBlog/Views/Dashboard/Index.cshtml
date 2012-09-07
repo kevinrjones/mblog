@@ -1,9 +1,10 @@
 ﻿@using MBlog.Models.Admin
 @using MBlog.Resources.General
 @using MBlog.Resources.Admin
-@model MBlog.Models.Admin.AdminUserViewModel
+@model AdminUserViewModel
+
 @{
-    ViewBag.Title = Html.Encode(Index.Dashboard);
+    ViewBag.Title = Index.Dashboard;
     Layout = "~/Views/Dashboard/_DashboardLayout.cshtml";
 }
 <section class="admin-dashboard">
@@ -30,7 +31,7 @@
         <section id="admin-user-manage">
             <div class="admin-user-header">
                 <h4>
-                    <span id="admin-manageblogs-title">@Html.Encode(Index.ManageBlogs) (@Model.Blogs.Count
+                    <span id="admin-manageblogs-title">@Index.ManageBlogs (@Model.Blogs.Count
                         Total)</span>
                     <span class="admin-link admin-header-links">@Html.ActionLink(Html.Encode(Index.CreateBlog), "new", "Blog", null, null)</span>
                 </h4>
@@ -46,11 +47,11 @@
                             @if(@blog.NumberOfPosts > 0)
                             {
                                 <span>
-                                    @blog.NumberOfPosts @Html.Encode(Index.Posts), @Html.Encode(Index.LastPublishedOn) @blog.LastUpdated.ToShortDateString() - @Html.ActionLink(Html.Encode(Index.ViewBlog), "index", "Post", new {nickname = blog.Nickname}, null) </span>
+                                    @blog.NumberOfPosts @Index.Posts, @Index.LastPublishedOn @blog.LastUpdated.ToShortDateString() - @Html.ActionLink(Html.Encode(Index.ViewBlog), "index", "Post", new {nickname = blog.Nickname}, null) </span>
                             }else
                             {
                                 <span>
-                                    @Html.Encode(Index.NoPosts) - @Html.ActionLink(Html.Encode(Index.ViewBlog), "index", "Post", new {nickname = blog.Nickname}, null) </span>
+                                    @Index.NoPosts - @Html.ActionLink(Html.Encode(Index.ViewBlog), "index", "Post", new {nickname = blog.Nickname}, null) </span>
                                 
                             }
                         </div>

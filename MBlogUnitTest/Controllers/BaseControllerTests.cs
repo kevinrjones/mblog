@@ -2,6 +2,7 @@
 using System.Web.Mvc;
 using System.Web.Routing;
 using MBlog;
+using MBlog.App_Start;
 using MBlog.Controllers;
 using MBlogUnitTest.Helpers;
 using Moq;
@@ -24,7 +25,7 @@ namespace MBlogUnitTest.Controllers
             MockRequest = new Mock<HttpRequestBase>();
             FakeResponse = new FakeResponse();
             Routes = new RouteCollection();
-            MvcApplication.RegisterRoutes(Routes);
+            Routes.RegisterRoutes();
 
             MockHttpContext.Setup(m => m.Request).Returns(MockRequest.Object);
             MockHttpContext.Setup(m => m.Response).Returns(FakeResponse);

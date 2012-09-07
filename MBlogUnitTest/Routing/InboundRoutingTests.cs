@@ -91,6 +91,19 @@ namespace MBlogUnitTest.Routing
         }
 
         [Test]
+        public void GivenACorrectRoutesCollection_WhenIAskForAPost_AndThereAreNoDates_ThenIGetTheShowView()
+        {
+            TestRoute("~/nickname/1990", new
+                                                    {
+                                                        controller = "Post",
+                                                        action = "Show",
+                                                        nickname = "nickname",
+                                                        year=1990
+                                                    },
+                      "GET");
+        }
+
+        [Test]
         public void GivenACorrectRoutesCollection_WhenIAskForCommentsIndex_ThenIGetTheAdminControllerIndexView()
         {
             TestRoute("~/Admin/Comments/index", new
@@ -330,6 +343,18 @@ namespace MBlogUnitTest.Routing
                                                           nickname = "nickname"
                                                       },
                       "POST");
+        }
+
+        [Test]
+        public void GivenACorrectRoutesCollection_WhenIAskForATheAtomPubServiceDocument_ThenIGetTheAtomPubServiceDocument()
+        {
+            TestRoute("~/nickname/pub/service", new
+                                              {
+                                                  controller = "Atom",
+                                                  action = "GetServiceDocument",
+                                                  nickname = "nickname"
+                                              },
+                      "GET");
         }
 
 

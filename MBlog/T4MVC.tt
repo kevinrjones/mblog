@@ -1,6 +1,6 @@
 ﻿<#
 /*
-T4MVC Version 2.6.70
+T4MVC Version 2.8.1
 Find latest version and documentation at http://mvccontrib.codeplex.com/wikipage?title=T4MVC
 Discuss on StackOverflow or on the MVC forum (http://forums.asp.net/1146.aspx)
 
@@ -97,15 +97,15 @@ namespace System.Web.Mvc {
     [<#= GeneratedCode #>, DebuggerNonUserCode]
     public static class T4Extensions {
         public static MvcHtmlString ActionLink(this HtmlHelper htmlHelper, string linkText, ActionResult result) {
-            return htmlHelper.RouteLink(linkText, result.GetRouteValueDictionary());
+            return htmlHelper.ActionLink(linkText, result, null, null, null, null);
         }
 
         public static MvcHtmlString ActionLink(this HtmlHelper htmlHelper, string linkText, ActionResult result, object htmlAttributes, string protocol = null, string hostName = null, string fragment = null) {
-            return htmlHelper.RouteLink(linkText, null, protocol, hostName, fragment, result.GetRouteValueDictionary(), HtmlHelper.AnonymousObjectToHtmlAttributes(htmlAttributes));
+            return htmlHelper.RouteLink(linkText, null, protocol ?? result.GetT4MVCResult().Protocol, hostName, fragment, result.GetRouteValueDictionary(), HtmlHelper.AnonymousObjectToHtmlAttributes(htmlAttributes));
         }
 
         public static MvcHtmlString ActionLink(this HtmlHelper htmlHelper, string linkText, ActionResult result, IDictionary<string, object> htmlAttributes, string protocol = null, string hostName = null, string fragment = null) {
-            return htmlHelper.RouteLink(linkText, null, protocol, hostName, fragment, result.GetRouteValueDictionary(), htmlAttributes);
+            return htmlHelper.RouteLink(linkText, null, protocol ?? result.GetT4MVCResult().Protocol, hostName, fragment, result.GetRouteValueDictionary(), htmlAttributes);
         }
 
         public static MvcForm BeginForm(this HtmlHelper htmlHelper, ActionResult result) {
@@ -136,11 +136,11 @@ namespace System.Web.Mvc {
         }
 
         public static string Action(this UrlHelper urlHelper, ActionResult result) {
-            return urlHelper.RouteUrl(null, result.GetRouteValueDictionary());
+            return urlHelper.Action(result, null, null);
         }
 
         public static string Action(this UrlHelper urlHelper, ActionResult result, string protocol = null, string hostName = null) {
-            return urlHelper.RouteUrl(null, result.GetRouteValueDictionary(), protocol, hostName);
+            return urlHelper.RouteUrl(null, result.GetRouteValueDictionary(), protocol ?? result.GetT4MVCResult().Protocol, hostName);
         }
 
         public static string ActionAbsolute(this UrlHelper urlHelper, ActionResult result) {
@@ -296,9 +296,14 @@ namespace System.Web.Mvc {
             return result;
         }
         
-        public static void InitMVCT4Result(this <#=ActionResultInterfaceName #> result, string area, string controller, string action) {
+        public static void InitMVCT4Result(this <#=ActionResultInterfaceName #> result, string area, string controller, string action, string protocol = null) {
             result.Controller = controller;
             result.Action = action;
+<#if (GenerateSecureLinksInDebugMode) { #>
+            result.Protocol = protocol;
+<#} else { #>
+            result.Protocol = T4MVCHelpers.IsProduction() ? protocol : null;
+<#} #>
             result.RouteValueDictionary = new RouteValueDictionary();
             result.RouteValueDictionary.Add("Area", area ?? "");
             result.RouteValueDictionary.Add("Controller", controller);
@@ -338,15 +343,16 @@ namespace <#=T4MVCNamespace #> {
 public interface <#=ActionResultInterfaceName #> {   
     string Action { get; set; }   
     string Controller { get; set; }   
-    RouteValueDictionary RouteValueDictionary { get; set; }   
+    RouteValueDictionary RouteValueDictionary { get; set; } 
+    string Protocol {get; set; }  
 }   
 <#} #>  
 
 <#foreach (var resultType in ResultTypes.Values) { #>
 [<#= GeneratedCode #>, DebuggerNonUserCode]
 public class T4MVC_<#=resultType.Name #> : <#=resultType.FullName #>, <#=ActionResultInterfaceName #> {
-    public T4MVC_<#=resultType.Name #>(string area, string controller, string action): base(<#resultType.Constructor.WriteNonEmptyParameterValues(true); #>)  {
-        this.InitMVCT4Result(area, controller, action);
+    public T4MVC_<#=resultType.Name #>(string area, string controller, string action, string protocol = null): base(<#resultType.Constructor.WriteNonEmptyParameterValues(true); #>)  {
+        this.InitMVCT4Result(area, controller, action, protocol);
     }
     <#foreach (var method in resultType.AbstractMethods) { #> 
     <#=method.IsPublic ? "public" : "protected" #> override void <#=method.Name #>(<#method.WriteFormalParameters(true); #>) { }
@@ -354,6 +360,7 @@ public class T4MVC_<#=resultType.Name #> : <#=resultType.FullName #>, <#=ActionR
 
     public string Controller { get; set; }
     public string Action { get; set; }
+    public string Protocol { get; set; }
     public RouteValueDictionary RouteValueDictionary { get; set; }
 }
 <#} #>
@@ -402,7 +409,7 @@ namespace <#=controller.Namespace #> {
 
 <#} #>
         [<#= GeneratedCode #>, DebuggerNonUserCode]
-        protected <#=controller.ClassName #>(Dummy d) { }
+        protected <#=controller.ClassName #>(Dummy d) : base(d) { }
 
         [<#= GeneratedCode #>, DebuggerNonUserCode]
         protected RedirectToRouteResult RedirectToAction(ActionResult result) {
@@ -410,11 +417,17 @@ namespace <#=controller.Namespace #> {
             return RedirectToRoute(callInfo.RouteValueDictionary);
         }
 
+        [<#= GeneratedCode #>, DebuggerNonUserCode]
+        protected RedirectToRouteResult RedirectToActionPermanent(ActionResult result) {
+            var callInfo = result.GetT4MVCResult();
+            return RedirectToRoutePermanent(callInfo.RouteValueDictionary);
+        }
+
 <#foreach (var method in controller.ActionMethodsUniqueWithoutParameterlessOverload) { #>
         [NonAction]
         [<#= GeneratedCode #>, DebuggerNonUserCode]
         public <#=method.ReturnTypeFullName #> <#=method.Name #>() {
-            return new T4MVC_<#=method.ReturnType #>(Area, Name, ActionNames.<#=method.ActionName #>);
+            return new T4MVC_<#=method.ReturnType #>(Area, Name, ActionNames.<#=method.ActionName #><# if (method.ActionUrlHttps) {#>, "https"<#}#>);
         }
 <#} #>
 
@@ -455,6 +468,23 @@ if (!UseLowercaseRoutes) { #>
 <#}
 } #>
 
+<#if (GenerateParamsForActionMethods){
+foreach (var method in controller.ActionMethodsWithUniqueNames) if (method.Parameters.Any()) { #>
+        static readonly ActionParamsClass_<#=method.ActionName #> s_params_<#=method.ActionName #> = new ActionParamsClass_<#=method.ActionName #>();
+        [<#= GeneratedCode #>, DebuggerNonUserCode]
+        public ActionParamsClass_<#=method.ActionName #> <#=method.ActionName + ParamsPropertySuffix #> { get { return s_params_<#=method.ActionName #>; } }
+        [<#= GeneratedCode #>, DebuggerNonUserCode]
+        public class ActionParamsClass_<#=method.ActionName #> {
+<#foreach (var param in method.Parameters) { #>
+<#  if (UseLowercaseRoutes) { #>
+            public readonly string <#=param.Name #> = (<#=param.RouteNameExpression #>).ToLowerInvariant();
+<#  } else { #>
+            public readonly string <#=param.Name #> = <#=param.RouteNameExpression #>;
+<#  }
+} #>
+        }
+<# } #>
+<#} #>
         static readonly ViewNames s_views = new ViewNames();
         [<#= GeneratedCode #>, DebuggerNonUserCode]
         public ViewNames Views { get { return s_views; } }
@@ -471,7 +501,7 @@ if (!UseLowercaseRoutes) { #>
 
 <#foreach (var method in controller.ActionMethods) { #>
         public override <#=method.ReturnTypeFullName #> <#=method.Name #>(<#method.WriteFormalParameters(true); #>) {
-            var callInfo = new T4MVC_<#=method.ReturnType #>(Area, Name, ActionNames.<#=method.ActionName #>);
+            var callInfo = new T4MVC_<#=method.ReturnType #>(Area, Name, ActionNames.<#=method.ActionName #><# if (method.ActionUrlHttps) {#>, "https"<#}#>);
 <#if (method.Parameters.Count > 0) { #>
 <#foreach (var p in method.Parameters) { #>
             callInfo.RouteValueDictionary.Add(<#=p.RouteNameExpression #>, <#=p.Name #>);
@@ -543,7 +573,6 @@ static TextTransformation TT;
 static string T4FileName;
 static string T4Folder;
 static string GeneratedCode = @"GeneratedCode(""T4MVC"", ""2.0"")";
-static string HtmlStringType;
 static Microsoft.CSharp.CSharpCodeProvider codeProvider = new Microsoft.CSharp.CSharpCodeProvider();
 
 IEnumerable<ControllerInfo> GetControllers() {
@@ -873,7 +902,7 @@ void ProcessControllerActionMethods(ControllerInfo controllerInfo, CodeClass2 cu
             }
 
             // Collect misc info about the action method and add it to the collection
-            controllerInfo.ActionMethods.Add(new ActionMethodInfo(method));
+            controllerInfo.ActionMethods.Add(new ActionMethodInfo(method, current));
         }
     }
 }
@@ -1187,7 +1216,6 @@ class ControllerInfo {
     }
 
     public AreaInfo Area { get; set; }
-
     public string AreaName {
         get { return Area.Name ?? ""; }
     }
@@ -1437,7 +1465,7 @@ class FunctionInfo {
 
 // Data structure to collect data about an action method
 class ActionMethodInfo : FunctionInfo {
-    public ActionMethodInfo(CodeFunction2 method)
+    public ActionMethodInfo(CodeFunction2 method, CodeClass2 controller)
         : base(method) {
         // Normally, the action name is the method name. But if there is an [ActionName] on
         // the method, get the expression from that instead
@@ -1447,10 +1475,14 @@ class ActionMethodInfo : FunctionInfo {
             var arg = (CodeAttributeArgument)attrib.Arguments.Item(1);
             ActionNameValueExpression = arg.Value;
         }
+        if (GetAttribute(method.Attributes, AttributeIndicatingHttps) != null || GetAttribute(controller.Attributes, AttributeIndicatingHttps) != null) { 
+            ActionUrlHttps = true;
+        }
     }
 
     public string ActionName { get { return Name; } }
     public string ActionNameValueExpression { get; set; }
+    public bool ActionUrlHttps {get; set; }
 }
 
 // Data about an ActionResult derived type

@@ -42,7 +42,7 @@ namespace MBlogUnitTest.Controllers
             MockRequest.Setup(r => r.Cookies).Returns(cookies);
 
             _controller.Logout();
-            HttpCookie cookie = FakeResponse.Cookies[GetCookieUserFilterAttribute.UserCookie];
+            HttpCookie cookie = FakeResponse.Cookies[GetCookieUserFilterAttribute.UserCookieName];
             Assert.That(cookie.Expires, Is.EqualTo(new DateTime(1970, 1, 1)));
         }
 

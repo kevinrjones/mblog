@@ -26,13 +26,13 @@
                     @if (media.ContentType.StartsWith("image"))
                     {
                         <a href="@Url.Action("show", new { media.Year, media.Month, media.Day, media.LinkKey })">
-                            <img src="@Url.Action("show", new { media.Year, media.Month, media.Day, media.LinkKey })" alt="@Html.Encode(media.Alternate)" class="media-80x60" height="53" width="80"/>
+                            <img src="@Url.Action("show", new { media.Year, media.Month, media.Day, media.LinkKey })" alt="@media.Alternate" class="media-80x60" height="53" width="80"/>
                         </a>
                     }
                 </td>
                 <td class="listmedia-details">
                     @Html.ActionLink(media.Title, "show", new { media.Year, media.Month, media.Day, media.LinkKey })
-                    <p>@Html.Encode(media.Extension)</p>
+                    <p>@media.Extension</p>
                     <div class="row-actions">
                         <span class="edit">@Html.ActionLink("Edit", "Edit", new { MediaId = media.Id }) | </span>
                         <span class="delete">@Html.ActionLink("Delete", "Delete", new { MediaId = media.Id }) | </span>

@@ -12,7 +12,7 @@ using MBlogServiceInterfaces.ModelState;
 
 namespace MBlog.Controllers
 {
-    public class UserController : BaseController
+    public partial class UserController : BaseController
     {
         private readonly IUserService _userService;
 
@@ -23,7 +23,7 @@ namespace MBlog.Controllers
         }
 
         [HttpGet]
-        public ActionResult New()
+        public virtual ActionResult New()
         {
             if (!HttpContext.User.Identity.IsAuthenticated)
             {
@@ -33,7 +33,7 @@ namespace MBlog.Controllers
         }
 
         [HttpPost]
-        public ActionResult Create(UserViewModel userViewModel)
+        public virtual ActionResult Create(UserViewModel userViewModel)
         {
             List<ErrorDetails> errorDetails;
             if (!ModelState.IsValid)
@@ -55,10 +55,10 @@ namespace MBlog.Controllers
             return RedirectToAction("index", "Dashboard");
         }
 
-        public ActionResult Logout()
+        public virtual ActionResult Logout()
         {
             HttpCookie cookie;
-            if ((cookie = Request.Cookies[GetCookieUserFilterAttribute.UserCookie]) != null)
+            if ((cookie = Request.Cookies[GetCookieUserFilterAttribute.UserCookieName]) != null)
             {
                 cookie.Expires = new DateTime(1970, 1, 1);
                 Response.Cookies.Add(cookie);
@@ -71,7 +71,7 @@ namespace MBlog.Controllers
         {
             byte[] cipherText = user.Id.ToString().Encrypt();
             string base64CipherText = Convert.ToBase64String(cipherText);
-            Response.Cookies.Add(new HttpCookie(GetCookieUserFilterAttribute.UserCookie, base64CipherText));
+            Response.Cookies.Add(new HttpCookie(GetCookieUserFilterAttribute.UserCookieName, base64CipherText));
             HttpContext.User = new UserViewModel {Email = user.Email, Name = user.Name, IsLoggedIn = true};
         }
     }

@@ -13,6 +13,7 @@ namespace MBlogRepository.Contexts
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
+            Database.SetInitializer<UsernameBlacklistDbContext>(null);
             modelBuilder.Entity<Blacklist>().ToTable("username_blacklists");
         }
     }

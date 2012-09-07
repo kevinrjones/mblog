@@ -6,7 +6,7 @@ using MBlogServiceInterfaces;
 
 namespace MBlog.Controllers
 {
-    public class FeedController : BaseController
+    public partial class FeedController : BaseController
     {
         private readonly ISyndicationFeedService _syndicationFeedService;
 
@@ -17,7 +17,7 @@ namespace MBlog.Controllers
         }
 
         [HttpGet]
-        public ActionResult Rss(string nickname)
+        public virtual ActionResult Rss(string nickname)
         {
             SyndicationFeed feed = _syndicationFeedService.CreateSyndicationFeed(nickname, "rss",
                                                                                  HttpContext.Request.Url.Scheme,
@@ -26,7 +26,7 @@ namespace MBlog.Controllers
         }
 
         [HttpGet]
-        public ActionResult Atom(string nickname)
+        public virtual ActionResult Atom(string nickname)
         {
             SyndicationFeed feed = _syndicationFeedService.CreateSyndicationFeed(nickname, "atom",
                                                                                  HttpContext.Request.Url.Scheme,

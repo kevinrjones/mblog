@@ -20,9 +20,61 @@ using System.Web.Mvc.Ajax;
 using System.Web.Mvc.Html;
 using System.Web.Routing;
 using T4MVC;
-namespace T4MVC {
-    public class DashboardController {
+namespace MBlog.Controllers {
+    public partial class DashboardController {
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        protected DashboardController(Dummy d) : base(d) { }
 
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        protected RedirectToRouteResult RedirectToAction(ActionResult result) {
+            var callInfo = result.GetT4MVCResult();
+            return RedirectToRoute(callInfo.RouteValueDictionary);
+        }
+
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        protected RedirectToRouteResult RedirectToActionPermanent(ActionResult result) {
+            var callInfo = result.GetT4MVCResult();
+            return RedirectToRoutePermanent(callInfo.RouteValueDictionary);
+        }
+
+        [NonAction]
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public System.Web.Mvc.ActionResult ListPosts() {
+            return new T4MVC_ActionResult(Area, Name, ActionNames.ListPosts);
+        }
+
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public DashboardController Actions { get { return MVC.Dashboard; } }
+        [GeneratedCode("T4MVC", "2.0")]
+        public readonly string Area = "";
+        [GeneratedCode("T4MVC", "2.0")]
+        public readonly string Name = "Dashboard";
+        [GeneratedCode("T4MVC", "2.0")]
+        public const string NameConst = "Dashboard";
+
+        static readonly ActionNamesClass s_actions = new ActionNamesClass();
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public ActionNamesClass ActionNames { get { return s_actions; } }
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public class ActionNamesClass {
+            public readonly string Index = "Index";
+            public readonly string ListPosts = "ListPosts";
+        }
+
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public class ActionNameConstants {
+            public const string Index = "Index";
+            public const string ListPosts = "ListPosts";
+        }
+
+
+        static readonly ActionParamsClass_ListPosts s_params_ListPosts = new ActionParamsClass_ListPosts();
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public ActionParamsClass_ListPosts ListPostsParams { get { return s_params_ListPosts; } }
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public class ActionParamsClass_ListPosts {
+            public readonly string model = "model";
+        }
         static readonly ViewNames s_views = new ViewNames();
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
         public ViewNames Views { get { return s_views; } }
@@ -30,9 +82,26 @@ namespace T4MVC {
         public class ViewNames {
             public readonly string _DashboardLayout = "~/Views/Dashboard/_DashboardLayout.cshtml";
             public readonly string Index = "~/Views/Dashboard/Index.cshtml";
+            public readonly string ListPosts = "~/Views/Dashboard/ListPosts.cshtml";
         }
     }
 
+    [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+    public class T4MVC_DashboardController: MBlog.Controllers.DashboardController {
+        public T4MVC_DashboardController() : base(Dummy.Instance) { }
+
+        public override System.Web.Mvc.ActionResult Index() {
+            var callInfo = new T4MVC_ActionResult(Area, Name, ActionNames.Index);
+            return callInfo;
+        }
+
+        public override System.Web.Mvc.ActionResult ListPosts(MBlog.Models.Admin.AdminBlogViewModel model) {
+            var callInfo = new T4MVC_ActionResult(Area, Name, ActionNames.ListPosts);
+            callInfo.RouteValueDictionary.Add("model", model);
+            return callInfo;
+        }
+
+    }
 }
 
 #endregion T4MVC

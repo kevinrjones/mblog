@@ -1,0 +1,22 @@
+﻿<?xml version="1.0" encoding='utf-8' ?>
+@model MBlog.Models.Atom.AtomViewModel
+@{
+    Response.ContentType = "application/atomsvc+xml";
+    Layout = "";
+}
+<service xmlns="http://www.w3.org/2007/app" xmlns:atom="http://www.w3.org/2005/Atom">
+  <workspace>
+    <atom:title>MBlog</atom:title>
+    <collection href="@Url.Action("Index", "atom", new {nickname = @Model.Nickname}, HttpContext.Current.Request.Url.Scheme)" >
+      <atom:title>@Model.Title</atom:title>
+      <accept>application/atom+xml;type=entry</accept>
+      <categories href="categories" />
+    </collection>
+@*    <collection href="http://example.org/blog/pic" >
+      <atom:title>Pictures</atom:title>
+      <accept>image/png</accept>
+      <accept>image/jpeg</accept>
+      <accept>image/gif</accept>
+    </collection>*@
+  </workspace>
+</service>

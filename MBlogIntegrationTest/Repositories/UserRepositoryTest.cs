@@ -13,7 +13,12 @@ namespace MBlogIntegrationTest.Repositories
     [TestFixture]
     public class UserRepositoryTest
     {
-        #region Setup/Teardown
+        private User _user;
+        private TransactionScope _transactionScope;
+        private string _nickname1;
+        private UserRepository _userRepository;
+        private User _user2;
+
 
         [SetUp]
         public void Setup()
@@ -28,14 +33,14 @@ namespace MBlogIntegrationTest.Repositories
             Blog blog2 = BuildMeA
                 .Blog("title2", "description2", _nickname1, DateTime.Now);
 
-            user = BuildMeA.User("email1", "name1", "password1")
+            _user = BuildMeA.User("email1", "name1", "password1")
                 .WithBlog(blog1)
                 .WithBlog(blog2);
 
-            _userRepository.Create(user);
+            _userRepository.Create(_user);
 
-            User user2 = BuildMeA.User("email1", "name1", "password1");
-            _userRepository.Create(user2);
+            _user2 = BuildMeA.User("email1", "name1", "password1");
+            _userRepository.Create(_user2);
         }
 
         [TearDown]
@@ -43,13 +48,6 @@ namespace MBlogIntegrationTest.Repositories
         {
             _transactionScope.Dispose();
         }
-
-        #endregion
-
-        private User user;
-        private TransactionScope _transactionScope;
-        private string _nickname1;
-        private UserRepository _userRepository;
 
         [Test]
         public void GivenMoreThanOneUser_WhenIGetAskForAllUsersAndBlogs_ThenIGetAllUsersAndBlogs()
@@ -73,28 +71,28 @@ namespace MBlogIntegrationTest.Repositories
         public void WhenIGetASpecificUserAndTheirBlogsById_ThenIGetTheCorrectUserAndTheirBlogs()
         {
             _userRepository = new UserRepository(ConfigurationManager.ConnectionStrings["mblog"].ConnectionString);
-            User newUser = _userRepository.GetUserWithTheirBlogs(user.Id);
+            User newUser = _userRepository.GetUserWithTheirBlogs(_user.Id);
 
-            Assert.That(newUser.Id, Is.EqualTo(user.Id));
+            Assert.That(newUser.Id, Is.EqualTo(_user.Id));
             Assert.That(newUser.Blogs.Count, Is.EqualTo(2));
         }
 
         [Test]
         public void WhenIGetASpecificUserByEMail_ThenIGetTheCorrectUser()
         {
-            User newUser = _userRepository.GetUser(user.Email);
+            User newUser = _userRepository.GetUser(_user2.Email);
 
             Assert.That(newUser, Is.Not.Null);
-            Assert.That(newUser.Id, Is.EqualTo(user.Id));
+            Assert.That(newUser.Id, Is.EqualTo(_user.Id));
         }
 
         [Test]
         public void WhenIGetASpecificUserById_ThenIGetTheCorrectUser()
         {
-            User newUser = _userRepository.GetUser(user.Id);
+            User newUser = _userRepository.GetUser(_user.Id);
 
             Assert.That(newUser, Is.Not.Null);
-            Assert.That(newUser.Id, Is.EqualTo(user.Id));
+            Assert.That(newUser.Id, Is.EqualTo(_user.Id));
         }
 
         [Test]
@@ -106,7 +104,7 @@ namespace MBlogIntegrationTest.Repositories
             Assert.That(users.Count(), Is.EqualTo(2));
 
             User selected = (from u in users
-                             where u.Id == user.Id
+                             where u.Id == _user.Id
                              select u).FirstOrDefault();
 
             Assert.That(selected.Blogs.Count, Is.EqualTo(2));

@@ -116,7 +116,7 @@
     <Compile Include="Controllers\SessionControllerTest.cs" />
     <Compile Include="Controllers\FeedControllerTest.cs" />
     <Compile Include="Controllers\HomeControllerTest.cs" />
-    <Compile Include="Controllers\TestPostController.cs" />
+    <Compile Include="Controllers\PostControllerTest.cs" />
     <Compile Include="Controllers\UserControllerTest.cs" />
     <Compile Include="Services\BlogServiceTest.cs" />
     <Compile Include="Services\DashboardServiceTest.cs" />

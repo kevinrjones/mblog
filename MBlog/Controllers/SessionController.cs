@@ -11,7 +11,7 @@ using MBlogServiceInterfaces;
 
 namespace MBlog.Controllers
 {
-    public class SessionController : BaseController
+    public partial class SessionController : BaseController
     {
         private readonly IUserService _userService;
 
@@ -21,7 +21,7 @@ namespace MBlog.Controllers
         }
 
         [HttpGet]
-        public ActionResult New()
+        public virtual ActionResult New()
         {
             if (!HttpContext.User.Identity.IsAuthenticated)
             {                
@@ -31,13 +31,15 @@ namespace MBlog.Controllers
         }
 
         [HttpPost]
-        public ActionResult Create(LoginUserViewModel userViewModel)
+        public virtual ActionResult Create(LoginUserViewModel userViewModel)
         {
             if (!ModelState.IsValid)
             {
                 return View("New");
             }
             User user = _userService.GetUser(userViewModel.Email);
+
+
             if (user != null && user.MatchPassword(userViewModel.Password))
             {
                 UpdateCookiesAndContext(user);
@@ -47,10 +49,10 @@ namespace MBlog.Controllers
         }
 
         [HttpGet]
-        public ActionResult Delete()
+        public virtual ActionResult Delete()
         {
             HttpCookie cookie;
-            if ((cookie = Request.Cookies[GetCookieUserFilterAttribute.UserCookie]) != null)
+            if ((cookie = Request.Cookies[GetCookieUserFilterAttribute.UserCookieName]) != null)
             {
                 cookie.Expires = new DateTime(1970, 1, 1);
                 Response.Cookies.Add(cookie);
@@ -63,8 +65,11 @@ namespace MBlog.Controllers
         {
             byte[] cipherText = user.Id.ToString().Encrypt();
             string base64CipherText = Convert.ToBase64String(cipherText);
-            Response.Cookies.Add(new HttpCookie(GetCookieUserFilterAttribute.UserCookie, base64CipherText));
-            HttpContext.User = new UserViewModel {Email = user.Email, Name = user.Name, IsLoggedIn = true};
+            Response.Cookies.Add(new HttpCookie(GetCookieUserFilterAttribute.UserCookieName, base64CipherText));
+            var userViewModel= new UserViewModel {Email = user.Email, Name = user.Name, IsLoggedIn = true};
+            userViewModel.AddNicknamesToUser(user);
+
+            HttpContext.User = userViewModel;
         }
     }
 }

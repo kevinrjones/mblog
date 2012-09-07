@@ -11,7 +11,7 @@ using MBlog.Models.User;
 namespace MBlog.Controllers
 {
     [GetCookieUserFilter]
-    public class BaseController : Controller
+    public partial class BaseController : Controller
     {
         public BaseController(ILogger logger)
         {

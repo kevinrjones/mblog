@@ -12,7 +12,7 @@ using MBlogServiceInterfaces;
 namespace MBlog.Controllers
 {
     // todo: get all comments and hide them
-    public class PostController : BaseController
+    public partial class PostController : BaseController
     {
         private readonly IDashboardService _dashboardService;
         private readonly IPostService _postService;
@@ -24,7 +24,7 @@ namespace MBlog.Controllers
             _dashboardService = dashboardService;
         }
 
-        public ActionResult Index(string nickname)
+        public virtual ActionResult Index(string nickname)
         {
             var postsViewModel = new PostsViewModel {Nickname = nickname};
             IList<Post> posts = _postService.GetBlogPosts(nickname);
@@ -34,7 +34,7 @@ namespace MBlog.Controllers
 
         [HttpGet]
         [AuthorizeBlogOwner]
-        public ActionResult New(string nickname, int blogId)
+        public virtual ActionResult New(string nickname, int blogId)
         {
             NewMediaViewModel model = new NewMediaViewModel {Nickname = nickname, BlogId = blogId};
             return View(new EditPostViewModel {BlogId = blogId, IsCreate = true, Nickname = nickname, NewMediaViewModel = model});
@@ -43,7 +43,7 @@ namespace MBlog.Controllers
         [HttpPost]
         [ValidateInput(false)]
         [AuthorizeBlogOwner]
-        public ActionResult Create(EditPostViewModel model)
+        public virtual ActionResult Create(EditPostViewModel model)
         {
             if (!ModelState.IsValid)
             {
@@ -54,7 +54,7 @@ namespace MBlog.Controllers
 
         [HttpGet]
         [AuthorizeBlogOwner]
-        public ActionResult Edit(string nickname, int blogId, int postId)
+        public virtual ActionResult Edit(string nickname, int blogId, int postId)
         {
             Post post = _postService.GetBlogPost(postId);
             return
@@ -64,7 +64,7 @@ namespace MBlog.Controllers
         [HttpPost]
         [ValidateInput(false)]
         [AuthorizeBlogOwner]
-        public ActionResult Update(EditPostViewModel model)
+        public virtual ActionResult Update(EditPostViewModel model)
         {
             if (!ModelState.IsValid)
             {
@@ -75,7 +75,7 @@ namespace MBlog.Controllers
 
         [HttpPost]
         [AuthorizeBlogOwner]
-        public ActionResult Delete(EditPostViewModel model)
+        public virtual ActionResult Delete(EditPostViewModel model)
         {
             if (!ModelState.IsValid)
             {
@@ -85,7 +85,7 @@ namespace MBlog.Controllers
             return RedirectToRoute(new {controller = "Posts", action = "Index"});
         }
 
-        public ActionResult Show(PostLinkViewModel postLinkViewModel)
+        public virtual ActionResult Show(PostLinkViewModel postLinkViewModel)
         {
             var postsViewModel = new PostsViewModel {Nickname = postLinkViewModel.Nickname};
             IList<Post> posts = _postService.GetBlogPosts(postLinkViewModel.Year, postLinkViewModel.Month,
