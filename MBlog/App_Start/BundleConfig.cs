@@ -1,9 +1,11 @@
-﻿namespace MBlog.App_Start
+﻿using System.Web.Optimization;
+
+namespace MBlog.App_Start
 {
     public static class BundleConfig
     {
-        //public static void RegisterBundles(this BundleCollection bundles)
-        //{
+        public static void RegisterBundles(this BundleCollection bundles)
+        {
         //    bundles.Add(new StyleBundle("~/Content/css").Include(
         //                "~/Content/css/style.css",
         //                "~/Content/css/dark-hive/jquery-ui-1.8.21.custom.css",
@@ -28,6 +30,6 @@
         //                "~/Scripts/jquery.jgrowl_minimized.js",
         //                "~/Scripts/plugins.js",
         //                "~/Scripts/script.js"));
-        //}
+        }
     }
 }
