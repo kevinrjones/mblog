@@ -52,7 +52,7 @@ namespace MBlogUnitTest.Controllers
             _postDomainMock.Setup(r => r.GetBlogPost(It.IsAny<int>())).Returns(posts[0]);
 
             _blogService = new Mock<IBlogService>();
-
+            _blogService.Setup(b => b.GetBlog(It.IsAny<string>())).Returns(new Blog {Id = 1});
         }
 
 
