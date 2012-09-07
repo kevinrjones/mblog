@@ -1,8 +1,8 @@
+using System;
 using System.Web;
 using System.Web.Mvc;
 using MBlog.Controllers;
 using MBlog.Models.User;
-using MBlogModel;
 using MBlogServiceInterfaces;
 
 namespace MBlog.Filters
@@ -10,6 +10,7 @@ namespace MBlog.Filters
     public class AuthorizeBlogOwnerAttribute : AuthorizeLoggedInUserAttribute
     {
         public IBlogService BlogService { get; set; }
+        public IUserService UserService { get; set; }
 
         public override void OnAuthorization(AuthorizationContext filterContext)
         {
@@ -22,44 +23,37 @@ namespace MBlog.Filters
         protected override bool AuthorizeCore(HttpContextBase httpContext)
         {
             var handler = httpContext.CurrentHandler as MvcHandler;
+            if(handler == null)
+            {
+                throw new NullReferenceException("Must be an instance of an MvcHandler");
+            }
 
             var nickname = handler.RequestContext.RouteData.Values["nickname"] as string;
-            string blogId = GetBlogId(httpContext, handler);
             var controller = httpContext.Items["controller"] as BaseController;
 
-            if (blogId == null || nickname == null || controller == null)
+            if (nickname == null || controller == null)
             {
                 string controllerType = controller == null ? "" : controller.GetType().FullName;
-                Logger.Error("Authorize failed: blogID: {0}, nickname: {1}, controller: {2}", blogId, nickname,
+                Logger.Error("Authorize failed: blogID: nickname: {0}, controller: {1}", nickname,
                              controllerType);
                 return false;
             }
 
-            int id = int.Parse(blogId);
             var user = httpContext.User as UserViewModel;
 
-            if (!IsLoggedInUser(user) || !UserOwnsBlog(nickname, id))
+            if (!IsLoggedInUser(user) || !UserOwnsBlog(user, nickname))
             {
-                Logger.Error("Authorize failed: blogID: {0}, nickname: {1}, user: {2}", blogId, nickname, user);
+                Logger.Error("Authorize failed: for nickname: {0}, user: {1}", nickname, user);
                 return false;
             }
             return true;
         }
 
-        private static string GetBlogId(HttpContextBase httpContext, MvcHandler handler)
+        private bool UserOwnsBlog(UserViewModel sessionUser, string nickname)
         {
-            var blogId = handler.RequestContext.RouteData.Values["blogId"] as string;
-            if (blogId == null)
-            {
-                blogId = httpContext.Request["blogId"];
-            }
-            return blogId;
-        }
-
-        private bool UserOwnsBlog(string nickname, int blogId)
-        {
-            Blog blog = BlogService.GetBlog(nickname);
-            return blog != null && blog.Id == blogId;
+            var user = UserService.GetUser(sessionUser.Email);
+            var blog = BlogService.GetBlog(nickname);
+            return blog != null && user!= null && blog.UserId == user.Id;
         }
     }
 }

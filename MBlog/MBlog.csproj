@@ -159,8 +159,6 @@
     <Compile Include="Controllers\Publishing\AtomController.cs" />
     <Compile Include="Filters\BasicAutohorizeAttribute.cs" />
     <Compile Include="Filters\HttpBasicUnauthorizedResult.cs" />
-    <Compile Include="Infrastructure\Logging\NLog\NLogHandleErrorAttribute.cs" />
-    <Compile Include="Infrastructure\UnityFilterAttributeProvider.cs" />
     <Compile Include="Models\Atom\AtomViewModel.cs" />
     <Compile Include="Controllers\Publishing\RsdController.cs" />
     <Compile Include="Controllers\SessionController.cs" />

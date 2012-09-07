@@ -2,7 +2,7 @@ using System.Collections.Specialized;
 using System.Web;
 using System.Web.Mvc;
 using System.Web.Routing;
-using MBlog;
+using MBlog.App_Start;
 using MBlogUnitTest.Helpers;
 using Moq;
 using NUnit.Framework;
@@ -16,7 +16,7 @@ namespace MBlogUnitTest.Routing
         {
             // Get route configuration and mock request context
             var routes = new RouteCollection();
-            MvcApplication.RegisterRoutes(routes);
+            routes.RegisterRoutes();
             var mockHttpContext = new Mock<HttpContextBase>();
             var mockRequest = new Mock<HttpRequestBase>();
             var fakeResponse = new FakeResponse();
@@ -35,7 +35,7 @@ namespace MBlogUnitTest.Routing
             if (routes == null)
             {
                 routes = new RouteCollection();
-                MvcApplication.RegisterRoutes(routes);
+                routes.RegisterRoutes();
             }
 
             HttpContextBase httpContext = new StubHttpContextForRouting(appPath);

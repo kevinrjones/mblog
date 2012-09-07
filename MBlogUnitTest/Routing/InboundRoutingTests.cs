@@ -348,7 +348,7 @@ namespace MBlogUnitTest.Routing
         [Test]
         public void GivenACorrectRoutesCollection_WhenIAskForATheAtomPubServiceDocument_ThenIGetTheAtomPubServiceDocument()
         {
-            TestRoute("~/nickname/pub/atom", new
+            TestRoute("~/nickname/pub/service", new
                                               {
                                                   controller = "Atom",
                                                   action = "GetServiceDocument",

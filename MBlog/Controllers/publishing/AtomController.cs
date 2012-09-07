@@ -1,11 +1,9 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Net;
 using System.ServiceModel.Syndication;
 using System.Web.Mvc;
-using System.Xml;
 using System.Xml.Linq;
 using Logging;
 using MBlog.ActionResults;
@@ -55,16 +53,16 @@ namespace MBlog.Controllers.publishing
 
         [HttpGet]
         [AuthorizeBlogOwner]
-        public ActionResult Get(string nickname, int blogId, int postId)
+        public ActionResult Get(string nickname, int postId)
         {
             Post post = _postService.GetBlogPost(postId);
             return
-                View(new EditPostViewModel { BlogId = blogId, PostId = postId, Title = post.Title, Post = post.BlogPost, Edited = post.Edited, Published = post.Posted});
+                View(new EditPostViewModel {BlogId = post.BlogId, PostId = postId, Title = post.Title, Post = post.BlogPost, Edited = post.Edited, Published = post.Posted});
         }
         
         [HttpPut]
         [AuthorizeBlogOwner]
-        public ActionResult Update(string nickname, int blogId, int postId)
+        public ActionResult Update(string nickname, int postId)
         {
             var atomXMl = XDocument.Load(new StreamReader(Request.InputStream));
             XNamespace ns = "http://www.w3.org/2005/Atom";
@@ -72,19 +70,21 @@ namespace MBlog.Controllers.publishing
                            select node.Value).FirstOrDefault();
             var content = (from node in atomXMl.Descendants(ns + "content")
                            select node.Value).FirstOrDefault();
-            _dashboardService.Update(postId, title, content, blogId);
+            Blog blog = _blogService.GetBlog(nickname);
+            _dashboardService.Update(postId, title, content, blog.Id);
             return new HttpStatusCodeResult(HttpStatusCode.OK);
         }
 
         [HttpDelete]
         [AuthorizeBlogOwner]
-        public ActionResult Delete(string nickname, int blogId, int postId)
+        public ActionResult Delete(string nickname, int postId)
         {
             _postService.Delete(postId);
             return new HttpStatusCodeResult(HttpStatusCode.OK);
         }
 
         [HttpPost]
+        [AuthorizeBlogOwner]
         public ActionResult Create(string nickname)
         {
             var atomXMl = XDocument.Load(new StreamReader(Request.InputStream));

@@ -1,6 +1,7 @@
 using System.Web;
 using System.Web.Routing;
 using MBlog;
+using MBlog.App_Start;
 using Moq;
 
 namespace MBlogUnitTest.Extensions
@@ -10,7 +11,7 @@ namespace MBlogUnitTest.Extensions
         public static RouteData GetRouteData(this string url, string httpMethod)
         {
             var routes = new RouteCollection();
-            MvcApplication.RegisterRoutes(routes);
+            routes.RegisterRoutes();
             var mockHttpContext = new Mock<HttpContextBase>();
             var mockRequest = new Mock<HttpRequestBase>();
             mockRequest.Setup(r => r.HttpMethod).Returns(httpMethod);

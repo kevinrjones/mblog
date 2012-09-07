@@ -53,14 +53,14 @@ namespace MBlog.App_Start
 
             routes.MapRoute(
                 name: "Posts-get-atom",
-                url: "{nickname}/pub/atom/{blogId}/{postId}",
+                url: "{nickname}/pub/atom/{postId}",
                 defaults: new { controller = "Atom", action = "Get" },
                 constraints: new { httpMethod = new HttpMethodConstraint("GET") }
                 );
 
             routes.MapRoute(
                 name: "Posts-update-atom",
-                url: "{nickname}/pub/atom/{blogId}/{postId}",
+                url: "{nickname}/pub/atom/{postId}",
                 defaults: new { controller = "Atom", action = "Update" },
                 constraints: new { httpMethod = new HttpMethodConstraint("PUT") }
                 );
@@ -74,7 +74,7 @@ namespace MBlog.App_Start
 
             routes.MapRoute(
                 name: "Posts-create-delete",
-                url: "{nickname}/pub/atom/{blogId}/{postId}",
+                url: "{nickname}/pub/atom/{postId}",
                 defaults: new { controller = "Atom", action = "Delete" },
                 constraints: new { httpMethod = new HttpMethodConstraint("DELETE") }
                 );

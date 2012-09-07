@@ -43,7 +43,7 @@ namespace MBlogService
                 item.Content = new TextSyndicationContent(post.BlogPost, TextSyndicationContentKind.Html);
                 item.Links.Add(SyndicationLink.CreateAlternateLink(new Uri(htmlurl), "text/html"));
                 
-                var editurl = string.Format("{0}://{1}/{2}/pub/atom/{3}/{4}", scheme, host, nickname, post.BlogId, post.Id);
+                var editurl = string.Format("{0}://{1}/{2}/pub/atom/{3}", scheme, host, nickname, post.Id);
                 item.Links.Add(SyndicationLink.CreateSelfLink(new Uri(editurl)));
                 item.Links.Add(new SyndicationLink { RelationshipType = "edit", Uri = new Uri(editurl), MediaType = "application/atom+xml;type=entry" });
 
