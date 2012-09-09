@@ -20,6 +20,22 @@
         if (!confirm('Are you sure you want to delete this item?'))
             return false;
     });
+
+    $("a.deletepost").click(function() {
+        var self = this;
+        if (confirm('Are you sure you want to delete this item?')) {
+            $.post(this.href)
+                .done(function () {
+                    $(self).parent().parent().remove();
+                    return false;
+                })
+                .fail(function () {
+                    alert("unable to delete post");
+                    return false;
+                });
+        }
+        return false;
+    });
 });
 
 function done(data) {
