@@ -15,7 +15,7 @@ namespace MBlogUnitTest.Controllers
     [TestFixture]
     public class PostControllerTest : BaseControllerTests
     {
-        private Mock<IPostService> _postDomainMock;
+        private Mock<IPostService> _postServiceMock;
         private IDashboardService _dashboardServiceMock;
         private Mock<IBlogService> _blogService;
         private string _userName = "UserName";
@@ -24,13 +24,13 @@ namespace MBlogUnitTest.Controllers
         [SetUp]
         public void SetUp()
         {
-            _postDomainMock = new Mock<IPostService>();
+            _postServiceMock = new Mock<IPostService>();
 
             var dashboardDomainMock = new Mock<IDashboardService>();
             _dashboardServiceMock = dashboardDomainMock.Object;
 
-            _postDomainMock.Setup(r => r.GetBlogPosts(It.IsAny<string>())).Returns(posts);
-            _postDomainMock.Setup(
+            _postServiceMock.Setup(r => r.GetBlogPosts(It.IsAny<string>())).Returns(posts);
+            _postServiceMock.Setup(
                 r =>
                 r.GetBlogPosts(It.IsAny<int>(), It.IsAny<int>(), It.IsAny<int>(), It.IsAny<string>(), It.IsAny<string>()))
                 .Returns(new List<Post>
@@ -49,7 +49,7 @@ namespace MBlogUnitTest.Controllers
                                                  }
                                      }
                              });
-            _postDomainMock.Setup(r => r.GetBlogPost(It.IsAny<int>())).Returns(posts[0]);
+            _postServiceMock.Setup(r => r.GetBlogPost(It.IsAny<int>())).Returns(posts[0]);
 
             _blogService = new Mock<IBlogService>();
             _blogService.Setup(b => b.GetBlog(It.IsAny<string>())).Returns(new Blog {Id = 1});
@@ -66,7 +66,7 @@ namespace MBlogUnitTest.Controllers
         [Test]
         public void GivenAPostController_WhenICallItsCreateMethod_AndTheModelIsInvalid_ThenItReturnsTheCorrectView()
         {
-            var controller = new PostController(_postDomainMock.Object, _dashboardServiceMock, _blogService.Object, null);
+            var controller = new PostController(_postServiceMock.Object, _dashboardServiceMock, _blogService.Object, null);
             controller.ModelState.AddModelError("Title", "Title error");
             ActionResult result = controller.Create("nickname", new EditPostViewModel());
 
@@ -76,7 +76,7 @@ namespace MBlogUnitTest.Controllers
         [Test]
         public void GivenAPostController_WhenICallItsCreateMethod_AndTheModelIsValid_ThenItReturnsTheCorrectView()
         {
-            var controller = new PostController(_postDomainMock.Object, _dashboardServiceMock, _blogService.Object, null);
+            var controller = new PostController(_postServiceMock.Object, _dashboardServiceMock, _blogService.Object, null);
             var result = controller.Create("nickname", new EditPostViewModel()) as RedirectToRouteResult;
 
             Assert.That(result, Is.Not.Null);
@@ -86,7 +86,7 @@ namespace MBlogUnitTest.Controllers
         [Test]
         public void GivenAPostController_WhenICallItsIndexMethod_ThenItReturnsTheCorrectNumberOfPosts()
         {
-            var controller = new PostController(_postDomainMock.Object, _dashboardServiceMock, _blogService.Object, null);
+            var controller = new PostController(_postServiceMock.Object, _dashboardServiceMock, _blogService.Object, null);
             var result = (ViewResult) controller.Index("");
 
             var model = (PostsViewModel) result.Model;
@@ -97,7 +97,7 @@ namespace MBlogUnitTest.Controllers
         [Test]
         public void GivenAPostController_WhenICallItsIndexMethod_ThenItReturnsTheCorrectView()
         {
-            var controller = new PostController(_postDomainMock.Object, _dashboardServiceMock, _blogService.Object, null);
+            var controller = new PostController(_postServiceMock.Object, _dashboardServiceMock, _blogService.Object, null);
             var result = (ViewResult) controller.Index("");
 
             var model = (PostsViewModel) result.Model;
@@ -110,7 +110,7 @@ namespace MBlogUnitTest.Controllers
         {
             MockHttpContext.SetupProperty(h => h.User);
 
-            var controller = new PostController(_postDomainMock.Object, _dashboardServiceMock, _blogService.Object, null);
+            var controller = new PostController(_postServiceMock.Object, _dashboardServiceMock, _blogService.Object, null);
             var result = controller.New(_userName) as ViewResult;
 
             Assert.That(result, Is.TypeOf<ViewResult>());
@@ -119,7 +119,7 @@ namespace MBlogUnitTest.Controllers
         [Test]
         public void GivenAPostController_WhenICallItsShowMethod_AndIPassAYear_ThenItReturnsTheCorrectPosts()
         {
-            var controller = new PostController(_postDomainMock.Object, _dashboardServiceMock, _blogService.Object, null);
+            var controller = new PostController(_postServiceMock.Object, _dashboardServiceMock, _blogService.Object, null);
             var result =
                 controller.Show(new PostLinkViewModel {Year = 2010, Month = 0, Day = 0, Link = null}) as ViewResult;
             var model = (PostsViewModel) result.Model;
@@ -130,7 +130,7 @@ namespace MBlogUnitTest.Controllers
         [Test]
         public void GivenAPostController_WhenICallItsShowMethod_ThenItReturnsTheCorrectModelInTheView()
         {
-            var controller = new PostController(_postDomainMock.Object, _dashboardServiceMock, _blogService.Object, null);
+            var controller = new PostController(_postServiceMock.Object, _dashboardServiceMock, _blogService.Object, null);
             var result = controller.Show(new PostLinkViewModel()) as ViewResult;
 
             Assert.That(result.Model, Is.AssignableTo<PostsViewModel>());
@@ -139,7 +139,7 @@ namespace MBlogUnitTest.Controllers
         [Test]
         public void GivenAPostController_WhenICallItsShowMethod_ThenItReturnsTheCorrectView()
         {
-            var controller = new PostController(_postDomainMock.Object, _dashboardServiceMock, _blogService.Object, null);
+            var controller = new PostController(_postServiceMock.Object, _dashboardServiceMock, _blogService.Object, null);
             var result = controller.Show(new PostLinkViewModel()) as ViewResult;
 
             Assert.That(result, Is.Not.Null);
@@ -148,7 +148,7 @@ namespace MBlogUnitTest.Controllers
         [Test]
         public void GivenAPostController_WhenIGetItsPostsWithComments_ThenItReturnsTheApprovedComments()
         {
-            var controller = new PostController(_postDomainMock.Object, _dashboardServiceMock, _blogService.Object, null);
+            var controller = new PostController(_postServiceMock.Object, _dashboardServiceMock, _blogService.Object, null);
             var result = controller.Show(new PostLinkViewModel()) as ViewResult;
             var model = (PostsViewModel) result.Model;
 
@@ -165,7 +165,7 @@ namespace MBlogUnitTest.Controllers
                 r =>
                 r.GetBlogPosts(It.IsAny<int>(), It.IsAny<int>(), It.IsAny<int>(), It.IsAny<string>(), It.IsAny<string>()))
                 .Returns(new List<Post> {new Post {Title = "title"}});
-            var controller = new PostController(_postDomainMock.Object, _dashboardServiceMock, _blogService.Object, null);
+            var controller = new PostController(_postServiceMock.Object, _dashboardServiceMock, _blogService.Object, null);
             var result =
                 controller.Show(new PostLinkViewModel {Year = 1, Month = 1, Day = 1, Link = "notempty"}) as ViewResult;
 
@@ -176,10 +176,9 @@ namespace MBlogUnitTest.Controllers
         public void GivenAValidPost_WhenITryAndDeleteThePost_ThenIGetRedirectedToPosts()
         {
             MockHttpContext.SetupProperty(h => h.User);
-            var controller = new PostController(_postDomainMock.Object, _dashboardServiceMock, _blogService.Object, null);
+            var controller = new PostController(_postServiceMock.Object, _dashboardServiceMock, _blogService.Object, null);
 
-            var model = new EditPostViewModel {PostId = 2};
-            var result = (RedirectToRouteResult) controller.Delete(_userName, model);
+            var result = (RedirectToRouteResult) controller.Delete(_userName, 2);
             Assert.That(result.RouteValues["controller"], Is.EqualTo("Posts").IgnoreCase);
             Assert.That(result.RouteValues["action"], Is.EqualTo("Index").IgnoreCase);
         }
@@ -188,18 +187,17 @@ namespace MBlogUnitTest.Controllers
         public void GivenAValidPost_WhenITryAndDeleteThePost_ThenItIsDeleted()
         {
             MockHttpContext.SetupProperty(h => h.User);
-            var controller = new PostController(_postDomainMock.Object, _dashboardServiceMock, _blogService.Object, null);
+            var controller = new PostController(_postServiceMock.Object, _dashboardServiceMock, _blogService.Object, null);
 
-            var model = new EditPostViewModel {PostId = 2};
-            controller.Delete(_userName, model);
-            _postDomainMock.Verify(p => p.Delete(2), Times.Once());
+            controller.Delete(_userName, 2);
+            _postServiceMock.Verify(p => p.Delete(2), Times.Once());
         }
 
         [Test]
         public void GivenAValidPost_WhenITryAndEditAPost_ThenIGetTheCorrectView()
         {
             MockHttpContext.SetupProperty(h => h.User);
-            var controller = new PostController(_postDomainMock.Object, _dashboardServiceMock, _blogService.Object, null);
+            var controller = new PostController(_postServiceMock.Object, _dashboardServiceMock, _blogService.Object, null);
 
             ActionResult result = controller.Edit(_userName, 1);
 
@@ -209,7 +207,7 @@ namespace MBlogUnitTest.Controllers
         [Test]
         public void GivenAValidPost_WhenITryAndUpdateAPost_ThenIGetTheCorrectView()
         {
-            var controller = new PostController(_postDomainMock.Object, _dashboardServiceMock, _blogService.Object, null);
+            var controller = new PostController(_postServiceMock.Object, _dashboardServiceMock, _blogService.Object, null);
 
             var result =
                 controller.Update(_userName, new EditPostViewModel { Nickname = _userName, PostId = 1 }) as
@@ -223,7 +221,7 @@ namespace MBlogUnitTest.Controllers
         [Test]
         public void GivenAnErrorWhenAddingAComment_WhenIGetThePostWithTheComment_ThenTheViewDataIsUpdateWithTheError()
         {
-            var controller = new PostController(_postDomainMock.Object, _dashboardServiceMock, _blogService.Object, null);
+            var controller = new PostController(_postServiceMock.Object, _dashboardServiceMock, _blogService.Object, null);
             var tempData = new ModelStateDictionary();
             tempData.Add("key", new ModelState());
             controller.TempData["comment"] = tempData;
@@ -235,21 +233,20 @@ namespace MBlogUnitTest.Controllers
         }
 
         [Test]
-        public void GivenAnInvalidPost_WhenITryAndDeleteThePost_ThenIGetRedirected()
+        public void GivenAnInvalidPost_WhenITryAndDeleteThePost_ThenIGetTheErrorView()
         {
             MockHttpContext.SetupProperty(h => h.User);
-            var controller = new PostController(_postDomainMock.Object, _dashboardServiceMock, _blogService.Object, null);
-            controller.ModelState.AddModelError("Name", "Name error");
+            _postServiceMock.Setup(p => p.Delete(It.IsAny<int>())).Throws<Exception>();
+            var controller = new PostController(_postServiceMock.Object, _dashboardServiceMock, _blogService.Object, null);
 
-            var model = new EditPostViewModel {PostId = 2};
-            var result = (ViewResult)controller.Delete(_userName, model);
+            var result = (ViewResult)controller.Delete(_userName, 2);
             Assert.That(result.ViewName, Is.EqualTo("InvalidDelete"));
         }
 
         [Test]
         public void GivenAnInvalidPost_WhenITryAndUpdateAPost_ThenIHaveToReeditThePost()
         {
-            var controller = new PostController(_postDomainMock.Object, _dashboardServiceMock, _blogService.Object, null);
+            var controller = new PostController(_postServiceMock.Object, _dashboardServiceMock, _blogService.Object, null);
             controller.ModelState.AddModelError("Name", "Name error");
 
             var result =

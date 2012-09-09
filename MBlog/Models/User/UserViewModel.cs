@@ -29,8 +29,6 @@ namespace MBlog.Models.User
 
         public List<string> Nicknames { get; set; }
 
-        #region IIdentity Members
-
         [Required]
         public string Name { get; set; }
 
@@ -44,10 +42,6 @@ namespace MBlog.Models.User
             get { return IsLoggedIn; }
         }
 
-        #endregion
-
-        #region IPrincipal Members
-
         public bool IsInRole(string role)
         {
             throw new NotImplementedException();
@@ -58,17 +52,11 @@ namespace MBlog.Models.User
             get { return this; }
         }
 
-        #endregion
-
-        #region IValidatableObject Members
-
         public IEnumerable<ValidationResult> Validate(ValidationContext validationContext)
         {
             if (Password != RepeatPassword)
                 yield return new ValidationResult("The passwords fields must match", new[] {"Password"});
         }
-
-        #endregion
 
         public override string ToString()
         {
