@@ -73,7 +73,7 @@ namespace MBlog.App_Start
                 );
 
             routes.MapRoute(
-                name: "Posts-create-delete",
+                name: "Posts-delete-atom",
                 url: "{nickname}/pub/atom/{postId}",
                 defaults: new { controller = "Atom", action = "Delete" },
                 constraints: new { httpMethod = new HttpMethodConstraint("DELETE") }
@@ -149,27 +149,25 @@ namespace MBlog.App_Start
 
             routes.MapRoute(
                 name: "Admin-posts",
-                url: "admin/posts/{action}/{nickname}/{blogId}",
+                url: "admin/posts/{action}/{nickname}",
                 defaults:
                     new
                     {
                         controller = "Posts",
                         action = "Index",
                         nickname = UrlParameter.Optional,
-                        blogId = UrlParameter.Optional,
                     }
                 );
 
             routes.MapRoute(
                 name: "Admin-comments",
-                url: "admin/comments/{action}/{nickname}/{postId}/{blogId}",
+                url: "admin/comments/{action}/{nickname}/{postId}",
                 defaults:
                     new
                     {
                         controller = "Comments",
                         action = "Index",
                         nickname = UrlParameter.Optional,
-                        blogId = UrlParameter.Optional,
                         postId = UrlParameter.Optional,
                     }
                 );

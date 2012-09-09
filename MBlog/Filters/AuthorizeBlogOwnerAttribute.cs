@@ -43,7 +43,7 @@ namespace MBlog.Filters
 
             if (!IsLoggedInUser(user) || !UserOwnsBlog(user, nickname))
             {
-                Logger.Error("Authorize failed: for nickname: {0}, user: {1}", nickname, user);
+                Logger.Error("Authorize failed: for nickname: {0}, user: {1}", nickname, user.Email, user.AuthenticationType);
                 return false;
             }
             return true;

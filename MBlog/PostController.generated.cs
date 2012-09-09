@@ -216,10 +216,10 @@ namespace MBlog.Controllers {
             return callInfo;
         }
 
-        public override System.Web.Mvc.ActionResult Delete(string nickname, MBlog.Models.Post.EditPostViewModel model) {
+        public override System.Web.Mvc.ActionResult Delete(string nickname, int postId) {
             var callInfo = new T4MVC_ActionResult(Area, Name, ActionNames.Delete);
             callInfo.RouteValueDictionary.Add("nickname", nickname);
-            callInfo.RouteValueDictionary.Add("model", model);
+            callInfo.RouteValueDictionary.Add("postId", postId);
             return callInfo;
         }
 

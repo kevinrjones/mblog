@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net;
 using System.Web.Mvc;
 using Logging;
 using MBlog.Filters;
@@ -28,7 +29,7 @@ namespace MBlog.Controllers
 
         public virtual ActionResult Index(string nickname)
         {
-            var postsViewModel = new PostsViewModel {Nickname = nickname};
+            var postsViewModel = new PostsViewModel { Nickname = nickname };
             IList<Post> posts = _postService.GetBlogPosts(nickname);
             postsViewModel.AddPosts(posts);
             return View(postsViewModel);
@@ -38,8 +39,8 @@ namespace MBlog.Controllers
         [AuthorizeBlogOwner]
         public virtual ActionResult New(string nickname)
         {
-            NewMediaViewModel model = new NewMediaViewModel {Nickname = nickname};
-            return View(new EditPostViewModel {IsCreate = true, Nickname = nickname, NewMediaViewModel = model});
+            NewMediaViewModel model = new NewMediaViewModel { Nickname = nickname };
+            return View(new EditPostViewModel { IsCreate = true, Nickname = nickname, NewMediaViewModel = model });
         }
 
         [HttpPost]
@@ -60,7 +61,7 @@ namespace MBlog.Controllers
         {
             Post post = _postService.GetBlogPost(postId);
             return
-                View(new EditPostViewModel {PostId = postId, Title = post.Title, Post = post.BlogPost});
+                View(new EditPostViewModel { PostId = postId, Title = post.Title, Post = post.BlogPost });
         }
 
         [HttpPost]
@@ -77,19 +78,22 @@ namespace MBlog.Controllers
 
         [HttpPost]
         [AuthorizeBlogOwner]
-        public virtual ActionResult Delete(string nickname, EditPostViewModel model)
+        public virtual ActionResult Delete(string nickname, int postId)
         {
-            if (!ModelState.IsValid)
+            try
             {
-                return View("InvalidDelete", model);
+                _postService.Delete(postId);
+                return new HttpStatusCodeResult(HttpStatusCode.OK);
             }
-            _postService.Delete(model.PostId);
-            return RedirectToRoute(new {controller = "Posts", action = "Index"});
+            catch
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.InternalServerError);
+            }
         }
 
         public virtual ActionResult Show(PostLinkViewModel postLinkViewModel)
         {
-            var postsViewModel = new PostsViewModel {Nickname = postLinkViewModel.Nickname};
+            var postsViewModel = new PostsViewModel { Nickname = postLinkViewModel.Nickname };
             IList<Post> posts = _postService.GetBlogPosts(postLinkViewModel.Year, postLinkViewModel.Month,
                                                           postLinkViewModel.Day, postLinkViewModel.Nickname,
                                                           postLinkViewModel.Link);
@@ -118,14 +122,14 @@ namespace MBlog.Controllers
                                //todo: get this from the admin
                            };
             _dashboardService.CreatePost(post, blog.Id);
-            return RedirectToRoute(new {controller = "Dashboard", action = "Index"});
+            return RedirectToRoute(new { controller = "Dashboard", action = "Index" });
         }
 
         private ActionResult UpdatePost(string nickname, EditPostViewModel model)
         {
             var blog = _blogService.GetBlog(nickname);
             _dashboardService.Update(model.PostId, model.Title, model.Post, blog.Id);
-            return RedirectToRoute(new {controller = "Dashboard", action = "Index"});
+            return RedirectToRoute(new { controller = "Dashboard", action = "Index" });
         }
 
         private ActionResult GetPosts(PostLinkViewModel model, IList<Post> posts, PostsViewModel postsViewModel)

@@ -99,7 +99,7 @@ namespace MBlogService
             }
             catch (Exception e)
             {
-                throw new MBlogException("Unable to retrieve posts", e);
+                throw new MBlogException("Unable to delete post", e);
             }
         }
 
