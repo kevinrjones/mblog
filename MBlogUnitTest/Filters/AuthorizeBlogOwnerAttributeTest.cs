@@ -80,6 +80,8 @@ namespace MBlogUnitTest.Filters
 
             AuthorizationContext filterContext = CreateFilterContext(routeData);
             var httpRequest = new Mock<HttpRequestBase>();
+            var model = new UserViewModel { IsLoggedIn = false };
+            _mockHttpContext.Setup(h => h.User).Returns(model);
             _mockHttpContext.Setup(h => h.Request).Returns(httpRequest.Object);
 
 

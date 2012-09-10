@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net;
 using System.Web.Mvc;
 using MBlog.Controllers;
 using MBlog.Models.Post;
@@ -173,14 +174,13 @@ namespace MBlogUnitTest.Controllers
         }
 
         [Test]
-        public void GivenAValidPost_WhenITryAndDeleteThePost_ThenIGetRedirectedToPosts()
+        public void GivenAValidPost_WhenITryAndDeleteThePost_ThenIGetASuccessfulResult()
         {
             MockHttpContext.SetupProperty(h => h.User);
             var controller = new PostController(_postServiceMock.Object, _dashboardServiceMock, _blogService.Object, null);
 
-            var result = (RedirectToRouteResult) controller.Delete(_userName, 2);
-            Assert.That(result.RouteValues["controller"], Is.EqualTo("Posts").IgnoreCase);
-            Assert.That(result.RouteValues["action"], Is.EqualTo("Index").IgnoreCase);
+            var result = (HttpStatusCodeResult) controller.Delete(_userName, 2);
+            Assert.That(result.StatusCode, Is.EqualTo(200));
         }
 
         [Test]
@@ -233,14 +233,14 @@ namespace MBlogUnitTest.Controllers
         }
 
         [Test]
-        public void GivenAnInvalidPost_WhenITryAndDeleteThePost_ThenIGetTheErrorView()
+        public void GivenAnInvalidPost_WhenITryAndDeleteThePost_ThenIGetAnError()
         {
             MockHttpContext.SetupProperty(h => h.User);
             _postServiceMock.Setup(p => p.Delete(It.IsAny<int>())).Throws<Exception>();
             var controller = new PostController(_postServiceMock.Object, _dashboardServiceMock, _blogService.Object, null);
 
-            var result = (ViewResult)controller.Delete(_userName, 2);
-            Assert.That(result.ViewName, Is.EqualTo("InvalidDelete"));
+            var result = (HttpStatusCodeResult)controller.Delete(_userName, 2);
+            Assert.That(result.StatusCode, Is.EqualTo(500));
         }
 
         [Test]
