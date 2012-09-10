@@ -7,12 +7,12 @@
 <service xmlns="http://www.w3.org/2007/app" xmlns:atom="http://www.w3.org/2005/Atom">
     <workspace>
         <atom:title>MBlog</atom:title>
-        <collection href="@Url.Action("Index", "atom", new {nickname = @Model.Nickname}, HttpContext.Current.Request.Url.Scheme)" >
+        <collection href="@Url.Action("Index", "atom", new {nickname = @Model.Nickname})" >
             <atom:title>@Model.Title</atom:title>
             <accept>application/atom+xml;type=entry</accept>
             <categories href="categories" />
         </collection>
-        <collection href="@Url.Action("Index", "Media", new {nickname = @Model.Nickname}, HttpContext.Current.Request.Url.Scheme)" >
+        <collection href="@Url.Action("Index", "Media", new {nickname = @Model.Nickname})" >
             <atom:title>Images</atom:title>
             <accept>image/*</accept>
             <categories href="categories" />
