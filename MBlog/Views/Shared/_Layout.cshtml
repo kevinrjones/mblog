@@ -1,42 +1,43 @@
 @using MBlog.HtmHelpers
 <!DOCTYPE html>
 <html class="no-js">
-    <head>
-        <title>@ViewBag.Title</title>
-        <link href='http://fonts.googleapis.com/css?family=Ropa+Sans|Asap|Quicksand|Open+Sans' rel='stylesheet' type='text/css'>
-        @Rejuiced.CssFor("~/Combined-{0}.css")
-        @Rejuiced.JsFor("~/Combined-{0}.js")
-        <link href="~/Content/Styles/main.less" rel="stylesheet" type="text/css" />   
-        <link rel="wlwmanifest" type="application/wlwmanifest+xml" href="~/wlwmanifest.xml" />    
-        <link rel="EditURI" type="application/rsd+xml" href="@Url.Action("rsd", "rsd")" />
-        <link rel="shortcut icon" href="~/favicon.ico">    
-        <script type="text/javascript">
-            SyntaxHighlighter.defaults['toolbar'] = true;
-            SyntaxHighlighter.all();
-        </script>
-        @RenderSection("PubHeaders", false)
-        @RenderSection("DashboardHeaders", false)
-    </head>
-    <body>
-        <div class="wrapper">
-            <div class="mainbody">
-                <header>
-                    <nav>
-                        <ul class="headerList main-list">
-                            @Html.AuthenticationStatus()
-                            <li><a href="#">about</a></li>
-                            <li><a href="#">faq</a></li>
-                        </ul>
-                    </nav>
-                </header>
-                <div class="blog-main-body">
-                    @RenderBody()
-                </div>
-                <div class="blog-sidebar">
-                    Sidebar
-                </div>
-                <div class="clear-both"></div>
+<head>
+    <title>@ViewBag.Title</title>
+    <link href='http://fonts.googleapis.com/css?family=Ropa+Sans|Asap|Quicksand|Open+Sans' rel='stylesheet' type='text/css'>
+    @Rejuiced.CssFor("~/Combined-{0}.css")
+    @Rejuiced.JsFor("~/Combined-{0}.js")
+    <link href="~/Content/Styles/main.less" rel="stylesheet" type="text/css" />
+    <link rel="service" type="application/atomsvc+xml" href="@Url.Action("GetServiceDocument", "Atom", new{}, HttpContext.Current.Request.Url.Scheme)" />
+@*    <link rel="wlwmanifest" type="application/wlwmanifest+xml" href="~/wlwmanifest.xml" />
+    <link rel="EditURI" type="application/rsd+xml" href="@Url.Action("rsd", "rsd")" />*@
+    <link rel="shortcut icon" href="~/favicon.ico">
+    <script type="text/javascript">
+        SyntaxHighlighter.defaults['toolbar'] = true;
+        SyntaxHighlighter.all();
+    </script>
+    @RenderSection("PubHeaders", false)
+    @RenderSection("DashboardHeaders", false)
+</head>
+<body>
+    <div class="wrapper">
+        <div class="mainbody">
+            <header>
+                <nav>
+                    <ul class="headerList main-list">
+                        @Html.AuthenticationStatus()
+                        <li><a href="#">about</a></li>
+                        <li><a href="#">faq</a></li>
+                    </ul>
+                </nav>
+            </header>
+            <div class="blog-main-body">
+                @RenderBody()
             </div>
+            <div class="blog-sidebar">
+                Sidebar
+            </div>
+            <div class="clear-both"></div>
         </div>
-    </body>
+    </div>
+</body>
 </html>
