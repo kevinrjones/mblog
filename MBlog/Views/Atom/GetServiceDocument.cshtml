@@ -10,7 +10,7 @@
         <collection href="@Url.Action("Index", "atom", new {nickname = @Model.Nickname})" >
             <atom:title>@Model.Title</atom:title>
             <accept>application/atom+xml;type=entry</accept>
-            <categories href="categories" />
+            <categories fixed="no"/>
         </collection>
         <collection href="@Url.Action("Index", "Media", new {nickname = @Model.Nickname})" >
             <atom:title>Images</atom:title>
@@ -18,24 +18,4 @@
             <categories href="categories" />
         </collection>
     </workspace>
-    
-@*    <workspace svc:default='true'>
-    <atom:title>example.com</atom:title>
-    <atom:subtitle>The life and times of a blogger.</atom:subtitle>
-    <collection href='blog.atom' svc:default='true' svc:bloggingOn='true'>
-      <atom:title>My Blog</atom:title>
-      <atom:id>tag:example.com,2009:blog</atom:id>
-    </collection>
-    <collection href='pages.atom' svc:dated='false' svc:ratingsOn='false' svc:annotationsOn='false' svc:bloggingOn='true'>
-      <atom:title>My Pages</atom:title>
-      <atom:id>tag:example.com,2009:pages</atom:id>
-    </collection>
-    <collection href='media.atom' svc:visible='false' svc:syndicationOn='no'>
-      <atom:title>My Media</atom:title>
-      <atom:id>tag:example.com,2009:media</atom:id>
-      <accept svc:ext='png'>image/png</accept>
-      <accept svc:ext='jpg'>image/jpeg</accept>
-      <accept svc:ext='gif'>image/gif</accept>
-    </collection>
-  </workspace>*@
 </service>
