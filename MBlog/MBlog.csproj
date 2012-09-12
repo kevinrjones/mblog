@@ -200,6 +200,7 @@
     <Compile Include="Controllers\DashboardController.cs" />
     <Compile Include="Controllers\FeedController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Models\Media\ImageCreatedViewModel.cs" />
     <Compile Include="Controllers\MediaController.cs" />
     <Compile Include="Controllers\PostController.cs" />
     <Compile Include="Controllers\Publishing\AtomController.cs" />
@@ -749,6 +750,7 @@
     <Content Include="Views\Atom\Get.cshtml" />
     <Content Include="Views\Atom\Create.cshtml" />
     <Content Include="T4MVC.tt.settings.t4" />
+    <Content Include="Views\Media\CreateImage.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />

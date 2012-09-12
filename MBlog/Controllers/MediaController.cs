@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Net;
 using System.Web.Mvc;
 using Logging;
 using MBlog.Filters;
@@ -41,6 +42,33 @@ namespace MBlog.Controllers
         }
 
         [HttpGet]
+        public ActionResult Get(int id)
+        {
+            try
+            {
+                Media img = _mediaService.GetMedia(id);
+                return File(img.Data, img.MimeType);
+            }
+            catch (MBlogMediaNotFoundException)
+            {
+                return new HttpNotFoundResult("Unable to load requested media");
+            }
+        }
+
+        public ActionResult GetUri(int id)
+        {
+            try
+            {
+                Media media = _mediaService.GetMedia(id);
+                return View("CreateImage", new ImageCreatedViewModel { ContentType = media.MimeType, Id = media.Id, Title = media.Title, Edited = new DateTime(media.Year, media.Month, media.Day), Published = new DateTime(media.Year, media.Month, media.Day) });
+            }
+            catch (MBlogMediaNotFoundException)
+            {
+                return new HttpNotFoundResult("Unable to load requested media");
+            }
+        }
+
+        [HttpGet]
         public virtual ActionResult Show(int year, int month, int day, string linkkey)
         {
             try
@@ -58,17 +86,17 @@ namespace MBlog.Controllers
         [AuthorizeLoggedInUser]
         public virtual ActionResult New(NewMediaViewModel model)
         {
-            return View(new NewMediaViewModel {Nickname = model.Nickname, File = model.File});
+            return View(new NewMediaViewModel { Nickname = model.Nickname, File = model.File });
         }
 
         [HttpPost]
         [AuthorizeLoggedInUser]
         public virtual JsonResult Create(NewMediaViewModel model)
         {
-            var result = new MediaCreateJsonResponse {success = false};
+            var result = new MediaCreateJsonResponse { success = false };
             try
             {
-                var user = (UserViewModel) HttpContext.User;
+                var user = (UserViewModel)HttpContext.User;
                 int contentLength;
                 Stream inputStream;
                 string fileName;
@@ -100,8 +128,8 @@ namespace MBlog.Controllers
                         message = e.Message;
                     }
                     string anchor = string.Format("<a href='{0}'><img src='{0}'/></a>",
-                        Url.Action("show", "media", new{year = media.Year, month = media.Month, day = media.Day, linkKey = media.LinkKey}));
-                    result = new MediaCreateJsonResponse {success = success, url = media.Url, message = message, title = media.Title, action = Url.Action("update", "media", new{id = media.Id}), imageAnchor=anchor};
+                        Url.Action("show", "media", new { year = media.Year, month = media.Month, day = media.Day, linkKey = media.LinkKey }));
+                    result = new MediaCreateJsonResponse { success = success, url = media.Url, message = message, title = media.Title, action = Url.Action("update", "media", new { id = media.Id }), imageAnchor = anchor };
                 }
             }
             catch (Exception e)
@@ -113,28 +141,56 @@ namespace MBlog.Controllers
         }
 
         [HttpPost]
+        [AuthorizeBlogOwner(Order = 2)]
+        [BasicAuthorize(Order = 1)]
+        public ActionResult CreateImage()
+        {
+            string contentType;
+            Media media = new Media();
+            try
+            {
+                var user = (UserViewModel)HttpContext.User;
+
+                var contentLength = HttpContext.Request.ContentLength;
+                contentType = HttpContext.Request.ContentType;
+                var inputStream = HttpContext.Request.InputStream;
+                var fileName = Request.Headers["Slug"];
+
+                if (contentLength != 0)
+                {
+                    media = _mediaService.WriteMedia(fileName, user.Id, contentType, inputStream, contentLength);
+                }
+            }
+            catch (Exception e)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.InternalServerError);
+            }
+            return View(new ImageCreatedViewModel{ContentType = contentType, Id = media.Id, Title = media.Title, Edited = DateTime.Now, Published = DateTime.Now});
+        }
+
+        [HttpPost]
         [AuthorizeLoggedInUser]
         public virtual ActionResult Update(UpdateMediaViewModel model)
         {
             if (!ModelState.IsValid)
             {
-                return Json(new MediaCreateJsonResponse{ success = false, message = "Invalid values" });
+                return Json(new MediaCreateJsonResponse { success = false, message = "Invalid values" });
             }
-            var user = (UserViewModel) HttpContext.User;
+            var user = (UserViewModel)HttpContext.User;
 
             var media = _mediaService.UpdateMediaDetails(model.Id, model.Title, model.Caption, model.Description,
                                                            model.Alternate, user.Id);
             string anchor = string.Format("<a href='{0}'><img src='{0}' class='{1}'/></a>",
                 Url.Action("show", "media", new { year = media.Year, month = media.Month, day = media.Day, linkKey = media.LinkKey }),
                 model.ClassString);
-            return Json(new MediaCreateJsonResponse { success = true, imageAnchor = anchor});
+            return Json(new MediaCreateJsonResponse { success = true, imageAnchor = anchor });
         }
 
         [HttpGet]
         [AuthorizeLoggedInUser]
         public virtual ActionResult Edit(int mediaId)
         {
-            var user = (UserViewModel) HttpContext.User;
+            var user = (UserViewModel)HttpContext.User;
             Media media = _mediaService.GetMedia(mediaId, user.Id);
             return View(new ShowMediaViewModel(media));
         }

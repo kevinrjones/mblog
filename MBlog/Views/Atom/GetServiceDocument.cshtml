@@ -13,7 +13,7 @@
         @* Need this to satisfy Windows Live Writer - so that I can upload Media to it *@
         <categories fixed="no"/>
     </collection>
-    <collection href="@Url.Action("Index", "atom", new { nickname = @Model.Nickname }, HttpContext.Current.Request.Url.Scheme)">
+    <collection href="@Url.RouteUrl("Image-create", new{}, HttpContext.Current.Request.Url.Scheme)">
       <atom:title>Media Collection</atom:title>
       <accept>image/png</accept>
       <accept>image/jpeg</accept>

@@ -198,6 +198,27 @@ namespace MBlog.App_Start
                 );
 
             routes.MapRoute(
+                name: "Image-create",
+                url: "{nickname}/image",
+                defaults: new { controller = "Media", action = "CreateImage" },
+                constraints: new { httpMethod = new HttpMethodConstraint("POST") }
+                );
+
+            routes.MapRoute(
+                name: "Image-get",
+                url: "{nickname}/image/{id}",
+                defaults: new { controller = "Media", action = "Get" },
+                constraints: new { httpMethod = new HttpMethodConstraint("GET") }
+                );
+
+            routes.MapRoute(
+                name: "Image-get-uri",
+                url: "{nickname}/image/uri/{id}",
+                defaults: new { controller = "Media", action = "GetUri" },
+                constraints: new { httpMethod = new HttpMethodConstraint("GET", "HEAD") }
+                );
+
+            routes.MapRoute(
                 name: "Media-update",
                 url: "{nickname}/media/update/{id}",
                 defaults: new { controller = "Media", action = "Update", },

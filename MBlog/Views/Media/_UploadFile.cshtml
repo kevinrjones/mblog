@@ -10,7 +10,7 @@
             multiple: false,
             params: {
                 nickname: '@Model.Nickname',
-                blogId: '@Model.BlogId'
+               
             },
             template: '<div class="qq-uploader">' +
                 '<div class="qq-upload-drop-area"><span>Drop file here to upload<p>or</p></span>' +            
@@ -64,7 +64,6 @@
                 @using (Html.BeginForm("Create", "media", FormMethod.Post, new { enctype = "multipart/form-data" }))
                 {
                     @Html.HiddenFor(m => m.Nickname)
-                    @Html.HiddenFor(m => m.BlogId)
                     @Html.Hidden("imageId", "someId")
 
                     <div>

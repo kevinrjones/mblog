@@ -8,7 +8,7 @@
     Response.ContentType = "application/atomsvc+xml";
     Response.StatusCode = (int) HttpStatusCode.Created;
 
-    Response.AddHeader("Location", @Url.Action("update", "atom", new { blogid = Model.BlogId, postid = Model.Id }, HttpContext.Current.Request.Url.Scheme));
+    Response.AddHeader("Location", @Url.Action("update", "atom", new { postid = Model.Id }, HttpContext.Current.Request.Url.Scheme));
     Layout = "";
 }
 
@@ -17,7 +17,7 @@
     <title type="html">@Model.Title</title>
     <published>@Model.DatePosted.ToString(@"yyyy-MM-ddTHH\:mm\:ss.fffffffzzz")</published>
     <updated>@Model.DatePosted.ToString(@"yyyy-MM-ddTHH\:mm\:ss.fffffffzzz")</updated>
-    <link rel="self" href="@Url.Action("get", "atom", new { blogid = Model.BlogId, postid = Model.Id }, HttpContext.Current.Request.Url.Scheme)" />
-    <link rel="edit" type="application/atom+xml;type=entry" href="@Url.Action("update", "atom", new { blogid = Model.BlogId, postid = Model.Id }, HttpContext.Current.Request.Url.Scheme)" />
+    <link rel="self" href="@Url.Action("get", "atom", new { postid = Model.Id }, HttpContext.Current.Request.Url.Scheme)" />
+    <link rel="edit" type="application/atom+xml;type=entry" href="@Url.Action("update", "atom", new { postid = Model.Id }, HttpContext.Current.Request.Url.Scheme)" />
     <content type="html">@Model.Post</content>
 </entry>

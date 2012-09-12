@@ -20,8 +20,8 @@ namespace MBlog.ActionResults
             if (FeedData != null)
             {
                 response.ContentType = FeedData.ContentType;
-                response.AppendHeader("Cache-Control", "private");
-                response.AppendHeader("Location", "http://localhost/test");
+                response.AppendHeader("Cache-Control", "private");                
+                response.AppendHeader("Location", string.Format("{0}://{1}/{2}", HttpContext.Current.Request.Url.Scheme, HttpContext.Current.Request.Headers["HOST"]));
                 response.AppendHeader("Last-Modified", FeedData.LastModifiedDate.ToString("r"));
                 response.AppendHeader("ETag", String.Format("\"{0}\"", FeedData.ETag));
                 response.Output.WriteLine(FeedData.Content);

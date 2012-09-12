@@ -1,0 +1,22 @@
+﻿@model MBlog.Models.Media.ImageCreatedViewModel
+
+@{
+    Layout = null;
+}
+
+@{
+    Response.ContentType = "application/atomsvc+xml";
+    Layout = "";
+    Response.StatusCode = (int) HttpStatusCode.Created;
+    Response.AddHeader("Location", Url.RouteUrl("Image-get-uri", new { id = Model.Id }, HttpContext.Current.Request.Url.Scheme));
+}
+
+<entry xmlns="http://www.w3.org/2005/Atom">
+    <id>@Url.RouteUrl("Image-get", new{id = Model.Id}, HttpContext.Current.Request.Url.Scheme)</id>
+    <title type="html">@Model.Title</title>
+    <published>@Model.Published.ToString(@"yyyy-MM-ddTHH\:mm\:ss.fffffffzzz")</published>
+    <updated>@Model.Edited.ToString(@"yyyy-MM-ddTHH\:mm\:ss.fffffffzzz")</updated>
+    <content type="@Model.ContentType" src="@Url.RouteUrl("Image-get", new{id = Model.Id}, HttpContext.Current.Request.Url.Scheme)" />
+    <link rel="edit" href="@Url.RouteUrl("Image-get", new{id = Model.Id}, HttpContext.Current.Request.Url.Scheme)" />
+    <link rel="edit-media" href="@Url.RouteUrl("Image-get", new{id = Model.Id}, HttpContext.Current.Request.Url.Scheme)" />
+</entry>

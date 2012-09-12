@@ -8,6 +8,7 @@ namespace MBlogServiceInterfaces
     {
         Media GetMedia(int year, int month, int day, string linkKey);
         Media GetMedia(int mediaId, int userId);
+        Media GetMedia(int mediaId);
         IEnumerable<Media> GetMedia(int pageNumber, int pageItems, int userId);
         Media WriteMedia(string fileName, int userId, string contentType, Stream inputStream, int contentLength);
 

@@ -50,8 +50,9 @@ namespace MBlogService
 
             try
             {
-                Media media = _mediaRepository.GetMedia(userId, mediaToCreate.Year, mediaToCreate.Month, mediaToCreate.Day,
-                                                        mediaToCreate.LinkKey);
+                Media media = _mediaRepository.GetMedia(userId, mediaToCreate.Year, mediaToCreate.Month,
+                                                  mediaToCreate.Day,
+                                                  mediaToCreate.LinkKey);
                 if (media == null)
                 {
                     mediaToCreate = _mediaRepository.WriteMedia(mediaToCreate);
@@ -164,6 +165,25 @@ namespace MBlogService
                 return medium;
 
             throw new MBlogMediaNotFoundException("The requested media does not belong to the user");
+        }
+
+        public Media GetMedia(int mediaId)
+        {
+            Media medium;
+            try
+            {
+                medium = _mediaRepository.GetMedia(mediaId);
+            }
+            catch (Exception)
+            {
+                throw new MBlogException("Unable to find media");
+            }
+
+            if (medium == null)
+            {
+                throw new MBlogMediaNotFoundException();
+            }
+            return medium;
         }
 
         #endregion
