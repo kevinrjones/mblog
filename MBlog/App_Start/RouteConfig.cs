@@ -180,6 +180,12 @@ namespace MBlog.App_Start
 
             routes.MapRoute(
                 name: "Media-show",
+                url: "media/{year}/{month}/{day}/{linkkey}",
+                defaults: new { controller = "media", action = "Show" }
+                );
+
+            routes.MapRoute(
+                name: "Media-show-old",
                 url: "{nickname}/media/{year}/{month}/{day}/{linkkey}",
                 defaults: new { controller = "media", action = "Show" }
                 );

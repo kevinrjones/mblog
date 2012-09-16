@@ -9,7 +9,7 @@
     <atom:title>MBlog</atom:title>
     <atom:subtitle>@Model.Title</atom:subtitle>
     <collection href="@Url.Action("Index", "atom", new { nickname = @Model.Nickname }, HttpContext.Current.Request.Url.Scheme)">
-        <atom:title>My Super Blog</atom:title>
+        <atom:title>@Model.Title</atom:title>
         @* Need this to satisfy Windows Live Writer - so that I can upload Media to it *@
         <categories fixed="no"/>
     </collection>

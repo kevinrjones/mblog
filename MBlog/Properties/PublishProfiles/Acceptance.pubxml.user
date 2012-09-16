@@ -11,5 +11,6 @@ by customizing this MSBuild file. In order to learn more about this please visit
     <LastUsedBuildConfiguration>Acceptance</LastUsedBuildConfiguration>
     <LastUsedPlatform>Any CPU</LastUsedPlatform>
     <EncryptedPassword />
+    <TimeStampOfAssociatedLegacyPublishXmlFile />
   </PropertyGroup>
 </Project>

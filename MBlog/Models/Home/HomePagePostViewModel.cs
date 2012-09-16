@@ -29,6 +29,7 @@ namespace MBlog.Models.Home
         {
             get
             {
+                // todo: deal with images!
                 if (_postViewModel.Post.Length > MaxLength)
                 {
                     var doc = new HtmlDocument();
