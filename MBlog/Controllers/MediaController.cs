@@ -60,7 +60,7 @@ namespace MBlog.Controllers
             try
             {
                 Media media = _mediaService.GetMedia(id);
-                return View("CreateImage", new ImageCreatedViewModel { ContentType = media.MimeType, Id = media.Id, Title = media.Title, Edited = new DateTime(media.Year, media.Month, media.Day), Published = new DateTime(media.Year, media.Month, media.Day) });
+                return View("CreateImage", new ImageCreatedViewModel { ContentType = media.MimeType, Id = media.Id, Title = media.Title, Edited = new DateTime(media.Year, media.Month, media.Day), Published = new DateTime(media.Year, media.Month, media.Day), Year = media.Year, Month = media.Month, Day = media.Day, LinkKey = media.LinkKey});
             }
             catch (MBlogMediaNotFoundException)
             {
@@ -165,7 +165,7 @@ namespace MBlog.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.InternalServerError);
             }
-            return View(new ImageCreatedViewModel{ContentType = contentType, Id = media.Id, Title = media.Title, Edited = DateTime.Now, Published = DateTime.Now});
+            return View(new ImageCreatedViewModel { ContentType = media.MimeType, Id = media.Id, Title = media.Title, Edited = new DateTime(media.Year, media.Month, media.Day), Published = new DateTime(media.Year, media.Month, media.Day), Year = media.Year, Month = media.Month, Day = media.Day, LinkKey = media.LinkKey });
         }
 
         [HttpPost]
