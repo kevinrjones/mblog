@@ -200,6 +200,7 @@
     <Compile Include="Controllers\DashboardController.cs" />
     <Compile Include="Controllers\FeedController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Infrastructure\UrlGenerator.cs" />
     <Compile Include="Models\Media\ImageCreatedViewModel.cs" />
     <Compile Include="Controllers\MediaController.cs" />
     <Compile Include="Controllers\PostController.cs" />
