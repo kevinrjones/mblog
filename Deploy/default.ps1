@@ -11,6 +11,7 @@ properties {
     $INetPubRoot = "c:\inetpub\wwwroot"
     $Configuration="Staging"    
     $DatabaseConfiguration="staging"    
+	$DeploymentLocation="staging"
     $Server = "."
     $DatabaseUser = "IIS APPPool\ASP.Net v4.0"
     $DatabaseRole = "db_owner"
@@ -70,13 +71,14 @@ task DeployDatabase -depends Init {
     popd
 } 
 
-task Deploy -depends Build, CreateDatabase, AddDatabaseUser, DeployDatabase {   
+task Deploy -depends Build, CreateDatabase, AddDatabaseUser, DeployDatabase {
+    $TargetDir = $INetPubRoot + "\" +  $DeploymentLocation
     out-host -InputObject $TargetDir
     exec { &$MsDeploy "-verb:sync" "-source:contentPath=$OutputWebDir" "-dest:contentPath=$TargetDir" }
 }
 
 task DeployIntegrationTest -depends RecreateDatabase, Deploy {
-    $TargetDir = $INetPubRoot + "\" +  $Configuration
+    $TargetDir = $INetPubRoot + "\" +  $DeploymentLocation
     out-host -InputObject $TargetDir
     exec { &$MsDeploy "-verb:sync" "-source:contentPath=$OutputWebDir" "-dest:contentPath=$TargetDir" }
 }
