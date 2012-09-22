@@ -70,8 +70,7 @@ task DeployDatabase -depends Init {
     popd
 } 
 
-task Deploy -depends Build, CreateDatabase, AddDatabaseUser, DeployDatabase {
-    $TargetDir = $INetPubRoot + "\" +  $Configuration
+task Deploy -depends Build, CreateDatabase, AddDatabaseUser, DeployDatabase {   
     out-host -InputObject $TargetDir
     exec { &$MsDeploy "-verb:sync" "-source:contentPath=$OutputWebDir" "-dest:contentPath=$TargetDir" }
 }
